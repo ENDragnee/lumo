@@ -1,5 +1,5 @@
 // models/Content.js
-import mdb from '@lib/mongo';
+import mdb from '@/lib/mongodb';
 
 const contentSchema = new mdb.Schema({
   grade: { type: String, required: true },

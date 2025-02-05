@@ -1,20 +1,31 @@
 "use client"
-import { useState } from 'react'
-import { NavigationBar } from '@/components/mainPage/NavigationBar'
-import { HomePage } from '@/components/mainPage/HomePage'
-import { AboutPage } from '@/components/mainPage/AboutPage'
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import LeftSidebar from "@/components/mainPage/LeftSidebar"
+import CentralWorkspace from "@/components/mainPage/CentralWorkspace"
+import RightPanel from "@/components/mainPage/RightPanel"
 
-export default function App() {
-  const [currentPage, setCurrentPage] = useState('Home')
+export default function Home() {
+  const [isLeftSidebarCollapsed, setIsLeftSidebarCollapsed] = useState(false)
+  const [isRightPanelCollapsed, setIsRightPanelCollapsed] = useState(false)
+  const router = useRouter()
+
+  const handleCreateContent = () => {
+    router.push("/creator-studio")
+  }
 
   return (
-    <div className="min-h-screen bg-background font-sans">
-      <NavigationBar />
-      <div className="pt-16">
-        {currentPage === 'Home' && <HomePage />}
-        {currentPage === 'About' && <AboutPage />}
-      </div>
-    </div>
+    <main className="flex h-screen bg-gray-50 dark:bg-dark-secondary">
+      <LeftSidebar isCollapsed={isLeftSidebarCollapsed} setIsCollapsed={setIsLeftSidebarCollapsed} />
+      <CentralWorkspace />
+      <RightPanel
+        isCollapsed={isRightPanelCollapsed}
+        setIsCollapsed={setIsRightPanelCollapsed}
+        onCreateContent={handleCreateContent}
+      />
+    </main>
   )
 }
+
+
 
