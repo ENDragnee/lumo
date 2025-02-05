@@ -9,7 +9,6 @@ if (!MONGODB_URI) {
 const connectDB = async () => {
     try {
         await mongoose.connect(MONGODB_URI, {
-        useUnifiedTopology: true,
         dbName: "Lumo"
         });
         console.log("MongoDB connected");

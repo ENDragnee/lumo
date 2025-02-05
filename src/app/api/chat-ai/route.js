@@ -2,8 +2,8 @@ import Groq from 'groq-sdk';
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import db from '@/lib/db';
 import { v4 as uuidv4 } from 'uuid';
+import db from '@/lib/db';
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,

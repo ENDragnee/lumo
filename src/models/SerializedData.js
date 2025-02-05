@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import db from '@/lib/mongo';
 
 const SerializedDataSchema = new mongoose.Schema({
   data: {
@@ -21,7 +20,7 @@ SerializedDataSchema.index({ tags: 1 });
 
 // Use existing model or create new one
 const SerializedData = 
-  mongoose.models.SerializedData || 
-  mongoose.model('SerializedData', SerializedDataSchema);
+  mongoose.models.Content || 
+  mongoose.model('Content', SerializedDataSchema);
 
 export default SerializedData;

@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import db from '@/lib/mongo';
+import connectDB from '@/lib/mongodb';  
 import SerializedData from '@/models/SerializedData';
 
 export async function GET(request) {
   try {
     // Connect to MongoDB
-    await db.connectToDatabase();
+    await connectDB();
 
     // Get search query
     const { searchParams } = new URL(request.url);

@@ -1,7 +1,9 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { verifyPassword } from './password-utils'; // For password hashing (optional)
-import db from './db'; // Database connection
+import connectDB from "@/lib/mongodb";
+import User from '@/models/User';
+
 
 export const authOptions = {
   providers: [
@@ -13,28 +15,28 @@ export const authOptions = {
       },
       async authorize(credentials) {
         try {
-          // Validate user credentials
-          const [userRows] = await db.execute(
-            'SELECT * FROM Users WHERE email = ?',
-            [credentials.email]
-          );
+          await connectDB();
 
-          if (userRows.length === 0) {
+          const existingUser = await User.findOne({ email: credentials.email });
+
+          if (existingUser === null) {
             throw new Error('User not found');
           }
 
-          const user = userRows[0];
+          const user = existingUser;
 
           // Verify password (optional, implement hashing as needed)
           const isValid = await verifyPassword(credentials.password, user.password_hash);
           if (!isValid) {
             throw new Error('Invalid credentials');
           }
-
-          return {
-            id: user.user_id,
+          const Response = {
+            id: user._id,
             name: user.name,
-            email: user.email,
+            email: user.email,  
+          };
+          return {
+            ...Response,
           };
         } catch (error) {
           console.error('Error during authorization:', error);

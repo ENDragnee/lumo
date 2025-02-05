@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import db from '@/lib/db';
+import connectDB from '@/lib/mongodb';
 import { hashPassword } from '@/lib/password-utils';
+import User from '@/models/User';
 
 interface SignupRequestBody {
   email: string;
@@ -22,31 +23,36 @@ export async function POST(req: Request) {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(body.email)) {
-      throw new Error('Invalid email format.');
+      return NextResponse.json(
+        { error: 'Invalid email format' },
+        { status: 400 }
+      );
     }
 
-    // Check if the user already exists
-    const [existingUserRows] = await db.execute(
-      'SELECT * FROM Users WHERE email = ?',
-      [body.email]
-    );
+    // Connect to MongoDB
+    await connectDB();
 
-    if ((existingUserRows as any[]).length > 0) {
+    // Check if user already exists
+    const existingUser = await User.findOne({ email: body.email });
+    if (existingUser) {
       return NextResponse.json(
         { error: 'User with this email already exists' },
         { status: 409 }
       );
     }
 
-    // Hash the password
+    // Hash password
     const hashedPassword = await hashPassword(body.password);
 
-    // Insert the user into the database
-    await db.execute(
-      'INSERT INTO Users (email, password_hash, user_type, name) VALUES (?, ?, ?, ?)', 
-      [body.email, hashedPassword, 'student', body.userName]
-    );
-    
+    // Create new user
+    const newUser = new User({
+      email: body.email,
+      password_hash: hashedPassword,
+      user_type: 'student',
+      name: body.userName
+    });
+
+    await newUser.save();
 
     return NextResponse.json(
       { message: 'User created successfully' },
