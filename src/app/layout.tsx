@@ -85,6 +85,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       "/main",
       "/about",
     ];
+    const excludedThemePaths = [
+      "/",
+      "/main"
+    ];
 
   const shouldRenderSidebar = !excludedSidebarPaths.includes(pathname);
 
@@ -164,7 +168,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             )}
 
             {excludedSidebarPaths.includes(pathname) && pathname != "/" && (
-              <footer className="border-t border-gray-200 dark:border-[#4b5162] py-8 sm:max-h-48 md:max-h-32">
+              <footer className="pt-4 pb-2 sm:max-h-24 md:max-h-16">
                 <div className="container mx-auto px-4">
                   <div className="flex justify-center">
                     <p className="text-sm text-gray-500 dark:text-[#7c818c]">

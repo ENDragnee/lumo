@@ -28,7 +28,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
 
   return (
     <motion.div
-      className="h-full bg-white dark:bg-dark-primary border-r border-gray-200 dark:border-dark-accent"
+      className="h-full border-r-2 rounded-lg border-gray-200 dark:border-gray-500"
       initial={{ width: isCollapsed ? 80 : 250 }}
       animate={{ width: isCollapsed ? 80 : 250 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}

@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Mark from 'mark.js';
-import { saveHighlightToDatabase } from '@/components/functions/saveHighlight';
 import { removeHighlightFromDatabase } from '@/components/functions/removeHighlight';
-import { HighlightInstance } from '@/components/interfaces/highlight';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { handleHighlight } from '@/utils/handleHighlight';
 interface ContextMenuProps {
   x: number;
   y: number;
@@ -17,61 +16,10 @@ export default function ContextMenu({ x, y, onClose }: ContextMenuProps) {
   const [showModal, setShowModal] = useState(false);
   const [aiResponse, setAiResponse] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
-
-  const generateUniqueId = (): string => {
-    return Date.now().toString(36) + Math.random().toString(36).substring(2);
-  };
-
-  const restoreHighlights = async (
-    org: string,
-    grade: string,
-    course: string,
-    chapter: string,
-    sub_chapter: string,
-  ) => {
-    try {
-      const response = await fetch(
-        `/api/highlights?org=${org}?grade=${grade}&course=${course}&chapter=${chapter}&sub_chapter=${sub_chapter}`,
-      );
-      if (!response.ok) {
-        throw new Error('Failed to fetch highlights');
-      }
-
-      const highlights: HighlightInstance[] = await response.json();
-
-      const container = document.getElementById('content');
-      if (!container) return;
-
-      const marker = new Mark(container);
-
-      highlights.forEach((highlight) => {
-        marker.mark(highlight.text, {
-          element: 'mark',
-          className: 'custom-highlight',
-          acrossElements: true,
-          separateWordSearch: false,
-          done: () => {
-            const marks = document.querySelectorAll('mark.custom-highlight');
-            marks.forEach((mark) => {
-              if (mark.textContent === highlight.text) {
-                (mark as HTMLElement).dataset.highlightId = highlight.id;
-                (mark as HTMLElement).style.backgroundColor = highlight.color;
-              }
-            });
-          },
-        });
-      });
-    } catch (error) {
-      console.error('Error restoring highlights:', error);
-    }
-  };
+  const searchParams = useSearchParams();
+  const contentId = searchParams.get('id');
 
   const handleAskAI = async (
-    org: string,
-    grade: string,
-    course: string,
-    chapter: string,
-    sub_chapter: string,
     color: string = 'red',
   ) => {
     console.log('Highlight and Ask AI button clicked');
@@ -112,7 +60,7 @@ export default function ContextMenu({ x, y, onClose }: ContextMenuProps) {
       setShowModal(true); // Show modal
       setAiResponse(''); // Clear previous response
 
-      highlightText(org, grade, course, chapter, sub_chapter, color);
+      handleHighlight(color, contentId as string); // Highlight selected text
       try {
         // Fetch AI response for the selected text
         const response = await fetch('/api/ai', {
@@ -185,87 +133,10 @@ export default function ContextMenu({ x, y, onClose }: ContextMenuProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [onClose, showModal]);
 
-  const highlightText = async (
-    org: string,
-    grade: string,
-    course: string,
-    chapter: string,
-    sub_chapter: string,
-    color: string = 'yellow',
-  ) => {
-    const selection = window.getSelection();
-    if (!selection || selection.rangeCount === 0) {
-      console.log('No text selected or range count is 0');
-      return;
-    }
-
-    const range = selection.getRangeAt(0);
-    const selectedText = range.toString().trim();
-    if (!selectedText) {
-      console.log('Selected text is empty');
-      return;
-    }
-
-    const container = document.getElementById('content');
-    if (!container) {
-      console.error('Content container not found');
-      return;
-    }
-
-    const isDarkMode = document.documentElement.classList.contains('dark');
-    const highlightColor = isDarkMode ? color : color;
-
-    // Check if text is already highlighted
-    const markElement =
-      range.commonAncestorContainer.parentElement?.closest('mark');
-    if (markElement) {
-      // Remove highlight
-      const highlightId = markElement.dataset.highlightId;
-      if (highlightId) {
-        await removeHighlightFromDatabase(highlightId);
-        markElement.replaceWith(
-          document.createTextNode(markElement.textContent || ''),
-        );
-        console.log('Highlight removed');
-      }
-    } else {
-      // Wrap the selected text with a <mark> element
-      const mark = document.createElement('mark');
-      mark.className = 'custom-highlight';
-      mark.style.backgroundColor = highlightColor;
-      mark.dataset.highlightId = generateUniqueId();
-      mark.textContent = selectedText;
-
-      // Insert the mark element into the range
-      range.deleteContents();
-      range.insertNode(mark);
-
-      // Save the highlight to the database
-      const highlightInstance: HighlightInstance = {
-        id: mark.dataset.highlightId!,
-        text: selectedText,
-        color: highlightColor,
-        org,
-        grade,
-        course,
-        chapter,
-        sub_chapter,
-        startOffset: range.startOffset,
-        endOffset: range.endOffset,
-      };
-
-      await saveHighlightToDatabase(highlightInstance);
-      console.log('Highlight added');
-    }
-
-    // Clear the selection
-    selection.removeAllRanges();
-  };
-
   const menuItems = [
     { label: 'Ask AI', action: handleAskAI },
     { label: 'Copy', action: () => document.execCommand('copy') },
-    { label: 'Highlight', action: highlightText },
+    { label: 'Highlight', action: handleHighlight },
     {
       label: 'Search',
       action: () => {
@@ -286,17 +157,7 @@ export default function ContextMenu({ x, y, onClose }: ContextMenuProps) {
   if (!pathname) {
     console.error('Pathname is undefined or empty');
     return null; // Or fallback UI
-  }
-  
-  // Extract parameters from the pathname
-  const pathSegments = pathname.split('/').filter(Boolean); // Remove empty strings
-  let [orgValue ='', gradeValue = '', courseValue = '', chapterValue = '', subChapterValue = ''] = pathSegments.map(decodeURIComponent);
-  
-  // Handle cases where subChapterValue might not have a space
-  subChapterValue = subChapterValue.split(' ')[0] || '';
-  
-
-
+  }  
   return (
     <>
       <AnimatePresence>
@@ -315,11 +176,7 @@ export default function ContextMenu({ x, y, onClose }: ContextMenuProps) {
                 key={index}
                 onClick={() => {
                   item.action(
-                    orgValue,
-                    gradeValue,
-                    courseValue,
-                    chapterValue,
-                    subChapterValue,
+                    index === 2 ? 'yellow' : 'red', contentId as string
                   );
                   if (item.label !== 'Ask AI') onClose(); // Close on click outside Ask AI
                 }}

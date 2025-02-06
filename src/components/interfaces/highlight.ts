@@ -1,12 +1,9 @@
 export interface HighlightInstance {
-    id: string;
-    text: string;
+    _id?: string;
+    userId: string;
+    contentId: string;
+    highlighted_text: string;
     color: string;
-    org: string;
-    grade: string;
-    course: string;
-    chapter: string;
-    sub_chapter: string;
-    startOffset?: number;
-    endOffset?: number;
+    start_offset?: number;
+    end_offset?: number | null;
   }

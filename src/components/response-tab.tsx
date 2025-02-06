@@ -12,40 +12,15 @@ interface Message {
 export function ResponseTab() {
   const [messages, setMessages] = useState<Message[]>([])
   const [loading, setLoading] = useState(true)
-  const searchParams = useSearchParams()
-  const parseURL = () => {
-    const path = window.location.pathname
-    const segments = path.split('/').filter(segment => segment)
-    
-    return {
-      org: segments[0] || "default",
-      grade: segments[1] || "default",
-      course: segments[2] || "chat",
-      chapter: segments[3] || "general",
-      sub_chapter: decodeURIComponent(segments[4] || "conversation")
-    }
-  }
+  const searchParams = useSearchParams();
+  const contentId = searchParams.get('id');
 
   useEffect(() => {
-    const urlParams = parseURL();
 
     const fetchChatHistory = async () => {
       try {
-        const org = urlParams.org
-        const grade = urlParams.grade
-        const course = urlParams.course
-        const chapter = urlParams.chapter
-        const sub_chapter = urlParams.sub_chapter
 
-        const queryParams = new URLSearchParams({
-          org: org || '',
-          grade: grade || '',
-          course: course || '',
-          chapter: chapter || '',
-          sub_chapter: sub_chapter || ''
-        })
-
-        const response = await fetch(`/api/chat-history?${queryParams}`)
+        const response = await fetch(`/api/chat-ai?id=${contentId}`)
         
         if (!response.ok) {
           throw new Error('Failed to fetch chat history')

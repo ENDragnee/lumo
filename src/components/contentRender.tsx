@@ -1,76 +1,72 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { Editor, Frame } from '@craftjs/core';
-import { viewerResolver } from '@/types/resolver';
+import { useEffect, useState } from 'react'
+import { Editor, Frame } from '@craftjs/core'
+import { viewerResolver } from '@/types/resolver'
 
-// Component resolver definition
 const componentResolver = {
-  div: ({ children, ...props }: { children: React.ReactNode; [key: string]: any }) => <div {...props}>{children}</div>,
+  div: ({ children, ...props }: { children: React.ReactNode; [key: string]: any }) => (
+    <div {...props}>{children}</div>
+  ),
   ...viewerResolver,
-};
+}
 
-// Separate child component that uses Frame
 const EditorContent = ({ data }: any) => {
-  return (
-    <Frame data={data}>
-      {/* Craft.js will automatically render content here */}
-    </Frame>
-  );
-};
+  return <Frame data={data} />
+}
 
-export function ContentRenderer() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [content, setContent] = useState(undefined);
+interface ContentRendererProps {
+  id: string;
+  onContentLoaded?: () => void;
+}
+
+export function ContentRenderer({ id, onContentLoaded }: ContentRendererProps) {
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [content, setContent] = useState(undefined)
 
   useEffect(() => {
     const loadContent = async () => {
       try {
-        const response = await fetch('/api/Deserialize');
-        if (!response.ok) {
-          throw new Error('Failed to fetch content');
-        }
-        
-        const responseData = await response.json();
-        
-        if (!responseData?.data) {
-          throw new Error('Invalid data structure received from API');
-        }
-
-        // The data is already a JSON string, so we just need to parse it once
-        const parsedContent = JSON.parse(responseData.data);
-        
-        console.log('Parsed content:', parsedContent);
-        setContent(parsedContent);
+        const response = await fetch(`/api/Deserialize?id=${id}`)
+        if (!response.ok) throw new Error('Failed to fetch content')
+        const responseData = await response.json()
+        if (!responseData?.data) throw new Error('Invalid data structure')
+        const parsedContent = JSON.parse(responseData.data)
+        setContent(parsedContent)
       } catch (err) {
-        console.error('Error loading content:', err);
-        if (err instanceof Error) {
-          setError(err.message || 'An unknown error occurred');
-        } else {
-          setError('An unknown error occurred');
-        }
+        console.error('Error loading content:', err)
+        setError(err instanceof Error ? err.message : 'An unknown error occurred')
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    loadContent();
-  }, []);
+    loadContent()
+  }, [id])
 
-  if (loading) return <div className="p-4 text-gray-500">Loading...</div>;
-  if (error) return <div className="p-4 text-red-500">Error: {error}</div>;
-  if (!content) return <div className="p-4 text-gray-500">No content available</div>;
+  // Notify parent component when content is loaded
+  useEffect(() => {
+    if (!loading && content && onContentLoaded) {
+      // Small delay to ensure the content is rendered in the DOM
+      const timer = setTimeout(() => {
+        onContentLoaded()
+      }, 100)
+      return () => clearTimeout(timer)
+    }
+  }, [loading, content, onContentLoaded])
+
+  if (loading) return <div className="p-4 text-gray-500">Loading...</div>
+  if (error) return <div className="p-4 text-red-500">Error: {error}</div>
+  if (!content) return <div className="p-4 text-gray-500">No content available</div>
 
   return (
-    <Editor
-      enabled={false}
-      resolver={componentResolver}
-      onRender={({ render }) => render}
-    >
-      <EditorContent data={content} />
-    </Editor>
-  );
+    <div id="content">
+      <Editor enabled={false} resolver={componentResolver} onRender={({ render }) => render}>
+        <EditorContent data={content} />
+      </Editor>
+    </div>
+  )
 }
 
-export default ContentRenderer;
+export default ContentRenderer

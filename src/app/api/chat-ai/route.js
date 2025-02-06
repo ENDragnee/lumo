@@ -2,8 +2,9 @@ import Groq from 'groq-sdk';
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { v4 as uuidv4 } from 'uuid';
-import db from '@/lib/db';
+import mongoose from 'mongoose';
+import { AIChat } from '@/models/AIChat';
+import connectDB from '@/lib/mongodb';
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
@@ -16,40 +17,24 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const body = await request.json();
-    const { 
-      selectedText, 
-      org,
-      grade, 
-      course, 
-      chapter, 
-      sub_chapter,
-    } = body;
+    await connectDB();
 
-    if (!selectedText || selectedText.trim() === '') {
+    const { text, content_id} = await request.json();
+    
+    // Validate content_id
+    if (!content_id || !mongoose.Types.ObjectId.isValid(content_id)) {
       return NextResponse.json(
-        { error: 'Invalid input: selectedText is required' },
+        { error: 'Invalid content ID' }, 
         { status: 400 }
       );
     }
 
-    // First, get the content_id
-    const [contentRows] = await db.execute(
-      'SELECT id FROM Contents WHERE Org = ? AND Grade = ? AND Course = ? AND Chapter = ? AND SubChapter = ? AND Type = ?',
-      [org, grade, course, chapter, sub_chapter, "Books"]
-    );
-
-    if (!contentRows.length) {
+    if (!text || text.trim() === '') {
       return NextResponse.json(
-        { error: 'Content not found' },
-        { status: 404 }
+        { error: 'Invalid input: A text is required' },
+        { status: 400 }
       );
     }
-
-    const content_id = contentRows[0].id;
-
-    // Generate response_id
-    const response_id = uuidv4();
 
     const stream = new TransformStream();
     const writer = stream.writable.getWriter();
@@ -66,7 +51,7 @@ export async function POST(request) {
             },
             {
               role: 'user',
-              content: `"${selectedText}"`,
+              content: `"${text}"`,
             },
           ],
           model: 'llama3-8b-8192',
@@ -94,11 +79,12 @@ export async function POST(request) {
           }
         }
 
-        // Store the complete response in the database
-        await db.execute(
-          'INSERT INTO AIResponses (response_id, user_id, question, answer, content_id) VALUES (?, ?, ?, ?, ?)',
-          [response_id, session.user.id, selectedText, fullResponse, content_id]
-        );
+        await AIChat.create({
+          user_id: session.user.id,
+          content_id: content_id,
+          question: text,
+          answer: fullResponse,
+        });
 
         await writer.write(encoder.encode(']'));
       } catch (error) {
@@ -125,6 +111,55 @@ export async function POST(request) {
     console.error('Error processing request:', error.message);
     return NextResponse.json(
       { error: 'Failed to process request' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(request) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    await connectDB();
+
+    // Get URL parameters
+    const { searchParams } = new URL(request.url);
+    const content_id = searchParams.get('id');
+
+    if (!content_id || !mongoose.Types.ObjectId.isValid(content_id)) {
+      return NextResponse.json(
+        { error: 'Invalid content ID' }, 
+        { status: 400 }
+      );
+    }
+
+    const charHistory  = await AIChat.find({
+      user_id: session.user.id,
+      content_id
+    })
+    .select('-__v -createdAt')
+    .lean();
+
+    if (!charHistory || charHistory.length === 0) {
+      return NextResponse.json(
+        { error: 'No chat history found' }, 
+        { status: 404 }
+      );
+    }
+
+    // Format the chat history as messages
+    const messages = charHistory.flatMap(entry => [
+      { role: 'user', content: entry.question },
+      { role: 'ai', content: entry.answer }
+    ]);
+
+    return NextResponse.json({ messages }, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching chat history:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch chat history' },
       { status: 500 }
     );
   }

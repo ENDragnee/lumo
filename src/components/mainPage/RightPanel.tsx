@@ -10,7 +10,7 @@ interface RightPanelProps {
 const RightPanel = ({ isCollapsed, setIsCollapsed, onCreateContent }: RightPanelProps) => {
   return (
     <motion.div
-      className="bg-white dark:bg-dark-primary border-l border-gray-200 dark:border-dark-accent flex flex-col"
+      className="border-l border-gray-200 dark:border-gray-500 rounded-lg flex flex-col"
       initial={{ width: isCollapsed ? 64 : 256 }}
       animate={{ width: isCollapsed ? 64 : 256 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -43,13 +43,13 @@ const RightPanel = ({ isCollapsed, setIsCollapsed, onCreateContent }: RightPanel
                   <div className="w-8 h-8 rounded-full bg-gray-300 dark:bg-dark-accent" />
                   <div className="w-8 h-8 rounded-full bg-gray-400 dark:bg-dark-accent" />
                 </div>
-                <span className="ml-2 text-sm text-gray-600 dark:text-dark-text">+2 more</span>
+                <span className="ml-2 text-sm text-gray-600 dark:text-gray-200">+2 more</span>
               </div>
             </div>
 
             <div>
               <h3 className="font-medium text-lg mb-4 dark:text-dark-text">AI Summary</h3>
-              <button className="w-full bg-gray-100 dark:bg-dark-accent text-gray-700 dark:text-white rounded-lg py-2 px-4 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-dark-accent/90 transition-colors">
+              <button className="w-full bg-gray-100 dark:bg-blue-500 text-gray-700 dark:text-white rounded-lg py-2 px-4 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-dark-accent/90 transition-colors">
                 <Users size={20} className="mr-2" />
                 Generate Summary
               </button>

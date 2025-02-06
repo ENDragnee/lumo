@@ -15,7 +15,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex h-screen bg-gray-50 dark:bg-dark-secondary">
+    <main className="flex h-screen">
       <LeftSidebar isCollapsed={isLeftSidebarCollapsed} setIsCollapsed={setIsLeftSidebarCollapsed} />
       <CentralWorkspace />
       <RightPanel

@@ -5,13 +5,15 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Send } from 'lucide-react'
-import { url } from "inspector"
+import { useSearchParams } from 'next/navigation';
 
 export function ChatSystem() {
   const [messages, setMessages] = useState<{ role: "user" | "assistant" | "sent"; content: string }[]>([])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
+  const searchParams = useSearchParams();
+  const contentId = searchParams.get('id');
 
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -19,24 +21,10 @@ export function ChatSystem() {
     }
   }, [messages])
 
-  const parseURL = () => {
-    const path = window.location.pathname
-    const segments = path.split('/').filter(segment => segment)
-    
-    return {
-      org: segments[0] || "default",
-      grade: segments[1] || "default",
-      course: segments[2] || "chat",
-      chapter: segments[3] || "general",
-      sub_chapter: decodeURIComponent(segments[4] || "conversation")
-    }
-  }
-
   const handleSend = async () => {
     if (input.trim()) {
       setMessages(prev => [...prev, { role: "user", content: input }])
       setIsLoading(true)
-      const urlParams = parseURL();
 
       try {
         const response = await fetch('/api/chat-ai', {
@@ -45,16 +33,8 @@ export function ChatSystem() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            selectedText: input,
-            org: urlParams.org,
-            grade: urlParams.grade,
-            course: urlParams.course,
-            chapter: urlParams.chapter,
-            sub_chapter: urlParams.sub_chapter,
             text: input,
-            color: "default",
-            startOffset: 0,
-            endOffset: input.length,
+            content_id: contentId,
           }),
         })
 

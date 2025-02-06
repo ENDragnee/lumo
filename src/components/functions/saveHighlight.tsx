@@ -1,4 +1,4 @@
-import {HighlightInstance} from '@/components/interfaces/highlight'
+import { HighlightInstance } from '@/components/interfaces/highlight'
 
 export const saveHighlightToDatabase = async (highlight: HighlightInstance) => {
     try {
