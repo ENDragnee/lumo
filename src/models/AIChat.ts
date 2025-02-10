@@ -1,6 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose, { Document, Schema} from 'mongoose';
 
-const AIChatSchema = new mongoose.Schema({
+interface AIDocument extends Document{
+  user_id: Schema.Types.ObjectId;
+  content_id: Schema.Types.ObjectId;
+  question: String;
+  answer: String;
+  createdAt: Date;
+}
+
+const AIChatSchema = new Schema<AIDocument>({
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true
@@ -23,4 +31,4 @@ const AIChatSchema = new mongoose.Schema({
   }
 });
 
-export const AIChat = mongoose.models.AIChat || mongoose.model('AIChat', AIChatSchema);
+export const AIChat = mongoose.models.AIChat || mongoose.model<AIDocument>('AIChat', AIChatSchema);

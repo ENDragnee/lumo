@@ -3,7 +3,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { useNode } from "@craftjs/core";
 import { Slate, Editable, withReact, ReactEditor } from "slate-react";
-import { Editor, Transforms, createEditor, Descendant, Element } from "slate";
+import { createEditor, Descendant } from "slate";
 import { withHistory } from "slate-history";
 
 interface TextWidgetProps {

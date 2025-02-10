@@ -1,24 +1,45 @@
-import { useState } from "react"
+"use client"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight, Star, Sparkles } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { formatDistanceToNow } from "date-fns";
 
 interface LeftSidebarProps {
   isCollapsed: boolean
   setIsCollapsed: (collapsed: boolean) => void
 }
+interface HistoryItem {
+  _id: string;
+  content_id: {
+    _id: string;
+    name: string;
+  };
+  viewed_at: string;
+}
 
 const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
   const [activeWorkspace, setActiveWorkspace] = useState("My Notes")
+  const [recentHistories, setRecentHistories] = useState<HistoryItem[]>([]);
 
+  useEffect(() => {
+    const fetchRecentHistories = async () => {
+      try {
+        const response = await fetch("/api/history");
+        if (response.ok) {
+          const data = await response.json();
+          setRecentHistories(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch recent histories:", error);
+      }
+    };
+
+    fetchRecentHistories();
+  }, []);
   const workspaces = [
     { name: "My Notes", icon: Star },
     { name: "Exam Prep", icon: Star },
-  ]
-
-  const recentItems = [
-    { name: "Physics", icon: Star, timestamp: "2h ago" },
-    { name: "Chemistry", icon: Star, timestamp: "5h ago" },
   ]
 
   const favoriteItems = [
@@ -68,13 +89,23 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
           {!isCollapsed && (
             <>
               <div>
-                <h3 className="text-sm font-semibold mb-2 dark:text-dark-text">Recent</h3>
-                {recentItems.map((item) => (
-                  <div key={item.name} className="flex items-center mb-2 dark:text-dark-text">
-                    <item.icon className="w-5 h-5 mr-2" />
-                    <span>{item.name}</span>
-                    <span className="ml-auto text-xs text-gray-500 dark:text-dark-text">{item.timestamp}</span>
-                  </div>
+                <h3 className="text-sm font-semibold mb-2 dark:text-dark-text">
+                  Recent
+                </h3>
+                {recentHistories.map((history) => (
+                  <a
+                    key={history._id}
+                    href={`/content?id=${history.content_id._id}`}
+                    className="flex items-center mb-2 dark:text-dark-text hover:bg-dark-secondary rounded-md p-1"
+                  >
+                    <Star className="w-5 h-5 mr-2" />
+                    <span>{history.content_id.name}</span>
+                    <span className="ml-auto text-xs text-gray-500 dark:text-dark-text">
+                      {formatDistanceToNow(new Date(history.viewed_at), {
+                        addSuffix: true,
+                      })}
+                    </span>
+                  </a>
                 ))}
               </div>
 

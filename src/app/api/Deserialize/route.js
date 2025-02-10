@@ -1,18 +1,5 @@
-import { NextRequest } from 'next/server'
 import connectDB from '@/lib/mongodb'
-import mongoose from 'mongoose'
-
-const SerializedDataSchema = new mongoose.Schema({
-  data: String,
-  createdAt: { type: Date, default: Date.now }
-})
-
-let SerializedData
-try {
-  SerializedData = mongoose.model('Content')
-} catch (error) {
-  SerializedData = mongoose.model('Content', SerializedDataSchema)
-}
+import SerializedData from "@/models/SerializedData"
 
 export async function GET(request) {
   try {

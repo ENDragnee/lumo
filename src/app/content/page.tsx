@@ -3,12 +3,36 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { ContentRenderer } from "@/components/contentRender";
 import { restoreHighlights } from "@/utils/restoreHighlight";
-import { string } from "slate";
 
 function ContentRendererWrapper() {
   const [isContentLoaded, setIsContentLoaded] = useState(false);
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+
+  useEffect(() => {
+    const updateHistory = async () => {
+      if (!id) return;
+      
+      try {
+        const response = await fetch(`/api/history?id=${id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to update history');
+        }
+      } catch (error) {
+        console.error("Error updating history:", error);
+      }
+    };
+
+    if (isContentLoaded) {
+      updateHistory();
+    }
+  }, [id, isContentLoaded]);
 
   useEffect(() => {
     if (id && isContentLoaded) {
@@ -41,7 +65,7 @@ export default function ContentPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="px-6 sm:px-6 sm:text-xs md:text-base py-6 max-w-4xl mx-auto text-justify">
-        <header className="p-4 bg-white shadow-sm">
+        <header className="p-4">
             <ContentRendererWrapper/>
         </header>
       </div>

@@ -40,35 +40,46 @@ body {
   }
 
   .dark {
-    --background: rgb(56,60,74);
-    --foreground: rgb(124,129,140);
+    /* Base background using your desired color */
+    --background: #0F172A;
+    /* Light text for high contrast */
+    --foreground: #E2E8F0;
 
-    --card: rgb(64,69,82);
-    --card-foreground: rgb(124,129,140);
+    /* Cards & popovers are given a slightly lighter dark hue */
+    --card: #1E293B;
+    --card-foreground: #F1F5F9;
 
-    --popover: rgb(75,81,98);
-    --popover-foreground: rgb(124,129,140);
+    --popover: #1E293B;
+    --popover-foreground: #F1F5F9;
 
-    --primary: rgb(82,148,226);
-    --primary-foreground: rgb(64,69,82);
+    /* Primary accent – a vivid blue that contrasts nicely with the dark background */
+    --primary: #3B82F6;
+    --primary-foreground: #0F172A;
 
-    --secondary: rgb(56,60,74);
-    --secondary-foreground: rgb(124,129,140);
+    /* Secondary elements use the same dark base as cards */
+    --secondary: #1E293B;
+    --secondary-foreground: #F1F5F9;
 
-    --muted: rgb(64,69,82);
-    --muted-foreground: rgb(75,81,98);
+    /* Muted colors for less prominent elements */
+    --muted: #64748B;
+    --muted-foreground: #CBD5E1;
 
-    --accent: rgb(82,148,226);
-    --accent-foreground: rgb(64,69,82);
+    /* Accent – a teal that works well as a highlight */
+    --accent: #38B2AC;
+    --accent-foreground: #0F172A;
 
-    --destructive: rgb(82,148,226);
-    --destructive-foreground: rgb(124,129,140);
+    /* Destructive actions remain a bold red for immediate attention */
+    --destructive: #E53E3E;
+    --destructive-foreground: #F1F5F9;
 
-    --border: rgb(56,60,74);
-    --input: rgb(56,60,74);
-    --ring: rgb(124,129,140);
+    /* Darker border and input colors help define element boundaries */
+    --border: #334155;
+    --input: #334155;
+
+    /* Using the primary blue for focus rings */
+    --ring: #3B82F6;
   }
-
+  
   * {
     @apply border-border;
   }

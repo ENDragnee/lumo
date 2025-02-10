@@ -48,12 +48,12 @@ const CentralWorkspace = () => {
   }
 
   return (
-    <div className="flex-1 p-4 md:p-8 overflow-y-auto bg-background dark:bg-dark-secondary">
+    <div className="flex-1 p-4 md:p-8 overflow-y-auto">
       <div className="mb-8">
         <div className="relative w-full md:w-2/3 mx-auto">
           <input
             type="text"
-            placeholder="Search modules, quizzes, or ask Lumo AI..."
+            placeholder="Search modules, quizzes, creators or books"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full p-3 pl-12 rounded-lg border border-border dark:border-gray-400 dark:bg-slate-700 dark:text-dark-text focus:border-dark-highlight focus:ring focus:ring-dark-highlight focus:ring-opacity-50 transition duration-300 ease-in-out"
@@ -62,11 +62,11 @@ const CentralWorkspace = () => {
         </div>
       </div>
 
-      <div className="mb-8 overflow-x-auto whitespace-nowrap">
+      <div className="flex flex-grow items-center pr-32 justify-center mb-8 overflow-x-auto whitespace-nowrap">
         {filters.map((filter) => (
           <button
             key={filter}
-            className="inline-block px-4 py-2 mr-2 rounded-lg bg-background dark:bg-dark-primary dark:text-dark-text text-sm font-medium dark:hover:bg-blue-600 hover:bg-gray-200 transition duration-300 ease-in-out"
+            className="inline-block px-4 py-2 mr-2 rounded-lg dark:text-dark-text text-sm font-medium dark:hover:bg-blue-600 hover:bg-gray-200 transition duration-300 ease-in-out"
           >
             {filter}
           </button>
@@ -78,7 +78,7 @@ const CentralWorkspace = () => {
           <div
             key={item._id}
             onClick={() => handleCardClick(item._id)}
-            className="bg-background dark:bg-dark-primary rounded-lg shadow-md overflow-hidden transform hover:translate-y-[-5px] hover:shadow-lg transition duration-300 ease-in-out cursor-pointer"
+            className="rounded-lg shadow-md overflow-y-auto overflow-x-hidden transform hover:translate-y-[-5px] hover:shadow-lg transition duration-300 ease-in-out cursor-pointer"
           >
             <div className="relative">
               <img

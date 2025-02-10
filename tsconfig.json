@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/highlights/[id]/route.js", "src/app/api/auth/[...nextauth]/route.js", "src/middleware.js", "src/components/progress.js", "src/app/api/progress/user/route.js", "src/app/api/content/route.js", "src/components/Workspaces.tsx", "src/app/api/chat-history/route.js", "src/lib/mongodb.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/highlights/[id]/route.js", "src/app/api/auth/[...nextauth]/route.js", "src/middleware.js", "src/components/progress.js", "src/app/api/progress/user/route.js", "src/app/api/content/route.js", "src/components/Workspaces.tsx", "src/app/api/chat-history/route.js", "src/lib/mongodb.js", "src/app/api/history/route.js"],
   "exclude": ["node_modules"]
 }
