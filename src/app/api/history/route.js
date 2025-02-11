@@ -31,14 +31,28 @@ export async function POST(request) {
         startOfDay.setUTCHours(0, 0, 0, 0);
         const endOfDay = new Date(now);
         endOfDay.setUTCHours(23, 59, 59, 999);
+
+        // Fetch the most recent entry for this content by the user
+        const lastHistory = await History.findOne({
+          user_id: session.user.id,
+          content_id,
+        }).sort({ viewed_at: -1 });
   
+        // If there's a previous history, preserve starred status
+        const starredStatus = lastHistory?.starred_status || false;
+        const starredAt = lastHistory?.starred_at || null;
+        
         const history = await History.findOneAndUpdate(
           {
             user_id: session?.user?.id,
             content_id,
             viewed_at: { $gte: startOfDay, $lt: endOfDay },
           },
-          { viewed_at: now },
+          { 
+            starred_status: starredStatus,
+            starred_at: starredAt,
+            viewed_at: now,
+          },
           { upsert: true, new: true }
         );
         return NextResponse.json(history, {status: 200});

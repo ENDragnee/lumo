@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight, Star, Sparkles } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { formatDistanceToNow } from "date-fns";
+import mongoose, { ObjectId } from "mongoose"
 
 interface LeftSidebarProps {
   isCollapsed: boolean
@@ -12,30 +13,61 @@ interface LeftSidebarProps {
 interface HistoryItem {
   _id: string;
   content_id: {
-    _id: string;
+    _id: ObjectId;
     name: string;
+    tags: [String];
   };
+  starred_status: Boolean;
   viewed_at: string;
 }
 
 const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
   const [activeWorkspace, setActiveWorkspace] = useState("My Notes")
   const [recentHistories, setRecentHistories] = useState<HistoryItem[]>([]);
+  const [stars, setStars] = useState<HistoryItem[]>([]);
+
+  const handleStarToggle = async (contentId: ObjectId) => {
+    try {
+      const response = await fetch("/api/history/star", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content_id: contentId }),
+      });
+      
+      if (response.ok) {
+        fetchRecentHistories(); // Refresh the list after toggle
+      }
+    } catch (error) {
+      console.error("Error toggling star:", error);
+    }
+  };
+
+  const fetchRecentHistories = async () => {
+    try {
+      const response = await fetch("/api/history");
+      if (response.ok) {
+        const data = await response.json();
+        setRecentHistories(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch recent histories:", error);
+    }
+  };
+  const fetchStarred = async () => {
+    try {
+      const response = await fetch("/api/history/star");
+      if (response.ok) {
+        const data = await response.json();
+        setStars(data);
+      }
+    } catch (error) {
+      console.log("Failed to fetch stars:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchRecentHistories = async () => {
-      try {
-        const response = await fetch("/api/history");
-        if (response.ok) {
-          const data = await response.json();
-          setRecentHistories(data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch recent histories:", error);
-      }
-    };
-
     fetchRecentHistories();
+    fetchStarred();
   }, []);
   const workspaces = [
     { name: "My Notes", icon: Star },
@@ -98,7 +130,19 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
                     href={`/content?id=${history.content_id._id}`}
                     className="flex items-center mb-2 dark:text-dark-text hover:bg-dark-secondary rounded-md p-1"
                   >
-                    <Star className="w-5 h-5 mr-2" />
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleStarToggle(history.content_id._id);
+                      }}
+                      className="mr-2 hover:scale-110 transition-transform"
+                    >
+                      <Star
+                        className="w-5 h-5"
+                        fill={history.starred_status ? "currentColor" : "none"}
+                        strokeWidth={1.5}
+                      />
+                    </button>
                     <span>{history.content_id.name}</span>
                     <span className="ml-auto text-xs text-gray-500 dark:text-dark-text">
                       {formatDistanceToNow(new Date(history.viewed_at), {
@@ -111,17 +155,10 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
 
               <div>
                 <h3 className="text-sm font-semibold mb-2 dark:text-dark-text">Favorites</h3>
-                {favoriteItems.map((item) => (
-                  <div key={item.name} className="flex items-center mb-2 dark:text-dark-text">
+                {stars.map((item) => (
+                  <div key={item.content_id.name} className="flex items-center mb-2 dark:text-dark-text">
                     <Star className="w-5 h-5 mr-2 text-dark-highlight" />
-                    <span>{item.name}</span>
-                    <span
-                      className={`ml-auto text-xs px-2 py-1 rounded-full ${
-                        item.tag === "urgent" ? "bg-dark-highlight text-white" : "bg-dark-accent text-dark-text"
-                      }`}
-                    >
-                      {item.tag}
-                    </span>
+                    <span>{item.content_id.name}</span>
                   </div>
                 ))}
               </div>

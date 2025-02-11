@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
 const SerializedDataSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  views: { type: Number, default: 0 },
+  passRate: { type: Number, default: 0 },
+  thumbnail: { type: String, required: true },
+  rating: Number,
   data: {
     type: String,
     required: true

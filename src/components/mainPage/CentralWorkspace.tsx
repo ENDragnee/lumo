@@ -22,26 +22,33 @@ const CentralWorkspace = () => {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
   const filters = ["Grade 12", "Video", "AASTU Curriculum", "Trending"]
 
-  useEffect(() => {
-    const fetchSearchResults = async () => {
-      if (searchQuery.length >= 2) {
-        try {
-          const response = await fetch(`/api/search?query=${encodeURIComponent(searchQuery)}`)
-          if (!response.ok) throw new Error('Search failed')
-          const data = await response.json()
-          if (data.success) setSearchResults(data.data)
-        } catch (error) {
-          console.error('Error fetching search results:', error)
-          setSearchResults([])
-        }
-      } else {
-        setSearchResults([])
-      }
-    }
+  // useEffect(() => {
+  //   const fetchSearchResults = async () => {
+  //     if (searchQuery.length >= 2) {
+  //       try {
+  //         const response = await fetch(`/api/search?query=${encodeURIComponent(searchQuery)}`)
+  //         if (!response.ok) throw new Error('Search failed')
+  //         const data = await response.json()
+  //         if (data.success) setSearchResults(data.data)
+  //       } catch (error) {
+  //         console.error('Error fetching search results:', error)
+  //         setSearchResults([])
+  //       }
+  //     } else {
+  //       setSearchResults([])
+  //     }
+  //   }
 
-    const debounceTimer = setTimeout(fetchSearchResults, 500)
-    return () => clearTimeout(debounceTimer)
-  }, [searchQuery])
+  //   const debounceTimer = setTimeout(fetchSearchResults, 500)
+  //   return () => clearTimeout(debounceTimer)
+  // }, [searchQuery])
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/search?query=${encodeURIComponent(searchQuery.trim())}`)
+    }
+  }
 
   const handleCardClick = (id: string) => {
     router.push(`/content?id=${id}`)
@@ -50,7 +57,7 @@ const CentralWorkspace = () => {
   return (
     <div className="flex-1 p-4 md:p-8 overflow-y-auto">
       <div className="mb-8">
-        <div className="relative w-full md:w-2/3 mx-auto">
+        <form onSubmit={handleSearchSubmit} className="relative w-full md:w-2/3 mx-auto">
           <input
             type="text"
             placeholder="Search modules, quizzes, creators or books"
@@ -59,7 +66,8 @@ const CentralWorkspace = () => {
             className="w-full p-3 pl-12 rounded-lg border border-border dark:border-gray-400 dark:bg-slate-700 dark:text-dark-text focus:border-dark-highlight focus:ring focus:ring-dark-highlight focus:ring-opacity-50 transition duration-300 ease-in-out"
           />
           <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-dark-text" />
-        </div>
+          <button type="submit" className="hidden">Search</button>
+        </form>
       </div>
 
       <div className="flex flex-grow items-center pr-32 justify-center mb-8 overflow-x-auto whitespace-nowrap">

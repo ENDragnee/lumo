@@ -6,7 +6,7 @@ interface FavouriteDocument extends Document {
     starred_at: Date;
 }
 
-const HistorySchema = new Schema<FavouriteDocument>({
+const FavouriteSchema = new Schema<FavouriteDocument>({
     user_id: {
         type: Schema.Types.ObjectId,
         ref: "User",
@@ -23,5 +23,5 @@ const HistorySchema = new Schema<FavouriteDocument>({
     }
 })
 
-const Favourite = mongoose.models.Favourite || model<FavouriteDocument>('Favourite', HistorySchema);
+const Favourite = mongoose.models.Favourite || model<FavouriteDocument>('Favourite', FavouriteSchema);
 export default Favourite;

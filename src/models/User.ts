@@ -22,8 +22,18 @@ const userSchema = new mongoose.Schema({
   createdAt: {
      type: Date, 
      default: Date.now 
-  }
-
+  },
+  bio: String,
+  profileImage: String,
+  bannerImage: String,
+  tags: [String],
+  credentials: [String],
+  subscribersCount: { type: Number, default: 0 },
+  totalViews: { type: Number, default: 0 },
+  featuredContent: [{ 
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Content' 
+  }]
 });
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);

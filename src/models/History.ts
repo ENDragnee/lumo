@@ -4,6 +4,8 @@ interface HistoryDocument extends Document {
     user_id: Schema.Types.ObjectId;
     content_id: Schema.Types.ObjectId;
     viewed_at: Date;
+    starred_status: Boolean;
+    starred_at: Date;
 }
 
 const HistorySchema = new Schema<HistoryDocument>({
@@ -16,6 +18,14 @@ const HistorySchema = new Schema<HistoryDocument>({
         type: Schema.Types.ObjectId,
         ref: 'Content',
         required: true
+    },
+    starred_status: {
+        type: Boolean,
+        default: false
+    },
+    starred_at: {
+        type: Date,
+        default: Date.now
     },
     viewed_at: {
         type: Date,

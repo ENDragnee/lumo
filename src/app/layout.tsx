@@ -172,7 +172,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <div className="container mx-auto px-4">
                   <div className="flex justify-center">
                     <p className="text-sm text-gray-500 dark:text-[#7c818c]">
-                      © 2024 Educational Platform. All rights reserved.
+                      © {new Date().getFullYear()}. All rights reserved.
                     </p>
                   </div>
                 </div>
