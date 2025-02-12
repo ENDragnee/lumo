@@ -6,13 +6,21 @@ export default function Header( { creator }: {creator: Creator}) {
     <header className="relative h-[200px] md:h-[250px] lg:h-[300px]">
       <div className="absolute inset-0 bg-black bg-opacity-30 backdrop-blur-md">
         <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center md:items-end h-full">
-          <Image
-            src="/placeholder.svg?height=120&width=120"
-            alt="Profile Avatar"
-            width={120}
-            height={120}
-            className="rounded-full border-4 border-white mb-4 md:mb-0 md:mr-6"
-          />
+          {
+            creator.profileImage ? (
+              <Image
+                src={creator.profileImage}
+                alt="Profile Avatar"
+                width={120}
+                height={120}
+                className="rounded-full border-4 border-white mb-4 md:mb-0 md:mr-6"
+              />
+            ) : (
+              <div className=" flex flex-col items-center justify-center rounded-full border-4 bg-blue-500 border-white mb-4 md:mb-0 md:mr-6 w-32 h-32">
+                <h1 className="text-gray-100 text-6xl">{creator.name[0].toUpperCase()}</h1>
+              </div>
+            )
+          }
           <div className="text-white text-center md:text-left">
             <h1 className="text-4xl font-bold mb-4">{creator.name}</h1>
             {/* <p className="text-sm mb-2">10th-grade chemistry lessons with interactive simulations...</p> */}

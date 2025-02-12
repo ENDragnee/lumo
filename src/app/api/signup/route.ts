@@ -5,8 +5,15 @@ import User from '@/models/User';
 
 interface SignupRequestBody {
   email: string;
+  userTag: string,
   password: string;
   userName: string;
+  user_type: string;
+  bio: string;
+  tags: [string];
+  credentials: [string];
+  profileImage: string;
+ 
 }
 
 export async function POST(req: Request) {
@@ -48,8 +55,12 @@ export async function POST(req: Request) {
     const newUser = new User({
       email: body.email,
       password_hash: hashedPassword,
-      user_type: 'student',
-      name: body.userName
+      user_type: body.user_type,
+      name: body.userName,
+      bio: body.bio,
+      tags: body.tags,
+      credentials: body.credentials,
+      profileImage: body.profileImage || '',
     });
 
     await newUser.save();
