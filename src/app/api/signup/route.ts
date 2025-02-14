@@ -2,9 +2,13 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import { hashPassword } from '@/lib/password-utils';
 import User from '@/models/User';
+import { verifyOTP } from "@/lib/otp"
+import { error } from 'console';
 
 interface SignupRequestBody {
   email: string;
+  gender: string;
+  otp: string;
   userTag: string,
   password: string;
   userName: string;
@@ -13,7 +17,6 @@ interface SignupRequestBody {
   tags: [string];
   credentials: [string];
   profileImage: string;
- 
 }
 
 export async function POST(req: Request) {
@@ -54,6 +57,9 @@ export async function POST(req: Request) {
     // Create new user
     const newUser = new User({
       email: body.email,
+      userTag: body.userTag,
+      otp: body.otp,
+      gender: body.gender,
       password_hash: hashedPassword,
       user_type: body.user_type,
       name: body.userName,
@@ -62,6 +68,16 @@ export async function POST(req: Request) {
       credentials: body.credentials,
       profileImage: body.profileImage || '',
     });
+    
+    try {
+      const isOtpValid = await verifyOTP(body.email, body.otp);
+      if (!isOtpValid) {
+        return NextResponse.json({error: 'Invalid or expired OTP.'}, {status: 400})
+      }
+    } catch (error) {
+      return NextResponse.json({error: 'Error verifying OTP.'}, {status: 500});
+    }
+  
 
     await newUser.save();
 

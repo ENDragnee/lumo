@@ -29,6 +29,7 @@ const userSchema = new mongoose.Schema({
      type: Date, 
      default: Date.now 
   },
+  gender: { type: String, required: true},
   bio: String,
   profileImage: String,
   bannerImage: String,

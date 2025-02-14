@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import debounce from "lodash.debounce";
@@ -35,7 +35,27 @@ export default function SignUp() {
   const [checkingTag, setCheckingTag] = useState(false);
   const [otp, setOtp] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false);
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [gender, setGender] = useState("");
+  const [otpTimer, setOtpTimer] = useState(0);
   const isDarkTheme = theme === "dark";
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (otpTimer > 0) {
+      interval = setInterval(() => {
+        setOtpTimer((prev) => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [otpTimer]);
+
+  useEffect(() => {
+    if (currentStep === 4 && !isOtpSent) {
+      sendOTP();
+    }
+  }, [currentStep]);
+  
 
   // Add debounced tag check
   const checkTagAvailability = debounce(async (tag: string) => {
@@ -63,17 +83,21 @@ export default function SignUp() {
   }, 500);
 
   const sendOTP = async () => {
+    setIsSendingOtp(true);
     try {
       const response = await fetch("/api/send-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-
+  
       if (!response.ok) throw new Error("Failed to send OTP");
       setIsOtpSent(true);
+      setOtpTimer(60); // start a 60-second countdown
     } catch (err: any) {
       setError(err.message || "Failed to send OTP");
+    } finally {
+      setIsSendingOtp(false);
     }
   };
 
@@ -81,20 +105,17 @@ export default function SignUp() {
     switch (step) {
       case 0:
         return (
-          !!(userName && userTag && email && password && confirmPassword && tagAvailable) &&
+          !(userName && userTag && email && password && confirmPassword && tagAvailable) &&
           password === confirmPassword
         );
       case 1:
-        return !!userType;
+        return !userType;
       case 2:
-        if (userType === "student") {
-          return !!bio; // Simple validation for students
-        }
-        return !!bio && tags.length > 0 && credentials.length > 0; // For creators and institutions
+        return false; 
       case 3:
-        return true; // Profile picture is optional
+        return false;
       case 4:
-        return !!otp; // OTP verification
+        return otp === ""; // OTP must be entered
       default:
         return true;
     }
@@ -119,12 +140,12 @@ export default function SignUp() {
   };
 
   const handleNextStep = () => {
-    if (currentStep !== 3 && !validateStep(currentStep)) {
+    if (validateStep(currentStep)) {
       setError("Please fill in all required fields.");
       return;
     }
     setError(null);
-
+  
     const nextStep = currentStep + 1;
     if (nextStep > 4) {
       handleSignUp();
@@ -132,6 +153,7 @@ export default function SignUp() {
     }
     setCurrentStep(nextStep);
   };
+  
 
   const handlePreviousStep = () => {
     const prevStep = currentStep - 1;
@@ -159,11 +181,17 @@ export default function SignUp() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
+          userTag,
+          otp,
+          gender,
           password,
           userName,
           user_type: userType,
+          tags,
+          credentials,
+          bio,
           ...(userType !== "student" && { bio, tags, credentials }),
-          ...(profileImage && { profileImage }), // Only include if there is a profile image
+          ...(profileImage && { profileImage }),
         }),
       });
 
@@ -195,7 +223,6 @@ export default function SignUp() {
           </div>
           <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
 
-          {/* The form now only submits (calls handleSignUp) when on the final step */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -337,8 +364,26 @@ export default function SignUp() {
 
                 {/* Step 1 - User Type */}
                 <div className="w-full flex-shrink-0">
+                  <label>Select Gender:</label>
+                  <div className="mb-4">
+                    <select
+                      className={`shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:ring-2 focus:border-transparent ${
+                        isDarkTheme
+                          ? "bg-[#373e47] text-white focus:ring-[#5294e2]"
+                          : "bg-[#f0f4f8] text-black focus:ring-[#3367d6]"
+                      }`}
+                      value={gender}
+                      onChange={(e) => setGender(e.target.value)}
+                      required
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
                   <div className="mb-4">
                     <div className="flex flex-col gap-3">
+                      <label>Select Role:</label>
                       {["student", "creator", "institution"].map((type) => (
                         <label
                           key={type}
@@ -368,7 +413,7 @@ export default function SignUp() {
                 </div>
 
                 {/* Step 2 - Additional Info */}
-                {["creator", "institution"].includes(userType) && (
+                {["student", "creator", "institution"].includes(userType) && (
                   <div className="w-full flex-shrink-0">
                     <div className="mb-4">
                       <textarea
@@ -573,15 +618,20 @@ export default function SignUp() {
                           ? "text-[#5294e2] hover:text-[#4a84c9]"
                           : "text-[#3367d6] hover:text-[#2851a3]"
                       }`}
+                      disabled={isSendingOtp || otpTimer > 0}
                     >
-                      Resend OTP
+                      {isSendingOtp 
+                        ? "Sending OTP..." 
+                        : otpTimer > 0 
+                          ? `Resend OTP in ${otpTimer}s` 
+                          : "Resend OTP"}
                     </button>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Navigation buttons (only one set, outside the slider) */}
+            {/* Navigation buttons */}
             <div className="flex items-center justify-between mt-6">
               {currentStep > 0 && (
                 <button
@@ -597,8 +647,8 @@ export default function SignUp() {
                 </button>
               )}
               <button
-                type={currentStep === 4 ? "submit" : "button"}
-                onClick={currentStep < 4 ? handleNextStep : undefined}
+                type={"button"}
+                onClick={handleNextStep}
                 className={`font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-transform duration-300 ease-in-out transform hover:scale-105 ${
                   isDarkTheme
                     ? "bg-[#5294e2] hover:bg-[#4a84c9] text-white"
