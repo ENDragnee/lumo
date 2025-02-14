@@ -1,4 +1,7 @@
 "use client"
+
+export const dynamic = 'force-dynamic'; // This disables static pre-rendering
+
 import { useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Search } from 'lucide-react'
@@ -49,7 +52,7 @@ export default function SearchPage() {
   }
 
   const handleUserClick = (userId: string) => {
-    router.push(`/creator/${userId}`)
+    router.push(`/creator?id=${userId}`)
   }
 
   return (
