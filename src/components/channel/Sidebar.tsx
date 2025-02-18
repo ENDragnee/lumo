@@ -8,6 +8,7 @@ interface SideBarProp {
 }
 
 export default function Sidebar( { creator, stats}: SideBarProp) {
+  let index = 0;
   return (
     <aside className=" bg-opacity-70 backdrop-blur-md rounded-lg shadow-md p-6 sticky top-4">
       <h2 className="font-bold text-xl mb-4">About</h2>
@@ -19,13 +20,13 @@ export default function Sidebar( { creator, stats}: SideBarProp) {
       <div className="mb-6">
         <h3 className="font-semibold mb-2">Credentials</h3>
         <ul className="text-sm">
-          { 
+          {
             creator?.credentials?.length ? (
               creator.credentials.map((credits) =>(
-              <li>{credits}</li>
+              <li key={index++}>{credits}</li>
             ))
           ): (
-              <li>{`Ther are no mentioned credits`}</li>
+              <li key={index++}>{`Ther are no mentioned credits`}</li>
             )
           }
         </ul>

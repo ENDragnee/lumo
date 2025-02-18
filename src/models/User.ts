@@ -1,5 +1,24 @@
-import mongoose from 'mongoose';
-import { unique } from 'next/dist/build/utils';
+import mongoose, { Document } from 'mongoose';
+
+export interface IUser extends Document {
+  email: string;
+  password_hash: string;
+  user_type: string;
+  name: string;
+  userTag: string;
+  createdAt: Date;
+  gender: string;
+  bio?: string;
+  profileImage?: string;
+  bannerImage?: string;
+  tags: string[];
+  credentials: string[];
+  subscribersCount: number;
+  totalViews: number;
+  featuredContent: mongoose.Types.ObjectId[];
+  dynamicInterests: Map<string, number>;
+  interactionHistory: mongoose.Types.ObjectId[];
+}
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -40,7 +59,17 @@ const userSchema = new mongoose.Schema({
   featuredContent: [{ 
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Content' 
-  }]
+  }],
+  dynamicInterests: {
+    type: Map,
+    of: Number, // Format: {"calculus": 0.85, "physics": 0.72}
+    default: new Map()
+  },
+  interactionHistory: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Interaction',
+    default: []
+  }
 });
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);

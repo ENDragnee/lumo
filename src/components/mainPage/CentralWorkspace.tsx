@@ -1,47 +1,52 @@
 "use client"
 import { useState, useEffect } from "react"
 import { Search } from "lucide-react"
-import { useRouter } from 'next/navigation' // Updated import
+import { useRouter } from 'next/navigation'
 import ContentRenderer from '@/components/contentRender'
+
+interface Content {
+  _id: string;
+  title: string;
+  thumbnail: string;
+  subject: string;
+  institution: string;
+  description?: string;
+  progress?: number;
+}
 
 const CentralWorkspace = () => {
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState("")
-  interface SearchResult {
-    _id: string;
-    data: {
-      thumbnail: string;
-      title: string;
-      description: string;
-      progress: number;
-      subject: string;
-      institution: string;
-    };
-  }
-
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [searchResults, setSearchResults] = useState<Content[]>([])
   const filters = ["Grade 12", "Video", "AASTU Curriculum", "Trending"]
 
-  // useEffect(() => {
-  //   const fetchSearchResults = async () => {
-  //     if (searchQuery.length >= 2) {
-  //       try {
-  //         const response = await fetch(`/api/search?query=${encodeURIComponent(searchQuery)}`)
-  //         if (!response.ok) throw new Error('Search failed')
-  //         const data = await response.json()
-  //         if (data.success) setSearchResults(data.data)
-  //       } catch (error) {
-  //         console.error('Error fetching search results:', error)
-  //         setSearchResults([])
-  //       }
-  //     } else {
-  //       setSearchResults([])
-  //     }
-  //   }
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      try {
+        const res = await fetch('/api/recommendations');
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        setSearchResults(data.map((item: any) => ({
+          _id: item._id,
+          title: item.title,
+          thumbnail: item.thumbnail,
+          subject: item.subject,
+          institution: item.institution,
+          description: item.data?.description || '',
+          progress: item.data?.progress || 0
+        })));
+      } catch (err) {
+        setError('Failed to load recommendations');
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  //   const debounceTimer = setTimeout(fetchSearchResults, 500)
-  //   return () => clearTimeout(debounceTimer)
-  // }, [searchQuery])
+    fetchRecommendations();
+  }, []);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -49,9 +54,17 @@ const CentralWorkspace = () => {
       router.push(`/search?query=${encodeURIComponent(searchQuery.trim())}`)
     }
   }
-
+  
   const handleCardClick = (id: string) => {
     router.push(`/content?id=${id}`)
+  }
+
+  if (isLoading) {
+    return <div className="p-8 text-center">Loading recommendations...</div>
+  }
+
+  if (error) {
+    return <div className="p-8 text-center text-red-500">{error}</div>
   }
 
   return (
@@ -81,42 +94,39 @@ const CentralWorkspace = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+      {/* YouTube-like grid layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {searchResults.map((item) => (
           <div
             key={item._id}
             onClick={() => handleCardClick(item._id)}
-            className="rounded-lg shadow-md overflow-y-auto overflow-x-hidden transform hover:translate-y-[-5px] hover:shadow-lg transition duration-300 ease-in-out cursor-pointer"
+            className="cursor-pointer group"
           >
-            <div className="relative">
+            <div className="relative aspect-video rounded-lg overflow-hidden">
               <img
-                src={item.data.thumbnail || "/placeholder.svg"}
-                alt={item.data.title}
-                className="w-full h-48 object-cover"
+                src={item.thumbnail}
+                alt={item.title}
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
-              <div className="absolute top-2 right-2 w-12 h-12">
-                <svg className="w-full h-full" viewBox="0 0 36 36">
-                  <path
-                    d="M18 2.0845
-                      a 15.9155 15.9155 0 0 1 0 31.831
-                      a 15.9155 15.9155 0 0 1 0 -31.831"
-                    fill="none"
-                    stroke="#5294e2"
-                    strokeWidth="3"
-                    strokeDasharray={`${item.data.progress}, 100`}
-                  />
-                  <text x="18" y="20" textAnchor="middle" fill="#5294e2" fontSize="10">
-                    {item.data.progress}%
-                  </text>
-                </svg>
-              </div>
             </div>
-            <div className="p-4">
-              <h3 className="font-display text-lg font-bold mb-2 dark:text-dark-text">{item.data.title}</h3>
-              <p className="text-sm text-gray-600 dark:text-dark-text mb-4">{item.data.description}</p>
-              <div className="flex justify-between items-center">
-                <span className="bg-dark-highlight text-white text-xs font-bold px-2 py-1 rounded">{item.data.subject}</span>
-                <span className="text-xs text-gray-500 dark:text-dark-text">{item.data.institution}</span>
+            <div className="mt-3">
+              <h3 className="font-semibold text-lg dark:text-dark-text line-clamp-2">
+                {item.title}
+              </h3>
+              {item.description && (
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
+                  {item.description}
+                </p>
+              )}
+              <div className="flex items-center justify-between mt-2">
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  {item.institution}
+                </span>
+                {item.progress !== undefined && (
+                  <span className="text-xs text-blue-600 dark:text-blue-400">
+                    {item.progress}% Complete
+                  </span>
+                )}
               </div>
             </div>
           </div>

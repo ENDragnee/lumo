@@ -25,6 +25,7 @@ export async function GET(request) {
     }
 
     // --- Search the "contents" index ---
+    // --- Contents search section (already updated) ---
     const contentResponse = await esClient.search({
       index: 'contents',
       body: {
@@ -35,6 +36,8 @@ export async function GET(request) {
                 multi_match: {
                   query,
                   fields: [
+                    'title^3', 
+                    'description^2', 
                     'tags^2', 
                     'content_text',
                     'subject', 
@@ -139,9 +142,6 @@ export async function GET(request) {
         };
       })
     );
-    // Inside the GET function (after fetching contentResponse and userResponse)
-    console.log('Content Response:', JSON.stringify(contentResponse, null, 2));
-    console.log('User Response:', JSON.stringify(userResponse, null, 2));
 
     // Return combined results.
     return NextResponse.json({
