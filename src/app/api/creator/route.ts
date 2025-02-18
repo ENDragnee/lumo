@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
       totalViews: content.reduce((sum, c) => sum + (c.views || 0), 0),
       averageRating:
         content.length > 0
-          ? content.reduce((sum, c) => sum + (c.averageRating || 0), 0) / content.length
+          ? content.reduce((sum, c) => sum + (c.rating || 0), 0) / content.length
           : 0,
       totalContent: content.length,
     };
