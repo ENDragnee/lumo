@@ -70,7 +70,6 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
     fetchStarred();
   }, []);
   const workspaces = [
-    { name: "My Notes", icon: Star },
     { name: "Exam Prep", icon: Star },
   ]
 
@@ -81,14 +80,14 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
 
   return (
     <motion.div
-      className="h-full border-r-2 rounded-lg border-gray-200 dark:border-gray-500"
+      className="h-full border-r-2 rounded-lg bg-zinc-200 dark:bg-[#383c4a] border-gray-200 dark:border-[#383c3a]"
       initial={{ width: isCollapsed ? 80 : 250 }}
       animate={{ width: isCollapsed ? 80 : 250 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
       <div className="flex flex-col h-full p-4">
         <div className="flex justify-between items-center mb-6">
-          <h2 className={`text-xl font-bold dark:text-dark-text ${isCollapsed ? "hidden" : "block"}`}>Lumo</h2>
+          <h2 className={`text-2xl font-bold dark:text-[#5294e2] ${isCollapsed ? "hidden" : "block"}`}>Lumo</h2>
           <div className="flex items-center gap-2">
             {!isCollapsed && <ThemeToggle />}
             <button onClick={() => setIsCollapsed(!isCollapsed)} className="text-dark-text">
@@ -99,7 +98,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
 
         <div className="space-y-6">
           <div>
-            <h3 className={`text-sm font-semibold mb-2 dark:text-dark-text ${isCollapsed ? "hidden" : "block"}`}>
+            <h3 className={`text-base font-semibold mb-2 dark:text-[#7c818c] ${isCollapsed ? "hidden" : "block"}`}>
               Workspaces
             </h3>
             {workspaces.map((workspace) => (
@@ -107,8 +106,8 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
                 key={workspace.name}
                 className={`flex items-center w-full p-2 rounded-md ${
                   activeWorkspace === workspace.name
-                    ? "bg-dark-highlight text-white"
-                    : "hover:bg-dark-secondary dark:text-dark-text"
+                    ? "bg-[#383c4a] text-white"
+                    : "hover:bg-slate-200 dark:hover:bg-[#33475f] dark:text-[#5294e2] text-sm"
                 }`}
                 onClick={() => setActiveWorkspace(workspace.name)}
               >
@@ -121,19 +120,19 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
           {!isCollapsed && (
             <>
               <div>
-                <h3 className="text-sm font-semibold mb-2 dark:text-dark-text">
+                <h3 className="text-base font-semibold mb-2 dark:text-[#7c818c]">
                   Recent
                 </h3>
                 {recentHistories.map((history) => (
                   <a
                     key={history._id}
-                    href={`/content?id=${history.content_id._id}`}
+                    href={`/content?id=${history.content_id?._id}`}
                     className="flex items-center mb-2 dark:text-dark-text hover:bg-dark-secondary rounded-md p-1"
                   >
                     <button
                       onClick={(e) => {
                         e.preventDefault();
-                        handleStarToggle(history.content_id._id);
+                        handleStarToggle(history.content_id?._id);
                       }}
                       className="mr-2 hover:scale-110 transition-transform"
                     >
@@ -143,7 +142,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
                         strokeWidth={1.5}
                       />
                     </button>
-                    <span>{history.content_id.name}</span>
+                    <span>{history.content_id?.name}</span>
                     <span className="ml-auto text-xs text-gray-500 dark:text-dark-text">
                       {formatDistanceToNow(new Date(history.viewed_at), {
                         addSuffix: true,
@@ -154,9 +153,9 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
               </div>
 
               <div>
-                <h3 className="text-sm font-semibold mb-2 dark:text-dark-text">Favorites</h3>
+                <h3 className="text-base font-semibold mb-2 dark:text-[#7c818c]">Favorites</h3>
                 {stars.map((item) => (
-                  <div key={item.content_id.name} className="flex items-center mb-2 dark:text-dark-text">
+                  <div key={item.content_id?.name} className="flex items-center mb-2 dark:text-dark-text">
                     <Star className="w-5 h-5 mr-2 text-dark-highlight" />
                     <span>{item.content_id.name}</span>
                   </div>

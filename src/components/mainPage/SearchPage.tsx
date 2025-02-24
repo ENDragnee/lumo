@@ -8,21 +8,19 @@ import { Search } from 'lucide-react'
 
 interface ContentResult {
   _id: string;
-  data: {
-    thumbnail: string;
-    title: string;
-    description: string;
-    progress: number;
-    subject: string;
-    institution: string;
-  };
+  thumbnail: string;
+  title: string;
+  description: string;
+  progress: number;
+  subject: string;
+  institution: string;
 }
 
 interface UserResult {
   _id: string;
   username: string;
   name: string;
-  avatar: string;
+  profileImage: string;
 }
 
 export default function SearchPage() {
@@ -35,8 +33,9 @@ export default function SearchPage() {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`)
+        const res = await fetch(`/api/oldSearch?query=${encodeURIComponent(query)}`)
         const { data } = await res.json()
+        console.log(data);
         setContentResults(data?.content || [])
         setUserResults(data?.users || [])
       } catch (error) {
@@ -86,11 +85,20 @@ export default function SearchPage() {
                 onClick={() => handleUserClick(user._id)}
                 className="flex flex-col items-center p-4 min-w-[140px] bg-white dark:bg-slate-700 rounded-full shadow-md hover:shadow-lg transition cursor-pointer"
               >
-                <img
-                  src={user.avatar || '/default-avatar.png'}
-                  alt={user.name[0].toUpperCase()}
-                  className="w-16 h-16 rounded-full mb-2 object-cover"
-                />
+                {
+                  user.profileImage ? (
+                    <img
+                      src={user.profileImage || '/default-avatar.png'}
+                      alt={user.name[0].toUpperCase()}
+                      className="w-16 h-16 rounded-full mb-2 object-cover"
+                    />
+
+                  ) : (
+                    <div className='w-16 h-16 rounded-full mb-2 object-cover flex justify-center items-center bg-[#383c4a]'>
+                      {user.name[0].toUpperCase()}
+                    </div>
+                  ) 
+                }
                 <h3 className="font-bold dark:text-dark-text">{user.name}</h3>
                 <p className="text-sm text-gray-500 dark:text-dark-text">@{user.username}</p>
               </div>
@@ -110,21 +118,21 @@ export default function SearchPage() {
               className="bg-white dark:bg-slate-700 rounded-lg shadow-md hover:shadow-lg transition cursor-pointer"
             >
               <img
-                src={item.data.thumbnail || '/placeholder.svg'}
-                alt={item.data.title}
+                src={item.thumbnail || '/placeholder.svg'}
+                alt={item.title}
                 className="w-full h-48 object-cover rounded-t-lg"
               />
               <div className="p-4">
-                <h3 className="font-bold mb-2 dark:text-dark-text">{item.data.title}</h3>
+                <h3 className="font-bold mb-2 dark:text-dark-text">{item.title}</h3>
                 <p className="text-sm text-gray-600 dark:text-dark-text line-clamp-2">
-                  {item.data.description}
+                  {item.description}
                 </p>
                 <div className="flex justify-between items-center mt-4">
                   <span className="text-xs bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100 px-2 py-1 rounded">
-                    {item.data.subject}
+                    {item.subject}
                   </span>
                   <span className="text-xs text-gray-500 dark:text-gray-400">
-                    {item.data.institution}
+                    {item.institution}
                   </span>
                 </div>
               </div>

@@ -5,19 +5,28 @@ import { Editor, Frame } from '@craftjs/core'
 import { viewerResolver } from '@/types/resolver'
 
 const componentResolver = {
-  div: ({ children, ...props }: { children: React.ReactNode; [key: string]: any }) => (
-    <div {...props}>{children}</div>
-  ),
+  div: ({
+    children,
+    ...props
+  }: {
+    children: React.ReactNode
+    [key: string]: any
+  }) => <div {...props}>{children}</div>,
   ...viewerResolver,
 }
 
+// Wrap the Frame in a container that fills the available height
 const EditorContent = ({ data }: any) => {
-  return <Frame data={data} />
+  return (
+    <div className="h-full w-full">
+      <Frame data={data} />
+    </div>
+  )
 }
 
 interface ContentRendererProps {
-  id: string;
-  onContentLoaded?: () => void;
+  id: string
+  onContentLoaded?: () => void
 }
 
 export function ContentRenderer({ id, onContentLoaded }: ContentRendererProps) {
@@ -56,13 +65,20 @@ export function ContentRenderer({ id, onContentLoaded }: ContentRendererProps) {
     }
   }, [loading, content, onContentLoaded])
 
-  if (loading) return <div className="p-4 text-gray-500">Loading...</div>
-  if (error) return <div className="p-4 text-red-500">Error: {error}</div>
-  if (!content) return <div className="p-4 text-gray-500">No content available</div>
+  if (loading)
+    return <div className="p-4 text-gray-500 h-full">Loading...</div>
+  if (error)
+    return <div className="p-4 text-red-500 h-full">Error: {error}</div>
+  if (!content)
+    return <div className="p-4 text-gray-500 h-full">No content available</div>
 
   return (
-    <div id="content">
-      <Editor enabled={false} resolver={componentResolver} onRender={({ render }) => render}>
+    <div id="content" className="h-full w-full">
+      <Editor
+        enabled={false}
+        resolver={componentResolver}
+        onRender={({ render }) => render}
+      >
         <EditorContent data={content} />
       </Editor>
     </div>
