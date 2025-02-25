@@ -4,7 +4,6 @@ import { getServerSession } from 'next-auth';
 import History from "@/models/History";
 import connectDB from '@/lib/mongodb';
 import { NextResponse } from 'next/server';
-import SerializedData from '@/models/SerializedData';
 
 export async function POST(request) {
     const session = await getServerSession(authOptions);
@@ -74,7 +73,7 @@ export async function GET() {
     const histories = await History.find({ user_id: session?.user?.id })
         .sort({ viewed_at: -1 })
         .limit(10)
-        .populate("content_id", "name")
+        .populate("content_id", "title")
         .exec();
     return NextResponse.json(histories, {status: 200});
   } catch (error) {

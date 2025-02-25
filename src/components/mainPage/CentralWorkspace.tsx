@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react"
 import { Search } from "lucide-react"
 import { useRouter } from 'next/navigation'
+import Footer from "@/components/footer"
+
 
 interface Content {
   _id: string;
@@ -11,6 +13,54 @@ interface Content {
   institution: string;
   description?: string;
   progress?: number;
+}
+
+const LoadingSkeleton = () => {
+  return (
+    <div className="p-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {Array.from({ length: 8 }).map((_, index) => (
+          <div
+            key={index}
+            className="cursor-pointer group dark:hover:bg-[#3337446c] hover:bg-zinc-200 rounded-md py-2 px-4"
+          >
+            <div className="relative aspect-video rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-700">
+              <div className="absolute inset-0 shimmer" />
+            </div>
+            <div className="mt-3 space-y-2">
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 shimmer" />
+              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full shimmer" />
+              <div className="flex justify-between">
+                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/3 shimmer" />
+                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/4 shimmer" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* Shimmer animation styles */}
+      <style jsx global>{`
+        @keyframes shimmer {
+          0% {
+            background-position: -200% 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
+        }
+        .shimmer {
+          background: linear-gradient(
+            90deg,
+            rgba(225, 225, 225, 0) 0%,
+            rgba(225, 225, 225, 0.8) 50%,
+            rgba(225, 225, 225, 0) 100%
+          );
+          background-size: 200% 100%;
+          animation: shimmer 1.5s infinite;
+        }
+      `}</style>
+    </div>
+  )
 }
 
 const CentralWorkspace = () => {
@@ -59,7 +109,7 @@ const CentralWorkspace = () => {
   }
 
   if (isLoading) {
-    return <div className="p-8 text-center">Loading recommendations...</div>
+    return <LoadingSkeleton/>
   }
 
   if (error) {
@@ -135,6 +185,7 @@ const CentralWorkspace = () => {
           ))}
         </div>
       </div>
+      <Footer/>
     </div>
   )
 }

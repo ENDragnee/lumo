@@ -1,10 +1,12 @@
 "use client"
-import { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight, Star, Sparkles } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { formatDistanceToNow } from "date-fns";
 import mongoose, { ObjectId } from "mongoose"
+import { useSession, signOut } from 'next-auth/react';
+import { cn } from '@/lib/utils';
 
 interface LeftSidebarProps {
   isCollapsed: boolean
@@ -14,7 +16,7 @@ interface HistoryItem {
   _id: string;
   content_id: {
     _id: ObjectId;
-    name: string;
+    title: string;
     tags: [String];
   };
   starred_status: Boolean;
@@ -25,6 +27,11 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
   const [activeWorkspace, setActiveWorkspace] = useState("My Notes")
   const [recentHistories, setRecentHistories] = useState<HistoryItem[]>([]);
   const [stars, setStars] = useState<HistoryItem[]>([]);
+  const { data: session } = useSession();
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+  const avatarRef = useRef<HTMLDivElement>(null);
 
   const handleStarToggle = async (contentId: ObjectId) => {
     try {
@@ -53,6 +60,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
       console.error("Failed to fetch recent histories:", error);
     }
   };
+
   const fetchStarred = async () => {
     try {
       const response = await fetch("/api/history/star");
@@ -69,6 +77,31 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
     fetchRecentHistories();
     fetchStarred();
   }, []);
+
+  // Close user menu when clicking outside the avatar or the menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node) &&
+        avatarRef.current &&
+        !avatarRef.current.contains(event.target as Node)
+      ) {
+        setIsUserMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleSettings = () => {
+    // Redirect to the settings page
+    window.location.href = "/settings";
+  };
+
   const workspaces = [
     { name: "Exam Prep", icon: Star },
   ]
@@ -80,6 +113,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
 
   return (
     <motion.div
+      ref={sidebarRef}
       className="h-full border-r-2 rounded-lg bg-zinc-200 dark:bg-[#383c4a] border-gray-200 dark:border-[#383c3a]"
       initial={{ width: isCollapsed ? 80 : 250 }}
       animate={{ width: isCollapsed ? 80 : 250 }}
@@ -89,8 +123,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
         <div className="flex justify-between items-center mb-6">
           <h2 className={`text-2xl font-bold dark:text-[#5294e2] ${isCollapsed ? "hidden" : "block"}`}>Lumo</h2>
           <div className="flex items-center gap-2">
-            {!isCollapsed && <ThemeToggle />}
-            <button onClick={() => setIsCollapsed(!isCollapsed)} className="text-dark-text">
+            <button onClick={() => setIsCollapsed(!isCollapsed)} className="text-gray-600 dark:text-[#5294e2]">
               {isCollapsed ? <ChevronRight size={24} /> : <ChevronLeft size={24} />}
             </button>
           </div>
@@ -107,7 +140,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
                 className={`flex items-center w-full p-2 rounded-md ${
                   activeWorkspace === workspace.name
                     ? "bg-[#383c4a] text-white"
-                    : "hover:bg-slate-200 dark:hover:bg-[#33475f] dark:text-[#5294e2] text-sm"
+                    : "hover:bg-zinc-300 dark:hover:bg-[#33475f] dark:text-[#5294e2] text-sm"
                 }`}
                 onClick={() => setActiveWorkspace(workspace.name)}
               >
@@ -127,7 +160,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
                   <a
                     key={history._id}
                     href={`/content?id=${history.content_id?._id}`}
-                    className="flex items-center mb-2 dark:text-dark-text hover:bg-dark-secondary rounded-md p-1"
+                    className="flex items-center mb-2 dark:text-[#5294e2] dark:hover:bg-[#33475f] hover:bg-zinc-300 rounded-md p-2"
                   >
                     <button
                       onClick={(e) => {
@@ -137,17 +170,19 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
                       className="mr-2 hover:scale-110 transition-transform"
                     >
                       <Star
-                        className="w-5 h-5"
+                        className="w-6 h-5"
                         fill={history.starred_status ? "currentColor" : "none"}
                         strokeWidth={1.5}
                       />
                     </button>
-                    <span>{history.content_id?.name}</span>
-                    <span className="ml-auto text-xs text-gray-500 dark:text-dark-text">
-                      {formatDistanceToNow(new Date(history.viewed_at), {
-                        addSuffix: true,
-                      })}
-                    </span>
+                    <div className="flex flex-col items-center justify-center">
+                      <span className="ml-auto pl-2 text-sm text-gray-700 dark:text-[#8678e5]">{history.content_id?.title}</span>
+                      <span className="ml-auto text-xs text-gray-500 dark:text-[#81a9d9]">
+                        {formatDistanceToNow(new Date(history.viewed_at), {
+                          addSuffix: true,
+                        })}
+                      </span>
+                    </div>
                   </a>
                 ))}
               </div>
@@ -155,9 +190,9 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
               <div>
                 <h3 className="text-base font-semibold mb-2 dark:text-[#7c818c]">Favorites</h3>
                 {stars.map((item) => (
-                  <div key={item.content_id?.name} className="flex items-center mb-2 dark:text-dark-text">
+                  <div key={item.content_id?.title} className="flex items-center mb-2 dark:text-dark-text">
                     <Star className="w-5 h-5 mr-2 text-dark-highlight" />
-                    <span>{item.content_id.name}</span>
+                    <span>{item.content_id.title}</span>
                   </div>
                 ))}
               </div>
@@ -165,15 +200,47 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
           )}
         </div>
 
-        <div className="mt-auto">
-          <div className={`flex items-center p-2 bg-dark-secondary rounded-md ${isCollapsed ? "hidden" : "block"}`}>
-            <Sparkles className="w-5 h-5 mr-2 text-dark-highlight" />
-            <input
-              type="text"
-              placeholder="Find resources about..."
-              className="w-full bg-transparent border-none focus:outline-none text-sm dark:text-dark-text dark:placeholder-dark-text"
-            />
+        <div className="mt-auto flex flex-col items-center justify-center">
+          <div className={`flex flex-col items-center bg-dark-secondary rounded-md ${isCollapsed ? "visible" : "flex"}`}>
+            <ThemeToggle/>
           </div>
+          {/* User Profile Avatar */}
+          {session && (
+            <div className="mt-4 relative">
+              <div
+                ref={avatarRef}
+                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                className="w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center cursor-pointer overflow-hidden"
+              >
+                {session.user?.image ? (
+                  <img src={session.user.image} alt="Profile" className="w-10 h-10 object-cover" />
+                ) : (
+                  <span className="text-white font-bold">
+                    {session.user?.name ? session.user.name.charAt(0).toUpperCase() : "U"}
+                  </span>
+                )}
+              </div>
+              {isUserMenuOpen && (
+                <div
+                  ref={userMenuRef}
+                  className="absolute bottom-12 left-8 text-center bg-white gap-2 dark:bg-[#383c4a] rounded-lg shadow-lg py-2 w-32 z-10"
+                >
+                  <button
+                    onClick={handleSettings}
+                    className="w-full px-4 rounded-xl py-2 hover:bg-gray-100 dark:hover:bg-[#7c818c] text-center"
+                  >
+                    Settings
+                  </button>
+                  <button
+                    onClick={() => signOut()}
+                    className="w-full text-center px-4 py-2 rounded-xl hover:bg-gray-100 dark:hover:bg-[#7c818c]"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
@@ -181,4 +248,3 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
 }
 
 export default LeftSidebar
-
