@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
-import { ChevronLeft, ChevronRight, Star, Sparkles } from "lucide-react"
+import { ChevronLeft, ChevronRight, Star, Sparkles, GraduationCap } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { formatDistanceToNow } from "date-fns";
 import mongoose, { ObjectId } from "mongoose"
@@ -126,7 +126,6 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
             <button onClick={() => setIsCollapsed(!isCollapsed)} className="text-gray-600 dark:text-[#5294e2]">
               {isCollapsed ? <ChevronRight size={24} /> : <ChevronLeft size={24} />}
             </button>
-          </div>
         </div>
 
         <div className="space-y-6">
@@ -144,7 +143,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
                 }`}
                 onClick={() => setActiveWorkspace(workspace.name)}
               >
-                <workspace.icon className="w-5 h-5 mr-2" />
+                {workspace.icon && <workspace.icon className="w-5 h-5 mr-2" />}
                 <span className={isCollapsed ? "hidden" : "block"}>{workspace.name}</span>
               </button>
             ))}
