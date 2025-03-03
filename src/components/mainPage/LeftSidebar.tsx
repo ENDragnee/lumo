@@ -126,6 +126,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
             <button onClick={() => setIsCollapsed(!isCollapsed)} className="text-gray-600 dark:text-[#5294e2]">
               {isCollapsed ? <ChevronRight size={24} /> : <ChevronLeft size={24} />}
             </button>
+            </div>
         </div>
 
         <div className="space-y-6">

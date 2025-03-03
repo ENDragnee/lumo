@@ -14,6 +14,7 @@ import { SidebarProvider } from "@/app/hooks/SidebarContext";
 import { SessionProvider } from "next-auth/react";
 import AIButton from "@/components/ai-feature";
 import TabManager from "@/components/Tab";
+import NewLeftSidebar from "./components/sideBar"; // Import your new sidebar component
 
 const useScrollDirection = () => {
   const [scrollDirection, setScrollDirection] = useState("up");
@@ -106,7 +107,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           >
             <SidebarProvider>
               {shouldRenderSidebar && (
-                <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+                // <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+                <NewLeftSidebar isOpen={isSidebarOpen}/>
               )}
             </SidebarProvider>
 
