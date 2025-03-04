@@ -9,15 +9,15 @@ body {
 @layer base {
   :root {
     --background: #ffffff;
-    --foreground: rgb(64,69,82);
+    --foreground: rgb(39, 42, 49);
 
     --card: #ffffff;
     --card-foreground: rgb(64,69,82);
 
     --popover: #ffffff;
-    --popover-foreground: rgb(64,69,82);
+    --popover-foreground: rgb(38, 40, 46);
 
-    --primary: rgb(64,69,82);
+    --primary: rgb(33, 36, 43);
     --primary-foreground: #ffffff;
 
     --secondary: rgb(241,245,249);
