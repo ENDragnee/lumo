@@ -128,60 +128,58 @@ const CentralWorkspace = () => {
   }
 
   return (
-    <div className="flex-1 p-4 md:p-8 overflow-y-auto">
-      <div className="mb-8">
-        <form
-          onSubmit={handleSearchSubmit}
-          className="relative w-full md:w-2/3 mx-auto"
-        >
-          <div className="flex items-center gap-2 rounded-full bg-gray-200/80 dark:bg-gray-700/80 px-4 py-2">
-            {/* <Menu className="h-5 w-5 text-gray-500" /> */}
-            <input
-              type="search"
-              placeholder="Hinted search text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 bg-transparent text-sm outline-none placeholder:text-gray-500 dark:text-white/80"
-            />
-            <Search className="h-5 w-5 text-gray-500" />
-          </div>
-          <button type="submit" className="hidden">
-            Search
-          </button>
-        </form>
-      </div>
-
-      <div className="flex flex-grow items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="mb-8"
-        >
-          <ScrollArea className="w-full">
-            <div className="flex gap-2 pb-4">
-              {filters.map((filter, index) => (
-                <motion.div
-                  key={filter}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index, duration: 0.3 }}
-                >
-                  <Badge
-                    isSelected={selectedFilter === filter}
-                    onClick={() => handleFilterClick(filter)}
-                    className="rounded-full px-4 py-1 text-sm dark:border-[#383c4a9f] bg-transparent dark:text-white dark:hover:bg-transparent dark:hover:border-[#585f789f] font-normal cursor-pointer transition-colors"
-                  >
-                    {filter}
-                  </Badge>
-                </motion.div>
-              ))}
+    <div className="flex-1 p-4 md:p-4 overflow-y-auto">
+      <div className='px-4 py-7 rounded-xl bg-zinc-100 dark:bg-[#16181c] mb-2 md:mb-4'>
+          <form
+            onSubmit={handleSearchSubmit}
+            className="relative w-full md:w-2/3 mx-auto"
+          >
+            <div className="flex items-center gap-2 rounded-full bg-white dark:bg-gray-700/80 px-4 py-2">
+              {/* <Menu className="h-5 w-5 text-gray-500" /> */}
+              <input
+                type="search"
+                placeholder="Hinted search text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="flex-1 bg-transparent text-sm outline-none placeholder:text-gray-500 dark:text-white/80"
+              />
+              <Search className="h-5 w-5 text-gray-500" />
             </div>
-          </ScrollArea>
-        </motion.div>
+            <button type="submit" className="hidden">
+              Search
+            </button>
+          </form>
       </div>
 
-      <div className="w-full h-full px-4 py-8 rounded-xl">
+      <div className="w-full min-h-full px-4 py-8 rounded-xl bg-zinc-100 dark:bg-[#16181c]">
+        <div className="flex flex-grow items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
+            <ScrollArea className="w-full">
+              <div className="flex gap-2 pb-4">
+                {filters.map((filter, index) => (
+                  <motion.div
+                    key={filter}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * index, duration: 0.3 }}
+                  >
+                    <Badge
+                      isSelected={selectedFilter === filter}
+                      onClick={() => handleFilterClick(filter)}
+                      className=''
+                    >
+                      {filter}
+                    </Badge>
+                  </motion.div>
+                ))}
+              </div>
+            </ScrollArea>
+          </motion.div>
+        </div>
         {/* YouTube-like grid layout */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -242,7 +240,9 @@ const CentralWorkspace = () => {
           ))}
         </motion.div>
       </div>
-      <Footer />
+      <div className='px-4 py-7 rounded-xl bg-zinc-100 dark:bg-[#16181c] mt-2 md:mt-4'>
+        <Footer />
+      </div>
     </div>
   );
 };

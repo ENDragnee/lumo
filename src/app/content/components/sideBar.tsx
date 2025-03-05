@@ -1,11 +1,11 @@
-"use client";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { Home, Clock, Bookmark, History, Library } from "lucide-react";
+'use client';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { Home, Clock, Bookmark, History, Library } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { useEffect, useRef, useState } from "react";
-import { useTheme } from "next-themes";
+import { useEffect, useRef, useState } from 'react';
+import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 
 export default function NewLeftSidebar({ isOpen }: { isOpen: boolean }) {
@@ -14,26 +14,57 @@ export default function NewLeftSidebar({ isOpen }: { isOpen: boolean }) {
   const { data: session } = useSession();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const navigation = [
-    { name: "Home", href: "/main", icon: Home, current: pathname === "/" },
-    { name: "History", href: "/history", icon: History, current: pathname === "/history" },
-    { name: "Library", href: "/library", icon: Library, current: pathname === "/library" },
-    { name: "Bookmarks", href: "/bookmarks", icon: Bookmark, current: pathname === "/bookmarks" },
-    { name: "Recent", href: "/recent", icon: Clock, current: pathname === "/recent" },
+    { name: 'Home', href: '/main', icon: Home, current: pathname === '/' },
+    {
+      name: 'History',
+      href: '/history',
+      icon: History,
+      current: pathname === '/history',
+    },
+    {
+      name: 'Library',
+      href: '/library',
+      icon: Library,
+      current: pathname === '/library',
+    },
+    {
+      name: 'Bookmarks',
+      href: '/bookmarks',
+      icon: Bookmark,
+      current: pathname === '/bookmarks',
+    },
+    {
+      name: 'Recent',
+      href: '/recent',
+      icon: Clock,
+      current: pathname === '/recent',
+    },
   ];
 
   // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node)
+      ) {
         setIsUserMenuOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
 
   return (
     <div className="w-64 fixed left-0 top-0 h-full bg-white dark:bg-[#2b2d36] border-r border-gray-200 dark:border-gray-700 overflow-y-auto">
@@ -43,6 +74,22 @@ export default function NewLeftSidebar({ isOpen }: { isOpen: boolean }) {
           <h1 className="text-xl font-bold dark:text-white">Lumo</h1>
         </div>
 
+        {/* Search Bar */}
+        <form
+          onSubmit={handleSearchSubmit}
+          className="p-4 border-b dark:border-gray-700 bg-white dark:bg-[#2b2d36]"
+        >
+          <div className="max-w-4xl mx-auto w-full">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search content..."
+              className="w-full px-4 py-2 rounded-full border focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            />
+          </div>
+        </form>
+
         {/* Navigation Links */}
         <nav className="space-y-2">
           {navigation.map((item) => (
@@ -51,8 +98,8 @@ export default function NewLeftSidebar({ isOpen }: { isOpen: boolean }) {
               href={item.href}
               className={`flex items-center p-3 rounded-lg transition-colors ${
                 item.current
-                  ? "bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300"
-                  : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
+                  ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300'
+                  : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
               }`}
             >
               <item.icon className="h-5 w-5 mr-3" />
@@ -69,19 +116,24 @@ export default function NewLeftSidebar({ isOpen }: { isOpen: boolean }) {
           <h3 className="px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
             Categories
           </h3>
-          {['Technology', 'Science', 'History', 'Mathematics'].map((category) => (
-            <button
-              key={category}
-              className="w-full flex items-center p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-            >
-              <span className="text-sm font-medium">{category}</span>
-            </button>
-          ))}
+          {['Technology', 'Science', 'History', 'Mathematics'].map(
+            (category) => (
+              <button
+                key={category}
+                className="w-full flex items-center p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              >
+                <span className="text-sm font-medium">{category}</span>
+              </button>
+            ),
+          )}
         </div>
       </div>
 
       {/* User Menu & Theme Toggle */}
       <div className="mt-auto p-4 border-t dark:border-gray-700">
+        <div className="flex items-center justify-center mt-4">
+          <ThemeToggle />
+        </div>
         {session?.user && (
           <div className="relative" ref={userMenuRef}>
             <div className="flex items-center justify-between">
@@ -128,9 +180,6 @@ export default function NewLeftSidebar({ isOpen }: { isOpen: boolean }) {
             )}
           </div>
         )}
-        <div className="flex items-center justify-between mt-4">
-            <ThemeToggle />
-          </div>
       </div>
     </div>
   );

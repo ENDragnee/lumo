@@ -95,7 +95,7 @@ export default function RecommendedContent() {
               <Link
                 key={item._id}
                 href={`/content?id=${item._id}`}
-                className="group block hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg p-2 transition-colors"
+                className="group block border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg p-2 transition-colors"
               >
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-2">
                   <img

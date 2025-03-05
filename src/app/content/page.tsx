@@ -62,35 +62,11 @@ function ContentRendererWrapper() {
 }
 
 export default function ContentPage() {
-  const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
-    }
-  };
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="flex flex-col h-screen">
-        {/* Search Bar */}
-        <form 
-          onSubmit={handleSearchSubmit} 
-          className="p-4 border-b dark:border-gray-700 bg-white dark:bg-[#2b2d36]"
-        >
-          <div className="max-w-4xl mx-auto w-full">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search content..."
-              className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
-            />
-          </div>
-        </form>
-
         {/* Main Content Area */}
         <div className="flex flex-1 min-h-0"> {/* Add min-h-0 for proper flex child sizing */}
           {/* Main Content */}

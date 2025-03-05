@@ -9,7 +9,7 @@ import "./globals.css";
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-white dark:bg-[#16181c] text-black dark:text-white">
+      <body className="min-h-screen bg-white dark:bg-[#383c4a] text-black dark:text-white">
         <SessionProvider>
           <ThemeProvider attribute="class" enableSystem defaultTheme="light">
             <Toaster position="top-center" expand={false} richColors className="mt-10" />
