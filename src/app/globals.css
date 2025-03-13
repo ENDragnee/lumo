@@ -177,6 +177,9 @@ input[type="number"] {
   background: #6e7686;
 }
 
+/* Existing styles... */
+
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .sidebar-collapsed {
@@ -195,6 +198,21 @@ input[type="number"] {
 
   .main-content {
     margin-left: 0;
+  }
+
+  #content img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  #content video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  #content table {
+    width: 100%;
+    table-layout: auto;
   }
 }
 

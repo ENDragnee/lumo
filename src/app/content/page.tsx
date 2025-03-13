@@ -3,7 +3,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { ContentRenderer } from "@/components/contentRender";
 import { restoreHighlights } from "@/utils/restoreHighlight";
-import RecommendedContent from "./components/RecommendedContent";
+import { cn } from "@/lib/utils";
 
 function ContentRendererWrapper() {
   const [isContentLoaded, setIsContentLoaded] = useState(false);
@@ -13,17 +13,17 @@ function ContentRendererWrapper() {
   useEffect(() => {
     const updateHistory = async () => {
       if (!id) return;
-      
+
       try {
         const response = await fetch(`/api/history?id=${id}`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         });
 
         if (!response.ok) {
-          throw new Error('Failed to update history');
+          throw new Error("Failed to update history");
         }
       } catch (error) {
         console.error("Error updating history:", error);
@@ -61,24 +61,24 @@ function ContentRendererWrapper() {
   );
 }
 
-export default function ContentPage() {
+export default function ContentPage({ isSidebarOpen }: { isSidebarOpen: boolean }) {
   const router = useRouter();
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="flex flex-col h-screen">
         {/* Main Content Area */}
-        <div className="flex flex-1 min-h-0"> {/* Add min-h-0 for proper flex child sizing */}
+        <div
+          className={cn(
+            "flex flex-1 min-h-0 transition-all duration-300",
+            isSidebarOpen ? "md:ml-64" : "ml-0" // Changed to md:ml-64
+          )}
+        >
           {/* Main Content */}
-          <div className="flex-1 overflow-y-auto px-6 py-6 w-full">
-            <div className="mx-auto max-w-4xl w-full"> {/* Wrap content in width-constrained div */}
+          <div className="flex-1 overflow-y-auto px-6 py-6">
+            <div className="mx-auto max-w-4xl w-full">
               <ContentRendererWrapper />
             </div>
-          </div>
-
-          {/* Right Sidebar */}
-          <div className="w-80 border-l dark:border-gray-700 overflow-y-auto bg-white dark:bg-[#2b2d36]">
-            <RecommendedContent />
           </div>
         </div>
       </div>

@@ -73,7 +73,7 @@ export function ContentRenderer({ id, onContentLoaded }: ContentRendererProps) {
     return <div className="p-4 text-gray-500 h-full">No content available</div>
 
   return (
-    <div id="content" className="h-full w-full">
+    <div id="content" className="h-full w-fit">
       <Editor
         enabled={false}
         resolver={componentResolver}
