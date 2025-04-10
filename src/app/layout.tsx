@@ -1,10 +1,8 @@
-"use client"
 // /src/app/layout.tsx
 import "./globals.css";
 import Providers from "@/components/Providers";
 import { ReactNode } from "react";
-
-metadata: { }
+export { metadata } from "@/components/Metadata";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
