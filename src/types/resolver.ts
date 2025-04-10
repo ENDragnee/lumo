@@ -6,12 +6,14 @@ import 'katex/dist/katex.min.css';
 import { ViewerCanvas } from '@/components/canvas';
 import { VideoComponentViewer } from "@/components/widgets/video"
 import { ImageComponentViewer } from "@/components/widgets/image"
+import { SimulationViewerComponent } from "@/components/widgets/Simulation"
 
 export const viewerResolver = {
     renderCanvas: ViewerCanvas,
     Text: TextViewerComponent,
     // SliderComponent: CraftSliderWidget,
     // QuizComponent: CraftQuizWidget,
+    Simulation: SimulationViewerComponent,
     Video: VideoComponentViewer,
     Image: ImageComponentViewer,
     BlockMath,
