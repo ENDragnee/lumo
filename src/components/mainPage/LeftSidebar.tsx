@@ -2,11 +2,12 @@
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
-import { ChevronLeft, ChevronRight, Star, CornerDownRight, CheckCheck, Layers, Crown } from "lucide-react"
+import { Home, ChevronLeft, ChevronRight, Star, CornerDownRight, CheckCheck, Layers, Crown } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { formatDistanceToNow } from "date-fns"
 import type { ObjectId } from "mongoose"
 import { useSession, signOut } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
 interface LeftSidebarProps {
   isCollapsed: boolean
@@ -27,11 +28,13 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
   const [activeWorkspace, setActiveWorkspace] = useState("My Notes")
   const [recentHistories, setRecentHistories] = useState<HistoryItem[]>([])
   const [stars, setStars] = useState<HistoryItem[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const { data: session } = useSession()
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const sidebarRef = useRef<HTMLDivElement>(null)
   const userMenuRef = useRef<HTMLDivElement>(null)
   const avatarRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   const handleStarToggle = async (contentId: ObjectId) => {
     try {
@@ -74,8 +77,12 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
   }
 
   useEffect(() => {
-    fetchRecentHistories()
-    fetchStarred()
+    // Wait for both fetches to complete
+    const fetchData = async () => {
+      await Promise.all([fetchRecentHistories(), fetchStarred()])
+      setIsLoading(false)
+    }
+    fetchData()
   }, [])
 
   // Close user menu when clicking outside the avatar or the menu
@@ -104,11 +111,6 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
 
   const workspaces = [{ name: "Exam Prep", icon: Star }]
 
-  const favoriteItems = [
-    { name: "Math Quiz", tag: "urgent" },
-    { name: "Biology Notes", tag: "completed" },
-  ]
-
   // Handler to expand sidebar when section icons are clicked in collapsed state
   const handleSectionIconClick = () => {
     if (isCollapsed) {
@@ -116,10 +118,36 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
     }
   }
 
+  // Render skeleton loading while data is being fetched
+  if (isLoading) {
+    return (
+      <motion.div
+        ref={sidebarRef}
+        className="flex flex-col p-4 border-r-2 h-full rounded-lg bg-zinc-200 dark:bg-[#16181c] border-gray-200 dark:border-[#383c3a]"
+        initial={{ width: isCollapsed ? 80 : 250 }}
+        animate={{ width: isCollapsed ? 80 : 250 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        <div className="animate-pulse flex flex-col space-y-4">
+          <div className={`h-8 w-28 bg-gray-300 dark:bg-gray-700 rounded ${isCollapsed ? "hidden" : "block"}`}></div>
+          <div className={`h-8 w-28 bg-gray-300 dark:bg-gray-700 rounded ${isCollapsed ? "hidden" : "block"}`}></div>
+          <div className={`h-8 w-28 bg-gray-300 dark:bg-gray-700 rounded ${isCollapsed ? "hidden" : "block"}`}></div>
+          <div className="h-6 w-full bg-gray-300 dark:bg-gray-700 rounded"></div>
+          <div className="h-6 w-full bg-gray-300 dark:bg-gray-700 rounded"></div>
+          <div className="h-6 w-3/4 bg-gray-300 dark:bg-gray-700 rounded"></div>
+          <div className="h-6 w-2/3 bg-gray-300 dark:bg-gray-700 rounded"></div>
+          <div className="flex justify-center mt-auto">
+            <div className="h-10 w-10 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+          </div>
+        </div>
+      </motion.div>
+    )
+  }
+
   return (
     <motion.div
       ref={sidebarRef}
-      className="h-full border-r-2 rounded-lg bg-zinc-200 dark:bg-[#16181c] border-gray-200 dark:border-[#383c3a]"
+      className="flex scrollbar-none flex-col overflow-y-auto max-h-screen border-r-2 rounded-lg bg-zinc-200 dark:bg-[#16181c] border-gray-200 dark:border-[#383c3a]"
       initial={{ width: isCollapsed ? 80 : 250 }}
       animate={{ width: isCollapsed ? 80 : 250 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -137,6 +165,17 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
         <div className="space-y-6">
           {/* Workspaces Section */}
           <div>
+            <div className="flex items-center gap-2 hover:bg-gray-300 dark:hover:bg-[#33475f] rounded-md p-2 hover:scale-105 transition-transform">
+              <button onClick={() => router.push('/main')} className="flex items-center gap-2">
+                <Home className="w-5 h-5 dark:text-[#5294e2] cursor-pointer" onClick={handleSectionIconClick} />
+                <h3 className={`text-base font-semibold dark:text-[#7c818c] ${isCollapsed ? "hidden" : "block"}`}>
+                  Home
+                </h3>
+              </button>
+            </div>
+          </div>
+          {/* Workspaces Section */}
+          <div>
             <div className="flex items-center gap-2">
               <Layers className="w-5 h-5 dark:text-[#5294e2] cursor-pointer" onClick={handleSectionIconClick} />
               <h3 className={`text-base font-semibold dark:text-[#7c818c] ${isCollapsed ? "hidden" : "block"}`}>
@@ -152,7 +191,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
                   className={`flex items-center w-full p-2 rounded-md ${
                     activeWorkspace === workspace.name
                       ? "bg-[#383c4a] text-white"
-                      : "hover:bg-zinc-300 dark:hover:bg-[#33475f] dark:text-[#5294e2] text-sm"
+                      : "hover:bg-zinc-300 dark:hover:bg-[#33475f] dark:text-[#5294e2] text-sm hover:scale-105 transition-transform"
                   }`}
                   onClick={() => setActiveWorkspace(workspace.name)}
                 >
@@ -175,7 +214,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
                 <a
                   key={history._id}
                   href={`/content?id=${history.content_id?._id}`}
-                  className="flex items-center mb-2 dark:text-[#5294e2] dark:hover:bg-[#33475f] hover:bg-zinc-300 rounded-md p-2"
+                  className="flex items-center mb-2 dark:text-[#5294e2] dark:hover:bg-[#33475f] hover:bg-zinc-300 rounded-md p-2 hover:scale-105 transition-transform"
                 >
                   <button
                     onClick={(e) => {
@@ -220,13 +259,13 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
 
         <div className="mt-auto flex flex-col items-center justify-center">
           <div
-            className={`flex flex-col items-center bg-dark-secondary rounded-md ${isCollapsed ? "visible" : "flex"}`}
+            className={`flex flex-col items-center bg-dark-secondary rounded-md ${isCollapsed ? "visible" : "flex"} hover:scale-105 transition-transform`}
           >
             <ThemeToggle />
           </div>
           {/* User Profile Avatar */}
           {session && (
-            <div className="mt-4 relative">
+            <div className="mt-4 relative hover:scale-110 transition-transform">
               <div
                 ref={avatarRef}
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
@@ -272,4 +311,3 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
 }
 
 export default LeftSidebar
-

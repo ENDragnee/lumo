@@ -199,7 +199,7 @@ const CentralWorkspace = () => {
           ))}
         </motion.div>
       </div>
-      <div className="px-4 py-7 rounded-xl bg-zinc-100 dark:bg-[#16181c] mt-2 md:mt-4">
+      <div className="bottom-0 px-4 py-7 rounded-xl bg-zinc-100 dark:bg-[#16181c] mt-10 md:mt-12">
         <Footer />
       </div>
     </div>
