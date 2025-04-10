@@ -5,7 +5,6 @@ import { type ReactNode, useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 import { Clock } from "@/components/ui/clock"
 import { Toaster, toast } from "sonner"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { ScrollProgressBar } from "@/components/scroll-progress-bar"
 import ContextMenu2 from "@/components/context-menu"
 import { ThemeProvider } from "next-themes"
@@ -15,7 +14,8 @@ import { SessionProvider } from "next-auth/react"
 import AIButton from "@/components/ai-feature"
 import TabManager from "@/components/Tab"
 import NewLeftSidebar from "./components/sideBar"
-import { Menu, X } from "lucide-react"
+import RecommendedContent from "./components/RecommendedContent"
+import { Menu, X, BookOpen } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const useScrollDirection = () => {
@@ -43,6 +43,7 @@ const useScrollDirection = () => {
 export default function RootLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const [isRecommendationOpen, setIsRecommendationOpen] = useState(true)
   const [isAIOpen, setIsAIOpen] = useState(false)
   const [menuPosition, setMenuPosition] = useState<{ x: number; y: number } | null>(null)
 
@@ -52,10 +53,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     setIsSidebarOpen((prev) => !prev)
   }
 
+  const toggleRecommendation = () => {
+    setIsRecommendationOpen((prev) => !prev)
+  }
+
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)')
     const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
       setIsSidebarOpen(!e.matches) // Closed on mobile, open on desktop
+      setIsRecommendationOpen(!e.matches) // Also close recommendation sidebar on mobile
     }
     handleChange(mediaQuery)
     mediaQuery.addEventListener('change', handleChange)
@@ -102,7 +108,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
             <SidebarProvider>
               {shouldRenderSidebar && (
-                <NewLeftSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+                <div>
+                  <NewLeftSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+                  <RecommendedContent isOpen={isRecommendationOpen} toggleOpen={toggleRecommendation} />
+                </div>
               )}
             </SidebarProvider>
 
@@ -123,12 +132,29 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               />
             </header>
 
-            <main className={cn(
-              "flex-1",
-              shouldRenderSidebar && isSidebarOpen && "ml-64",
-              shouldRenderSidebar && !isSidebarOpen && "md:ml-16"
-            )}>
-              <div id="content" className="flex-1">
+            {shouldRenderSidebar && (
+              <button 
+                onClick={toggleRecommendation} 
+                className="fixed top-4 right-20 z-40 p-2 rounded-full bg-white dark:bg-gray-800 shadow-md"
+                style={{
+                  opacity: scrollDirection === "down" ? 0 : 1,
+                  visibility: scrollDirection === "down" ? "hidden" : "visible",
+                  transition: "opacity 0.3s ease, visibility 0.3s ease",
+                }}
+              >
+                <BookOpen className="h-5 w-5" />
+              </button>
+            )}
+
+            <main 
+              className={cn(
+                "flex-1 transition-all duration-300",
+                shouldRenderSidebar && isSidebarOpen && "ml-64",
+                shouldRenderSidebar && !isSidebarOpen && "md:ml-16",
+                shouldRenderSidebar && isRecommendationOpen && "mr-80"
+              )}
+            >
+              <div id="content" className="flex-1 px-4 py-6">
                 {children}
               </div>
             </main>

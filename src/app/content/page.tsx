@@ -61,8 +61,25 @@ function ContentRendererWrapper() {
   );
 }
 
-export default function ContentPage({ isSidebarOpen }: { isSidebarOpen: boolean }) {
+export default function ContentPage() {
   const router = useRouter();
+  // We'll get these values from a context provider in a real implementation
+  // or pass them down as props from the parent component
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isRecommendationOpen, setIsRecommendationOpen] = useState(true);
+
+  // Monitor screen size and adjust sidebar states
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      setIsSidebarOpen(!e.matches);
+      setIsRecommendationOpen(!e.matches);
+    };
+    
+    handleChange(mediaQuery);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -71,12 +88,13 @@ export default function ContentPage({ isSidebarOpen }: { isSidebarOpen: boolean 
         <div
           className={cn(
             "flex flex-1 min-h-0 transition-all duration-300",
-            isSidebarOpen ? "md:ml-64" : "ml-0" // Changed to md:ml-64
+            isSidebarOpen ? "md:ml-64" : "ml-0",
+            isRecommendationOpen ? "md:mr-80" : "mr-0"
           )}
         >
           {/* Main Content */}
           <div className="flex-1 overflow-y-auto px-6 py-6">
-            <div className="mx-auto max-w-4xl w-full">
+            <div className="mx-auto max-w-4xl">
               <ContentRendererWrapper />
             </div>
           </div>

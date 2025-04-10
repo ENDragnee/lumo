@@ -30,106 +30,106 @@ type RecommendedItem = {
   passRate: number;
 };
 
-function SidebarRecommendations() {
-  const { data: session } = useSession();
-  const [recommendations, setRecommendations] = useState<RecommendedItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+// function SidebarRecommendations() {
+//   const { data: session } = useSession();
+//   const [recommendations, setRecommendations] = useState<RecommendedItem[]>([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const fetchRecommendations = async () => {
-      try {
-        const userId = session?.user?.id;
-        const url = new URL('/api/recommendations', window.location.origin);
-        if (userId) url.searchParams.set('userId', userId);
+//   useEffect(() => {
+//     const fetchRecommendations = async () => {
+//       try {
+//         const userId = session?.user?.id;
+//         const url = new URL('/api/recommendations', window.location.origin);
+//         if (userId) url.searchParams.set('userId', userId);
 
-        const response = await fetch(url.toString());
-        if (!response.ok) {
-          throw new Error('Failed to fetch recommendations');
-        }
+//         const response = await fetch(url.toString());
+//         if (!response.ok) {
+//           throw new Error('Failed to fetch recommendations');
+//         }
 
-        const data = await response.json();
-        setRecommendations(data);
-      } catch (err) {
-        setError('Failed to load recommendations. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    };
+//         const data = await response.json();
+//         setRecommendations(data);
+//       } catch (err) {
+//         setError('Failed to load recommendations. Please try again later.');
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
 
-    fetchRecommendations();
-  }, [session?.user?.id]);
+//     fetchRecommendations();
+//   }, [session?.user?.id]);
 
-  const formatViews = (views: number) => {
-    if (views >= 1e6) return `${(views / 1e6).toFixed(1)}M views`;
-    if (views >= 1e3) return `${(views / 1e3).toFixed(1)}K views`;
-    return `${views} views`;
-  };
+//   const formatViews = (views: number) => {
+//     if (views >= 1e6) return `${(views / 1e6).toFixed(1)}M views`;
+//     if (views >= 1e3) return `${(views / 1e3).toFixed(1)}K views`;
+//     return `${views} views`;
+//   };
 
-  const formatPassRate = (rate: number) => {
-    return `${Math.round(rate * 100)}% pass rate`;
-  };
+//   const formatPassRate = (rate: number) => {
+//     return `${Math.round(rate * 100)}% pass rate`;
+//   };
 
-  if (error) return <div className="text-red-500">{error}</div>;
+//   if (error) return <div className="text-red-500">{error}</div>;
 
-  return (
-    <div>
-      <h2 className="text-lg font-semibold mb-4 dark:text-white">
-        Recommended Content
-      </h2>
-      <div className="space-y-4">
-        {loading ? (
-          Array(4).fill(0).map((_, i) => (
-            <div key={i} className="space-y-2">
-              <Skeleton height={100} />
-              <Skeleton count={2} />
-            </div>
-          ))
-        ) : recommendations.length === 0 ? (
-          <div className="text-gray-500 dark:text-gray-400">
-            No recommendations available
-          </div>
-        ) : (
-          recommendations.map((item) => (
-            <Link
-              key={item._id}
-              href={`/content?id=${item._id}`}
-              className="group block border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg p-2 transition-colors"
-            >
-              <div className="relative aspect-video rounded-lg overflow-hidden mb-2">
-                <img
-                  src={item.thumbnail}
-                  alt={item.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="font-medium text-gray-900 dark:text-white line-clamp-2 mb-1">
-                {item.title}
-              </h3>
-              <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-1">
-                <GraduationCap className="h-4 w-4 mr-2" />
-                <span className="line-clamp-1">{item.institution}</span>
-              </div>
-              <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400">
-                <div className="flex items-center">
-                  <Eye className="h-4 w-4 mr-1" />
-                  {formatViews(item.views)}
-                </div>
-                <div className="flex items-center">
-                  <Star className="h-4 w-4 mr-1" />
-                  {formatPassRate(item.passRate)}
-                </div>
-              </div>
-              <div className="mt-1 text-xs text-blue-600 dark:text-blue-400">
-                {item.subject}
-              </div>
-            </Link>
-          ))
-        )}
-      </div>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <h2 className="text-lg font-semibold mb-4 dark:text-white">
+//         Recommended Content
+//       </h2>
+//       <div className="space-y-4">
+//         {loading ? (
+//           Array(4).fill(0).map((_, i) => (
+//             <div key={i} className="space-y-2">
+//               <Skeleton height={100} />
+//               <Skeleton count={2} />
+//             </div>
+//           ))
+//         ) : recommendations.length === 0 ? (
+//           <div className="text-gray-500 dark:text-gray-400">
+//             No recommendations available
+//           </div>
+//         ) : (
+//           recommendations.map((item) => (
+//             <Link
+//               key={item._id}
+//               href={`/content?id=${item._id}`}
+//               className="group block border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg p-2 transition-colors"
+//             >
+//               <div className="relative aspect-video rounded-lg overflow-hidden mb-2">
+//                 <img
+//                   src={item.thumbnail}
+//                   alt={item.title}
+//                   className="w-full h-full object-cover"
+//                 />
+//               </div>
+//               <h3 className="font-medium text-gray-900 dark:text-white line-clamp-2 mb-1">
+//                 {item.title}
+//               </h3>
+//               <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-1">
+//                 <GraduationCap className="h-4 w-4 mr-2" />
+//                 <span className="line-clamp-1">{item.institution}</span>
+//               </div>
+//               <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400">
+//                 <div className="flex items-center">
+//                   <Eye className="h-4 w-4 mr-1" />
+//                   {formatViews(item.views)}
+//                 </div>
+//                 <div className="flex items-center">
+//                   <Star className="h-4 w-4 mr-1" />
+//                   {formatPassRate(item.passRate)}
+//                 </div>
+//               </div>
+//               <div className="mt-1 text-xs text-blue-600 dark:text-blue-400">
+//                 {item.subject}
+//               </div>
+//             </Link>
+//           ))
+//         )}
+//       </div>
+//     </div>
+//   );
+// }
 
 export default function NewLeftSidebar({ isOpen, toggleSidebar }: { isOpen: boolean; toggleSidebar: () => void }) {
   const pathname = usePathname();
@@ -214,14 +214,14 @@ export default function NewLeftSidebar({ isOpen, toggleSidebar }: { isOpen: bool
     ))}
   </nav>
 
-  {/* Recommendations, hidden when collapsed */}
+  {/* Recommendations, hidden when collapsed
   {isOpen && (
     <div className="flex-1 overflow-y-auto">
       <div className="p-4">
         <SidebarRecommendations />
       </div>
     </div>
-  )}
+  )} */}
 
   {/* User section */}
   <div className={cn("border-t dark:border-gray-700", isOpen ? "p-4" : "p-2")}>

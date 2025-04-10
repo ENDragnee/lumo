@@ -2,9 +2,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { Eye, GraduationCap, Star } from "lucide-react";
+import { Eye, GraduationCap, Star, X } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { cn } from "@/lib/utils";
 
 // Extend NextAuth session type to include user ID
 declare module "next-auth" {
@@ -28,7 +29,12 @@ type RecommendedItem = {
   passRate: number;
 };
 
-export default function RecommendedContent() {
+interface RecommendedContentProps {
+  isOpen?: boolean;
+  toggleOpen?: () => void;
+}
+
+export default function RecommendedContent({ isOpen = true, toggleOpen }: RecommendedContentProps) {
   const { data: session } = useSession();
   const [recommendations, setRecommendations] = useState<RecommendedItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -37,7 +43,7 @@ export default function RecommendedContent() {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const userId = session?.user?.id; // Now properly typed
+        const userId = session?.user?.id;
         const url = new URL('/api/recommendations', window.location.origin);
         if (userId) url.searchParams.set('userId', userId);
 
@@ -72,11 +78,21 @@ export default function RecommendedContent() {
   if (error) return <div className="p-4 text-red-500">{error}</div>;
 
   return (
-    <div className="w-80 fixed right-0 top-0 h-full border-l dark:border-gray-700 bg-white dark:bg-[#2b2d36] overflow-y-auto">
+    <div className={cn(
+      "fixed right-0 top-0 h-full border-l dark:border-gray-700 bg-white dark:bg-[#2b2d36] overflow-y-auto transition-all duration-300",
+      isOpen ? "w-80" : "w-0 overflow-hidden"
+    )}>
       <div className="p-4">
-        <h2 className="text-lg font-semibold mb-4 dark:text-white">
-          Recommended Content
-        </h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold dark:text-white">
+            Recommended Content
+          </h2>
+          {toggleOpen && (
+            <button onClick={toggleOpen} className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+              <X className="h-5 w-5" />
+            </button>
+          )}
+        </div>
 
         <div className="space-y-4">
           {loading ? (
