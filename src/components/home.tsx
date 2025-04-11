@@ -447,22 +447,18 @@ export default function LandingPage() {
                                     </div>
                                 </InfoCard>
                             </div>
-
-                            {/* Image Section */}
-                            <motion.div variants={fadeIn} custom={1.5} className="order-1 md:order-2 flex justify-center items-center min-h-[250px] sm:min-h-[300px] md:min-h-[400px]">
-                                {/* --- IMAGE FIX --- */}
-                                {/* 1. Ensure 'ethio.png' (or your image file) is in the 'public' folder */}
-                                {/* 2. Use the correct path starting with '/' */}
-                                {/* 3. Provide width and height for layout stability and optimization */}
-                                <Image
-                                    src="/ethio.png" //  <--- MAKE SURE ethio.png IS IN YOUR /public FOLDER
-                                    alt="Illustration focused on Ethiopian students and technology in a classroom setting"
-                                    width={500} // Specify the intrinsic width of your image
-                                    height={450} // Specify the intrinsic height of your image
-                                    className="w-full max-w-sm sm:max-w-md rounded-lg shadow-lg object-contain" // Use max-w and object-contain for responsiveness
-                                    priority // Add priority if this image is often visible above the fold
-                                />
-                            </motion.div>
+                            <div className="order-1 md:order-2 flex justify-center items-center min-h-[250px] sm:min-h-[300px] md:min-h-[400px] dark:bg-[#1E1E24]">
+                                <motion.div variants={fadeIn} custom={1.5} className="order-1 md:order-2 flex justify-center items-center min-h-[250px] sm:min-h-[300px] md:min-h-[400px]">
+                                    <Image
+                                        src="/ethio.png" //  <--- MAKE SURE ethio.png IS IN YOUR /public FOLDER
+                                        alt="Illustration focused on Ethiopian students and technology in a classroom setting"
+                                        width={500} // Specify the intrinsic width of your image
+                                        height={450} // Specify the intrinsic height of your image
+                                        className="w-full max-w-sm sm:max-w-md rounded-lg shadow-lg object-contain" // Use max-w and object-contain for responsiveness
+                                        priority // Add priority if this image is often visible above the fold
+                                    />
+                                </motion.div>
+                            </div>
                         </div>
                     </ThemedSection>
 

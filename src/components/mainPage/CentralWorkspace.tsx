@@ -131,7 +131,7 @@ const CentralWorkspace = () => {
   const ContentCardFooter = isMobile ? MobileCardFooter : CardFooter;
 
   return (
-    <div className="flex flex-col flex-auto p-4 pb-16 md:p-4 md:pb-4 overflow-y-auto">
+    <div className="flex flex-col flex-auto p-4 pb-16 md:p-4 md:pb-4 overflow-y-auto dark:bg-[#16181c] bg-white">
       <SearchForm />
       <div className="w-full min-h-full px-4 py-8 rounded-lg bg-zinc-100 dark:bg-[#16181c] mb-12 md:mb-24">
         <motion.div
