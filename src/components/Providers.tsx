@@ -1,17 +1,41 @@
 // src/app/providers.tsx
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { ThemeProvider } from "next-themes";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "sonner";
 import LeftSidebar from "@/components/mainPage/LeftSidebar";
 import BottomNavbar from "@/components/mainPage/BottomNavbar";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Providers({ children }: { children: ReactNode }) {
   const [isLeftSidebarCollapsed, setIsLeftSidebarCollapsed] = useState(false);
+  const excludedSidebarPaths = [
+    "/",
+    "/landing",
+    "/signup",
+    "/login",
+    "/auth/signin",
+    "/auth/signup",
+    // Duplicate entries can be removed if unnecessary.
+  ];
+  const pathname = usePathname();
+  const isSidebarVisible = !excludedSidebarPaths.includes(pathname);
 
+  // If the current route is excluded, render just the children
+  if (!isSidebarVisible) {
+    return (
+      <SessionProvider>
+        <ThemeProvider attribute="class" enableSystem defaultTheme="light">
+          <Toaster position="top-center" expand={false} richColors className="mt-10" />
+          {children}
+        </ThemeProvider>
+      </SessionProvider>
+    );
+  }
+
+  // Otherwise, include the layout with the sidebar and bottom navbar.
   return (
     <SessionProvider>
       <ThemeProvider attribute="class" enableSystem defaultTheme="light">
