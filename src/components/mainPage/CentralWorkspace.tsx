@@ -7,9 +7,8 @@ import { motion } from "framer-motion";
 import { ResponsiveCircularProgress } from "@/components/ui/CircularProgress";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { MobileCard, MobileCardContent, MobileCardFooter } from "@/components/ui/mobile-card"; // Import MobileCard components
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Badge } from "@/components/ui/badge";
 import { useMediaQuery } from "react-responsive"; // Import useMediaQuery
+import SearchForm from "@/components/mainPage/SearchForm";
 
 interface Content {
   _id: string;
@@ -132,26 +131,9 @@ const CentralWorkspace = () => {
   const ContentCardFooter = isMobile ? MobileCardFooter : CardFooter;
 
   return (
-    <div className="flex-1 p-4 pb-16 md:p-4 md:pb-4 overflow-y-auto">
-      <div className="px-4 py-7 rounded-xl bg-zinc-100 dark:bg-[#16181c] mb-2 md:mb-4">
-        <form onSubmit={handleSearchSubmit} className="relative w-full md:w-2/3 mx-auto">
-          <div className="flex items-center gap-2 rounded-full bg-white dark:bg-gray-700/80 px-4 py-2">
-            <input
-              type="search"
-              placeholder="Hinted search text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 bg-transparent text-sm outline-none placeholder:text-gray-500 dark:text-white/80"
-            />
-            <Search className="h-5 w-5 text-gray-500" />
-          </div>
-          <button type="submit" className="hidden">
-            Search
-          </button>
-        </form>
-      </div>
-
-      <div className="w-full min-h-full px-4 py-8 rounded-sm bg-zinc-100 dark:bg-[#16181c]">
+    <div className="flex flex-col flex-auto p-4 pb-16 md:p-4 md:pb-4 overflow-y-auto">
+      <SearchForm />
+      <div className="w-full min-h-full px-4 py-8 rounded-lg bg-zinc-100 dark:bg-[#16181c] mb-12 md:mb-24">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -199,9 +181,7 @@ const CentralWorkspace = () => {
           ))}
         </motion.div>
       </div>
-      <div className="bottom-0 px-4 py-7 rounded-xl bg-zinc-100 dark:bg-[#16181c] mt-10 md:mt-12">
         <Footer />
-      </div>
     </div>
   );
 };

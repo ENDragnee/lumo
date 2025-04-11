@@ -5,6 +5,7 @@ export const dynamic = 'force-dynamic'; // This disables static pre-rendering
 import { useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Search } from 'lucide-react'
+import SearchForm  from '@/components/mainPage/SearchForm'
 
 
 interface ContentResult {
@@ -88,24 +89,8 @@ export default function SearchPage() {
   )
 
   return (
-    <div className="max-w-full h-full p-4 mx-4 my-2 md:p-8 bg-gray-50 dark:bg-slate-700 rounded-lg shadow-md">
-      {/* Search Header */}
-      <div className="mb-8">
-        <div className="relative w-full md:w-2/3 mx-auto">
-          <input
-            type="text"
-            placeholder="Search modules, quizzes, creators or books"
-            defaultValue={query}
-            className="w-full p-3 pl-12 rounded-lg border border-border dark:border-gray-400 dark:bg-slate-700 dark:text-dark-text focus:border-dark-highlight focus:ring focus:ring-dark-highlight focus:ring-opacity-50 transition duration-300 ease-in-out"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                router.push(`/search?query=${encodeURIComponent(e.currentTarget.value)}`)
-              }
-            }}
-          />
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-dark-text" />
-        </div>
-      </div>
+    <div className="max-w-full h-full p-4 mx-4 my-2 md:p-8">
+      <SearchForm />
 
       {query.length < 2 ? (
         <div className="text-center py-12 text-gray-500 dark:text-gray-400">
@@ -130,22 +115,22 @@ export default function SearchPage() {
           </section>
         </div>
       ) : (
-        <div className='rounded-lg h-full max-h-full bg-gray-50 dark:bg-slate-700'>
+        <div className='rounded-lg h-full max-h-full'>
           {/* User Results */}
           {userResults.length > 0 && (
-            <section className="mb-8">
+            <section className="mb-8 scrollbar-none">
               <div className="flex justify-between items-center mb-4 bg-gray-100 dark:bg-slate-800 p-2 rounded-3xl">
                 <h2 className="text-xl font-bold mb-4 dark:text-dark-text bg-gray-200 dark:bg-slate-800 p-2 rounded-3xl">Creators</h2>
                 <span className="text-sm text-gray-500 mb-4 dark:text-dark-text bg-gray-200 dark:bg-slate-800 p-2 rounded-3xl">
                   {userResults.length} results
                 </span>
               </div>
-              <div className="flex overflow-x-auto gap-4 pb-4">
+              <div className="flex overflow-x-auto gap-4 pb-4 bg-gray-200 dark:bg-[#1E1E24] p-2 rounded-3xl">
                 {userResults.map((user) => (
                   <div
                     key={user._id}
                     onClick={() => handleUserClick(user._id)}
-                    className="flex flex-col items-center p-4 min-w-[140px] bg-white dark:bg-slate-700 rounded-lg shadow-md hover:shadow-lg transition cursor-pointer"
+                    className="flex flex-col items-center p-4 min-w-[140px] bg-transparent hover:bg-gray-200 hover:dark:bg-slate-700 rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer"
                   >
                     {user.profileImage ? (
                       <img
@@ -168,19 +153,19 @@ export default function SearchPage() {
 
           {/* Content Results */}
           {contentResults.length > 0 && (
-            <section className='rounded-lg h-full max-h-full bg-gray-50 dark:bg-slate-700'>
-              <div className="flex justify-between items-center mb-4 bg-gray-100 dark:bg-slate-700 p-2 rounded-3xl">
-                <h2 className="text-xl font-bold mb-4 dark:text-dark-text bg-gray-200 dark:bg-slate-800 p-2 rounded-3xl">Learning Materials</h2>
-                <span className="text-sm text-gray-500 dark:text-dark-text mb-4 bg-gray-200 dark:bg-slate-800 p-2 rounded-3xl">
+            <section className='rounded-lg h-full max-h-full scrollbar-none'>
+              <div className="flex justify-between items-center mb-4 bg-gray-200 dark:bg-slate-800 p-2 rounded-3xl">
+                <h2 className="text-xl font-bold mb-4 dark:text-dark-text  p-2 rounded-3xl">Learning Materials</h2>
+                <span className="text-sm text-gray-500 dark:text-dark-text mb-4 rounded-3xl">
                   {contentResults.length} results
                 </span>
               </div>
-                <div className="items-center justify-center grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="items-center dark:bg-[#1E1E24] bg-gray-200 p-4 rounded-lg justify-center grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                   {contentResults.map((item) => (
                     <div
                       key={item._id}
                       onClick={() => handleContentClick(item._id)}
-                      className="bg-white dark:bg-slate-700 rounded-lg shadow-md hover:shadow-lg transition cursor-pointer"
+                      className="bg-white dark:bg-slate-800 rounded-lg shadow-md hover:shadow-lg transition cursor-pointer"
                     >
                       <img
                         src={item.thumbnail || '/placeholder.svg'}
