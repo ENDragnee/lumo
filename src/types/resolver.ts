@@ -1,21 +1,24 @@
-import { TextViewerComponent } from '@/components/widgets/text-widget';
-import { Element } from "@craftjs/core"
-import { InlineMath, BlockMath } from 'react-katex';
-import QuizQuestion from '@/components/QuizQuestion';
-import 'katex/dist/katex.min.css';
-import { ViewerCanvas } from '@/components/canvas';
-import { VideoComponentViewer } from "@/components/widgets/video"
-import { ImageComponentViewer } from "@/components/widgets/image"
+// src/types/viewerResolver.ts
+
+// No need to import React if basicHtmlResolver is removed and viewer components don't use JSX directly here
+
+import { ImageComponentViewer } from '@/components/widgets/ImageComponentViewer'; // Adjust path if needed
+import { TextViewerComponent } from '@/components/widgets/TextViewerComponent';   // Adjust path if needed
+import { VideoComponentViewer } from '@/components/widgets/VideoComponentViewer'; // Adjust path if needed
+import { SimulationComponentViewer } from '@/components/widgets/SimulationComponentViewer'; // Adjust path if needed
+import { SimpleContainerViewer } from '@/components/widgets/SimpleContainerViewer'; // Adjust path as needed
+// ... import other viewer components ...
+
+
+// *** Remove the basicHtmlResolver constant definition entirely ***
+
 
 export const viewerResolver = {
-    renderCanvas: ViewerCanvas,
-    Text: TextViewerComponent,
-    // SliderComponent: CraftSliderWidget,
-    // QuizComponent: CraftQuizWidget,
-    Video: VideoComponentViewer,
-    Image: ImageComponentViewer,
-    BlockMath,
-    InlineMath,
-    QuizQuestion,
-    Element
-}
+  // Map your custom editor component names to their viewer components
+  renderCanvas: SimpleContainerViewer, // Map the editor's canvas name to the simple viewer
+  Image: ImageComponentViewer,
+  Text: TextViewerComponent,
+  Video: VideoComponentViewer,
+  Simulation: SimulationComponentViewer
+  // Quiz: QuizViewer, // Add mappings for all your components
+};
