@@ -284,47 +284,6 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
           >
             <ThemeToggle />
           </div>
-          {/* User Profile Avatar */}
-          {session && (
-            <div className="mt-4 relative hover:scale-110 transition-transform">
-              <div
-                ref={avatarRef}
-                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center cursor-pointer overflow-hidden"
-              >
-                {session.user?.image ? (
-                  <img
-                    src={session.user.image || "/placeholder.svg"}
-                    alt="Profile"
-                    className="w-10 h-10 object-cover"
-                  />
-                ) : (
-                  <span className="text-white font-bold">
-                    {session.user?.name ? session.user.name.charAt(0).toUpperCase() : "U"}
-                  </span>
-                )}
-              </div>
-              {isUserMenuOpen && (
-                <div
-                  ref={userMenuRef}
-                  className="absolute bottom-12 left-8 text-center bg-white gap-2 dark:bg-[#383c4a] rounded-lg shadow-lg py-2 w-32 z-10"
-                >
-                  <button
-                    onClick={handleSettings}
-                    className="w-full px-4 rounded-xl py-2 hover:bg-gray-100 dark:hover:bg-[#7c818c] text-center"
-                  >
-                    Settings
-                  </button>
-                  <button
-                    onClick={() => signOut()}
-                    className="w-full text-center px-4 py-2 rounded-xl hover:bg-gray-100 dark:hover:bg-[#7c818c]"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
         </div>
       </div>
     </motion.div>
