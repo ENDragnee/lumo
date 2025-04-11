@@ -2,7 +2,16 @@
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
-import { Home, ChevronLeft, ChevronRight, Star, CornerDownRight, CheckCheck, Layers, Crown } from "lucide-react"
+import {
+  Home,
+  ChevronLeft,
+  ChevronRight,
+  Star,
+  CornerDownRight,
+  CheckCheck,
+  Layers,
+  Crown
+} from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { formatDistanceToNow } from "date-fns"
 import type { ObjectId } from "mongoose"
@@ -77,7 +86,6 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
   }
 
   useEffect(() => {
-    // Wait for both fetches to complete
     const fetchData = async () => {
       await Promise.all([fetchRecentHistories(), fetchStarred()])
       setIsLoading(false)
@@ -105,7 +113,6 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
   }, [])
 
   const handleSettings = () => {
-    // Redirect to the settings page
     window.location.href = "/settings"
   }
 
@@ -147,15 +154,18 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
   return (
     <motion.div
       ref={sidebarRef}
-      className="flex scrollbar-none flex-col overflow-y-auto max-h-screen border-r-2 rounded-lg bg-zinc-200 dark:bg-[#16181c] border-gray-200 dark:border-[#383c3a]"
+      className="h-full flex scrollbar-none flex-col overflow-y-auto border-r-2 rounded-lg bg-zinc-200 dark:bg-[#16181c] border-gray-200 dark:border-[#383c3a]"
       initial={{ width: isCollapsed ? 80 : 250 }}
       animate={{ width: isCollapsed ? 80 : 250 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
       <div className="flex flex-col h-full p-4">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className={`text-2xl font-bold dark:text-[#5294e2] ${isCollapsed ? "hidden" : "block"}`}>Lumo</h2>
-          <div className="flex items-center gap-2">
+        {/* Header */}
+        <div className="flex items-center mb-6">
+          {!isCollapsed && (
+            <h2 className="text-2xl font-bold dark:text-[#5294e2]">Lumo</h2>
+          )}
+          <div className={`${isCollapsed ? "mx-auto" : ""} flex items-center`}>
             <button onClick={() => setIsCollapsed(!isCollapsed)} className="text-gray-600 dark:text-[#5294e2]">
               {isCollapsed ? <ChevronRight size={24} /> : <ChevronLeft size={24} />}
             </button>
@@ -163,10 +173,12 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
         </div>
 
         <div className="space-y-6">
-          {/* Workspaces Section */}
+          {/* Home Section */}
           <div>
-            <div className="flex items-center gap-2 hover:bg-gray-300 dark:hover:bg-[#33475f] rounded-md p-2 hover:scale-105 transition-transform">
-              <button onClick={() => router.push('/main')} className="flex items-center gap-2">
+            <div
+              className={`flex items-center ${isCollapsed ? "justify-center" : "gap-2"} hover:bg-gray-300 dark:hover:bg-[#33475f] rounded-md p-2 hover:scale-105 transition-transform`}
+            >
+              <button onClick={() => router.push('/main')} className={`flex items-center ${isCollapsed ? "justify-center" : "gap-2"}`}>
                 <Home className="w-5 h-5 dark:text-[#5294e2] cursor-pointer" onClick={handleSectionIconClick} />
                 <h3 className={`text-base font-semibold dark:text-[#7c818c] ${isCollapsed ? "hidden" : "block"}`}>
                   Home
@@ -174,9 +186,12 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
               </button>
             </div>
           </div>
+
           {/* Workspaces Section */}
           <div>
-            <div className="flex items-center gap-2">
+            <div
+              className={`flex items-center ${isCollapsed ? "justify-center" : "gap-2"} hover:bg-gray-300 dark:hover:bg-[#33475f] rounded-md p-2 hover:scale-105 transition-transform`}
+            >
               <Layers className="w-5 h-5 dark:text-[#5294e2] cursor-pointer" onClick={handleSectionIconClick} />
               <h3 className={`text-base font-semibold dark:text-[#7c818c] ${isCollapsed ? "hidden" : "block"}`}>
                 Workspaces
@@ -203,7 +218,10 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
 
           {/* Recent Section */}
           <div>
-            <div className="flex items-center gap-2 cursor-pointer" onClick={handleSectionIconClick}>
+            <div
+              className={`flex items-center ${isCollapsed ? "justify-center" : "gap-2"} cursor-pointer`}
+              onClick={handleSectionIconClick}
+            >
               <CheckCheck className="w-5 h-5 dark:text-[#5294e2]" />
               <h3 className={`text-base font-semibold dark:text-[#7c818c] ${isCollapsed ? "hidden" : "block"}`}>
                 Recent
@@ -241,7 +259,10 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
 
           {/* Favorites Section */}
           <div>
-            <div className="flex items-center gap-2 cursor-pointer" onClick={handleSectionIconClick}>
+            <div
+              className={`flex items-center ${isCollapsed ? "justify-center" : "gap-2"} cursor-pointer`}
+              onClick={handleSectionIconClick}
+            >
               <Crown className="w-5 h-5 dark:text-[#5294e2]" />
               <h3 className={`text-base font-semibold dark:text-[#7c818c] ${isCollapsed ? "hidden" : "block"}`}>
                 Favorites
@@ -259,7 +280,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ isCollapsed, setIsCollapsed }
 
         <div className="mt-auto flex flex-col items-center justify-center">
           <div
-            className={`flex flex-col items-center bg-dark-secondary rounded-md ${isCollapsed ? "visible" : "flex"} hover:scale-105 transition-transform`}
+            className={`flex flex-col items-center bg-dark-secondary rounded-md hover:scale-105 transition-transform`}
           >
             <ThemeToggle />
           </div>
