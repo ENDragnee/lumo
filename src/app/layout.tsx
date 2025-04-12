@@ -9,7 +9,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className="min-h-screen bg-white dark:bg-[#383c4a] text-black dark:text-white">
         <Providers>
-            <main>{children}</main>
+            <div>{children}</div>
         </Providers>
       </body>
     </html>

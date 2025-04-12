@@ -18,6 +18,7 @@ export default function Providers({ children }: { children: ReactNode }) {
     "/login",
     "/auth/signin",
     "/auth/signup",
+    "/content"
     // Duplicate entries can be removed if unnecessary.
   ];
   const pathname = usePathname();

@@ -1,167 +1,212 @@
 "use client"; // Keep this if it's a client component
 
 import { useState, useEffect } from 'react';
-import { useSession } from "next-auth/react"; // Import useSession
-import { Creator, Stats } from '@/types/creator'; // Adjust import path if needed
+import { useSession } from "next-auth/react";
+import { Creator, Stats } from '@/types/creator';
+import Image from 'next/image'; // Using next/image is generally better
+
+// Define the possible tab names
+type TabName = 'Home' | 'Contents' | 'Books' | 'Workspaces';
+const TABS: TabName[] = ['Home', 'Contents', 'Books', 'Workspaces']; // Define tabs
 
 interface HeaderProps {
     creator: Creator;
     stats: Stats | null;
-    creatorId: string; // Add creatorId
-    initialIsSubscribed: boolean; // Add initial subscription status
-    isCheckingSubscription: boolean; // Add loading status for check
-    onSubscriptionChange: (subscribe: boolean) => Promise<void>; // Function to call on button click
+    creatorId: string;
+    initialIsSubscribed: boolean;
+    isCheckingSubscription: boolean;
+    onSubscriptionChange: (subscribe: boolean) => Promise<void>;
+    activeTab: TabName; // <-- Add activeTab prop
+    onTabChange: (tab: TabName) => void; // <-- Add onTabChange prop
 }
 
 export default function NewHeader({
     creator,
     stats,
-    creatorId, // Destructure new props
+    creatorId,
     initialIsSubscribed,
     isCheckingSubscription,
-    onSubscriptionChange
+    onSubscriptionChange,
+    activeTab,     // <-- Destructure new props
+    onTabChange    // <-- Destructure new props
 }: HeaderProps) {
-    const { data: session, status: sessionStatus } = useSession(); // Get session
-    const [showStats, setShowStats] = useState(false); // For mobile 'More' button
-    const [subscribed, setSubscribed] = useState(initialIsSubscribed); // Local state for UI
-    const [isSubscribing, setIsSubscribing] = useState(false); // Loading state for subscribe action
+    const { data: session, status: sessionStatus } = useSession();
+    const [showStats, setShowStats] = useState(false);
+    const [subscribed, setSubscribed] = useState(initialIsSubscribed);
+    const [isSubscribing, setIsSubscribing] = useState(false);
 
-    // Sync local state if the initial prop changes (e.g., after parent re-fetches)
+    // Sync local state if the initial prop changes
     useEffect(() => {
         setSubscribed(initialIsSubscribed);
     }, [initialIsSubscribed]);
 
-    useEffect(() => { 
-      console.log("Status:", stats);  }, []); // Debugging line
+    // useEffect(() => {
+    //   console.log("Header Stats Received:", stats); // Debugging line
+    // }, [stats]);
 
     // Handle subscribe button click
     const handleSubscribeClick = async () => {
-        if (isSubscribing || isCheckingSubscription) return; // Prevent double clicks or clicks during loading
-
+        if (isSubscribing || isCheckingSubscription) return;
         setIsSubscribing(true);
-        const nextSubscribedState = !subscribed; // Determine the desired next state
-
+        const nextSubscribedState = !subscribed;
         try {
-            // Optimistic UI update (optional, but improves perceived speed)
-            // setSubscribed(nextSubscribedState);
-
-            // Call the handler function passed from the parent
             await onSubscriptionChange(nextSubscribedState);
-
-            // --- If NOT using optimistic update, update state AFTER successful API call ---
-            setSubscribed(nextSubscribedState); // Update local state based on successful API call
-
+            setSubscribed(nextSubscribedState); // Update after success
         } catch (error) {
             console.error("Subscription failed:", error);
-            // Rollback optimistic update if it failed
-            // setSubscribed(!nextSubscribedState);
-            // TODO: Show an error message to the user (e.g., using a toast library)
             alert(`Error: ${error instanceof Error ? error.message : "Could not update subscription"}`);
+            // No need to rollback state if not doing optimistic update
         } finally {
-            setIsSubscribing(false); // Ensure loading state is reset
+            setIsSubscribing(false);
         }
     };
 
     // Determine if the subscribe button should be shown/enabled
-    const canSubscribe = sessionStatus === 'authenticated' && session?.user?.id !== creatorId;
+    // Check if the current logged-in user is the creator being viewed
+    const isOwnChannel = sessionStatus === 'authenticated' && session?.user?.id === creatorId;
+    const canSubscribe = sessionStatus === 'authenticated' && !isOwnChannel; // Can subscribe if logged in AND not own channel
     const isLoading = isCheckingSubscription || isSubscribing;
-    const buttonText = isLoading ? "Loading..." : (subscribed ? "Subscribed" : "Subscribe");
-    const buttonDisabled = isLoading || !canSubscribe;
+
+    // Button text and state logic
+    let buttonText = "Subscribe";
+    if (isLoading) {
+        buttonText = "Loading...";
+    } else if (subscribed) {
+        buttonText = "Subscribed";
+    }
+
+    const buttonDisabled = isLoading || sessionStatus !== 'authenticated' || isOwnChannel; // Disable if loading, not logged in, or own channel
 
     // Dynamic button styling based on subscription state
     const subscribeButtonClasses = `
-        px-4 py-2 rounded-md transition duration-200 text-sm lg:text-base
-        ${buttonDisabled ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed' :
-        subscribed
+        px-4 py-2 rounded-full shadow-md transition duration-200 ease-in-out text-sm lg:text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1E1E24]
+        ${buttonDisabled && !isLoading ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed text-gray-700 dark:text-gray-400' : ''}
+        ${isLoading ? 'bg-gray-500 dark:bg-gray-700 cursor-wait text-gray-300 dark:text-gray-400' : ''}
+        ${!buttonDisabled && !isLoading && subscribed
             ? 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 border border-gray-400 dark:border-gray-500' // Subscribed style
-            : 'bg-[#007AFF] text-white hover:bg-blue-600' // Subscribe style
+            : ''
+        }
+        ${!buttonDisabled && !isLoading && !subscribed
+            ? 'bg-[#007AFF] text-white hover:bg-blue-600 focus:ring-blue-500' // Subscribe style
+            : ''
         }
     `;
 
+
     // Example gradient - adjust colors and direction as needed
-    const gradientBackground = "dark:bg-gradient-to-r from-[#1C2526] via-[#2A3A3C] to-[#1C2526] bg-gray-200 rounded-lg";
+    // Applied subtle gradient for dark mode, solid light color for light mode
+    const headerBackground = "dark:bg-gradient-to-b dark:from-[#1C2526] dark:to-[#243133] bg-white dark:text-[#F5F7FA] text-[#1E1E24]";
+
+    const subscriberText = stats?.subscriberCount === 1 ? 'subscriber' : 'subscribers';
+    const viewText = stats?.totalViews === 1 ? 'view' : 'views';
 
     return (
-        <header className={`p-4 ${gradientBackground} dark:text-[#F5F7FA] text-[#1E1E24] relative`}>
-            <div className="container mx-auto flex flex-col items-center text-center lg:flex-row lg:justify-between lg:text-left">
-                {/* Creator Info */}
-                <div className="flex flex-col items-center lg:flex-row lg:items-center space-y-2 lg:space-y-0 lg:space-x-4 mb-4 lg:mb-0">
-                    <img
-                        src={creator.avatarUrl || '/default-avatar.png'}
-                        alt={`${creator.name}'s avatar`}
-                        className="w-16 h-16 lg:w-20 lg:h-20 rounded-full border-2 border-[#007AFF]"
-                    />
-                    <div>
-                        <h1 className="text-2xl lg:text-3xl font-bold">{creator.name}</h1>
-                        <p className="text-sm lg:text-base dark:text-gray-300 text-gray-700">{creator.tagline || 'Creator Channel'}</p>
+        <header className={`${headerBackground} shadow-md relative border-b border-gray-200 dark:border-gray-700`}>
+            <div className="container mx-auto px-4 py-4 md:py-6">
+                {/* --- Top Section: Avatar, Name, Stats, Subscribe Button --- */}
+                <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between space-y-4 md:space-y-0 md:space-x-6">
+                    {/* Creator Info */}
+                    <div className="flex items-center space-x-4">
+                        <Image
+                            src={creator.avatarUrl || '/default-avatar.png'}
+                            alt={`${creator.name}'s avatar`}
+                            width={80} // Slightly larger default size
+                            height={80}
+                            className="rounded-full border-2 border-gray-300 dark:border-gray-600 flex-shrink-0"
+                            priority // Prioritize loading header image
+                        />
+                        <div className="text-center md:text-left">
+                            <h1 className="text-2xl lg:text-3xl font-bold">{creator.name}</h1>
+                            <p className="text-sm lg:text-base text-gray-600 dark:text-gray-400 mt-1">{creator.tagline || 'Creator Channel'}</p>
+                             {/* Desktop Stats (Inline) */}
+                             <div className="hidden md:flex items-center space-x-3 mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                {stats && (
+                                    <>
+                                        <span>{stats.subscriberCount?.toLocaleString() ?? 0} {subscriberText}</span>
+                                        <span>•</span>
+                                        <span>{stats.totalViews?.toLocaleString() ?? 0} {viewText}</span>
+                                        {/* Add more stats like rating if desired */}
+                                         {stats?.rating && stats?.ratingCount ? (
+                                            <>
+                                                <span>•</span>
+                                                <span>{stats.rating.toFixed(1)} ({stats.ratingCount}) Rating</span>
+                                            </>
+                                         ) : null}
+                                    </>
+                                )}
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                {/* Desktop Stats & Subscribe Button */}
-                <div className="hidden lg:flex space-x-4 items-center">
-                    {stats && (
-                        <>
-                            {/* Use nullish coalescing for safety */}
-                            <span>{stats.subscriberCount ?? 0} Subscribers</span>
-                            <span>•</span>
-                            <span>{stats.totalViews ?? 0} Views</span>
-                            {/* Add more stats as needed */}
-                        </>
-                    )}
-                    {/* Conditionally render button based on auth and not being self */}
-                    {sessionStatus !== 'loading' && canSubscribe && (
-                        <button
-                            className={subscribeButtonClasses}
-                            onClick={handleSubscribeClick}
-                            disabled={buttonDisabled}
-                        >
-                            {buttonText}
-                        </button>
-                    )}
-                     {/* Show placeholder or nothing if loading session or can't subscribe */}
-                     {sessionStatus === 'loading' && <span className="text-sm">Loading...</span>}
-                </div>
+                    {/* Subscribe Button Area (Desktop / Mobile) */}
+                    <div className="flex-shrink-0 w-full md:w-auto flex justify-center md:justify-end">
+                        {sessionStatus !== 'loading' && (
+                             isOwnChannel ? (
+                                 <button
+                                     disabled // Style as disabled, maybe link to channel settings?
+                                     className="px-4 py-2 rounded-full text-sm lg:text-base font-medium bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 cursor-not-allowed"
+                                 >
+                                     Your Channel
+                                 </button>
+                             ) : (
+                                 // Render subscribe button only if not own channel
+                                 <button
+                                     className={subscribeButtonClasses}
+                                     onClick={handleSubscribeClick}
+                                     disabled={buttonDisabled} // Use the comprehensive disabled state
+                                 >
+                                     {buttonText}
+                                 </button>
+                             )
+                        )}
+                        {/* Show loading placeholder only while session is loading */}
+                        {sessionStatus === 'loading' && (
+                            <span className="px-4 py-2 rounded-full text-sm lg:text-base font-medium bg-gray-500 dark:bg-gray-700 text-gray-300 dark:text-gray-400 animate-pulse">
+                                Loading...
+                            </span>
+                         )}
+                    </div>
 
-                {/* Mobile: "More" button */}
-                <div className="lg:hidden mt-2">
-                     {/* Only show stats toggle if stats exist */}
-                     {stats && (
-                        <button
-                            onClick={() => setShowStats(!showStats)}
-                            className="text-sm text-[#007AFF] hover:underline"
-                        >
-                            {showStats ? 'Less Info' : 'More Info'}
-                        </button>
-                     )}
-                </div>
-
-                 {/* Mobile: Collapsed Stats & Subscribe Button */}
-                 {showStats && (
-                    <div className="lg:hidden mt-4 flex flex-col items-center space-y-2 text-sm bg-black bg-opacity-20 p-3 rounded-md w-full max-w-xs">
-                         {stats && (
+                     {/* Mobile Stats (Below name/avatar, above button on smallest screens) */}
+                     <div className="md:hidden flex items-center justify-center space-x-3 mt-3 text-xs text-gray-500 dark:text-gray-400">
+                        {stats && (
                             <>
-                                <span>{stats.subscriberCount ?? 0} Subscribers</span>
-                                <span>{stats.totalViews ?? 0} Views</span>
-                                {/* Add more stats */}
+                                <span>{stats.subscriberCount?.toLocaleString() ?? 0} {subscriberText}</span>
+                                <span>•</span>
+                                <span>{stats.totalViews?.toLocaleString() ?? 0} {viewText}</span>
+                                {stats?.rating && stats?.ratingCount ? (
+                                    <>
+                                        <span>•</span>
+                                        <span>{stats.rating.toFixed(1)} ({stats.ratingCount}) Rating</span>
+                                    </>
+                                 ) : null}
                             </>
                         )}
-                        {/* Conditionally render button based on auth and not being self */}
-                        {sessionStatus !== 'loading' && canSubscribe && (
-                            <button
-                                className={`${subscribeButtonClasses} mt-2 w-full`} // Ensure button takes full width
-                                onClick={handleSubscribeClick}
-                                disabled={buttonDisabled}
-                            >
-                                {buttonText}
-                            </button>
-                        )}
-                         {/* Show placeholder or nothing if loading session or can't subscribe */}
-                         {sessionStatus === 'loading' && <span className="text-sm mt-2">Loading...</span>}
-                    </div>
-                )}
+                     </div>
+                </div>
+
+                {/* --- Bottom Section: Tabs --- */}
+                <div className="mt-4 md:mt-6 border-t border-gray-200 dark:border-gray-700 pt-3 -mb-px"> {/* Use -mb-px to align border with active tab */}
+                     <nav className="flex space-x-4 md:space-x-8 overflow-x-auto scrollbar-hide" aria-label="Tabs"> {/* Added overflow for safety */}
+                         {TABS.map((tab) => (
+                             <button
+                                 key={tab}
+                                 onClick={() => onTabChange(tab)}
+                                 className={`whitespace-nowrap py-2 px-3 md:px-4 border-b-2 font-medium text-sm focus:outline-none transition-colors duration-150 ease-in-out ${
+                                     activeTab === tab
+                                     ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' // Active tab style
+                                     : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 hover:border-gray-300 dark:hover:text-gray-200 dark:hover:border-gray-500' // Inactive tab style
+                                 }`}
+                                 aria-current={activeTab === tab ? 'page' : undefined}
+                             >
+                                 {tab}
+                             </button>
+                         ))}
+                     </nav>
+                 </div>
             </div>
-            {/* Dynamic Background Hint */}
-            <div className="absolute inset-0 -z-10 opacity-10"></div>
+            {/* Optional: Subtle background pattern or effect if needed */}
+            {/* <div className="absolute inset-0 -z-10 opacity-5"></div> */}
         </header>
     );
 }

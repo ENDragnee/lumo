@@ -7,10 +7,10 @@ import { Clock } from "@/components/ui/clock"
 import { Toaster, toast } from "sonner"
 import { ScrollProgressBar } from "@/components/scroll-progress-bar"
 import ContextMenu2 from "@/components/context-menu"
-import { ThemeProvider } from "next-themes"
-import "@/app/globals.css"
-import { SidebarProvider } from "@/app/hooks/SidebarContext"
-import { SessionProvider } from "next-auth/react"
+import { ThemeProvider } from "next-themes" // Consider moving to root layout if needed globally
+import "@/app/globals.css" // Usually imported in root layout
+import { SidebarProvider } from "@/app/hooks/SidebarContext" // Consider moving to root layout
+import { SessionProvider } from "next-auth/react" // Consider moving to root layout
 import AIButton from "@/components/ai-feature"
 import TabManager from "@/components/Tab"
 import NewLeftSidebar from "./components/sideBar"
@@ -19,28 +19,30 @@ import { Menu, X, BookOpen } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const useScrollDirection = () => {
-  const [scrollDirection, setScrollDirection] = useState("up")
-  const [lastScrollY, setLastScrollY] = useState(0)
+  // ... (keep hook as is)
+  const [scrollDirection, setScrollDirection] = useState("up");
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
+      const currentScrollY = window.scrollY;
       if (currentScrollY < lastScrollY) {
-        setScrollDirection("up")
+        setScrollDirection("up");
       } else {
-        setScrollDirection("down")
+        setScrollDirection("down");
       }
-      setLastScrollY(currentScrollY)
-    }
+      setLastScrollY(currentScrollY);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [lastScrollY])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
-  return scrollDirection
+  return scrollDirection;
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+// Rename slightly for clarity (optional, but good practice)
+export default function ContentLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const [isRecommendationOpen, setIsRecommendationOpen] = useState(true)
@@ -70,6 +72,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
   const handleContextMenu = (event: React.MouseEvent) => {
     event.preventDefault()
+    // Apply context menu logic to a specific element if needed,
+    // attaching it to the whole body might be less common here.
+    // Maybe attach it to the <main> element instead?
     setMenuPosition({ x: event.clientX, y: event.clientY })
   }
 
@@ -78,6 +83,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   }
 
   const handleSessionEnd = (isStudySession: boolean) => {
+    // ... (keep function as is)
     const message = isStudySession ? "Time to focus!" : "Time to take a break!"
     const borderColor = isStudySession ? "red" : "green"
 
@@ -98,22 +104,25 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   const excludedSidebarPaths = ["/", "/landing", "/signup", "/login", "/auth/signin", "/auth/signup", "/main", "/about"]
   const shouldRenderSidebar = !excludedSidebarPaths.includes(pathname)
 
+  // --- REMOVED <html> and <body> tags ---
+
+  // Important Note: Providers like SessionProvider, ThemeProvider, SidebarProvider
+  // often belong in the ROOT layout (`/app/layout.tsx`) if they need to wrap the
+  // *entire* application state. If they are specific ONLY to `/content` routes,
+  // leaving them here is okay. Evaluate based on your app's needs.
+  // Also, remove global CSS import (`@/app/globals.css`) if it's already in root layout.
   return (
-    <html lang="en">
-      <body
-        className="min-h-screen flex flex-col bg-white dark:bg-[#404552] text-black dark:text-white"
-        onContextMenu={handleContextMenu}
-      >
-        <SessionProvider>
-          <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
-            <SidebarProvider>
-              {shouldRenderSidebar && (
-                <div>
-                  <NewLeftSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-                  <RecommendedContent isOpen={isRecommendationOpen} toggleOpen={toggleRecommendation} />
-                </div>
-              )}
-            </SidebarProvider>
+    <SessionProvider>
+      <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
+        <SidebarProvider>
+          {/* Use a Fragment or a div if you need a single wrapper */}
+          <>
+            {shouldRenderSidebar && (
+              <div>
+                <NewLeftSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+                <RecommendedContent isOpen={isRecommendationOpen} toggleOpen={toggleRecommendation} />
+              </div>
+            )}
 
             <Toaster position="top-center" expand={false} richColors className="mt-10 " />
 
@@ -133,8 +142,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </header>
 
             {shouldRenderSidebar && (
-              <button 
-                onClick={toggleRecommendation} 
+              <button
+                onClick={toggleRecommendation}
                 className="fixed top-4 right-20 z-40 p-2 rounded-full bg-white dark:bg-gray-800 shadow-md"
                 style={{
                   opacity: scrollDirection === "down" ? 0 : 1,
@@ -146,16 +155,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </button>
             )}
 
-            <main 
+            {/* Apply context menu listener here if desired */}
+            <main
               className={cn(
-                "flex-1 transition-all duration-300",
+                "flex-1 transition-all duration-300", // Ensure root layout's body handles flex layout if needed
                 shouldRenderSidebar && isSidebarOpen && "ml-64",
                 shouldRenderSidebar && !isSidebarOpen && "md:ml-16",
                 shouldRenderSidebar && isRecommendationOpen && "mr-80"
               )}
+              onContextMenu={handleContextMenu} // Attach context menu here instead of body
             >
+              {/* Ensure the root layout's <body> tag has necessary base styles (like min-h-screen) */}
               <div id="content" className="flex-1 px-4 py-6">
-                {children}
+                {children} {/* This is where the page content will be rendered */}
               </div>
             </main>
 
@@ -188,8 +200,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <ContextMenu2 x={menuPosition.x} y={menuPosition.y} onClose={handleCloseMenu} />
             )}
 
+            {/* Footer logic might need adjustment based on overall structure */}
             {excludedSidebarPaths.includes(pathname) && pathname !== "/" && (
               <footer className="pt-4 pb-2 sm:max-h-24 md:max-h-16">
+                 {/* This footer might be better placed outside the main content flow depending on design */}
                 <div className="container mx-auto px-4">
                   <div className="flex justify-center">
                     <p className="text-sm text-gray-500 dark:text-[#7c818c]">
@@ -199,9 +213,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 </div>
               </footer>
             )}
-          </ThemeProvider>
-        </SessionProvider>
-      </body>
-    </html>
+          </>
+        </SidebarProvider>
+      </ThemeProvider>
+    </SessionProvider>
   )
+  // --- REMOVED </body> and </html> tags ---
 }

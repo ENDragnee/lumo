@@ -141,7 +141,7 @@ export default function NewLeftSidebar({ isOpen, toggleSidebar }: { isOpen: bool
 
   const navigation = [
     { name: 'Home', href: '/main', icon: Home, current: pathname === '/' },
-    { name: 'History', href: '/history', icon: History, current: pathname === '/history' },
+    { name: 'History', href: '/histories', icon: History, current: pathname === '/history' },
     { name: 'Library', href: '/library', icon: Library, current: pathname === '/library' },
     { name: 'Bookmarks', href: '/bookmarks', icon: Bookmark, current: pathname === '/bookmarks' },
     { name: 'Recent', href: '/recent', icon: Clock, current: pathname === '/recent' },

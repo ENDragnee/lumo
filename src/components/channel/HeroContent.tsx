@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { ContentItem } from '@/types/creator'; // Adjust import path
+import { useRouter } from 'next/router';
 
 interface HeroProps {
     popularVideos: ContentItem[];
@@ -16,6 +17,11 @@ export default function HeroContent({ popularVideos, autoScrollInterval = 5000 }
         const isFirstSlide = currentIndex === 0;
         const newIndex = isFirstSlide ? popularVideos.length - 1 : currentIndex - 1;
         setCurrentIndex(newIndex);
+    };
+
+    const handleCardClick = (id: string) => {
+        const router = useRouter();
+        router.push(`/content?id=${id}`);
     };
 
     const goToNext = useCallback(() => {
@@ -68,7 +74,7 @@ export default function HeroContent({ popularVideos, autoScrollInterval = 5000 }
                                     />
                                     {/* Play Button Overlay (Stays within each slide's relative context) */}
                                     <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-[#1E1E24] bg-opacity-30 dark:bg-opacity-30 group-hover:bg-opacity-50 transition-opacity duration-300">
-                                        <button className="bg-[#007AFF] text-white rounded-full w-16 h-16 lg:w-20 lg:h-20 flex items-center justify-center text-3xl lg:text-4xl animate-pulse-slow hover:animate-none shadow-xl transform transition-transform duration-200 group-hover:scale-110">
+                                        <button className="bg-[#007AFF] text-white rounded-full w-16 h-16 lg:w-20 lg:h-20 flex items-center justify-center text-3xl lg:text-4xl animate-pulse-slow hover:animate-none shadow-xl transform transition-transform duration-200 group-hover:scale-110" onClick={() => handleCardClick(video.id as string)}>
                                             ▶
                                         </button>
                                     </div>
@@ -85,7 +91,7 @@ export default function HeroContent({ popularVideos, autoScrollInterval = 5000 }
                         <button
                             onClick={goToPrevious}
                             aria-label="Previous video"
-                            className="absolute top-1/2 left-[-60px] sm:left-[-30px] md:left-[-80px] transform -translate-y-[calc(50%+1rem)] z-10 bg-black bg-opacity-40 hover:bg-opacity-70 text-white p-2 rounded-full transition-all duration-200" // Adjusted translate-y slightly
+                            className="absolute top-1/2 left-[-30px] sm:left-[-20px] md:left-[-50px] transform -translate-y-[calc(50%+1rem)] z-10 bg-black bg-opacity-40 hover:bg-opacity-70 text-white p-2 rounded-full transition-all duration-200" // Adjusted translate-y slightly
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -96,7 +102,7 @@ export default function HeroContent({ popularVideos, autoScrollInterval = 5000 }
                         <button
                             onClick={goToNext}
                             aria-label="Next video"
-                            className="absolute top-1/2 right-[-60px] sm:right-[-30px] md:right-[-80px] transform -translate-y-[calc(50%+1rem)] z-10 bg-black bg-opacity-40 hover:bg-opacity-70 text-white p-2 rounded-full transition-all duration-200" // Adjusted translate-y slightly
+                            className="absolute top-1/2 right-[-30px] sm:right-[-20px] md:right-[-50px] transform -translate-y-[calc(50%+1rem)] z-10 bg-black bg-opacity-40 hover:bg-opacity-70 text-white p-2 rounded-full transition-all duration-200" // Adjusted translate-y slightly
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
