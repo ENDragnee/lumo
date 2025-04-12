@@ -1,6 +1,7 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose, { Document, Types } from 'mongoose';
 
 export interface IUser extends Document {
+  _id: Types.ObjectId; // Add _id explicitly
   email: string;
   password_hash: string;
   user_type: string;

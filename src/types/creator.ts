@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 export interface Creator {
   _id: mongoose.Types.ObjectId | string;
+  id?: string; // Add id if _id is not always a string or easily usable as key
   user_type: string;
   name: string;
   avatarUrl?: string;
