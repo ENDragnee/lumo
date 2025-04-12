@@ -71,7 +71,7 @@ export function ChatSystem() {
 
   return (
     <div className="flex flex-col h-full w-full rounded-md">
-      <ScrollArea className="flex-grow w-full mb-4" ref={scrollAreaRef}>
+      <ScrollArea className="flex-grow w-full mt-12 pt-4" ref={scrollAreaRef}>
         <div className="space-y-4">
           {messages.map((message, index) => (
             <div

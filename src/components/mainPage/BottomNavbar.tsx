@@ -1,40 +1,52 @@
+// @/component/mainPage/BottomNavbar.tsx
 "use client";
-import { usePathname, useRouter } from "next/navigation"; // Added useRouter
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-// Alias the imported User icon to avoid naming conflict with UserIcon component
-import { Home, Folder, Book, Plus, User as HistoryIcon } from "lucide-react"; // Added Plus
+import { Home, History, Library, Plus, User as UserIconLucide } from "lucide-react"; // Use consistent icons
 import { ThemeToggle } from "@/components/theme-toggle";
-import UserIcon from '@/components/mainPage/UserIcon'; // Import the UserIcon component
+import UserIcon from '@/components/mainPage/UserIcon'; // Keep using your custom UserIcon if needed
+import { cn } from "@/lib/utils";
 
 const BottomNavbar = () => {
   const pathname = usePathname();
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
 
+  // Adjusted tabs to match sidebar more closely, limit to ~5 items
   const tabs = [
-    { name: "Home", icon: Home, path: "/" },
-    { name: "Workspaces", icon: Folder, path: "/workspaces" },
-    // Removed Library to make space, adjust as needed
-    // { name: "Library", icon: Book, path: "/library" },
+    { name: "Home", icon: Home, path: "/main" }, // Match sidebar Home
+    { name: "History", icon: History, path: "/histories" }, // Match sidebar History
+    { name: "Library", icon: Library, path: "/library" }, // Match sidebar Library
+    // Add Create button separately
+    // Add Account/Theme separately
   ];
 
   // Common class names for bottom nav items
-  const itemBaseClass = "flex flex-col items-center justify-center flex-1 h-full p-1 cursor-pointer"; // Reduced padding slightly
-  const itemTextClass = "text-xs mt-1";
-  const itemActiveClass = "text-blue-500 dark:text-blue-400";
-  const itemInactiveClass = "text-gray-600 dark:text-gray-400";
-  const itemHoverClass = "hover:text-blue-600 dark:hover:text-blue-300 transition-colors";
+  const itemBaseClass = "flex flex-col items-center justify-center flex-1 h-full p-1 cursor-pointer transition-colors duration-150";
+  const itemTextClass = "text-[10px] mt-1"; // Slightly smaller text
+  const itemActiveClass = "text-blue-600 dark:text-blue-400";
+  const itemInactiveClass = "text-gray-500 dark:text-gray-400";
+  const itemHoverClass = "hover:text-blue-500 dark:hover:text-blue-300"; // Subtle hover
+
+  const isActive = (path: string) => {
+     if (path === '/main') return pathname === '/main';
+     return pathname.startsWith(path) && path !== '/main';
+  };
 
   return (
-    // Add fixed positioning, z-index, and md:hidden to hide on medium screens and up
+    // Use md:hidden to hide on medium screens and up
     <nav className="fixed bottom-0 left-0 right-0 z-40 flex justify-around items-stretch bg-white dark:bg-gray-800 h-16 border-t border-gray-200 dark:border-gray-700 md:hidden">
       {/* Navigation Tabs */}
       {tabs.map((tab) => (
         <Link
           key={tab.name}
           href={tab.path}
-          className={`${itemBaseClass} ${pathname === tab.path ? itemActiveClass : itemInactiveClass} ${itemHoverClass}`}
+          className={cn(
+            itemBaseClass,
+            isActive(tab.path) ? itemActiveClass : itemInactiveClass,
+            itemHoverClass
+          )}
         >
-          <tab.icon size={24} />
+          <tab.icon size={22} /> {/* Slightly smaller icons */}
           <span className={itemTextClass}>{tab.name}</span>
         </Link>
       ))}
@@ -42,29 +54,26 @@ const BottomNavbar = () => {
       {/* Create Button */}
       <button
         type="button"
-        onClick={() => router.push("/create")}
+        onClick={() => router.push("/create")} // Assuming '/create' is the correct path
         title="Create"
-        className={`${itemBaseClass} ${itemInactiveClass} ${itemHoverClass}`} // Use inactive and hover styles
+        className={cn(itemBaseClass, itemInactiveClass, itemHoverClass)}
         aria-label="Create new content"
       >
-        <Plus size={26} /> {/* Slightly larger icon */}
+        <Plus size={24} /> {/* Keep create slightly larger */}
         <span className={itemTextClass}>Create</span>
       </button>
 
-      {/* Theme Toggle */}
-      {/* Wrap ThemeToggle in a div that follows the pattern if it doesn't handle clicks/styling itself */}
-      <div className={`${itemBaseClass} ${itemInactiveClass}`}> {/* Theme doesn't need hover/active state */}
-         <ThemeToggle />
-         <span className={itemTextClass}>Theme</span>
+      {/* User Account Button */}
+      <div className={cn(itemBaseClass, itemInactiveClass)}>
+         <UserIcon /> {/* Your existing UserIcon component */}
+         {/* Label is optional, UserIcon component likely handles click */}
+         <span className={itemTextClass}>Account</span>
       </div>
 
-      {/* UserIcon Container */}
-      {/* Ensure this container also uses flex-1 and centers content */}
-      <div className={`${itemBaseClass} ${itemInactiveClass}`}>
-         {/* UserIcon component now sits inside the centered container */}
-         <UserIcon />
-         {/* Label is optional, UserIcon component doesn't have one built-in */}
-         <span className={itemTextClass}>Account</span>
+      {/* Theme Toggle - Removed label for space, icon is indicative */}
+      <div className={cn(itemBaseClass, itemInactiveClass)}>
+         <ThemeToggle />
+         <span className={itemTextClass}>Theme</span>
       </div>
     </nav>
   );

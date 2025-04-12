@@ -1,14 +1,16 @@
+// @/components/ai-feature.tsx (Corrected)
 "use client"
 
 import { useState } from "react"
 import { AIButton } from "@/components/ai-button"
 import { AISidebar } from "@/components/ai-sidebar"
 
-interface AIFeatureProps {
-  style?: React.CSSProperties;
-}
+// Remove the style prop if no longer needed
+// interface AIFeatureProps {
+//   style?: React.CSSProperties;
+// }
 
-export default function AIFeature({style}: AIFeatureProps) {
+export default function AIFeature(/*{style}: AIFeatureProps*/) { // Remove style prop
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleSidebar = () => {
@@ -21,11 +23,9 @@ export default function AIFeature({style}: AIFeatureProps) {
 
   return (
     <>
-      <div style={style}>
-        <AIButton onClick={toggleSidebar} isOpen={isOpen} />
-      </div> 
+      {/* The button is now rendered directly without the extra div */}
+      <AIButton onClick={toggleSidebar} isOpen={isOpen} />
       <AISidebar isOpen={isOpen} onClose={closeSidebar} />
     </>
   )
 }
-

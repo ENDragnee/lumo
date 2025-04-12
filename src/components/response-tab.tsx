@@ -41,15 +41,15 @@ export function ResponseTab() {
   if (loading) {
     return (
       <div className="h-full flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white" />
+        <div className="animate-spin rounded-full h-8 w-8 bg-gray-200 dark:bg-[#3B82F6]" />
       </div>
     )
   }
 
   return (
-    <ScrollArea className="h-full py-4">
+    <ScrollArea className="h-full py-4 bg-gray-100 dark:bg-[#1E1E24] rounded-2xl">
       {messages.length === 0 ? (
-        <div className="text-center text-gray-500 dark:text-gray-400">
+        <div className="text-center bg-gray-100 dark:bg-[#1E1E24] text-gray-500 dark:text-gray-400 mt-8">
           No chat history available
         </div>
       ) : (
@@ -58,7 +58,7 @@ export function ResponseTab() {
             key={index}
             className={`mb-4 ${
               message.role === "user" ? "text-right" : "text-left"
-            }`}
+            } bg-gray-100 dark:bg-[#1E1E24] p-2 rounded-3xl mt-4 pt-2`}
           >
             <span
               className={`inline-block p-2 rounded-lg w-full ${
