@@ -232,7 +232,7 @@ export default function HistoryPage() {
                                             <div className="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 relative bg-gray-200 dark:bg-gray-700 rounded-md overflow-hidden">
                                                 {item.content_id.imageUrl ? (
                                                     <Image
-                                                        src={item.content_id.imageUrl}
+                                                        src={`${process.env.NEXT_PUBLIC_CREATOR_URL}${item.content_id.imageUrl}`}
                                                         alt={`Image for ${item.content_id.title}`}
                                                         fill
                                                         style={{ objectFit: 'cover' }}

@@ -155,7 +155,7 @@ const CentralWorkspace = () => {
               >
                 <div className="relative aspect-video overflow-hidden">
                   <img
-                    src={`${item.thumbnail}` || "/placeholder.svg"}
+                    src={`${process.env.NEXT_PUBLIC_CREATOR_URL}${item.thumbnail}` || "/placeholder.svg"}
                     alt={item.title}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
