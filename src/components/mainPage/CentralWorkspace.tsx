@@ -138,7 +138,7 @@ const CentralWorkspace = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 h-screen"
         >
           {searchResults.map((item, index) => (
             <motion.div
