@@ -63,7 +63,7 @@ export default function ContextMenu({ x, y, onClose }: ContextMenuProps) {
       handleHighlight(color, contentId as string); // Highlight selected text
       try {
         // Fetch AI response for the selected text
-        const response = await fetch('/api/ai', {
+        const response = await fetch('/api/ai/right-click-ai', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ selectedText }),

@@ -1,16 +1,18 @@
+// components/SignIn.tsx
 "use client";
 
 import { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation"; // Import useSearchParams
 import { useTheme } from "next-themes";
 import styled from "styled-components";
-import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi'; // Example icons
+import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
+import { FcGoogle } from "react-icons/fc"; // Import Google icon
 
 // Assuming GlobalStyle with CSS Variables is applied in your layout
 // Import shared components and animations if applicable
-import Logo from "./ui/Logo";
-import { gradientShift } from "./ui/animations"; // Import shared animation
+import Logo from "./ui/Logo"; // Adjust path if necessary
+import { gradientShift } from "./ui/animations"; // Adjust path if necessary
 
 // --- Styled Components ---
 
@@ -22,36 +24,42 @@ const Container = styled.div`
   min-height: 100vh;
   padding: 1rem;
   color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; // Consistent font
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  /* Animated Gradient Background - Reuse from GlobalStyle */
-  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  background: linear-gradient(135deg, var(--bg-gradient-start, #f0f9ff), var(--bg-gradient-end, #e0f2fe)); /* Example default gradient */
   background-size: 200% 200%;
   animation: ${gradientShift} 15s ease infinite;
   transition: background 0.5s ease;
 
-  /* Optional: Subtle Grid Overlay - Reuse from GlobalStyle if desired */
+  /* Optional: Subtle Grid Overlay */
   /* &::before { ... } */
+
+  .dark & {
+    --bg-gradient-start: #0f172a; /* Dark blue/slate */
+    --bg-gradient-end: #1e293b;
+  }
 `;
 
 const SignInCard = styled.div`
-  background-color: var(--card-bg, rgba(255, 255, 255, 0.1)); /* Use variable, fallback for light */
-  color: var(--text-primary);
-  padding: 2rem 2.5rem; /* More padding */
-  border-radius: 12px; /* Slightly larger radius */
+  background-color: var(--card-bg, rgba(255, 255, 255, 0.1));
+  color: var(--text-primary, #1f2937); /* Default text */
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 420px; /* Consistent max-width */
+  max-width: 420px;
   position: relative;
   z-index: 1;
-  border: 1px solid var(--card-border-color, rgba(255, 255, 255, 0.2)); /* Subtle border */
-  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border: 1px solid var(--card-border-color, rgba(0, 0, 0, 0.05));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
 
-  /* Theme-specific overrides using variables */
   .dark & {
-    --card-bg: rgba(41, 46, 57, 0.5); /* Dark semi-transparent */
+    --card-bg: rgba(30, 41, 59, 0.6); /* Darker semi-transparent */
     --card-border-color: rgba(56, 189, 248, 0.15); /* Faint cyan border */
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--neon-glow-1, #22d3ee); /* Subtle outer glow */
+    --text-primary: #f8fafc; /* Light text */
+    --text-secondary: #cbd5e1; /* Lighter secondary text */
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--neon-glow-1, rgba(34, 211, 238, 0.1));
   }
 
   @media (max-width: 480px) {
@@ -75,7 +83,7 @@ const Title = styled.h2`
 
 const Subtitle = styled.p`
   font-size: 0.95rem;
-  color: var(--text-secondary);
+  color: var(--text-secondary, #64748b); /* Default secondary */
   text-align: center;
   margin-bottom: 2rem;
 `;
@@ -85,10 +93,11 @@ const ErrorMessage = styled.p`
   background-color: var(--error-bg-color, rgba(239, 68, 68, 0.1));
   font-size: 0.875rem;
   text-align: center;
-  padding: 0.5rem 0.75rem;
+  padding: 0.75rem 1rem; /* Slightly more padding */
   border-radius: 6px;
   margin-bottom: 1.5rem;
   border: 1px solid var(--error-color, #ef4444);
+  line-height: 1.4;
 
   .dark & {
       --error-color: #f87171; /* Lighter red for dark */
@@ -106,23 +115,23 @@ const InputIcon = styled.div`
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--input-icon-color, var(--text-secondary));
+  color: var(--input-icon-color, var(--text-secondary, #94a3b8));
   opacity: 0.7;
-  pointer-events: none; /* Make icon non-interactive */
+  pointer-events: none;
 `;
 
 const StyledInput = styled.input`
   width: 100%;
-  padding: 0.75rem 1rem 0.75rem 2.5rem; /* Adjusted padding for icon */
-  border: 1px solid var(--input-border-color, var(--color-slate-300));
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid var(--input-border-color, #cbd5e1); /* Default border */
   border-radius: 8px;
-  background-color: var(--input-bg-color, var(--color-slate-50));
+  background-color: var(--input-bg-color, #f8fafc); /* Default bg */
   color: var(--text-primary);
   font-size: 0.95rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   &::placeholder {
-    color: var(--input-placeholder-color, var(--text-secondary));
+    color: var(--input-placeholder-color, var(--text-secondary, #94a3b8));
     opacity: 0.8;
   }
 
@@ -132,14 +141,20 @@ const StyledInput = styled.input`
     box-shadow: 0 0 0 3px var(--focus-ring-shadow, rgba(59, 130, 246, 0.2));
   }
 
-  /* Theme-specific variables */
+  &:disabled {
+      background-color: var(--input-disabled-bg, #e2e8f0);
+      cursor: not-allowed;
+      opacity: 0.7;
+   }
+
   .dark & {
-    --input-border-color: rgba(148, 163, 184, 0.3); /* Slate 400 / 30% */
-    --input-bg-color: rgba(51, 65, 85, 0.6);     /* Slate 700 / 60% */
+    --input-border-color: rgba(148, 163, 184, 0.3);
+    --input-bg-color: rgba(51, 65, 85, 0.6);
     --input-icon-color: var(--text-secondary);
-    --input-placeholder-color: rgba(148, 163, 184, 0.6); /* Slate 400 / 60% */
+    --input-placeholder-color: rgba(148, 163, 184, 0.6);
     --focus-ring-color: #22d3ee; /* Cyan */
     --focus-ring-shadow: rgba(34, 211, 238, 0.25);
+    --input-disabled-bg: rgba(51, 65, 85, 0.4);
   }
 `;
 
@@ -154,6 +169,9 @@ const PasswordToggle = styled.button`
   color: var(--input-icon-color, var(--text-secondary));
   opacity: 0.8;
   padding: 0.25rem;
+  display: flex; // Ensure icon aligns well
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     opacity: 1;
@@ -161,14 +179,20 @@ const PasswordToggle = styled.button`
   &:focus {
       outline: none;
       opacity: 1;
-      box-shadow: 0 0 0 2px var(--focus-ring-shadow); /* Focus ring */
+  }
+   &:focus-visible {
+      box-shadow: 0 0 0 2px var(--focus-ring-shadow, rgba(59, 130, 246, 0.2));
       border-radius: 4px;
    }
 
-   /* Slightly larger icon size */
    svg {
        width: 18px;
        height: 18px;
+   }
+
+   &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
    }
 `;
 
@@ -177,7 +201,8 @@ const ActionsWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.75rem;
-  flex-wrap: wrap; /* Allow wrapping on small screens */
+  flex-wrap: wrap;
+  gap: 0.5rem; /* Add gap for wrapping */
 `;
 
 const PrimaryButton = styled.button`
@@ -192,28 +217,41 @@ const PrimaryButton = styled.button`
   color: #ffffff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
-  &:hover {
+  &:hover:not(:disabled) {
     transform: translateY(-2px) scale(1.02);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     filter: brightness(1.1);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     transform: translateY(0px) scale(0.98);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
 
-  &:focus-visible { /* Better focus outline */
+  &:focus-visible {
       outline: none;
-      box-shadow: 0 0 0 3px var(--focus-ring-shadow);
+      box-shadow: 0 0 0 3px var(--focus-ring-shadow, rgba(59, 130, 246, 0.2));
   }
 
-  /* Dark theme button */
+   &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--button-disabled-bg, #9ca3af); /* Default disabled */
+    box-shadow: none;
+  }
+
   .dark & {
      --button-grad-start: #22d3ee; /* Cyan */
      --button-grad-end: #a78bfa; /* Violet */
-     color: #0f172a; /* Dark text on bright button */
+     color: #0f172a;
      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+     --focus-ring-shadow: rgba(34, 211, 238, 0.25); /* Match input focus */
+
+     &:disabled {
+        background: linear-gradient(to right, rgba(34, 211, 238, 0.5), rgba(167, 139, 250, 0.5));
+        color: rgba(15, 23, 42, 0.7);
+        opacity: 0.7;
+     }
   }
 `;
 
@@ -223,11 +261,13 @@ const SecondaryLink = styled.a`
   color: var(--link-color, #3b82f6);
   cursor: pointer;
   transition: color 0.2s ease, opacity 0.2s ease;
-  margin-top: 0.5rem; /* Add margin for wrap scenario */
+  margin-top: 0.5rem;
+  text-decoration: none;
 
   &:hover {
     color: var(--link-hover-color, #2563eb);
     opacity: 0.9;
+    text-decoration: underline;
   }
 
   .dark & {
@@ -236,13 +276,101 @@ const SecondaryLink = styled.a`
   }
 `;
 
+const Divider = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--text-secondary, #64748b);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 1.75rem 0; /* Consistent vertical margin */
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--divider-color, rgba(0, 0, 0, 0.1));
+  }
+
+  &::before { margin-right: 0.75em; }
+  &::after { margin-left: 0.75em; }
+
+  .dark & {
+    --divider-color: rgba(255, 255, 255, 0.15);
+  }
+`;
+
+const SocialLoginWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+`;
+
+const SocialButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid var(--input-border-color, #cbd5e1);
+  background-color: var(--input-bg-color, #f8fafc);
+  color: var(--text-primary);
+
+  &:hover:not(:disabled) {
+    background-color: var(--button-hover-bg, rgba(0, 0, 0, 0.03));
+    border-color: var(--input-border-hover-color, #9ca3af);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0, 0.05);
+  }
+
+  &:active:not(:disabled) {
+      transform: translateY(0px);
+      box-shadow: inset 0 1px 3px rgba(0,0,0, 0.1);
+  }
+
+  &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--focus-ring-shadow, rgba(59, 130, 246, 0.2));
+      border-color: var(--focus-ring-color, #3b82f6);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .dark & {
+    --input-border-color: rgba(148, 163, 184, 0.3);
+    --input-bg-color: rgba(51, 65, 85, 0.4);
+    --button-hover-bg: rgba(255, 255, 255, 0.05);
+    --input-border-hover-color: rgba(148, 163, 184, 0.5);
+    --focus-ring-color: #22d3ee; /* Cyan */
+    --focus-ring-shadow: rgba(34, 211, 238, 0.25);
+  }
+`;
+
+
 const SignUpPrompt = styled.div`
   text-align: center;
   font-size: 0.9rem;
   color: var(--text-secondary);
   padding-top: 1.5rem;
-  border-top: 1px solid var(--divider-color, rgba(0, 0, 0, 0.08));
-  margin-top: 1rem;
+  border-top: 1px solid var(--divider-color, rgba(0, 0, 0, 0.1));
+  margin-top: 0.25rem; /* Reduced margin-top as SocialLoginWrapper has margin-bottom */
 
   .dark & {
       --divider-color: rgba(255, 255, 255, 0.1);
@@ -258,14 +386,33 @@ const SignUpLink = styled.button`
    color: var(--link-color, #3b82f6);
    transition: color 0.2s ease, opacity 0.2s ease;
 
-   &:hover {
+   &:hover:not(:disabled) {
      color: var(--link-hover-color, #2563eb);
      opacity: 0.9;
+     text-decoration: underline;
+   }
+
+   &:focus-visible {
+       outline: none;
+       text-decoration: underline;
+       box-shadow: 0 0 0 2px var(--focus-ring-shadow, rgba(59, 130, 246, 0.2)); /* Simple focus ring */
+       border-radius: 3px; /* Rounded focus ring */
+   }
+
+   &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    color: var(--text-secondary); /* Muted color when disabled */
    }
 
    .dark & {
      --link-color: #5eead4; /* Teal */
      --link-hover-color: #2dd4bf;
+     --focus-ring-shadow: rgba(34, 211, 238, 0.25);
+
+     &:disabled {
+       color: var(--text-secondary);
+     }
    }
 `;
 
@@ -276,11 +423,46 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Add loading state
+  const [isLoading, setIsLoading] = useState(false); // Loading for Credentials
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false); // Loading for Google
   const router = useRouter();
-  const { resolvedTheme } = useTheme(); // Use resolvedTheme
+  const searchParams = useSearchParams();
+  const { resolvedTheme } = useTheme();
 
-  // Set theme class on body (needed for .dark selector)
+  // Handle Auth Errors from URL query params
+  useEffect(() => {
+    const errorParam = searchParams?.get("error");
+    if (errorParam) {
+        let userMessage = "An authentication error occurred. Please try again."; // Default
+        switch (errorParam.toLowerCase()) { // Use lowercase for case-insensitivity
+            case "credentialssignin":
+                userMessage = "Invalid email or password. Please check your details.";
+                break;
+            case "oauthaccountnotlinked":
+            case "accountconflict": // Treat custom error similarly
+                userMessage = "This email is already linked to another sign-in method (like Google or Credentials). Please sign in using that method.";
+                break;
+            case "emailsigninerror":
+            case "callback": // Generic callback error
+                userMessage = "There was an issue during the sign-in process. Please try again.";
+                break;
+            case "oauthcallback":
+                 userMessage = "Error returning from the sign-in provider. Please try again.";
+                 break;
+            // Add more specific NextAuth errors as needed:
+            // https://next-auth.js.org/configuration/pages#error-codes
+            default:
+                console.warn("Unhandled NextAuth error code:", errorParam);
+                // Use the default message
+                break;
+        }
+        setError(userMessage);
+        // Clean the URL - Replace current entry in history, doesn't trigger reload
+        window.history.replaceState(null, "", window.location.pathname);
+    }
+  }, [searchParams]);
+
+  // Apply theme class to body
   useEffect(() => {
       document.body.classList.remove('dark', 'light');
       if (resolvedTheme) {
@@ -288,33 +470,71 @@ export default function SignIn() {
       }
   }, [resolvedTheme]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleCredentialsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setIsLoading(true); // Start loading
+    setError(""); // Clear previous errors
+    setIsLoading(true);
+    setIsGoogleLoading(false); // Ensure only one loader is active
 
     try {
+        // Use redirect: false to handle errors/redirects manually
         const result = await signIn("credentials", {
             email,
             password,
-            redirect: false, // Handle redirect manually
+            redirect: false,
+            // callbackUrl: "/main", // Specify success redirect if needed here or in authOptions
         });
 
         if (result?.error) {
-            // More specific error mapping could be done here if needed
-            setError(result.error === "CredentialsSignin" ? "Invalid email or password" : result.error);
+            // This will usually be handled by the useEffect hook reading URL params
+            // but we can set a fallback error message if the redirect doesn't happen
+            console.error("Credentials Sign In Error (returned obj):", result.error);
+            if (!searchParams?.get("error")) { // Only set if not already handled by URL
+                setError("Invalid email or password.");
+            }
         } else if (result?.ok) {
-            router.push("/main"); // Redirect on successful sign in
+            // Successful sign in
+            router.push("/main"); // Redirect to the main page or dashboard
+            // Optionally refresh router state if needed, though push usually suffices
+            // router.refresh();
         } else {
-            setError("An unexpected error occurred. Please try again.");
+            // Handle unexpected non-error, non-ok result
+             setError("An unexpected issue occurred during sign in.");
         }
-    } catch (err) {
-        console.error("Sign in error:", err);
-        setError("An error occurred during sign in.");
+    } catch (err: any) {
+        console.error("Credentials Sign In Submit Error:", err);
+        setError(err.message || "An error occurred during sign in.");
     } finally {
-        setIsLoading(false); // Stop loading regardless of outcome
+        setIsLoading(false);
     }
   };
+
+  const handleGoogleSignIn = async () => {
+    setError(""); // Clear previous errors
+    setIsLoading(false); // Ensure only one loader is active
+    setIsGoogleLoading(true);
+
+    try {
+        // Use redirect: true (default) - NextAuth handles the redirects.
+        // Errors during the OAuth flow will redirect back here with ?error=...
+        // Success will redirect to callbackUrl defined in authOptions or '/main' here.
+        await signIn("google", {
+            callbackUrl: "/main", // Where to go after successful Google auth
+        });
+        // If signIn initiates successfully, the page redirects, so code below here
+        // might not execute unless there's an immediate client-side error.
+    } catch (error: any) {
+        // Catch errors *initiating* the sign-in (rare)
+        console.error("Google Sign In Initiation Error:", error);
+        setError("Failed to start Google Sign-In. Check network or try again.");
+        setIsGoogleLoading(false); // Stop loading if initiation failed
+    }
+    // No finally block to set isGoogleLoading=false if redirect=true,
+    // as the component might unmount before it runs. Loading stops on navigation.
+  };
+
+  // Combined loading state for disabling elements
+  const isSubmitting = isLoading || isGoogleLoading;
 
   return (
     <Container>
@@ -325,18 +545,22 @@ export default function SignIn() {
         <Title>Sign In</Title>
         <Subtitle>to continue to Lumo</Subtitle>
 
-        {error && <ErrorMessage>{error}</ErrorMessage>}
+        {error && <ErrorMessage role="alert">{error}</ErrorMessage>}
 
-        <form onSubmit={handleSubmit}>
+        {/* Credentials Form */}
+        <form onSubmit={handleCredentialsSubmit} noValidate>
           <InputWrapper>
             <InputIcon><FiMail size={18} /></InputIcon>
             <StyledInput
               type="email"
+              id="email" // Add id for label association (optional)
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required // Add basic HTML validation
-              disabled={isLoading}
+              required
+              disabled={isSubmitting}
+              autoComplete="email"
+              aria-label="Email Address" // Aria label for accessibility
             />
           </InputWrapper>
 
@@ -344,48 +568,67 @@ export default function SignIn() {
             <InputIcon><FiLock size={18} /></InputIcon>
             <StyledInput
               type={showPassword ? "text" : "password"}
+              id="password" // Add id for label association (optional)
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              minLength={4} // Example: Basic validation
-              disabled={isLoading}
+              minLength={4} // Keep basic client-side validation
+              disabled={isSubmitting}
+              autoComplete="current-password"
+              aria-label="Password" // Aria label
             />
             <PasswordToggle
-                type="button" // Prevent form submission
+                type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label={showPassword ? "Hide password" : "Show password"}
-                disabled={isLoading}
+                disabled={isSubmitting}
             >
                 {showPassword ? <FiEyeOff size={18}/> : <FiEye size={18}/>}
             </PasswordToggle>
           </InputWrapper>
 
           <ActionsWrapper>
-            <PrimaryButton type="submit" disabled={isLoading}>
+            <PrimaryButton type="submit" disabled={isSubmitting}>
               {isLoading ? "Signing In..." : "Sign In"}
             </PrimaryButton>
-            {/* Add target="_blank" rel="noopener noreferrer" if it links externally */}
-            <SecondaryLink href="/auth/forgot-password">
+            <SecondaryLink href="/auth/forgot-password" /* onClick={(e) => { e.preventDefault(); router.push('/auth/forgot-password'); }} if using router */ >
               Forgot Password?
             </SecondaryLink>
           </ActionsWrapper>
         </form>
 
-         {/* Optional Divider for Social Logins */}
-        {/*
-        <Divider>Or sign in with</Divider>
+         {/* Divider */}
+        <Divider>OR</Divider>
+
+        {/* Social Logins */}
         <SocialLoginWrapper>
-             <SocialButton provider="google" onClick={() => signIn('google')}>
-                <GoogleIcon /> Sign in with Google
+             <SocialButton
+                type="button" // Explicitly type as button
+                onClick={handleGoogleSignIn}
+                disabled={isSubmitting}
+                aria-label="Sign in with Google"
+             >
+                {isGoogleLoading ? (
+                   // Basic loading text, replace with spinner component if desired
+                   <>Signing in with Google...</>
+                 ) : (
+                   <>
+                     <FcGoogle aria-hidden="true" /> Sign in with Google
+                   </>
+                 )}
              </SocialButton>
-             {/* Add other providers */}
-        {/* </SocialLoginWrapper>
-        */}
+             {/* Add buttons for other providers here if needed */}
+        </SocialLoginWrapper>
+
 
         <SignUpPrompt>
           Don't have an account?
-          <SignUpLink onClick={() => !isLoading && router.push("/auth/signup")}>
+          <SignUpLink
+             type="button"
+             onClick={() => !isSubmitting && router.push("/auth/signup")}
+             disabled={isSubmitting}
+          >
             Sign Up
           </SignUpLink>
         </SignUpPrompt>
