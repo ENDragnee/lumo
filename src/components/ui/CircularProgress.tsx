@@ -1,23 +1,31 @@
 "use client";
 import type React from "react";
 
-interface CircularProgressProps {
+interface ResponsiveCircularProgressProps {
   value: number;
-  isHovered: boolean; // New prop to control visibility
+  isHovered: boolean;
+  alwaysShow?: boolean; // Optional prop to always show the SVG (e.g., on mobile)
 }
 
-export const CircularProgress: React.FC<CircularProgressProps> = ({ value, isHovered }) => {
-  const radius = 16; // Radius of the circle
-  const strokeWidth = 4; // Stroke width of the circle
-  const viewBoxSize = radius * 2 + strokeWidth; // Adjust viewBox to include stroke width
+export const ResponsiveCircularProgress: React.FC<ResponsiveCircularProgressProps> = ({
+  value,
+  isHovered,
+  alwaysShow = false,
+}) => {
+  const radius = 16;
+  const strokeWidth = 4;
+  const viewBoxSize = radius * 2 + strokeWidth;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = ((100 - value) / 100) * circumference;
 
+  // Show SVG if alwaysShow is true (e.g., on mobile) or if hovered (on desktop)
+  const showSVG = alwaysShow || isHovered;
+
   return (
-    <div className="relative">
+    <div className="relative w-8 h-8 md:w-12 md:h-12">
       <svg
-        className={`w-12 h-12 text-green-500 transition-opacity duration-300 ${
-          isHovered ? "opacity-100" : "opacity-0"
+        className={`text-green-500 transition-opacity duration-300 ${
+          showSVG ? "opacity-100" : "opacity-0"
         }`}
         viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}
       >
@@ -57,14 +65,14 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({ value, isHov
           {value}%
         </text>
       </svg>
-      {/* Fallback text when not hovered */}
-      {!isHovered && (
+      {/* Fallback text when SVG is not shown */}
+      {!showSVG && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-xs font-medium text-gray-500">{value}%</span>
+          <span className="text-[10px] md:text-xs font-medium text-gray-500">{value}%</span>
         </div>
       )}
     </div>
   );
 };
 
-export default CircularProgress;
+export default ResponsiveCircularProgress;

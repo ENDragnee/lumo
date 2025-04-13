@@ -109,18 +109,10 @@ export default function AASTULayout({ children }: { children: ReactNode }) {
       ) : (
         <header className="fixed top-4 right-4 z-40 flex items-center space-x-2">
           <AIButton
-            style={{
-              opacity: scrollDirection === "down" ? 0 : 1,
-              visibility: scrollDirection === "down" ? "hidden" : "visible",
-              transition: "opacity 0.3s ease, visibility 0.3s ease",
-            }}
           />
           <TabManager
-            style={{
-              opacity: scrollDirection === "down" ? 0 : 1,
-              visibility: scrollDirection === "down" ? "hidden" : "visible",
-              transition: "opacity 0.3s ease, visibility 0.3s ease",
-            }}
+            isOpen={isAIOpen}
+            setIsOpen={setIsAIOpen}
           />
         </header>
       )}

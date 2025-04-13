@@ -1,75 +1,201 @@
 'use client';
 
-import { InlineMath, BlockMath } from 'react-katex';
-import { useState } from 'react';
-import QuizQuestion from '@/components/QuizQuestion';
+import { InlineMath, BlockMath } from 'react-katex'; // Keep imports
+import { useState, ChangeEvent } from 'react'; // Removed useMemo
+import QuizQuestion from '@/components/QuizQuestion'; // Assuming this component exists
 import 'katex/dist/katex.min.css';
 
+// --- Type Definitions ---
+interface YouTubeEmbedProps {
+  videoId: string;
+  title: string;
+}
+
+interface MiniCheckQuestionProps {
+  question: string;
+  correctAnswer: string;
+  explanation: string;
+}
+
+// !! Adjust based on your actual QuizQuestion component !!
+interface QuizQuestionProps {
+    key: number;
+    // questionNumber?: number; // Make optional or ensure component accepts it
+    question: string;
+    options: string[];
+    correctAnswer: number;
+    hint: string;
+    selectedAnswer: number | null;
+    showResults: boolean;
+    onSelectAnswer: (answerIndex: number) => void;
+}
+
+// --- Reusable Components (Styled as per design system) ---
+
+// YouTube Embed Component
+function YouTubeEmbed({ videoId, title }: YouTubeEmbedProps) {
+  return (
+    <div className="my-4">
+      <p className="mb-2 font-semibold font-inter text-dark-gray dark:text-light-gray">{title}:</p>
+      <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
+         <iframe
+           className="w-full h-full"
+           src={`https://www.youtube.com/embed/${videoId}`}
+           title={title}
+           frameBorder="0"
+           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+           allowFullScreen>
+         </iframe>
+      </div>
+    </div>
+  );
+}
+
+// Mini Interactive Question Component
+function MiniCheckQuestion({ question, correctAnswer, explanation }: MiniCheckQuestionProps) {
+  const [revealed, setRevealed] = useState(false);
+  return (
+    <div className="mt-6 p-4 border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 shadow-md">
+      <p className="font-medium text-sm mb-2 font-inter text-dark-gray dark:text-light-gray">{question}</p>
+      {!revealed && (
+        <button
+          onClick={() => setRevealed(true)}
+          className="text-xs bg-coral hover:bg-opacity-80 dark:bg-gold dark:text-deep-navy text-white font-inter font-semibold py-1 px-3 rounded transition-colors"
+        >
+          Check Answer
+        </button>
+      )}
+      {revealed && (
+        <div className="text-sm space-y-1 font-inter">
+          <p className="text-dark-gray dark:text-light-gray"><strong className="text-teal dark:text-mint">Answer:</strong> {correctAnswer}</p>
+          <p className="text-dark-gray dark:text-light-gray"><strong className="text-gray-600 dark:text-gray-400">Explanation:</strong> {explanation}</p>
+           <button
+            onClick={() => setRevealed(false)}
+            className="text-xs text-blue-600 dark:text-blue-400 hover:underline mt-1 font-inter"
+          >
+            Hide
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+// --- Page Specific Data ---
 const quizQuestions = [
-  {
-    "question": "What is the process of converting an AC voltage supply into a unidirectional DC voltage supply called?",
+    // ... (quiz questions remain unchanged)
+     {
+    "question": "What is the primary purpose of rectification in electronics?",
     "options": [
-      "Amplification",
-      "Rectification",
-      "Capacitation",
-      "Inductance"
+      "To increase AC voltage",
+      "To convert AC voltage to DC voltage", // Correct
+      "To store electrical charge",
+      "To amplify AC signals"
     ],
     "correctAnswer": 1,
-    "hint": "This process uses a diode to change alternating current into direct current."
+    "hint": "Rectification changes alternating current (which changes direction) into direct current (which flows in one direction)."
   },
   {
-    "question": "What disadvantage is present in a half-wave rectifier compared to a full-wave rectifier?",
+    "question": "Which rectifier type uses only one diode and allows only half of the AC cycle to pass through?",
     "options": [
-      "It requires more diodes",
-      "It only conducts current during one half-cycle of an AC waveform",
-      "It stores more energy",
-      "It uses fewer components"
-    ],
-    "correctAnswer": 1,
-    "hint": "In half-wave rectification, only half of the AC cycle is converted to DC."
-  },
-  {
-    "question": "Which device emits light when an electrical current flows through it?",
-    "options": [
-      "Photodiode",
-      "LED (Light Emitting Diode)",
-      "Resistor",
-      "Transistor"
-    ],
-    "correctAnswer": 1,
-    "hint": "This diode emits photons when electrons cross the P-N junction."
-  },
-  {
-    "question": "How does a photodiode generate an electrical current?",
-    "options": [
-      "By blocking current completely",
-      "By converting photons into electron-hole pairs",
-      "By storing electrical energy",
-      "By amplifying electrical signals"
-    ],
-    "correctAnswer": 1,
-    "hint": "Photons absorbed in the depletion region create moving charge carriers forming current."
-  },
-  {
-    "question": "What is the purpose of using diodes in over-voltage protection circuits?",
-    "options": [
-      "To increase voltage",
-      "To amplify electrical signals",
-      "To protect devices by shutting down the switch after detecting over-voltage",
-      "To store energy efficiently"
+      "Full-wave bridge rectifier",
+      "Center-tapped full-wave rectifier",
+      "Half-wave rectifier", // Correct
+      "Voltage doubler"
     ],
     "correctAnswer": 2,
-    "hint": "Diodes protect electronic circuits by preventing damage caused by voltage spikes."
+    "hint": "This is the simplest form of rectifier but is inefficient as it discards half the input power."
+  },
+   {
+    "question": "How many diodes are typically used in a full-wave bridge rectifier?",
+    "options": [
+      "One",
+      "Two",
+      "Four", // Correct
+      "Six"
+    ],
+    "correctAnswer": 2,
+    "hint": "The bridge configuration uses four diodes to rectify both halves of the AC cycle."
+  },
+  {
+    "question": "What is the main advantage of a full-wave rectifier over a half-wave rectifier?",
+    "options": [
+      "It uses fewer components.",
+      "It produces a smoother DC output with less ripple.", // Correct (converts both halves)
+      "It blocks both halves of the AC cycle.",
+      "It operates at a higher frequency."
+    ],
+    "correctAnswer": 1,
+    "hint": "By utilizing both halves of the AC cycle, the output is closer to a steady DC voltage."
+  },
+   {
+    "question": "What component is commonly added after a rectifier circuit to smooth out the pulsating DC output?",
+    "options": [
+      "A resistor",
+      "An inductor",
+      "A capacitor (filter capacitor)", // Correct
+      "Another diode"
+    ],
+    "correctAnswer": 2,
+    "hint": "The capacitor charges during peaks and discharges during valleys, reducing voltage fluctuations (ripple)."
+  },
+  {
+    "question": "A Light Emitting Diode (LED) converts electrical energy primarily into what form of energy?",
+    "options": [
+      "Heat energy",
+      "Light energy (photons)", // Correct
+      "Sound energy",
+      "Mechanical energy"
+    ],
+    "correctAnswer": 1,
+    "hint": "LEDs are designed for efficient light production when forward biased."
+  },
+  {
+    "question": "A photodiode is designed to convert ______ into ______.",
+    "options": [
+      "Heat into current",
+      "Current into light",
+      "Light (photons) into electrical current", // Correct
+      "Voltage into resistance"
+    ],
+    "correctAnswer": 2,
+    "hint": "Photodiodes are used as light sensors, generating current proportional to light intensity."
+  },
+  {
+    "question": "How can diodes be used for over-voltage protection in a circuit?",
+    "options": [
+      "By amplifying the voltage.",
+      "By acting as a fuse that blows.",
+      "By conducting heavily (clamping) when voltage exceeds a certain level, diverting excess current.", // Correct (e.g., TVS diodes)
+      "By storing the excess voltage."
+    ],
+    "correctAnswer": 2,
+    "hint": "Specialized diodes (like Zener or TVS) can be used to limit or 'clamp' voltage spikes."
   }
-]
+];
 
-export default function Rectification() {
+
+// --- KaTeX Constants (Optional, good practice if used) ---
+const katex_AC = 'AC';
+const katex_DC = 'DC';
+const katex_D1 = 'D_1';
+const katex_D2 = 'D_2';
+const katex_D3 = 'D_3';
+const katex_D4 = 'D_4';
+
+
+// --- Main Page Component ---
+const RectificationPage = () => { // Renamed component
+  // --- State Variables ---
   const [showQuiz, setShowQuiz] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>(new Array(quizQuestions.length).fill(null));
   const [showResults, setShowResults] = useState(false);
-  const [score, setScore] = useState(0); 
+  const [score, setScore] = useState(0);
 
+  // --- Quiz Handlers ---
   const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
+    if (showResults) return;
     const newSelectedAnswers = [...selectedAnswers];
     newSelectedAnswers[questionIndex] = answerIndex;
     setSelectedAnswers(newSelectedAnswers);
@@ -83,132 +209,227 @@ export default function Rectification() {
     setScore(correctCount);
     setShowResults(true);
   };
-  return (
-    <div className="px-6 sm:px-6 sm:text-xs md:text-base py-6 max-w-4xl mx-auto text-justify">
-      <h1 className="text-3xl font-bold mb-6">5.3 Rectification</h1>
 
-      <p>
-        A P-N junction diode conducts electricity when it is forward biased and it does not conduct electricity when it is reverse biased. Hence, it is used to rectify an alternating current (AC) voltage supply. The process in which an AC voltage supply is converted into a unidirectional (DC) voltage is known as rectification and the electric circuit used for the conversion is called a rectifier. When the AC input is applied to a junction diode, it becomes forward biased during the positive half cycle and reverse biased during the negative half-cycle. Rectification is the main function of diodes.
-      </p>
+  const resetQuiz = () => {
+    setShowQuiz(false);
+    setShowResults(false);
+    setSelectedAnswers(new Array(quizQuestions.length).fill(null));
+    setScore(0);
+  }
 
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Half Wave Rectification</h2>
-      <p>
-        A half-wave rectifier only allows one half-cycle of an AC voltage waveform to pass by blocking the other half-cycle. Therefore, the current in the circuit flows in only one direction. A half-wave rectifier consists of a diode and a load resistor connected in series to the cathode end of the diode. The basic principle of a half-wave rectifier is shown in Figure 5.9.
-      </p>
+  // --- Component Render ---
+   return (
+    <div className="bg-off-white text-dark-gray dark:bg-deep-navy dark:text-light-gray min-h-screen font-lora">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 py-8">
+            <h1 className="text-4xl lg:text-5xl font-bold font-playfair mb-8 lg:mb-12 text-center">
+                5.3 Rectification & Diode Applications {/* Updated Title */}
+            </h1>
 
-      <h3 className="text-xl font-semibold mt-6 mb-4">Working Principle of Half Wave Rectifier</h3>
-      <p>
-        In a half-wave rectifier circuit during the positive half-cycle of the input, the diode is forward biased. Current flows through the load resistor and a voltage is developed across it. During the negative half-cycle, the diode is reverse biased and does not conduct. Therefore, in the negative half-cycle of the supply, no current flows in the load resistor as no voltage appears across it. Thus, the DC voltage across the load is sinusoidal for the first half-cycle only and a pure AC input signal is converted into a DC pulsating output signal.
-      </p>
+            <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-12">
+                {/* Left Column */}
+                <article className="lg:col-span-7 space-y-6">
 
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Full Wave Rectification</h2>
-      <p>
-        The fact that the current flows only during half of each cycle in a half-wave rectifier is a disadvantage. To overcome this disadvantage, a full-wave rectifier can be used. Figure 5.10 shows a basic full-wave rectifier circuit, which uses four diodes arranged in a particular way.
-      </p>
+                    {/* What is Rectification? */}
+                    <section>
+                         <h2 className="text-3xl font-semibold font-playfair mt-6 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                             What is Rectification?
+                         </h2>
+                         <p className="leading-relaxed">
+                            Most electronic devices require a steady Direct Current (<InlineMath math={katex_DC}/>) supply to function, but our mains power is typically Alternating Current (<InlineMath math={katex_AC}/>). The process of converting AC voltage into a unidirectional (pulsating) DC voltage is called <strong className="text-teal dark:text-teal font-semibold">rectification</strong>.
+                         </p>
+                         <p className="mt-3 leading-relaxed">
+                             The key component enabling rectification is the <strong className="text-teal dark:text-teal font-semibold">P-N junction diode</strong>, which allows current to flow significantly in only one direction (when forward biased) and blocks it in the reverse direction.
+                         </p>
+                    </section>
 
-      <h3 className="text-xl font-semibold mt-6 mb-4">Working Principle of Full Wave Bridge Rectifier</h3>
-      <p>
-        The four diodes, labeled D1 to D4, are arranged in such a way that only two diodes conduct current during each half-cycle. During the positive half-cycle of the supply, diodes D1 and D2 conduct in series. However, diodes D3 and D4 are reverse biased and so the current flows through the load resistor. During the negative half-cycle of the supply, diodes D3 and D4 conduct in series, but diodes D1 and D2 switch off as they are now reverse biased. The current flowing through the load is in the same direction as before.
-      </p>
+                    {/* Half-Wave Rectifier */}
+                    <section>
+                         <h2 className="text-3xl font-semibold font-playfair mt-8 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                            Half-Wave Rectification
+                         </h2>
+                          <p className="leading-relaxed">
+                            The simplest rectifier uses a single diode in series with the load (the device receiving power).
+                             <ul className="list-disc list-inside ml-4 space-y-1 mt-2">
+                                 <li>During the <strong className="text-coral dark:text-gold">positive half-cycle</strong> of the AC input, the diode is forward biased and conducts current through the load.</li>
+                                 <li>During the <strong className="text-coral dark:text-gold">negative half-cycle</strong>, the diode is reverse biased and blocks current flow.</li>
+                             </ul>
+                          </p>
+                           <p className="mt-3 leading-relaxed">
+                              The result is a pulsating DC output across the load where only the positive half-cycles of the original AC waveform appear. This is called <strong className="text-teal dark:text-teal font-semibold">half-wave rectification</strong>.
+                           </p>
+                            <p className="text-sm italic leading-relaxed text-gray-600 dark:text-gray-400 mt-2">
+                               Disadvantage: Only utilizes half of the input AC power, resulting in inefficient power transfer and a highly fluctuating DC output.
+                            </p>
+                     </section>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Diodes and Capacitor</h2>
-      <p>
-        A capacitor is used in rectifier circuits to smooth the fluctuations of the output voltage. A capacitor stores charge and releases it later. The capacitor is connected across the terminals as shown in Figure 5.12. During the positive quarter-cycle of the output voltage, the capacitor is charged to the peak voltage. Then, as the rectifier voltage falls, the capacitor discharges and provides the required current to the load resistor from its stored charge. This charging and discharging process of the capacitor smooths out the waveform.
-      </p>
+                     {/* Full-Wave Rectifier */}
+                    <section>
+                         <h2 className="text-3xl font-semibold font-playfair mt-8 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                             Full-Wave Rectification (Bridge Rectifier)
+                         </h2>
+                          <p className="leading-relaxed">
+                            To utilize both halves of the AC cycle and achieve a smoother DC output, <strong className="text-teal dark:text-teal font-semibold">full-wave rectification</strong> is used. A common configuration is the <strong className="text-coral dark:text-gold font-semibold">bridge rectifier</strong>, which uses four diodes arranged in a specific bridge pattern.
+                          </p>
+                           <ul className="list-disc list-inside ml-4 space-y-1 mt-2">
+                               <li>During the <strong className="text-coral dark:text-gold">positive half-cycle</strong>, two diodes (e.g., <InlineMath math={katex_D1}/>, <InlineMath math={katex_D2}/>) are forward biased, allowing current to flow through the load in one direction. The other two diodes are reverse biased.</li>
+                               <li>During the <strong className="text-coral dark:text-gold">negative half-cycle</strong>, the other pair of diodes (e.g., <InlineMath math={katex_D3}/>, <InlineMath math={katex_D4}/>) become forward biased, while the first pair blocks. Crucially, the current is routed through the load in the <strong className="text-teal dark:text-teal">same direction</strong> as during the positive half-cycle.</li>
+                           </ul>
+                            <p className="mt-3 leading-relaxed">
+                               The output is a pulsating DC voltage where the negative half-cycles have been "flipped" to become positive. This is much more efficient and easier to smooth than the half-wave output.
+                            </p>
+                     </section>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Practical Uses of Diodes</h2>
+                     {/* Smoothing with Capacitors */}
+                     <section>
+                          <h2 className="text-3xl font-semibold font-playfair mt-8 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                             Smoothing the Output (Filtering)
+                         </h2>
+                         <p className="leading-relaxed">
+                             The output from both half-wave and full-wave rectifiers is pulsating DC, not the steady DC required by most electronics. To smooth out these fluctuations (known as <strong className="text-coral dark:text-gold">ripple</strong>), a <strong className="text-teal dark:text-teal font-semibold">filter capacitor</strong> is typically connected in parallel with the load resistor.
+                         </p>
+                         <p className="mt-3 leading-relaxed">
+                            The capacitor charges up to the peak voltage during the rising part of the rectified pulse. As the pulse voltage falls, the capacitor starts to discharge slowly through the load, maintaining the voltage at a higher level than it would otherwise be. This significantly reduces the ripple and produces a much smoother DC voltage. Larger capacitance values provide better smoothing.
+                         </p>
+                     </section>
 
-      <h3 className="text-xl font-semibold mt-6 mb-4">Light Emitting Diodes (LED)</h3>
-      <p>
-        A light emitting diode (LED) is a P-N junction diode which can emit light when an electrical current flows through it. It uses a special kind of doping so that when an electron crosses the P-N junction, a photon is emitted, which creates light. The frequency (color) of the light emitted is determined by the type of semiconductor material used in the construction of the diode. LED allows the current to flow in the forward direction and blocks the current in the reverse direction. LEDs are very efficient producers of light.
-      </p>
+                    {/* Practical Uses */}
+                    <section>
+                         <h2 className="text-3xl font-semibold font-playfair mt-8 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                             Practical Uses of Diodes
+                         </h2>
+                           <p className="leading-relaxed">
+                               Beyond rectification, diodes have many other important applications:
+                           </p>
+                           <ul className="list-disc list-outside ml-6 space-y-2 mt-2">
+                                <li>
+                                    <strong className="font-semibold">Light Emitting Diodes (LEDs):</strong> Specialized diodes designed to emit light (photons) when forward biased. The color depends on the semiconductor material used. LEDs are highly efficient light sources used in lighting, displays, and indicators.
+                                </li>
+                               <li>
+                                   <strong className="font-semibold">Photodiodes:</strong> These diodes convert light energy into electrical current. When photons strike the depletion region, they generate electron-hole pairs, creating a current proportional to the light intensity. Used in light sensors, solar cells (photovoltaics), and optical communication.
+                               </li>
+                               <li>
+                                   <strong className="font-semibold">Logic Gates:</strong> Diodes, combined with resistors, can form basic digital logic gates like AND and OR gates (Diode-Resistor Logic - DRL), although transistor-based logic (like TTL or CMOS) is far more common today.
+                               </li>
+                                <li>
+                                   <strong className="font-semibold">Over-Voltage Protection:</strong> Certain types of diodes (like Zener diodes or Transient Voltage Suppression (TVS) diodes) are designed to conduct heavily when a specific reverse voltage (their breakdown voltage) is exceeded. Placed across sensitive circuits, they can "clamp" voltage spikes and divert excess current, protecting the circuit from damage.
+                               </li>
+                           </ul>
+                     </section>
 
-      <h3 className="text-xl font-semibold mt-6 mb-4">Photodiode</h3>
-      <p>
-        A photodiode is a semiconductor device with a P-N junction that converts photons (or light) into electrical current. Photons absorbed in the depletion region (or close to it) will create electron-hole pairs, which will move to opposite ends of the diode due to the electric field. Electrons will move toward the positive potential on the cathode, and the holes will move toward the negative potential on the anode. These moving charge carriers form the current (photocurrent) in the photodiode.
-      </p>
+                </article>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Logic Gates</h2>
-      <p>
-        Diodes and resistors can be combined with other components to construct AND and OR logic gates. This is referred to as diode-resistor logic. These are discussed in detail in section 5.5.
-      </p>
+                {/* Right Column */}
+                <aside className="lg:col-span-5 space-y-8 mt-8 lg:mt-0">
+                      {/* Panel 1: Rectification Video */}
+                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                         <YouTubeEmbed videoId="ln9zg0KOYhM" title="Video: Half-Wave and Full-Wave Rectification"/>
+                     </div>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Over-Voltage Protection</h2>
-      <p>
-        Excess voltage can damage our electronic devices. Sensitive electronic devices need to be protected from fluctuations in voltage; the diode is perfect for this. Diodes achieve this by shutting down the switch after sensing an over-voltage condition.
-      </p>
-      <div className='flex justify-center items-center'>
-          <button 
-            onClick={() => setShowQuiz(true)}
-            className="w-1/2 h-1/2 mt-6 bg-slate-400 hover:bg-slate-500 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
-          >
-            Take Quiz
-          </button>
-        </div>
+                     {/* Panel 2: Rectifier Type Mini Question */}
+                     <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                          <h3 className="text-xl font-semibold font-inter mb-3 text-blue-700 dark:text-blue-300">Rectifier Check</h3>
+                          <MiniCheckQuestion
+                             question="Which type of rectifier (half-wave or full-wave bridge) provides a DC output with less voltage fluctuation (ripple) before filtering?"
+                             correctAnswer="Full-wave bridge rectifier."
+                             explanation="The full-wave rectifier utilizes both halves of the AC cycle, resulting in output pulses that are closer together and have a higher average DC level, making it easier to smooth with a capacitor."
+                         />
+                     </div>
 
-      {showQuiz && (
-        <div className="fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-70 flex justify-center items-center z-50">
-          <div className="bg-white dark:bg-[#242424] p-8 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
-            <button 
-              onClick={() => {
-                setShowQuiz(false);
-                setShowResults(false);
-                setSelectedAnswers(new Array(quizQuestions.length).fill(null));
-              }}
-              className="absolute top-4 right-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            
-            <h2 className="text-2xl font-bold mb-6 dark:text-white">Projectile Motion Quiz</h2>
-            <div className="space-y-6">
-              {quizQuestions.map((q, index) => (
-                <QuizQuestion
-                  key={index}
-                  question={q.question}
-                  options={q.options}
-                  correctAnswer={q.correctAnswer}
-                  hint={q.hint}
-                  selectedAnswer={selectedAnswers[index]}
-                  showResults={showResults}
-                  onSelectAnswer={(answerIndex) => handleAnswerSelect(index, answerIndex)}
-                />
-              ))}
+                     {/* Panel 3: LED Video */}
+                      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                          <YouTubeEmbed videoId="4y7p9R2No-4" title="Video: How Light Emitting Diodes (LEDs) Work"/>
+                     </div>
+
+                     {/* Panel 4: Photodiode Video */}
+                      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                          <YouTubeEmbed videoId="YqMQDyU5tNU" title="Video: How Photodiodes Work"/>
+                      </div>
+
+                     {/* Panel 5: LED vs Photodiode Mini Question */}
+                      <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                         <h3 className="text-xl font-semibold font-inter mb-3 text-green-700 dark:text-green-300">Optoelectronic Diodes</h3>
+                         <MiniCheckQuestion
+                            question="What is the key functional difference between an LED and a Photodiode?"
+                            correctAnswer="LEDs convert electrical energy into light, while Photodiodes convert light energy into electrical current."
+                            explanation="They perform opposite energy conversions based on interactions at the P-N junction."
+                        />
+                     </div>
+
+                     {/* Panel 6: Falstad Simulation Link (Rectifiers) */}
+                    <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                        <h3 className="text-xl font-semibold font-inter mb-3 text-center">Explore: Rectifier Circuits</h3>
+                        <p className="text-sm text-center mb-4 font-inter text-dark-gray dark:text-light-gray">Experiment with half-wave, full-wave, and filtered rectifier circuits in this simulator.</p>
+                         <div className="relative w-full overflow-hidden aspect-video border dark:border-gray-600 rounded bg-black">
+                            <a href="https://falstad.com/circuit/circuitjs.html" target="_blank" rel="noopener noreferrer" className="absolute inset-0 flex items-center justify-center bg-gray-800 hover:bg-gray-700 transition-colors">
+                                <span className="text-light-gray font-inter font-semibold p-4 text-center">Click to Open Falstad Circuit Simulator (New Tab) <br/> <i className="text-xs">(Load rectifier examples from 'Circuits' menu)</i></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </aside>
             </div>
-            <div className="mt-6 flex justify-between">
-              {!showResults && (
-                <button 
-                  onClick={handleSubmit}
-                  className="bg-green-500 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors"
+
+             {/* Quiz Button */}
+            <div className='flex justify-center items-center mt-12 lg:mt-16'>
+                <button
+                    onClick={() => setShowQuiz(true)}
+                    className="w-full sm:w-1/2 lg:w-1/3 bg-coral hover:bg-opacity-80 dark:bg-gold dark:text-deep-navy text-white font-bold font-inter py-3 px-6 rounded-lg transition-colors text-lg shadow-md"
                 >
-                  Submit
+                    Test Your Rectification Knowledge!
                 </button>
-              )}
-              <button 
-                onClick={() => {
-                  setShowQuiz(false);
-                  setShowResults(false);
-                  setSelectedAnswers(new Array(quizQuestions.length).fill(null));
-                }}
-                className="bg-red-500 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors"
-              >
-                Close
-              </button>
             </div>
-            {showResults && (
-              <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                <h3 className="text-xl font-bold mb-2 dark:text-white">Quiz Results</h3>
-                <p className="dark:text-white">
-                  You got {score} out of {quizQuestions.length} questions correct! 
-                  ({((score / quizQuestions.length) * 100).toFixed(1)}%)
-                </p>
+        </main>
+
+        {/* Quiz Modal */}
+        {showQuiz && (
+             <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 p-4">
+              <div className="bg-off-white dark:bg-deep-navy p-6 sm:p-8 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto relative shadow-xl border dark:border-gray-700">
+                 <button onClick={resetQuiz} className="absolute top-3 right-3 text-dark-gray dark:text-light-gray hover:text-coral dark:hover:text-gold text-2xl" aria-label="Close quiz">×</button>
+                 <h2 className="text-2xl font-bold font-playfair mb-6 text-center text-dark-gray dark:text-light-gray">Rectification & Diodes Quiz</h2>
+                 <div className="space-y-6 font-inter">
+                  {quizQuestions.map((q, index) => (
+                    <QuizQuestion
+                      key={index}
+                      // questionNumber={index + 1} // Uncomment if needed
+                      question={q.question}
+                      options={q.options}
+                      correctAnswer={q.correctAnswer}
+                      hint={q.hint}
+                      selectedAnswer={selectedAnswers[index]}
+                      showResults={showResults}
+                      onSelectAnswer={(answerIndex: number) => handleAnswerSelect(index, answerIndex)}
+                    />
+                  ))}
+                 </div>
+                 <div className="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                     {!showResults ? (
+                         <button onClick={handleSubmit} className="w-full sm:w-auto bg-teal hover:bg-opacity-80 dark:bg-mint dark:text-deep-navy text-white font-bold font-inter py-2 px-6 rounded transition-colors disabled:opacity-50" disabled={selectedAnswers.includes(null)}>
+                             Submit Answers
+                         </button>
+                     ) : <div/>}
+                     <button onClick={resetQuiz} className="w-full sm:w-auto bg-coral hover:bg-opacity-80 dark:bg-gold dark:text-deep-navy text-white font-bold font-inter py-2 px-6 rounded transition-colors">
+                         Close Quiz
+                     </button>
+                 </div>
+                {showResults && (
+                  <div className="mt-6 p-4 bg-blue-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 text-center">
+                     <h3 className="text-xl font-bold font-playfair mb-2 text-dark-gray dark:text-light-gray">Quiz Results</h3>
+                     <p className="text-lg font-inter text-dark-gray dark:text-light-gray">
+                        You got <strong className="text-teal dark:text-mint">{score}</strong> out of <strong className="text-teal dark:text-mint">{quizQuestions.length}</strong> correct!
+                     </p>
+                     <p className="text-2xl font-bold font-inter mt-1 text-dark-gray dark:text-light-gray">
+                         ({((score / quizQuestions.length) * 100).toFixed(0)}%)
+                     </p>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </div>
-      )}
+            </div>
+        )}
     </div>
   );
 }
+
+// Assign display name
+RectificationPage.displayName = 'RectificationPage';
+
+export default RectificationPage;

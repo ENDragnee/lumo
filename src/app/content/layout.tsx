@@ -1,66 +1,103 @@
+// @/app/content/layout.tsx (Corrected)
 "use client"
 
 import type React from "react"
-import { type ReactNode, useState, useEffect } from "react"
+import { type ReactNode, useState, useEffect, useCallback, useRef } from "react"
 import { usePathname } from "next/navigation"
 import { Clock } from "@/components/ui/clock"
 import { Toaster, toast } from "sonner"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { ScrollProgressBar } from "@/components/scroll-progress-bar"
 import ContextMenu2 from "@/components/context-menu"
 import { ThemeProvider } from "next-themes"
 import "@/app/globals.css"
 import { SidebarProvider } from "@/app/hooks/SidebarContext"
 import { SessionProvider } from "next-auth/react"
-import AIButton from "@/components/ai-feature"
+import AIFeature from "@/components/ai-feature" // Keep this import
 import TabManager from "@/components/Tab"
-import NewLeftSidebar from "./components/sideBar"
-import { Menu, X } from "lucide-react"
+import ContentSidebar from "./components/sideBar"
+import RecommendedContent from "./components/RecommendedContent"
+import BottomNavbar from "@/components/mainPage/BottomNavbar"
+// Use consistent icons for Recommendation Toggle
+import { PanelLeftOpen, PanelLeftClose, PanelRightOpen, PanelRightClose, LayoutList } from "lucide-react";
 import { cn } from "@/lib/utils"
 
+// **** USE SCROLL DIRECTION HOOK ****
 const useScrollDirection = () => {
-  const [scrollDirection, setScrollDirection] = useState("up")
-  const [lastScrollY, setLastScrollY] = useState(0)
+  const [scrollDirection, setScrollDirection] = useState<"up" | "down">("up");
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      if (currentScrollY < lastScrollY) {
-        setScrollDirection("up")
+      const currentScrollY = window.scrollY;
+      if (Math.abs(currentScrollY - lastScrollY) < 10) return;
+
+      if (currentScrollY < lastScrollY || currentScrollY < 50) {
+        setScrollDirection("up");
       } else {
-        setScrollDirection("down")
+        setScrollDirection("down");
       }
-      setLastScrollY(currentScrollY)
+      setLastScrollY(currentScrollY < 0 ? 0 : currentScrollY);
+    };
+
+    if (typeof window !== 'undefined') {
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        handleScroll(); // Initial check
     }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [lastScrollY])
+    return () => {
+        if (typeof window !== 'undefined') {
+            window.removeEventListener("scroll", handleScroll);
+        }
+    }
+  }, [lastScrollY]);
 
-  return scrollDirection
+  return scrollDirection;
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
-  const pathname = usePathname()
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
-  const [isAIOpen, setIsAIOpen] = useState(false)
-  const [menuPosition, setMenuPosition] = useState<{ x: number; y: number } | null>(null)
 
+export default function ContentLayout({ children }: { children: ReactNode }) {
+  const pathname = usePathname()
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true) // Left sidebar
+  const [isRecommendationOpen, setIsRecommendationOpen] = useState(false) // Right sidebar
+  const [menuPosition, setMenuPosition] = useState<{ x: number; y: number } | null>(null)
+  const [isMounted, setIsMounted] = useState(false);
+  const [isTabManagerOpen, setIsTabManagerOpen] = useState(false);
+  const tabManagerTriggerRef = useRef<HTMLButtonElement>(null);
   const scrollDirection = useScrollDirection()
 
-  const toggleSidebar = () => {
+
+  const toggleSidebar = useCallback(() => {
     setIsSidebarOpen((prev) => !prev)
-  }
+  }, []);
+
+  const toggleRecommendation = useCallback(() => {
+    setIsRecommendationOpen((prev) => !prev)
+  }, []);
+
+  const toggleTabManager = useCallback(() => {
+    setIsTabManagerOpen((prev) => !prev);
+  }, []);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 768px)')
-    const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      setIsSidebarOpen(!e.matches) // Closed on mobile, open on desktop
+    setIsMounted(true);
+    if (typeof window !== 'undefined') {
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        const handleChange = (e: MediaQueryList | MediaQueryListEvent) => {
+          if (e.matches) { // Mobile
+            // ** Ensure this sets recommendation to false initially on mobile **
+            setIsSidebarOpen(false);
+            setIsRecommendationOpen(false); // Start closed on mobile
+          } else { // Desktop
+            setIsSidebarOpen(true);
+            setIsRecommendationOpen(true); // Keep desktop defaults
+          }
+        }
+        handleChange(mediaQuery); // Initial check
+        mediaQuery.addEventListener('change', handleChange);
+        return () => mediaQuery.removeEventListener('change', handleChange);
     }
-    handleChange(mediaQuery)
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [])
+     return () => { setIsMounted(false); }
+  }, []);
 
   const handleContextMenu = (event: React.MouseEvent) => {
     event.preventDefault()
@@ -73,109 +110,171 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
   const handleSessionEnd = (isStudySession: boolean) => {
     const message = isStudySession ? "Time to focus!" : "Time to take a break!"
-    const borderColor = isStudySession ? "red" : "green"
+    const borderColor = isStudySession ? "border-red-500" : "border-green-500"
 
     toast(message, {
-      duration: 0,
+      duration: 5000,
       position: "top-center",
-      className: "custom-toast",
-      style: {
-        borderLeft: `5px solid ${borderColor}`,
-        borderRadius: "8px",
-        background: "white",
-        marginTop: "15px",
-        width: "300px",
-      },
+      className: cn("custom-toast border-l-4 bg-background text-foreground mt-4 max-w-sm rounded-lg", borderColor),
     })
   }
 
-  const excludedSidebarPaths = ["/", "/landing", "/signup", "/login", "/auth/signin", "/auth/signup", "/main", "/about"]
-  const shouldRenderSidebar = !excludedSidebarPaths.includes(pathname)
+  const excludedPaths = ["/", "/landing", "/signup", "/login", "/auth/signin", "/auth/signup", "/about"];
+  const shouldRenderNav = !excludedPaths.includes(pathname) && isMounted;
+  const isMobile = isMounted && typeof window !== 'undefined' && window.innerWidth < 768; // Recalculate based on current width
+
+  if (!isMounted) {
+     return null; // Or a loading skeleton
+  }
+
 
   return (
-    <html lang="en">
-      <body
-        className="min-h-screen flex flex-col bg-white dark:bg-[#404552] text-black dark:text-white"
-        onContextMenu={handleContextMenu}
-      >
-        <SessionProvider>
-          <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
-            <SidebarProvider>
-              {shouldRenderSidebar && (
-                <NewLeftSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-              )}
-            </SidebarProvider>
+    <SessionProvider>
+      <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
+        <SidebarProvider>
+          <>
+            {shouldRenderNav && (
+              <>
+                {/* Left Sidebar (Still exists, but toggle button might be elsewhere on mobile) */}
+                <ContentSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+                {/* Right Sidebar */}
+                <RecommendedContent isOpen={isRecommendationOpen} toggleOpen={toggleRecommendation} />
+                 <TabManager
+                    isOpen={isTabManagerOpen}
+                    setIsOpen={setIsTabManagerOpen}
+                    triggerRef={tabManagerTriggerRef}
+                 />
+                 {isMobile && <BottomNavbar />}
+              </>
+            )}
 
             <Toaster position="top-center" expand={false} richColors className="mt-10 " />
 
-            <header className="fixed top-4 right-4 z-40 flex items-center space-x-2">
-              {shouldRenderSidebar && !isSidebarOpen && (
-                <button onClick={toggleSidebar} className="p-2 mr-auto md:hidden">
-                  <Menu className="h-5 w-5" />
-                </button>
-              )}
-              <TabManager
-                style={{
-                  opacity: scrollDirection === "down" ? 0 : 1,
-                  visibility: scrollDirection === "down" ? "hidden" : "visible",
-                  transition: "opacity 0.3s ease, visibility 0.3s ease",
-                }}
-              />
-            </header>
+             {/* Header Area - Contains the Pill */}
+             <header className={cn(
+                 "fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 h-16",
+                 "bg-white/80 dark:bg-[#2b2d36]/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700/50",
+                 scrollDirection === "down" && shouldRenderNav && "-translate-y-full",
+                 "transition-transform duration-300 ease-in-out", // Use transform instead of -translate
+                 shouldRenderNav && isSidebarOpen && !isMobile && "md:left-64", // Apply only on desktop
+                 shouldRenderNav && !isSidebarOpen && !isMobile && "md:left-16", // Apply only on desktop
+                 // Mobile header should always span full width initially
+             )}>
+                 {/* Left side: Button (MOBILE ONLY - NOW TOGGLES RECOMMENDATIONS) */}
+                 {shouldRenderNav && isMobile && ( // Show only on mobile
+                     <button
+                         onClick={toggleRecommendation} // <-- CHANGED ACTION
+                         className={cn(
+                             "p-2 rounded-md transition-colors hover:bg-gray-200 dark:hover:bg-gray-700",
+                             "text-gray-700 dark:text-gray-300" // Ensure icon color
+                         )}
+                         aria-label={isRecommendationOpen ? "Close recommendations" : "Open recommendations"} // <-- CHANGED LABEL
+                     >
+                         {/* CHANGED ICON based on recommendation state */}
+                         {isRecommendationOpen ? <PanelRightClose className="h-5 w-5"/> : <PanelRightOpen className="h-5 w-5"/>}
+                     </button>
+                 )}
+                 {/* Left side: Button (DESKTOP ONLY - Toggles LEFT sidebar) */}
+                 {shouldRenderNav && !isMobile && ( // Show only on desktop
+                     <button
+                         onClick={toggleSidebar}
+                         className={cn(
+                             "p-2 rounded-md transition-colors hover:bg-gray-200 dark:hover:bg-gray-700",
+                             "text-gray-700 dark:text-gray-300",
+                             // Only show if sidebar is closed on desktop OR always show if preferred
+                             !isSidebarOpen ? "block" : "block" // Or keep md:hidden logic if needed
+                         )}
+                         aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
+                     >
+                          {/* Use PanelLeft icons for consistency */}
+                     </button>
+                 )}
 
-            <main className={cn(
-              "flex-1",
-              shouldRenderSidebar && isSidebarOpen && "ml-64",
-              shouldRenderSidebar && !isSidebarOpen && "md:ml-16"
-            )}>
-              <div id="content" className="flex-1">
+
+                 <div className="flex-1" /> {/* Spacer */}
+
+                 {/* --- The Novel Pill --- */}
+                 {shouldRenderNav && (
+                     <div className={cn(
+                        "flex items-center gap-1 md:gap-1.5", // Adjusted gap slightly
+                        "px-2 py-1.5 rounded-full",
+                        "bg-white/90 dark:bg-[#31333c]/90",
+                        "border border-gray-200/80 dark:border-gray-700/60",
+                        "shadow-sm"
+                     )}>
+                         {/* 1. Tab Manager Trigger */}
+                         <button
+                             ref={tabManagerTriggerRef}
+                             onClick={toggleTabManager}
+                             className={cn(
+                                 "p-2 rounded-full transition-colors duration-200 h-9 w-9 flex items-center justify-center", // Consistent size/centering
+                                 "text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700",
+                                 isTabManagerOpen && "bg-gray-200 dark:bg-gray-700"
+                             )}
+                             aria-label={isTabManagerOpen ? "Close Tabs" : "Open Tabs"}
+                         >
+                             <LayoutList className="h-5 w-5" />
+                         </button>
+
+                         {/* Divider */}
+                         <div className="h-5 w-px bg-gray-200 dark:bg-gray-600/80"></div>
+
+                         {/* 2. AI Feature Button (Now inside the pill) */}
+                         <AIFeature />
+
+                         {/* Divider (Only show if recommendation toggle is also shown - desktop only) */}
+                         <div className={cn("h-5 w-px bg-gray-200 dark:bg-gray-600/80", isMobile && "hidden")}></div>
+
+                         {/* 3. Recommendation Sidebar Toggle (Desktop Only) */}
+                         {!isMobile && (
+                             <button
+                                 onClick={toggleRecommendation}
+                                 className={cn(
+                                     "p-2 rounded-full transition-colors duration-200 h-9 w-9 flex items-center justify-center", // Consistent size/centering
+                                     "text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700",
+                                     isRecommendationOpen && "bg-gray-200 dark:bg-gray-700"
+                                 )}
+                                 aria-label={isRecommendationOpen ? "Close recommendations" : "Open recommendations"}
+                             >
+                                 {isRecommendationOpen ? <PanelRightClose className="h-5 w-5" /> : <PanelRightOpen className="h-5 w-5" />}
+                             </button>
+                         )}
+                     </div>
+                 )}
+                 {/* Add Spacer if needed, depending on where the user profile/other icons go */}
+                 {/* <div className="w-10"></div> */}
+             </header>
+
+            {/* Main Content Area */}
+            <main
+              className={cn(
+                "flex-1 transition-all duration-300 ease-in-out", // Added ease-in-out
+                "pt-16", // Account for header height
+                isMobile ? "pb-16" : "pb-0", // Account for bottom nav on mobile
+                shouldRenderNav && isSidebarOpen && !isMobile && "md:ml-64", // Apply margin only on desktop
+                shouldRenderNav && !isSidebarOpen && !isMobile && "md:ml-16",// Apply margin only on desktop
+                shouldRenderNav && isRecommendationOpen && !isMobile && "md:mr-80", // Apply margin only on desktop
+              )}
+              onContextMenu={shouldRenderNav ? handleContextMenu : undefined}
+            >
+              <div id="content-container" className="px-4 py-6 md:px-6 lg:px-8 h-full">
                 {children}
               </div>
             </main>
 
-            {!excludedSidebarPaths.includes(pathname) && (
-              <Clock
-                onSessionEnd={handleSessionEnd}
-                style={{
-                  opacity: scrollDirection === "down" ? 0 : 1,
-                  visibility: scrollDirection === "down" ? "hidden" : "visible",
-                  transition: "opacity 0.3s ease, visibility 0.3s ease",
-                }}
-              />
+            {/* Floating Widgets */}
+            {shouldRenderNav && (
+                <>
+                  <Clock onSessionEnd={handleSessionEnd} />
+                  <ScrollProgressBar />
+                   {menuPosition && (
+                      <ContextMenu2 x={menuPosition.x} y={menuPosition.y} onClose={handleCloseMenu} />
+                   )}
+                </>
             )}
-
-            {!excludedSidebarPaths.includes(pathname) && (
-              <div>
-                <AIButton
-                  style={{
-                    opacity: scrollDirection === "down" ? 0 : 1,
-                    visibility: scrollDirection === "down" ? "hidden" : "visible",
-                    transition: "opacity 0.3s ease, visibility 0.3s ease",
-                  }}
-                />
-              </div>
-            )}
-
-            {!excludedSidebarPaths.includes(pathname) && <ScrollProgressBar />}
-
-            {menuPosition && !excludedSidebarPaths.includes(pathname) && (
-              <ContextMenu2 x={menuPosition.x} y={menuPosition.y} onClose={handleCloseMenu} />
-            )}
-
-            {excludedSidebarPaths.includes(pathname) && pathname !== "/" && (
-              <footer className="pt-4 pb-2 sm:max-h-24 md:max-h-16">
-                <div className="container mx-auto px-4">
-                  <div className="flex justify-center">
-                    <p className="text-sm text-gray-500 dark:text-[#7c818c]">
-                      © {new Date().getFullYear()}. All rights reserved.
-                    </p>
-                  </div>
-                </div>
-              </footer>
-            )}
-          </ThemeProvider>
-        </SessionProvider>
-      </body>
-    </html>
+          </>
+        </SidebarProvider>
+      </ThemeProvider>
+    </SessionProvider>
   )
 }

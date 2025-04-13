@@ -1,13 +1,15 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { Search } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import Footer from '@/components/footer';
-import { motion } from 'framer-motion';
-import { CircularProgress } from '@/components/ui/CircularProgress';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Badge } from '@/components/ui/badge';
+"use client";
+import { useState, useEffect } from "react";
+import { Search } from "lucide-react";
+import { useRouter } from "next/navigation";
+import Footer from "@/components/footer";
+import { motion } from "framer-motion";
+import { ResponsiveCircularProgress } from "@/components/ui/CircularProgress";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { MobileCard, MobileCardContent, MobileCardFooter } from "@/components/ui/mobile-card"; // Import MobileCard components
+import { useMediaQuery } from "react-responsive"; // Import useMediaQuery
+import SearchForm from "@/components/mainPage/SearchForm";
+
 interface Content {
   _id: string;
   title: string;
@@ -21,7 +23,7 @@ interface Content {
 const LoadingSkeleton = () => {
   return (
     <div className="p-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {Array.from({ length: 8 }).map((_, index) => (
           <div
             key={index}
@@ -41,7 +43,6 @@ const LoadingSkeleton = () => {
           </div>
         ))}
       </div>
-      {/* Shimmer animation styles */}
       <style jsx global>{`
         @keyframes shimmer {
           0% {
@@ -68,19 +69,20 @@ const LoadingSkeleton = () => {
 
 const CentralWorkspace = () => {
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [searchResults, setSearchResults] = useState<Content[]>([]);
-  const filters = ['Grade 12', 'MoE', 'AASTU Curriculum', 'Trending'];
+  const filters = ["Grade 12", "MoE", "AASTU Curriculum", "Trending"];
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
-  const [selectedFilter, setSelectedFilter] = useState<string | null>(null); // Track selected filter
+  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
+  const isMobile = useMediaQuery({ maxWidth: 768 }); // Detect mobile screen
 
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const res = await fetch('/api/recommendations');
-        if (!res.ok) throw new Error('Failed to fetch');
+        const res = await fetch("/api/recommendations");
+        if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         setSearchResults(
           data.map((item: any) => ({
@@ -89,12 +91,12 @@ const CentralWorkspace = () => {
             thumbnail: item.thumbnail,
             subject: item.subject,
             institution: item.institution,
-            description: item.data?.description || '',
+            description: item.data?.description || "",
             progress: item.data?.progress || 0,
-          })),
+          }))
         );
       } catch (err) {
-        setError('Failed to load recommendations');
+        setError("Failed to load recommendations");
         console.error(err);
       } finally {
         setIsLoading(false);
@@ -111,81 +113,32 @@ const CentralWorkspace = () => {
     }
   };
 
-  let handleCardClick = (id: string) => {
+  const handleCardClick = (id: string) => {
     router.push(`/content?id=${id}`);
   };
 
-  if (isLoading) {
-    return <LoadingSkeleton />;
-  }
+  const handleFilterClick = (filter: string) => {
+    setSelectedFilter(filter === selectedFilter ? null : filter);
+    // Add filter logic here if needed (e.g., fetch filtered content)
+  };
 
-  if (error) {
-    return <div className="p-8 text-center text-red-500">{error}</div>;
-  }
+  if (isLoading) return <LoadingSkeleton />;
+  if (error) return <div className="p-8 text-center text-red-500">{error}</div>;
 
-  function handleFilterClick(filter: string): void {
-    throw new Error('Function not implemented.');
-  }
+  // Dynamically select Card or MobileCard based on screen size
+  const ContentCard = isMobile ? MobileCard : Card;
+  const ContentCardContent = isMobile ? MobileCardContent : CardContent;
+  const ContentCardFooter = isMobile ? MobileCardFooter : CardFooter;
 
   return (
-    <div className="flex-1 p-4 md:p-4 overflow-y-auto">
-      <div className='px-4 py-7 rounded-xl bg-zinc-100 dark:bg-[#16181c] mb-2 md:mb-4'>
-          <form
-            onSubmit={handleSearchSubmit}
-            className="relative w-full md:w-2/3 mx-auto"
-          >
-            <div className="flex items-center gap-2 rounded-full bg-white dark:bg-gray-700/80 px-4 py-2">
-              {/* <Menu className="h-5 w-5 text-gray-500" /> */}
-              <input
-                type="search"
-                placeholder="Hinted search text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 bg-transparent text-sm outline-none placeholder:text-gray-500 dark:text-white/80"
-              />
-              <Search className="h-5 w-5 text-gray-500" />
-            </div>
-            <button type="submit" className="hidden">
-              Search
-            </button>
-          </form>
-      </div>
-
-      <div className="w-full min-h-full px-4 py-8 rounded-xl bg-zinc-100 dark:bg-[#16181c]">
-        <div className="flex flex-grow items-center justify-center">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            <ScrollArea className="w-full">
-              <div className="flex gap-2 pb-4">
-                {filters.map((filter, index) => (
-                  <motion.div
-                    key={filter}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 * index, duration: 0.3 }}
-                  >
-                    <Badge
-                      isSelected={selectedFilter === filter}
-                      onClick={() => handleFilterClick(filter)}
-                      className=''
-                    >
-                      {filter}
-                    </Badge>
-                  </motion.div>
-                ))}
-              </div>
-            </ScrollArea>
-          </motion.div>
-        </div>
-        {/* YouTube-like grid layout */}
+    <div className="flex flex-col flex-auto p-4 pb-16 md:p-4 md:pb-4 overflow-y-auto dark:bg-[#16181c] bg-white">
+      <SearchForm />
+      <div className="w-full min-h-full px-4 py-8 rounded-lg bg-zinc-100 dark:bg-[#16181c] mb-12 md:mb-24 h-screen">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
           {searchResults.map((item, index) => (
             <motion.div
@@ -194,25 +147,20 @@ const CentralWorkspace = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1 * index, duration: 0.3 }}
             >
-              <Card
-                onMouseEnter={() => setHoveredCardId(item._id)}
-                onMouseLeave={() => setHoveredCardId(null)}
-                onClick={() => handleCardClick(item._id)} 
-                className="cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden group relative h-[300px]" // Fixed height
+              <ContentCard
+                onMouseEnter={isMobile ? undefined : () => setHoveredCardId(item._id)}
+                onMouseLeave={isMobile ? undefined : () => setHoveredCardId(null)}
+                onClick={() => handleCardClick(item._id)}
+                className="cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden group relative"
               >
-                {/* Thumbnail */}
                 <div className="relative aspect-video overflow-hidden">
                   <img
-                    src={item.thumbnail || '/placeholder.svg'}
+                    src={`${process.env.NEXT_PUBLIC_CREATOR_URL}${item.thumbnail}` || "/placeholder.svg"}
                     alt={item.title}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
-
-                {/* Card Content */}
-                <CardContent className="p-4 flex flex-col justify-between grow">
-                  {' '}
-                  {/* Flex column layout */}
+                <ContentCardContent className="p-4 flex flex-col justify-between grow">
                   <h3 className="font-semibold text-lg line-clamp-2 mb-2 group-hover:text-primary transition-colors duration-300">
                     {item.title}
                   </h3>
@@ -221,28 +169,19 @@ const CentralWorkspace = () => {
                       {item.description}
                     </p>
                   )}
-                </CardContent>
-
-                {/* Card Footer (Absolutely Positioned) */}
-                <CardFooter className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-muted/50 flex items-center justify-between">
-                  <span className="text-xs text-gray-500">
-                    {item.institution}
-                  </span>
+                </ContentCardContent>
+                <ContentCardFooter className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-muted/50 flex items-center justify-between">
+                  <span className="pt-10 text-xs text-gray-500 truncate">{item.institution}</span>
                   {item.progress !== undefined && (
-                    <CircularProgress
-                      value={item.progress}
-                      isHovered={hoveredCardId === item._id}
-                    />
+                    <ResponsiveCircularProgress value={item.progress} isHovered={hoveredCardId === item._id} />
                   )}
-                </CardFooter>
-              </Card>
+                </ContentCardFooter>
+              </ContentCard>
             </motion.div>
           ))}
         </motion.div>
       </div>
-      <div className='px-4 py-7 rounded-xl bg-zinc-100 dark:bg-[#16181c] mt-2 md:mt-4'>
         <Footer />
-      </div>
     </div>
   );
 };
