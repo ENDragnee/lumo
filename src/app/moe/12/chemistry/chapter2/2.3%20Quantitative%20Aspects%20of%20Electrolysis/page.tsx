@@ -7,96 +7,118 @@ import 'katex/dist/katex.min.css';
 
 const quizQuestions = [
   {
-    "question": "Who developed the quantitative treatment of electrolysis?",
+    "question": "What is the primary difference between a Galvanic (Voltaic) cell and an Electrolytic cell?",
     "options": [
-      "Michael Faraday",
-      "Alessandro Volta",
-      "Dmitri Mendeleev",
-      "James Clerk Maxwell"
+      "Galvanic cells use electrical energy to drive non-spontaneous reactions, while electrolytic cells release energy.",
+      "Galvanic cells release energy from spontaneous reactions, while electrolytic cells use electrical energy to drive non-spontaneous reactions.",
+      "Galvanic cells do not use a salt bridge, while electrolytic cells do.",
+      "Galvanic cells require high temperatures to operate, while electrolytic cells work at room temperature."
     ],
-    "correctAnswer": 0,
-    "hint": "Michael Faraday's research in 1834 laid the foundation for understanding the quantitative aspects of electrolysis."
+    "correctAnswer": 1,
+    "hint": "A Galvanic cell produces electrical energy from spontaneous reactions, while an Electrolytic cell requires electrical energy to drive non-spontaneous reactions."
   },
   {
-    "question": "According to Faraday's First Law of Electrolysis, what is directly proportional to the quantity of electricity passed through the electrolyte?",
+    "question": "What is the role of the salt bridge in a Galvanic cell?",
     "options": [
-      "The mass of the substance deposited or dissolved",
-      "The voltage applied",
-      "The temperature change",
-      "The speed of the reaction"
+      "To prevent the flow of electrons between the two half-cells.",
+      "To complete the electrical circuit by allowing ion flow between the half-cells.",
+      "To act as the cathode in the cell.",
+      "To increase the concentration of ions in the solution."
     ],
-    "correctAnswer": 0,
-    "hint": "Faraday’s First Law states that the mass of a substance is directly proportional to the quantity of electricity passed."
+    "correctAnswer": 1,
+    "hint": "The salt bridge allows the flow of ions between the half-cells, maintaining the electrical neutrality of each half-cell."
   },
   {
-    "question": "What is the formula for calculating the mass of a substance deposited in electrolysis, based on Faraday's First Law?",
+    "question": "In the Daniell cell, which metal undergoes oxidation?",
     "options": [
-      "m = zQ",
-      "m = I t / F",
-      "m = MI t / n F",
-      "m = Q / I"
+      "Copper",
+      "Zinc",
+      "Platinum",
+      "Hydrogen"
+    ],
+    "correctAnswer": 1,
+    "hint": "Zinc loses electrons and undergoes oxidation at the anode in the Daniell cell."
+  },
+  {
+    "question": "Which component is commonly used as the reference electrode for measuring standard electrode potentials?",
+    "options": [
+      "Platinum electrode",
+      "Copper electrode",
+      "Standard Hydrogen Electrode (SHE)",
+      "Zinc electrode"
     ],
     "correctAnswer": 2,
-    "hint": "The mass of a substance deposited is calculated using the formula m = MI t / n F."
+    "hint": "The Standard Hydrogen Electrode (SHE) is used as the reference with a potential of 0 V."
   },
   {
-    "question": "What does the symbol 'E' represent in Faraday's First Law equation?",
+    "question": "What is the Nernst equation used for in the context of voltaic cells?",
     "options": [
-      "Equivalence weight of the substance",
-      "Electrochemical constant",
-      "Energy consumed",
-      "Electrode potential"
+      "To calculate the mass of the cathode material.",
+      "To determine the cell potential when concentrations deviate from standard conditions.",
+      "To determine the voltage of the salt bridge.",
+      "To balance the half-reactions in the electrochemical process."
     ],
-    "correctAnswer": 0,
-    "hint": "In Faraday’s First Law, 'E' refers to the equivalent weight of the substance being electrolyzed."
+    "correctAnswer": 1,
+    "hint": "The Nernst equation helps calculate the cell potential based on ion concentrations and other conditions."
   },
   {
-    "question": "What is the Faraday constant (F) value in electrolysis calculations?",
+    "question": "What happens when the concentration of Cu²⁺ ions is increased in a voltaic cell?",
     "options": [
-      "96,500 Coulombs",
-      "6.022 x 10²³",
-      "1.602 x 10⁻¹⁹ C",
-      "8.314 J/mol·K"
+      "The cell potential decreases.",
+      "The cell potential increases.",
+      "The oxidation half-reaction rate increases.",
+      "The salt bridge becomes ineffective."
     ],
-    "correctAnswer": 0,
-    "hint": "Faraday's constant is 96,500 Coulombs, which relates to the charge of one mole of electrons."
+    "correctAnswer": 1,
+    "hint": "Increasing the concentration of Cu²⁺ ions will shift the equilibrium, leading to a higher cell potential."
   },
   {
-    "question": "According to Faraday’s Second Law of Electrolysis, the masses of different substances liberated by the same quantity of electricity are proportional to what?",
+    "question": "Which metal is used in the standard hydrogen electrode (SHE)?",
     "options": [
-      "Their equivalent masses",
-      "Their molecular masses",
-      "Their atomic radii",
-      "Their ionization energies"
+      "Copper",
+      "Gold",
+      "Platinum",
+      "Zinc"
     ],
-    "correctAnswer": 0,
-    "hint": "Faraday’s Second Law states that the masses of substances are proportional to their equivalent masses when the same quantity of electricity is passed."
+    "correctAnswer": 2,
+    "hint": "The standard hydrogen electrode uses a platinum electrode, which is inert and does not participate in the reaction."
   },
   {
-    "question": "What happens when the same quantity of electric current is passed through solutions of H₂SO₄, CuSO₄, and AgNO₃ connected in series?",
+    "question": "In the example cell, Zn(s) | Zn²⁺(1M) || H⁺(1M) | H₂(1 atm) | Pt(s), which electrode is the anode?",
     "options": [
-      "Hydrogen and oxygen are liberated in H₂SO₄, copper is deposited from CuSO₄, and silver is deposited from AgNO₃.",
-      "Copper is deposited from CuSO₄, silver from AgNO₃, and oxygen from H₂SO₄.",
-      "Only hydrogen is liberated in H₂SO₄, and silver is deposited from AgNO₃.",
-      "No reaction occurs in H₂SO₄ and CuSO₄."
+      "Zinc electrode",
+      "Hydrogen electrode",
+      "Platinum electrode",
+      "Copper electrode"
     ],
     "correctAnswer": 0,
-    "hint": "In the series arrangement, the substances are decomposed or deposited based on their respective equivalent masses."
+    "hint": "The zinc electrode undergoes oxidation and is the anode in the cell."
   },
   {
-    "question": "What is the relationship between the mass of hydrogen and copper liberated during electrolysis according to Faraday’s Second Law?",
+    "question": "What is the standard reduction potential of zinc in a Daniell cell?",
     "options": [
-      "The mass of hydrogen is to the mass of copper as the equivalent mass of hydrogen is to the equivalent mass of copper.",
-      "The mass of hydrogen is equal to the mass of copper.",
-      "The mass of hydrogen is greater than the mass of copper.",
-      "The mass of hydrogen is less than the mass of copper."
+      "0.76 V",
+      "1.10 V",
+      "-0.76 V",
+      "0.34 V"
+    ],
+    "correctAnswer": 2,
+    "hint": "Zinc has a standard reduction potential of -0.76 V, which is used to calculate the cell potential."
+  },
+  {
+    "question": "In a fuel cell, what is the overall reaction for the combination of hydrogen and oxygen?",
+    "options": [
+      "2H₂(g) + O₂(g) → 2H₂O(l)",
+      "H₂(g) + O₂(g) → H₂O(g)",
+      "2H₂(g) + O₂(g) → 2H₂O(g)",
+      "H₂(g) + O₂(g) → 2H₂O(l)"
     ],
     "correctAnswer": 0,
-    "hint": "Faraday's Second Law states that the ratio of masses is equal to the ratio of their equivalent masses."
+    "hint": "The overall reaction in a hydrogen-oxygen fuel cell is the formation of water from hydrogen and oxygen gases."
   }
 ]
 
-export default function QuantitativeAspectsOfElectrolysis() {
+export default function VoltaicCells() {
   const [showQuiz, setShowQuiz] = useState(false);
     const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>(new Array(quizQuestions.length).fill(null));
     const [showResults, setShowResults] = useState(false);
@@ -118,70 +140,329 @@ export default function QuantitativeAspectsOfElectrolysis() {
     };
   return (
     <div className="px-6 sm:px-6 sm:text-xs md:text-base py-6 max-w-4xl mx-auto text-justify">
-      <h1 className="text-3xl font-bold mb-6">2.3 Quantitative Aspects of Electrolysis</h1>
+      <h1 className="text-3xl font-bold mb-6">2.5 Voltaic Cells</h1>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Is it possible to calculate the amount of product formed at the electrodes?</h2>
-      <div>
-        The quantitative treatment of electrolysis was developed primarily by Michael Faraday in the year 1834. His early research on electrolysis led him to propose a relationship between the amount of current passed through a solution and the amount of substance decomposed or produced by the current.
+      <p>
+        After completing this subunit, you will be able to understand what makes a Galvanic cell different from an electrolytic cell.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Construction of Voltaic Cells (Zn-Cu Voltaic Cell)</h2>
+      <p>
+        When a piece of zinc metal is placed in a CuSO<sub>4</sub> solution, Zn is oxidized to Zn<sup>2+</sup> ions while Cu<sup>2+</sup> ions are reduced to metallic copper.
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>{'Zn(s) + Cu^{2+}(aq) \\rightarrow Zn^{2+}(aq) + Cu(s)'}</BlockMath>
+      </div>
+      <p>
+        The electrons are transferred directly from the reducing agent (Zn) to the oxidizing agent (Cu<sup>2+</sup>) in solution. However, if we physically separate the oxidizing agent from the reducing agent, the transfer of electrons can take place via an external conducting medium (a metal wire). As the reaction progresses, it sets up a constant flow of electrons and hence generates electricity (producing electrical work such as driving an electric motor).
+      </p>
+      <p>
+        The experimental apparatus for generating electricity through the use of a spontaneous reaction is called a galvanic cell or voltaic cell. The essential components of a galvanic cell include a zinc bar immersed in a ZnSO<sub>4</sub> solution and a copper bar immersed in a CuSO<sub>4</sub> solution.
+      </p>
+      <p>
+        The cell operates on the principle that the oxidation of Zn to Zn<sup>2+</sup> and the reduction of Cu<sup>2+</sup> to Cu can be made to take place simultaneously in separate locations with the transfer of electrons between them occurring through an external wire.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">The Daniell Cell</h2>
+      <p>
+        This particular arrangement of electrodes (Zn and Cu) and solutions (ZnSO<sub>4</sub> and CuSO<sub>4</sub>) is called the Daniell cell. By definition, the anode in a galvanic cell is the electrode at which oxidation occurs, and the cathode is the electrode at which reduction occurs. The half-cell reactions for the Daniell cell are:
+      </p>
+
+      <ul className="list-disc ml-6 overflow-x-auto text-wrap text-xs">
+        <li>Oxidation: <BlockMath>{'Zn(s) \\rightarrow Zn^{2+}(aq) + 2e^{-}'}</BlockMath></li>
+        <li>Reduction: <BlockMath>{'Cu^{2+}(aq) + 2e^{-} \\rightarrow Cu(s)'}</BlockMath></li>
+        <li>Overall Reaction: <BlockMath>{'Zn(s) + Cu^{2+}(aq) \\rightarrow Zn^{2+}(aq) + Cu(s)'}</BlockMath></li>
+      </ul>
+
+      <p>
+        Zinc tends to lose electrons more readily than copper, so zinc atoms in the zinc electrode lose electrons to produce zinc ions. These electrons flow through the external circuit to the copper electrode, where they react with the copper ions in that half-cell to deposit copper metal atoms. The net result is that zinc metal reacts with copper ions to produce zinc ions and copper metal, and electric current flows through the external circuit.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Salt Bridge</h2>
+      <p>
+        To complete the electrical circuit, the solutions must be connected by a conducting medium, known as a salt bridge. This is typically an inverted U-tube containing an inert electrolyte solution (such as KCl, KNO<sub>3</sub>, or NH<sub>4</sub>NO<sub>3</sub>) whose ions will not react with other ions in solution or with the electrodes.
+      </p>
+
+      <p>
+        During the course of the overall redox reaction, electrons flow externally from the anode (Zn electrode) through the wire to the cathode (Cu electrode). In the solution, cations (Zn<sup>2+</sup>, Cu<sup>2+</sup>, K<sup>+</sup>) move toward the cathode, while anions (SO<sub>4</sub><sup>2-</sup>, Cl<sup>-</sup>) move toward the anode.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Cell Diagram (Cell Notation)</h2>
+      <p>
+        The conventional notation for representing the components of a voltaic or galvanic cell is the cell diagram. For example, the cell notation for the Daniell cell shown is:
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>{'Zn(s) | Zn^{2+}(aq) || Cu^{2+}(aq) | Cu(s)'}</BlockMath>
+      </div>
+      <p>
+        In this notation, the components of the anode compartment (oxidation half-cell) are written to the left of the components of the cathode compartment (reduction half-cell).
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Measuring Standard Electrode Potentials</h2>
+      <p>
+        A cell potential is a measure of the driving force of the cell reaction. This reaction occurs as separate half-reactions: an oxidation half-reaction and a reduction half-reaction. The general forms of these half-reactions are:
+      </p>
+      <ul className="list-disc ml-6 overflow-x-auto text-wrap text-xs">
+        <li>Oxidation (Anode): <BlockMath>{'Reducing Species \\rightarrow Oxidized Species + ne^{-}'}</BlockMath></li>
+        <li>Reduction (Cathode): <BlockMath>{'Oxidized Species + ne^{-} \\rightarrow Reducing Species'}</BlockMath></li>
+      </ul>
+      <p>
+        The standard reduction potential for the hydrogen electrode is defined as zero, and the hydrogen electrode serves as the reference for determining the relative potentials of other electrodes.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Standard Hydrogen Electrode (SHE)</h2>
+      <p>
+        The standard hydrogen electrode consists of a platinum electrode with hydrogen gas at 1 atm bubbling through it, immersed in 1 M hydrochloric acid. The half-reaction for the hydrogen electrode is:
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>{'2H^{+}(1M) + 2e^{-} \\rightarrow H_2(1 atm), E^0 = 0V'}</BlockMath>
       </div>
 
-      <h2 className="text-2xl font-semibol1d mt-6 mb-4">Faraday's First Law of Electrolysis</h2>
-      <div>
-        Faraday’s First Law of Electrolysis states that when an electrolyte, either in molten state or solution state, is electrolyzed, the mass of a substance (m) deposited or dissolved at the electrodes is directly proportional to the quantity of electricity (coulombs, Q) passed through the electrolyte.
-      </div>
-      <div className="mt-4">
-        Mathematically, <InlineMath math="m \propto Q" /> or <InlineMath math="m = z Q" />, where <InlineMath math="z" /> is a proportionality constant called electrochemical equivalent.
-      </div>
-      <div className="mt-4">
-        Since <InlineMath math="z = \frac{E}{F}" /> and <InlineMath math="Q = It" />, we can rewrite the equation as:
-      </div>
-      <div className="mt-4">
-        <BlockMath math="m = \frac{EI t}{F}" />
-      </div>
-      <div>
-        Where:
-        <ul className="list-disc pl-5 mt-4">
-          <li><strong>E</strong> = equivalent weight of substance</li>
-          <li><strong>F</strong> = Faraday Constant (96,500 Coulombs)</li>
-          <li><strong>m</strong> = mass of substance</li>
-          <li><strong>I</strong> = current in amperes</li>
-          <li><strong>t</strong> = time required</li>
-        </ul>
-      </div>
-      <div className="mt-4">
-        The equivalent weight of a substance is given by <InlineMath math="E = \frac{M}{n}" />, where:
-        <ul className="list-disc pl-5 mt-4">
-          <li><strong>M</strong> = molecular mass</li>
-          <li><strong>n</strong> = valence</li>
-        </ul>
-        Thus, the equation becomes:
-        <BlockMath math="m = \frac{MI t}{n F}" />
+      <h1 className="text-3xl font-bold mb-6">Voltaic Cells</h1>
+      <p>
+        We can use the SHE to measure the potentials of other kinds of electrodes. To find an unknown standard electrode potential (E<sub>0</sub>), we construct a voltaic cell consisting of this reference half-cell and the unknown half-cell. Since E<sub>0</sub> is zero, the overall cell potential is determined by the unknown electrode's potential.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Voltaic Cell Construction</h2>
+      <p>
+        Depending on the unknown half-cell, the reference half-cell can be the anode or the cathode:
+      </p>
+      <ul className="list-disc ml-6">
+        <li>
+          When H<sub>2</sub> is oxidized, the reference half-cell is the anode, and reduction occurs at the unknown half-cell:
+          <div className='overflow-x-auto text-wrap text-xs'>
+            <BlockMath>
+              {`E_\\text{cell} = E_\\text{cathode} - E_\\text{anode} = E_\\text{unknown} - E_\\text{reference} = E_\\text{unknown} - 0.00V = E_\\text{unknown}`}
+            </BlockMath>
+          </div>
+        </li>
+        <li>
+          When H<sub>2</sub> is reduced, the reference half-cell is the cathode, and oxidation occurs at the unknown half-cell:
+          <div className='overflow-x-auto text-wrap text-xs'>
+            <div className='overflow-x-auto text-wrap text-xs'>
+              <BlockMath>
+                {`E_\\text{cell} = E_\\text{reference} - E_\\text{unknown} = 0.00V - E_\\text{unknown} = -E_\\text{unknown}`}
+              </BlockMath>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Example: Zn(s) | Zn<sup>2+</sup> (1M) || H<sup>+</sup> (1M) | H<sub>2</sub> (1 atm) | Pt(s)</h2>
+      <p>
+        Figure 2.11 shows a voltaic cell that has the Zn(s) | Zn<sup>2+</sup> half-reaction in one compartment and the H<sup>+</sup> | H<sub>2</sub> half-reaction in the other. The zinc electrode is negative relative to the hydrogen electrode, so we know that the zinc is being oxidized and is the anode, and the SHE is the cathode.
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>
+          {`Zn(s) | Zn^{2+}(1M) || H^{+}(1M) | H_2(1 atm) | Pt(s)`}
+        </BlockMath>
       </div>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Faraday’s Second Law of Electrolysis</h2>
+      <p>
+        The EMF of the cell at 25°C is 0.76 V, and we can write the half-cell reactions as follows:
+      </p>
+      <ul className="list-disc ml-6">
+        <li>Anode (Oxidation): Zn(s) → Zn<sup>2+</sup> (1M) + 2e<sup>-</sup></li>
+        <li>Cathode (Reduction): 2H<sup>+</sup> (1M) + 2e<sup>-</sup> → H<sub>2</sub> (1M)</li>
+        <li>Overall Reaction: Zn(s) + 2H<sup>+</sup> (1M) → Zn<sup>2+</sup> (1M) + H<sub>2</sub> (1M)</li>
+      </ul>
+
+      <p>
+        By convention, the standard EMF of the cell, E<sub>0</sub>, which is composed of contributions from both the anode and the cathode, is given by:
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>
+          {`E_\\text{cell} = E_\\text{cathode} - E_\\text{anode} = E_\\text{Zn2+/Zn} - E_\\text{H+/H2} = 0.76 V = 0.00 V - E_\\text{Zn2+/Zn}`}
+        </BlockMath>
+      </div>
+      <p>
+        Therefore, the standard reduction potential of zinc, E<sub>0</sub><sub>Zn2+/Zn</sub>, is -0.76 V. Note that we write the reaction as a reduction, even though it occurs in reverse as oxidation.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Example: Cu<sup>2+</sup> | Cu Half-Cell</h2>
+      <p>
+        Similarly, the standard reduction potential of copper can be obtained using a cell with a copper electrode and a SHE. In this case, the copper electrode is the cathode, as its mass increases during the operation of the cell.
+      </p>
+      <BlockMath>
+        {`Pt(s) | H_2(1 atm) | H^{+}(1M) || Cu^{2+}(1M) | Cu(s)`}
+      </BlockMath>
+      <ul className="list-disc ml-6">
+        <li>Anode (Oxidation): H<sub>2</sub> (1 atm) → 2H<sup>+</sup> (1M) + 2e<sup>-</sup></li>
+        <li>Cathode (Reduction): Cu<sup>2+</sup> (1M) + 2e<sup>-</sup> → Cu(s)</li>
+        <li>Overall Reaction: H<sub>2</sub> (1 atm) + Cu<sup>2+</sup> (1M) → 2H<sup>+</sup> (1M) + Cu(s)</li>
+      </ul>
+      <p>
+        The EMF of the cell is 0.34 V, so we can calculate the standard reduction potential of copper:
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>
+          {`E_\\text{cell} = E_\\text{Cu2+/Cu} - E_\\text{H+/H2} = 0.34 V`}
+        </BlockMath>
+      </div>
+      <p>
+        Thus, the standard reduction potential of copper, E<sub>0</sub><sub>Cu2+/Cu</sub>, is 0.34 V.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">The Daniell Cell</h2>
+      <p>
+        For the Daniell cell, we can write the half-cell reactions:
+      </p>
+      <ul className="list-disc ml-6">
+        <li>Anode (Oxidation): Zn(s) → Zn<sup>2+</sup> (1M) + 2e<sup>-</sup></li>
+        <li>Cathode (Reduction): Cu<sup>2+</sup> (1M) + 2e<sup>-</sup> → Cu(s)</li>
+        <li>Overall Reaction: Zn(s) + Cu<sup>2+</sup> (1M) → Zn<sup>2+</sup> (1M) + Cu(s)</li>
+      </ul>
+      <p>
+        The EMF of the cell is:
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>
+          {`E_\\text{cell} = E_\\text{cathode} - E_\\text{anode} = 0.34 V - (-0.76 V) = 1.10 V`}
+        </BlockMath>
+      </div>
+      <p>
+        This positive value indicates that the reaction is spontaneous.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Effect of Concentration on EMF</h2>
+      <p>
+        The EMF of a voltaic cell can change with the concentration of the electrolyte solutions. For example, we use the Nernst equation to account for this effect. The Nernst equation gives the relationship between the electrode potentials and the concentration of the electrolyte solutions.
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>
+          {`E = E_0 - 0.0592 log Q`}
+        </BlockMath>
+      </div>
+      <p>
+        This equation shows that as the concentration of products increases and the concentration of reactants decreases, the cell potential will decrease, eventually reaching zero at equilibrium.
+      </p>
+
+      <h1 className="text-3xl font-bold mb-6">Voltaic Cells and Electrochemical Reactions</h1>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Anode and Cathode Reactions</h2>
+      <p>
+        The anode reaction is given by:
+      </p>
       <div>
-        Faraday’s second law of electrolysis states that the masses of different substances, liberated or dissolved by the same amount of electricity, are proportional to their equivalent masses. When the same quantity of electricity is passed through several electrolytic solutions connected in series, the masses of the different materials liberated or dissolved (m₁, m₂, m₃...) at the respective electrodes are in the ratio of their equivalent masses (E₁, E₂, E₃...).
-      </div>
-      <div className="mt-4">
-        Mathematically, <InlineMath math="m \propto E" /> or <InlineMath math="m_1 \propto E_1, m_2 \propto E_2, m_3 \propto E_3" />.
-      </div>
-      <div className="mt-4">
-        Replacing the proportionality by the proportionality constant, the equation becomes:
-        <BlockMath math="\frac{m_1}{E_1} = \frac{m_2}{E_2} = \frac{m_3}{E_3}" />
-      </div>
-      <div>
-        This law can be illustrated by passing the same quantity of electric current through three solutions containing H₂SO₄, CuSO₄, and AgNO₃, connected in series. In the first solution, hydrogen and oxygen are liberated; in the second solution, copper is deposited; and in the third, silver is deposited.
+        <BlockMath>{`Cu(s) → Cu^{2+} (aq; 0.1 M) + 2e^{-}`}</BlockMath>
       </div>
 
-      <div className="mt-4">
-        The mass of hydrogen is to the mass of copper as the equivalent mass of hydrogen is to the equivalent mass of copper, and similarly for silver:
-        <BlockMath math="\frac{m_{\text{hydrogen}}}{E_{\text{hydrogen}}} = \frac{m_{\text{copper}}}{E_{\text{copper}}} = \frac{m_{\text{silver}}}{E_{\text{silver}}}" />
+      <p>
+        The cathode reaction is:
+      </p>
+      <div className='v'>
+        <BlockMath>{`Cu^{2+} (aq; 1.0 M) + 2e^{-} → Cu(s)`}</BlockMath>
       </div>
 
-      <h3 className="text-xl font-semibold mt-6 mb-2">Example 2.5</h3>
-      <div>
-        Example 2.5 demonstrates the application of Faraday's Second Law of Electrolysis.
+      <h3 className="text-xl font-semibold mt-6 mb-4">Overall Cell Reaction</h3>
+      <p>
+        The overall cell reaction is the sum of the half-reactions:
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>{`Cu^{2+} (aq; 1.0 M) → Cu^{2+} (aq; 0.1 M)`}</BlockMath>
       </div>
+      <p>
+        The cell potential at the initial concentrations of 0.10 M (dilute) and 1.0 M (concentrated), with \(n = 2\), is obtained from the Nernst equation:
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>{`E = E^\\circ - \\frac{RT}{nF} \\ln Q`}</BlockMath>
+      </div>
+      <p>
+        Substituting the values:
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>{`E_{\text{cell}} = 0 V - \left( 0.0592 \, V \times (-1.00) \right)`}</BlockMath>
+        <BlockMath>{`E_{\text{cell}} = 0.0296 V`}</BlockMath>
+      </div>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">How a Concentration Cell Works</h2>
+      <p>
+        In the anode (dilute) half-cell, copper atoms give up electrons, forming Cu<sup>2+</sup> ions that increase the concentration of the solution. In the cathode (concentrated) half-cell, Cu<sup>2+</sup> ions gain electrons and form solid copper, making the solution less concentrated. The cell potential decreases until equilibrium is reached, when the concentration of Cu<sup>2+</sup> is the same in both half-cells.
+      </p>
+      
+      <h3 className="text-xl font-semibold mt-6 mb-4">Nernst Equation for pH Determination</h3>
+      <p>
+        The pH of a solution can be accurately determined by measuring the cell potential using the Nernst equation. In a typical experiment, a hydrogen electrode is used with a test solution, and the cell is connected to a standard zinc electrode:
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>{`Zn(s) | Zn^{2+} (1M) || H^+ (test solution) | H_2 (1 atm) | Pt`}</BlockMath>
+      </div>
+      <p>
+        The cell reaction is:
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>{`Zn(s) + 2H^+ (test solution) → Zn^{2+} (1M) + H_2 (1 atm)`}</BlockMath>
+      </div>
+      <p>
+        The cell potential is related to the hydrogen-ion concentration of the test solution:
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+      <BlockMath>{`E_{\text{cell}} = 0.76 V - 0.0592 \times \frac{1}{2} \log \left( \frac{1}{[H^+]^2} \right)`}</BlockMath>
+      </div>
+      <p>
+        Rearranging the equation for pH, we get:
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>{`pH = 0.76 - \frac{E_{\text{cell}}}{0.0592}`}</BlockMath>
+      </div>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Comparison of Galvanic and Electrolytic Cells</h2>
+      <table className="table-auto w-full text-sm mb-4">
+        <thead>
+          <tr>
+            <th className="px-4 py-2">Galvanic Cell / Voltaic Cell</th>
+            <th className="px-4 py-2">Electrolytic Cell</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="border px-4 py-2">Energy released by spontaneous redox reaction is converted to electrical energy.</td>
+            <td className="border px-4 py-2">Electrical energy is used to drive non-spontaneous redox reactions.</td>
+          </tr>
+          <tr>
+            <td className="border px-4 py-2">Anode is negatively charged, cathode is positively charged.</td>
+            <td className="border px-4 py-2">Anode is positively charged, cathode is negatively charged.</td>
+          </tr>
+          <tr>
+            <td className="border px-4 py-2">Electrons originate from the species that undergoes oxidation.</td>
+            <td className="border px-4 py-2">Electrons originate from an external source.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Applications of Electrochemical Cells</h2>
+      <p>
+        Batteries, such as galvanic or voltaic cells, are essential for providing electrical power. Fuel cells, which operate continuously using fuel, are a variant of electrochemical cells.
+      </p>
+
+      <h3 className="text-xl font-semibold mt-6 mb-4">Fuel Cells</h3>
+      <p>
+        A fuel cell differs from a battery because it operates with a continuous supply of reactants. For example, a hydrogen-oxygen fuel cell consists of hydrogen and oxygen gases, with a proton-exchange membrane (PEM) to transfer protons between electrodes.
+      </p>
+      <div>
+        <BlockMath>{`Anode: H_2(g) → 2H^+ (aq) + 2e^{-}`}</BlockMath>
+        <BlockMath>{`Cathode: O_2(g) + 4H^+ (aq) + 4e^{-} → 2H_2O(g)`}</BlockMath>
+        <BlockMath>{`Overall: 2H_2(g) + O_2(g) → 2H_2O(l)`}</BlockMath>
+      </div>
+
+      <p>
+        Fuel cells are used in various applications, including power for lighting, emergency generators, communications equipment, and vehicles.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Corrosion of Metals</h2>
+      <p>
+        Corrosion is the deterioration of metals through electrochemical processes. Iron corrosion, or rusting, occurs when iron is exposed to moisture and oxygen, forming iron oxide. The process involves both an anodic region (oxidation) and a cathodic region (reduction).
+      </p>
+      <div className='overflow-x-auto text-wrap text-xs'>
+        <BlockMath>{`Anodic region (oxidation): Fe(s) → Fe^{2+} (aq) + 2e^{-}`}</BlockMath>
+        <BlockMath>{`Cathodic region (reduction): O_2(g) + 4H^+ (aq) + 4e^{-} → 2H_2O`}</BlockMath>
+        <BlockMath>{`Overall reaction: 2Fe(s) + O_2(g) + 4H^+ (aq) → 2Fe^{2+} (aq) + 2H_2O(l)`}</BlockMath>
+      </div>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-4">Protecting Against Corrosion</h2>
+      <p>
+        Various methods are used to protect metals from corrosion, such as coating them with paint or alloying them with more resistant metals like chromium in stainless steel.
+      </p>
       <div className='flex justify-center items-center'>
           <button 
             onClick={() => setShowQuiz(true)}
