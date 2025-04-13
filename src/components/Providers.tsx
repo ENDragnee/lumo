@@ -18,11 +18,13 @@ export default function Providers({ children }: { children: ReactNode }) {
     "/login",
     "/auth/signin",
     "/auth/signup",
-    "/content"
-    // Duplicate entries can be removed if unnecessary.
+    "/content",
   ];
   const pathname = usePathname();
-  const isSidebarVisible = !excludedSidebarPaths.includes(pathname);
+  // Check if pathname is in excluded paths or contains "/moe/"
+  const isSidebarVisible = !(
+    excludedSidebarPaths.includes(pathname) || pathname.includes("/moe/")
+  );
 
   // If the current route is excluded, render just the children
   if (!isSidebarVisible) {
