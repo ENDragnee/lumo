@@ -1,11 +1,12 @@
 import mongoose, { Document, Schema} from 'mongoose';
 
-interface AIDocument extends Document{
+export interface AIDocument extends Document{
   user_id: Schema.Types.ObjectId;
   content_id: Schema.Types.ObjectId;
-  question: String;
-  answer: String;
+  question: string;
+  answer: string;
   createdAt: Date;
+  updatedAt?: Date;
 }
 
 const AIChatSchema = new Schema<AIDocument>({

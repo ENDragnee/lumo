@@ -46,7 +46,7 @@ export function AISidebar({ isOpen, onClose }: AISidebarProps) {
             <div className="flex items-center justify-between p-3 border-border shrink-0 bg-background sticky top-16 z-10"> {/* Make header sticky within sidebar */}
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="chat" className="hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg bg-gray-100 dark:bg-gray-600">Chat</TabsTrigger>
-                <TabsTrigger value="response" className="hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg bg-gray-100 dark:bg-gray-600">Response</TabsTrigger>
+                {/* <TabsTrigger value="response" className="hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg bg-gray-100 dark:bg-gray-600">Response</TabsTrigger> */}
               </TabsList>
               <Button
                 variant="ghost"
@@ -59,7 +59,6 @@ export function AISidebar({ isOpen, onClose }: AISidebarProps) {
               </Button>
             </div>
 
-            {/* Content Section - Let it grow and scroll */}
             {/* Removed outer div, TabsContent handles its role */}
             <TabsContent
               value="chat"
@@ -68,13 +67,7 @@ export function AISidebar({ isOpen, onClose }: AISidebarProps) {
             >
               <ChatSystem /> {/* Ensure this component renders content */}
             </TabsContent>
-            <TabsContent
-              value="response"
-              className="flex-1 overflow-y-auto p-4 md:p-6 mt-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-gray-100 dark:bg-[#1E1E24] rounded-2xl" // Allow scrolling, remove focus ring
-               // Remove h-full here, flex-1 handles height
-            >
-                <ResponseTab /> {/* Ensure this component renders content */}
-            </TabsContent>
+
           </Tabs>
         </motion.div>
       )}
