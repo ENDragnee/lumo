@@ -1,414 +1,657 @@
 'use client';
 
-import { useState } from 'react';
-import { BlockMath, InlineMath } from 'react-katex';
-import QuizQuestion from '@/components/QuizQuestion';
+import { InlineMath, BlockMath } from 'react-katex';
+import { useState, useMemo, ChangeEvent, useEffect } from 'react';
+import QuizQuestion from '@/components/QuizQuestion'; // Assuming this component exists
 import 'katex/dist/katex.min.css';
 
-const quizQuestions = [
-  {
-    "question": "What is the self-ionization process of water?",
-    "options": [
-      "The dissociation of water into H+ and OH-",
-      "The addition of acid to water",
-      "The process by which water forms a neutral solution",
-      "The conversion of water into hydrogen gas"
-    ],
-    "correctAnswer": 0,
-    "hint": "Water can act as both an acid and a base, self-ionizing into hydronium (H3O+) and hydroxide (OH-) ions."
-  },
-  {
-    "question": "What is the value of the ion-product constant for water (Kw) at 25°C?",
-    "options": [
-      "1.0 x 10^-14",
-      "1.0 x 10^-7",
-      "2.5 x 10^-14",
-      "1.0 x 10^-12"
-    ],
-    "correctAnswer": 0,
-    "hint": "The value of Kw at 25°C is 1.0 x 10^-14."
-  },
-  {
-    "question": "In pure water, what is the concentration of hydronium (H3O+) and hydroxide (OH-) ions?",
-    "options": [
-      "1.0 x 10^-7 M",
-      "1.0 x 10^-14 M",
-      "2.0 x 10^-7 M",
-      "5.0 x 10^-7 M"
-    ],
-    "correctAnswer": 0,
-    "hint": "The concentrations of H3O+ and OH- in pure water are both equal and are 1.0 x 10^-7 M."
-  },
-  {
-    "question": "Which solution has a higher concentration of hydronium ions than hydroxide ions?",
-    "options": [
-      "Neutral solution",
-      "Acidic solution",
-      "Basic solution",
-      "Pure water"
-    ],
-    "correctAnswer": 1,
-    "hint": "An acidic solution has a higher concentration of hydronium (H3O+) ions compared to hydroxide (OH-) ions."
-  },
-  {
-    "question": "What does a pH value of 2 indicate about a solution?",
-    "options": [
-      "Neutral solution",
-      "Acidic solution",
-      "Basic solution",
-      "Concentrated solution"
-    ],
-    "correctAnswer": 1,
-    "hint": "A pH value of 2 indicates that the solution is acidic."
-  },
-  {
-    "question": "How do you calculate the hydronium ion concentration from a given pH?",
-    "options": [
-      "pH = -log[H3O+]",
-      "[H3O+] = 10^pH",
-      "[H3O+] = 10^(-pH)",
-      "pH = log[H3O+]"
-    ],
-    "correctAnswer": 2,
-    "hint": "The hydronium ion concentration is calculated as 10^(-pH)."
-  },
-  {
-    "question": "What is the relationship between pH and pOH?",
-    "options": [
-      "pH + pOH = 14",
-      "pH = pOH",
-      "pH = 0.5 pOH",
-      "pH - pOH = 0"
-    ],
-    "correctAnswer": 0,
-    "hint": "The sum of pH and pOH is always 14 at 25°C."
-  },
-  {
-    "question": "What does the acid ionization constant (Ka) measure?",
-    "options": [
-      "The strength of a base",
-      "The rate of acid dissociation",
-      "The concentration of acid in solution",
-      "The strength of an acid"
-    ],
-    "correctAnswer": 3,
-    "hint": "The Ka value quantifies the strength of an acid by measuring its dissociation into hydrogen ions."
-  }
-]
+// --- Constants ---
+const KW_25C = 1.0e-14;
 
-export default function IonicEquilibria() {
-  const [showQuiz, setShowQuiz] = useState(false);
-    const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>(new Array(quizQuestions.length).fill(null));
-    const [showResults, setShowResults] = useState(false);
-    const [score, setScore] = useState(0); 
-  
-    const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
-      const newSelectedAnswers = [...selectedAnswers];
-      newSelectedAnswers[questionIndex] = answerIndex;
-      setSelectedAnswers(newSelectedAnswers);
-    };
-  
-    const handleSubmit = () => {
-      const correctCount = selectedAnswers.reduce((count: number, answer: number | null, index: number) => {
-        if (answer === null) return count;
-        return count + (answer === quizQuestions[index].correctAnswer ? 1 : 0);
-      }, 0);
-      setScore(correctCount);
-      setShowResults(true);
-    };
+// --- Type Definitions ---
+interface YouTubeEmbedProps {
+  videoId: string;
+  title: string;
+}
+
+interface MiniCheckQuestionProps {
+  question: string;
+  correctAnswer: string;
+  explanation: string;
+  options?: string[];
+  correctOptionIndex?: number;
+  onSelectOption?: (isCorrect: boolean) => void;
+}
+
+// !! Adjust based on your actual QuizQuestion component !!
+interface QuizQuestionProps {
+    key: number;
+    // questionNumber?: number; // Make optional or ensure component accepts it
+    question: string;
+    options: string[];
+    correctAnswer: number;
+    hint: string;
+    selectedAnswer: number | null;
+    showResults: boolean;
+    onSelectAnswer: (answerIndex: number) => void;
+}
+
+// --- Reusable Components (Styled as per design system) ---
+
+// YouTube Embed Component
+function YouTubeEmbed({ videoId, title }: YouTubeEmbedProps) {
   return (
-    <div className="px-6 sm:px-6 sm:text-xs md:text-base py-6 max-w-4xl mx-auto text-justify">
-      <h1 className="text-3xl font-bold mb-6">1.2 Ionic Equilibria of Weak Acids and Bases</h1>
-      <p>
-        In aqueous solutions, water can act as both an acid and a base, as it can self-ionize to produce hydronium (<InlineMath>{'H_3O^+'}</InlineMath>) and hydroxide (<InlineMath>{'OH^-'}</InlineMath>) ions. This process is known as autoionization or self-ionization.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Self-Ionization of Water</h2>
-      <p>
-        The self-ionization of water is represented as:
-      </p>
-      <BlockMath>
-        {`H_2O(l) + H_2O(l) ⇌ H_3O^+(aq) + OH^-(aq)`}
-      </BlockMath>
-      <p>
-        This process is governed by an equilibrium constant, <InlineMath>{'K_c'}</InlineMath>, which can be written as:
-      </p>
-      <BlockMath>{'K_c = \\frac{[H_3O^+][OH^-]}{[H_2O]^2}'}</BlockMath>
-
-      <p>
-        However, since the concentration of water is large and nearly constant (around 56 M at 25°C), we multiply <InlineMath>{'K_c'}</InlineMath> by <InlineMath>{'[H_2O]^2'}</InlineMath> to obtain a new constant, known as the ion-product constant for water, <InlineMath>{'K_w'}</InlineMath>:
-      </p>
-      <BlockMath>
-        {`K_w = [H_3O^+][OH^-]`}
-      </BlockMath>
-
-      <p>
-        The value of <InlineMath>{'K_w'}</InlineMath> at 25°C is <InlineMath>{'1.0 x 10^{-14}'}</InlineMath>. This value changes with temperature, and at body temperature (37°C), <InlineMath>{'K_w'}</InlineMath> equals <InlineMath>{'2.5 x 10^{-14}'}</InlineMath>.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Calculating Ion Concentrations in Pure Water</h2>
-      <p>
-        In pure water, the concentrations of <InlineMath>{'H_3O^+'}</InlineMath> and <InlineMath>{'OH^-'}</InlineMath> are equal. Let <InlineMath>{'x'}</InlineMath> represent the concentration of each ion. From the equation for <InlineMath>{'K_w'}</InlineMath>:
-      </p>
-      <BlockMath>{'K_w = [H_3O^+][OH^-] = (x)(x) = x^2'}</BlockMath>
-      <p>
-        Substituting the value of <InlineMath>{'K_w'}</InlineMath> at 25°C:
-      </p>
-      <BlockMath>{'1.0 x 10^{-14} = x^2'}</BlockMath>
-      <p>
-        Solving for <InlineMath>{'x'}</InlineMath> gives:
-      </p>
-      <BlockMath>{'x = 1.0 x 10^{-7}'}</BlockMath>
-
-      <p>
-        Thus, in pure water, the concentrations of both <InlineMath>{'H_3O^+'}</InlineMath> and <InlineMath>{'OH^-'}</InlineMath> are <InlineMath>{'1.0 x 10^{-7} M'}</InlineMath>.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Acidic and Basic Solutions</h2>
-      <p>
-        If an acid or a base is added to water, the concentrations of <InlineMath>{'H_3O^+'}</InlineMath> and <InlineMath>{'OH^-'}</InlineMath> will no longer be equal. The relationship between these concentrations will still satisfy the equation:
-      </p>
-      <BlockMath>{'K_w = [H_3O^+][OH^-]'}</BlockMath>
-
-      <p>
-        We can define the following types of solutions:
-      </p>
-      <ul className="list-disc ml-6">
-        <li>A neutral solution, where <InlineMath>{'[H_3O^+] = [OH^-]'}</InlineMath></li>
-        <li>An acidic solution, where <InlineMath>{'[H_3O^+] > [OH^-]'}</InlineMath></li>
-        <li>A basic solution, where <InlineMath>{'[OH^-] > [H_3O^+]'} </InlineMath></li>
-      </ul>
-
-      <h2 className="text-2xl font-semibold mt-6 mb-4">The pH Scale</h2>
-      <p>
-        The pH scale is commonly used to measure the acidity of a solution. It is defined as the negative logarithm of the hydronium-ion concentration:
-      </p>
-      <BlockMath>{'pH = -\\log[H_3O^+]'}</BlockMath>
-
-      <p>
-        For example, for a solution with a hydronium ion concentration of <InlineMath>{'2.5 x 10^{-3} M'}</InlineMath>, the pH would be:
-      </p>
-      <BlockMath>{'pH = -\\log(2.5 x 10^{-3}) = 2.60'}</BlockMath>
-
-      <p>
-        To calculate the hydronium ion concentration from a given pH, use the inverse calculation:
-      </p>
-      <BlockMath>{'[H_3O^+] = 10^{-pH}'}</BlockMath>
-
-      <p>
-        For example, for a solution with pH = 4.5:
-      </p>
-      <BlockMath>{'[H_3O^+] = 10^{-4.5} = 3.2 x 10^{-5} M'}</BlockMath>
-
-      <h2 className="text-2xl font-semibold mt-6 mb-4">pOH and Its Relationship to pH</h2>
-      <p>
-        The pOH scale is analogous to the pH scale and is defined as the negative logarithm of the hydroxide ion concentration:
-      </p>
-      <BlockMath>{'pOH = -\\log[OH^-]'}</BlockMath>
-
-      <p>
-        If the pOH value is given, you can calculate the hydroxide ion concentration:
-      </p>
-      <BlockMath>{'[OH^-] = 10^{-pOH}'}</BlockMath>
-
-      <p>
-        The relationship between pH and pOH is derived from the ion product constant for water:
-      </p>
-      <BlockMath>{'K_w = [H_3O^+][OH^-] = 1.0 x 10^{-14}'}</BlockMath>
-      <p>
-        Taking the negative logarithm of both sides:
-      </p>
-      <BlockMath>{'-\\log[H_3O^+] - \\log[OH^-] = -\\log(1.0 x 10^{-14})'}</BlockMath>
-      <p>
-        This simplifies to:
-      </p>
-      <BlockMath>{'pH + pOH = 14'}</BlockMath>
-
-      <p>
-        Thus, the sum of pH and pOH must always equal 14 at 25°C. This provides another way to express the relationship between <InlineMath>{'[H_3O^+]'}</InlineMath> and <InlineMath>{'[OH^-]'}</InlineMath>.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Example</h2>
-      <p>
-        For a solution with pH = 6.6, the hydroxide ion concentration can be calculated as:
-      </p>
-      <BlockMath>{'[OH^-] = 10^{-6.6} = 2.51 x 10^{-7} M'}</BlockMath>
-
-      <h1 className="text-3xl font-bold mb-6">Acid and Base Strength</h1>
-
-      <p>
-        The strength of acids and bases depends on a number of factors. Some of the ways to compare the strengths of acids and bases are the concentration of hydrogen and hydroxide ions, pH and pOH, percent dissociation, and ionization in water.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Concentration of Hydrogen and Hydroxide Ions</h2>
-      <p>
-        The strength of acids and bases is influenced by the concentration of hydrogen (<InlineMath>{'H^+'}</InlineMath>) and hydroxide (<InlineMath>{'OH^-'}</InlineMath>) ions. A strong acid dissociates completely in water, releasing protons, while weak acids only partially dissociate. Strong acids such as hydrochloric acid (<InlineMath>{'HCl'}</InlineMath>) and sulfuric acid (<InlineMath>{'H_2SO_4'}</InlineMath>) ionize nearly 100% in solution. A weak acid, like acetic acid, will dissociate only partially.
-      </p>
-      <p>
-        Base strength refers to the ability of a base to accept protons. A strong base accepts more protons readily, leading to higher concentrations of hydroxide ions in solution compared to weaker bases.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-6 mb-4">pH and pOH</h2>
-      <p>
-        The pH of a solution can determine if it's acidic, neutral, or basic. For example, a pH of 2 indicates an acidic solution. The concentration of hydroxide ions in a solution is related to its pOH. The strength of a base increases with a decreasing pOH value.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Percent Ionization</h2>
-      <p>
-        Percent ionization is the proportion of acid or base molecules that dissociate in solution, expressed as a percentage. For an acid, it is given by: Percent Ionization =
-      </p>
-      <div className='overflow-x-auto text-xs'>
-        <BlockMath>{'\\frac{\\text{Ionized Acid Concentration at Equilibrium}}{\\text{Initial Acid Concentration}} \\times 100%'}</BlockMath>
+    <div className="my-4">
+      <p className="mb-2 font-semibold font-inter text-dark-gray dark:text-light-gray">{title}:</p>
+      <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
+         <iframe
+           className="w-full h-full"
+           src={`https://www.youtube.com/embed/${videoId}`}
+           title={title}
+           frameBorder="0"
+           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+           allowFullScreen>
+         </iframe>
       </div>
-      <p>
-        The percent ionization increases with acid or base strength. Strong acids and bases ionize nearly completely, while weak acids and bases ionize partially, resulting in a lower percent ionization.
-      </p>
+    </div>
+  );
+}
 
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Acid Ionization Constant, Ka</h2>
-      <p>
-        The acid ionization constant, <InlineMath>{'K_a'}</InlineMath>, quantifies the strength of an acid. It is the equilibrium constant for the dissociation of an acid into its conjugate base and hydrogen ion. For a weak acid, the dissociation reaction can be written as:
-      </p>
-      <BlockMath>{'HA(aq) + H_2O(l) \\rightleftharpoons H_3O^+(aq) + A^-(aq)'}</BlockMath>
-      <p>
-        The ionization constant expression is:
-      </p>
-      <BlockMath>{'K_a = \\frac{[H_3O^+][A^-]}{[HA]}'}</BlockMath>
-      <p>
-        The larger the value of <InlineMath>{'K_a'}</InlineMath>, the stronger the acid. Weak acids have smaller <InlineMath>{'K_a'}</InlineMath> values, while strong acids have large <InlineMath>{'K_a'}</InlineMath> values.
-      </p>
+// Mini Interactive Question Component (Enhanced for Optional Multiple Choice)
+function MiniCheckQuestion({
+    question,
+    correctAnswer,
+    explanation,
+    options,
+    correctOptionIndex,
+    onSelectOption }: MiniCheckQuestionProps) {
+    const [revealed, setRevealed] = useState(false);
+    const [selectedOption, setSelectedOption] = useState<number | null>(null);
+    const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Calculating the pH of Weak Acids</h2>
-      <p>
-        To calculate the pH of a weak acid, we use its <InlineMath>{'K_a'}</InlineMath> value and the initial concentration of the acid. By setting up an equilibrium expression and solving for the concentration of <InlineMath>{'H^+'}</InlineMath>, we can find the pH.
-      </p>
+    const handleOptionSelect = (index: number) => {
+        if (revealed) return;
+        setSelectedOption(index);
+        const correct = index === correctOptionIndex;
+        setIsCorrect(correct);
+        setRevealed(true);
+        if (onSelectOption) {
+            onSelectOption(correct);
+        }
+    };
 
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Base Dissociation Constant, Kb</h2>
-      <p>
-        Similar to acids, weak bases also have a dissociation constant called <InlineMath>{'K_b'}</InlineMath>. For example, ammonia (<InlineMath>{'NH_3'}</InlineMath>) ionizes in water as:
-      </p>
-      <BlockMath>{'NH_3(aq) + H_2O(l) \\rightleftharpoons NH_4^+(aq) + OH^-(aq)'}</BlockMath>
-      <p>
-        The base dissociation constant expression is:
-      </p>
-      <BlockMath>{'K_b = \\frac{[NH_4^+][OH^-]}{[NH_3]}'}</BlockMath>
-      <p>
-        Base dissociation constants for weak bases are typically smaller, with values for strong bases being much larger.
-      </p>
+    const handleReveal = () => {
+        setRevealed(true);
+    };
 
-      <h2 className="text-2xl font-semibold mt-6 mb-4">Table: Kb Values of Some Common Weak Bases</h2>
-      <table className="table-auto w-full border-collapse border border-gray-300">
-        <thead>
-          <tr>
-            <th className="border border-gray-300 px-4 py-2">Base</th>
-            <th className="border border-gray-300 px-4 py-2">Kb</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2">Ammonia (NH3)</td>
-            <td className="border border-gray-300 px-4 py-2">1.8 × 10⁻⁵</td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2">Aniline (C6H5NH2)</td>
-            <td className="border border-gray-300 px-4 py-2">4.0 × 10⁻¹⁰</td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2">Ethylamine (C2H5NH2)</td>
-            <td className="border border-gray-300 px-4 py-2">4.7 × 10⁻⁴</td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2">Hydrazine (C2H4NH2)</td>
-            <td className="border border-gray-300 px-4 py-2">1.7 × 10⁻⁶</td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2">Hydroxylamine (NH2OH)</td>
-            <td className="border border-gray-300 px-4 py-2">1.1 × 10⁻⁶</td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2">Methylamine (CH3NH2)</td>
-            <td className="border border-gray-300 px-4 py-2">4.4 × 10⁻⁴</td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2">Pyridine (C5H5N)</td>
-            <td className="border border-gray-300 px-4 py-2">1.7 × 10⁻⁹</td>
-          </tr>
-        </tbody>
-      </table>
-      <p>
-        In solving problems involving weak bases, you should follow similar guidelines as for weak acids, except that you calculate <InlineMath>{'[OH^-]'}</InlineMath> first instead of <InlineMath>{'[H^+]'}</InlineMath>.
-      </p>
-      <div className='flex justify-center items-center'>
-          <button 
-            onClick={() => setShowQuiz(true)}
-            className="w-1/2 h-1/2 mt-6 bg-slate-400 hover:bg-slate-500 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
-          >
-            Take Quiz
-          </button>
-        </div>
+    const handleHide = () => {
+        setRevealed(false);
+        setSelectedOption(null);
+        setIsCorrect(null);
+    }
 
-      {showQuiz && (
-        <div className="fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-70 flex justify-center items-center z-50">
-          <div className="bg-white dark:bg-[#242424] p-8 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
-            <button 
-              onClick={() => {
-                setShowQuiz(false);
-                setShowResults(false);
-                setSelectedAnswers(new Array(quizQuestions.length).fill(null));
-              }}
-              className="absolute top-4 right-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            
-            <h2 className="text-2xl font-bold mb-6 dark:text-white">Projectile Motion Quiz</h2>
-            <div className="space-y-6">
-              {quizQuestions.map((q, index) => (
-                <QuizQuestion
-                  key={index}
-                  question={q.question}
-                  options={q.options}
-                  correctAnswer={q.correctAnswer}
-                  hint={q.hint}
-                  selectedAnswer={selectedAnswers[index]}
-                  showResults={showResults}
-                  onSelectAnswer={(answerIndex) => handleAnswerSelect(index, answerIndex)}
-                />
+  return (
+    <div className="mt-6 p-4 border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 shadow-md">
+      <p className="font-medium text-sm mb-3 font-inter text-dark-gray dark:text-light-gray">{question}</p>
+      {options && options.length > 0 && !revealed && (
+         <div className="space-y-2 mb-3">
+              {options.map((option, index) => (
+                  <button
+                      key={index}
+                      onClick={() => handleOptionSelect(index)}
+                      className={`block w-full text-left text-sm p-2 rounded border font-inter transition-colors
+                                  ${selectedOption === index ? (isCorrect ? 'bg-mint/30 border-teal' : 'bg-coral/30 border-red-500') : 'bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600'}
+                                  text-dark-gray dark:text-light-gray`}
+                  >
+                      {`${String.fromCharCode(65 + index)}. ${option}`}
+                  </button>
               ))}
-            </div>
-            <div className="mt-6 flex justify-between">
-              {!showResults && (
-                <button 
-                  onClick={handleSubmit}
-                  className="bg-green-500 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors"
-                >
-                  Submit
-                </button>
-              )}
-              <button 
-                onClick={() => {
-                  setShowQuiz(false);
-                  setShowResults(false);
-                  setSelectedAnswers(new Array(quizQuestions.length).fill(null));
-                }}
-                className="bg-red-500 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors"
-              >
-                Close
-              </button>
-            </div>
-            {showResults && (
-              <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                <h3 className="text-xl font-bold mb-2 dark:text-white">Quiz Results</h3>
-                <p className="dark:text-white">
-                  You got {score} out of {quizQuestions.length} questions correct! 
-                  ({((score / quizQuestions.length) * 100).toFixed(1)}%)
-                </p>
-              </div>
-            )}
           </div>
+      )}
+      {!options && !revealed && (
+        <button
+          onClick={handleReveal}
+          className="text-xs bg-coral hover:bg-opacity-80 dark:bg-gold dark:text-deep-navy text-white font-inter font-semibold py-1 px-3 rounded transition-colors"
+        >
+          Check Answer
+        </button>
+      )}
+      {revealed && (
+        <div className="text-sm space-y-1 font-inter border-t border-gray-200 dark:border-gray-600 pt-3 mt-3">
+           {options && isCorrect !== null && (
+                <p className={`font-semibold ${isCorrect ? 'text-teal dark:text-mint' : 'text-coral dark:text-gold'}`}>
+                    {isCorrect ? 'Correct!' : 'Incorrect.'}
+                </p>
+            )}
+          <p className="text-dark-gray dark:text-light-gray"><strong className="text-teal dark:text-mint">Answer:</strong> {correctAnswer}</p>
+          <p className="text-dark-gray dark:text-light-gray"><strong className="text-gray-600 dark:text-gray-400">Explanation:</strong> {explanation}</p>
+           <button onClick={handleHide} className="text-xs text-blue-600 dark:text-blue-400 hover:underline mt-2 font-inter"> Hide/Reset </button>
         </div>
       )}
     </div>
   );
 }
+
+// Simple pH Scale Visualization Component
+function PhScaleVisualization({ pH }: { pH: number | null }) {
+    if (pH === null || !isFinite(pH)) {
+        return <div className="text-sm text-center text-gray-500 dark:text-gray-400 italic">(Enter valid concentration or pH/pOH)</div>;
+    }
+
+    const scaleWidth = 100; // Percentage
+    const position = Math.max(0, Math.min(14, pH)) / 14 * scaleWidth;
+
+    const getColor = (pHValue: number): string => {
+        if (pHValue < 3) return 'bg-red-600';
+        if (pHValue < 6) return 'bg-orange-500';
+        if (pHValue < 6.9) return 'bg-yellow-400 text-black';
+        if (pHValue <= 7.1) return 'bg-green-500'; // Neutral range
+        if (pHValue < 9) return 'bg-teal';
+        if (pHValue < 11) return 'bg-blue-500';
+        return 'bg-indigo-600';
+    }
+    const bgColor = getColor(pH);
+
+    return (
+        <div className="my-4 font-inter">
+            <p className="text-sm text-center mb-1">pH Scale</p>
+            {/* **FIXED**: Simplified Gradient */}
+            <div className="w-full h-4 bg-gradient-to-r from-red-600 via-green-500 to-indigo-600 rounded-full relative shadow-inner">
+                <div
+                    className="absolute top-[-4px] bottom-[-4px] w-1 border-l border-r border-white dark:border-gray-900 bg-black/50 rounded"
+                    style={{ left: `${position}%`, transform: 'translateX(-50%)' }}
+                    title={`pH ${pH.toFixed(1)}`}
+                 ></div>
+            </div>
+            <div className="flex justify-between text-xs mt-1 text-gray-600 dark:text-gray-400">
+                <span>0 (Acidic)</span>
+                <span>7 (Neutral)</span>
+                <span>14 (Basic)</span>
+            </div>
+             <p className={`text-center text-sm font-semibold mt-2 p-1 rounded ${bgColor} text-white mix-blend-luminosity dark:mix-blend-normal`}>
+                pH: {pH.toFixed(1)} ({pH < 6.9 ? 'Acidic' : pH > 7.1 ? 'Basic' : 'Neutral'})
+            </p>
+        </div>
+    );
+}
+
+
+// --- Page Specific Data ---
+const quizQuestions = [
+    // ... (Original quiz questions - expanded in previous step)
+      {
+        "question": "What process describes water molecules reacting with each other to form H₃O⁺ and OH⁻ ions?",
+        "options": ["Hydrolysis", "Neutralization", "Autoionization (Self-ionization)", "Dissociation"],
+        "correctAnswer": 2,
+        "hint": "This equilibrium exists even in pure water."
+    },
+    {
+        "question": "What is the value of the ion-product constant for water (Kw) at 25°C?",
+        "options": ["1.0 x 10⁻⁷", "1.0 x 10⁻¹⁴", "7.0", "14.0"],
+        "correctAnswer": 1,
+        "hint": "Kw = [H₃O⁺][OH⁻] = 1.0 x 10⁻¹⁴ at standard temperature."
+    },
+    {
+        "question": "In a neutral solution at 25°C, what is the concentration of H₃O⁺ ions?",
+        "options": ["1.0 x 10⁻¹⁴ M", "0 M", "1.0 x 10⁻⁷ M", "7.0 M"],
+        "correctAnswer": 2,
+        "hint": "In neutral water, [H₃O⁺] = [OH⁻]. Since Kw = [H₃O⁺][OH⁻] = 1.0 x 10⁻¹⁴, solve for [H₃O⁺]."
+    },
+    {
+        "question": "If a solution has [H₃O⁺] > 1.0 x 10⁻⁷ M, it is considered:",
+        "options": ["Acidic", "Neutral", "Basic", "Concentrated"],
+        "correctAnswer": 0,
+        "hint": "Higher hydronium concentration means lower pH, indicating acidity."
+    },
+    {
+        "question": "The pH scale is defined as:",
+        "options": ["pH = log[H₃O⁺]", "pH = 10^[H₃O⁺]", "pH = -log[H₃O⁺]", "pH = [H₃O⁺] / Kw"],
+        "correctAnswer": 2,
+        "hint": "It's the negative base-10 logarithm of the hydronium ion concentration."
+    },
+    {
+        "question": "A solution has a pH of 9.0. What is its pOH at 25°C?",
+        "options": ["9.0", "7.0", "5.0", "1.0 x 10⁻⁹"],
+        "correctAnswer": 2,
+        "hint": "Remember the relationship: pH + pOH = 14.0 at 25°C."
+    },
+     {
+        "question": "If the pOH of a solution is 3.5, what is the [OH⁻] concentration?",
+        "options": ["10^3.5 M", "10^(-3.5) M", "-log(3.5) M", "14 - 3.5 M"],
+        "correctAnswer": 1,
+        "hint": "The relationship is [OH⁻] = 10^(-pOH)."
+    },
+    {
+        "question": "The acid ionization constant (Ka) is the equilibrium constant for which reaction?",
+        "options": ["The formation of water", "The dissociation of a base", "The dissociation of an acid in water", "The neutralization reaction"],
+        "correctAnswer": 2,
+        "hint": "Ka measures the extent to which an acid donates protons to water."
+    },
+    {
+        "question": "A larger Ka value indicates a:",
+        "options": ["Weaker acid", "Stronger acid", "Weaker base", "Stronger base"],
+        "correctAnswer": 1,
+        "hint": "Larger Ka means the acid dissociates more completely, making it stronger."
+    },
+    {
+        "question": "The base dissociation constant (Kb) measures the strength of a base based on its ability to:",
+        "options": ["Donate protons", "Accept protons from water (producing OH⁻)", "Donate electrons", "Accept electrons"],
+        "correctAnswer": 1,
+        "hint": "Kb is the equilibrium constant for the reaction B + H₂O ⇌ BH⁺ + OH⁻."
+    },
+     {
+        "question": "For a weak acid, the percent ionization typically ______ as the initial concentration of the acid decreases.",
+        "options": ["Increases", "Decreases", "Stays the same", "Becomes zero"],
+        "correctAnswer": 0,
+        "hint": "Diluting a weak acid shifts the equilibrium towards more ionization (Le Chatelier's principle)."
+    },
+     {
+        "question": "If acid HA has Ka = 1.8 x 10⁻⁵ and acid HB has Ka = 6.2 x 10⁻⁸, which acid is stronger?",
+        "options": ["HA", "HB", "They are equal strength", "Cannot determine"],
+        "correctAnswer": 0,
+        "hint": "The acid with the larger Ka value is the stronger acid."
+    }
+];
+
+
+// --- KaTeX String Constants ---
+const katex_H3O_plus = 'H_3O^+';
+const katex_OH_minus = 'OH^-';
+const katex_H2O = 'H_2O';
+const katex_Kw = 'K_w';
+const katex_Kc = 'K_c';
+const katex_Water_auto = `${katex_H2O}(l) + ${katex_H2O}(l) \\rightleftharpoons ${katex_H3O_plus}(aq) + ${katex_OH_minus}(aq)`;
+const katex_Kc_expr = `K_c = \\frac{[${katex_H3O_plus}][${katex_OH_minus}]}{[${katex_H2O}]^2}`;
+const katex_Kw_expr = `${katex_Kw} = [${katex_H3O_plus}][${katex_OH_minus}]`;
+const katex_Kw_val = `${katex_Kw} = 1.0 \\times 10^{-14} \\text{ (at 25°C)}`;
+const katex_H3O_conc = `[${katex_H3O_plus}]`;
+const katex_OH_conc = `[${katex_OH_minus}]`;
+// **FIXED**: Define KaTeX strings for comparison expressions
+const katex_H3O_eq_OH = `[${katex_H3O_plus}] = [${katex_OH_minus}]`;
+const katex_H3O_gt_OH = `[${katex_H3O_plus}] > [${katex_OH_minus}]`;
+const katex_OH_gt_H3O = `[${katex_OH_minus}] > [${katex_H3O_plus}]`;
+const katex_H3O_gt_1e7 = `[${katex_H3O_plus}] > 1.0 \\times 10^{-7} M`;
+const katex_OH_gt_1e7 = `[${katex_OH_minus}] > 1.0 \\times 10^{-7} M`;
+
+const katex_pH_def = `pH = -\\log[${katex_H3O_plus}]`;
+const katex_H3O_from_pH = `[${katex_H3O_plus}] = 10^{-pH}`;
+const katex_pOH_def = `pOH = -\\log[${katex_OH_minus}]`;
+const katex_OH_from_pOH = `[${katex_OH_minus}] = 10^{-pOH}`;
+const katex_pH_pOH_relation = `pH + pOH = 14.00 \\text{ (at 25°C)}`;
+const katex_HA = 'HA';
+const katex_A_minus = 'A^-';
+const katex_Ka = 'K_a';
+const katex_Ka_eq = `${katex_HA}(aq) + ${katex_H2O}(l) \\rightleftharpoons ${katex_H3O_plus}(aq) + ${katex_A_minus}(aq)`;
+const katex_Ka_expr = `${katex_Ka} = \\frac{[${katex_H3O_plus}][${katex_A_minus}]}{[${katex_HA}]}`;
+const katex_B_base = 'B'; // Generic base
+const katex_BH_plus = 'BH^+'; // Conjugate acid
+const katex_Kb = 'K_b';
+const katex_Kb_eq = `${katex_B_base}(aq) + ${katex_H2O}(l) \\rightleftharpoons ${katex_BH_plus}(aq) + ${katex_OH_minus}(aq)`;
+const katex_Kb_expr = `${katex_Kb} = \\frac{[${katex_BH_plus}][${katex_OH_minus}]}{[${katex_B_base}]}`;
+const katex_PercentIon = `\\% \\text{ Ionization} = \\frac{[${katex_H3O_plus}]_{\\text{eq}}}{[${katex_HA}]_{\\text{initial}}} \\times 100\\%`;
+
+
+// --- Main Page Component ---
+const IonicEquilibriaPage = () => {
+  // --- State Variables ---
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>(new Array(quizQuestions.length).fill(null));
+  const [showResults, setShowResults] = useState(false);
+  const [score, setScore] = useState(0);
+  const [inputType, setInputType] = useState<'pH' | 'pOH' | 'H3O' | 'OH'>('pH');
+  const [inputValue, setInputValue] = useState<string>('7.0');
+  const [calculatedValues, setCalculatedValues] = useState<{
+      pH: number | null;
+      pOH: number | null;
+      H3O: number | null;
+      OH: number | null;
+  }>({ pH: 7.0, pOH: 7.0, H3O: 1e-7, OH: 1e-7 });
+
+  // --- Update calculations ---
+  useEffect(() => {
+    // Use try-catch for robust parsing, especially with scientific notation
+    let numValue: number | null = null;
+    try {
+        numValue = parseFloat(inputValue.replace(/\\times/g, 'e')); // Handle 'x' for scientific notation if needed
+    } catch (e) {
+        numValue = null; // Invalid input
+    }
+
+    let pH: number | null = null;
+    let pOH: number | null = null;
+    let H3O: number | null = null;
+    let OH: number | null = null;
+
+    if (numValue !== null && !isNaN(numValue)) {
+        try {
+            switch (inputType) {
+                case 'pH':
+                    if (numValue >= 0 && numValue <= 14) {
+                        pH = numValue;
+                        pOH = 14.0 - pH;
+                        H3O = Math.pow(10, -pH);
+                        OH = KW_25C / H3O;
+                    }
+                    break;
+                case 'pOH':
+                     if (numValue >= 0 && numValue <= 14) {
+                        pOH = numValue;
+                        pH = 14.0 - pOH;
+                        OH = Math.pow(10, -pOH);
+                        H3O = KW_25C / OH;
+                     }
+                    break;
+                case 'H3O':
+                     if (numValue > 0) {
+                        H3O = numValue;
+                        pH = -Math.log10(H3O);
+                        if(pH >= 0 && pH <= 14) {
+                             OH = KW_25C / H3O;
+                             pOH = 14.0 - pH;
+                        } else { pH = pOH = OH = null; } // Invalidate if pH outside range
+                     }
+                    break;
+                case 'OH':
+                     if (numValue > 0) {
+                        OH = numValue;
+                        pOH = -Math.log10(OH);
+                         if(pOH >= 0 && pOH <= 14) {
+                             H3O = KW_25C / OH;
+                             pH = 14.0 - pOH;
+                         } else { pOH = pH = H3O = null; } // Invalidate if pOH outside range
+                     }
+                    break;
+            }
+        } catch (e) {
+             console.error("Calculation error:", e);
+             pH = pOH = H3O = OH = null;
+        }
+    } else {
+        // Handle non-numeric input by clearing results
+        pH = pOH = H3O = OH = null;
+    }
+
+     setCalculatedValues({
+          pH: (pH !== null && isFinite(pH)) ? pH : null,
+          pOH: (pOH !== null && isFinite(pOH)) ? pOH : null,
+          H3O: (H3O !== null && isFinite(H3O)) ? H3O : null,
+          OH: (OH !== null && isFinite(OH)) ? OH : null,
+     });
+
+  }, [inputType, inputValue]);
+
+  // --- Quiz Handlers ---
+  const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
+    if (showResults) return;
+    const newSelectedAnswers = [...selectedAnswers];
+    newSelectedAnswers[questionIndex] = answerIndex;
+    setSelectedAnswers(newSelectedAnswers);
+  };
+
+  const handleSubmit = () => {
+    const correctCount = selectedAnswers.reduce((count: number, answer: number | null, index: number) => {
+      if (answer === null) return count;
+      return count + (answer === quizQuestions[index].correctAnswer ? 1 : 0);
+    }, 0);
+    setScore(correctCount);
+    setShowResults(true);
+  };
+
+  const resetQuiz = () => {
+    setShowQuiz(false);
+    setShowResults(false);
+    setSelectedAnswers(new Array(quizQuestions.length).fill(null));
+    setScore(0);
+  }
+
+  // --- Component Render ---
+   return (
+    <div className="bg-off-white text-dark-gray dark:bg-deep-navy dark:text-light-gray min-h-screen font-lora">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 py-8">
+            <h1 className="text-4xl lg:text-5xl font-bold font-playfair mb-8 lg:mb-12 text-center">
+                1.2 Ionic Equilibria & Acid/Base Strength
+            </h1>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-12">
+                {/* Left Column */}
+                <article className="lg:col-span-7 space-y-6">
+
+                     {/* Self-Ionization of Water */}
+                     <section>
+                          <h2 className="text-3xl font-semibold font-playfair mt-6 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                             Self-Ionization of Water & K<sub className="font-serif">w</sub>
+                          </h2>
+                         {/* ... text ... */}
+                          <p className="leading-relaxed">
+                             Even pure water conducts electricity very slightly because it undergoes <strong className="text-teal dark:text-teal font-semibold">autoionization</strong>:
+                          </p>
+                           <BlockMath math={katex_Water_auto}/>
+                          <p className="mt-3 leading-relaxed">
+                             This equilibrium gives the <strong className="text-teal dark:text-teal font-semibold">ion-product constant for water, <InlineMath math={katex_Kw}/></strong>:
+                          </p>
+                          <BlockMath math={katex_Kw_expr}/>
+                           <p className="leading-relaxed">
+                             At 25°C:
+                           </p>
+                          <BlockMath math={katex_Kw_val}/>
+                           <p className="leading-relaxed">
+                              In pure water: <InlineMath math={`[${katex_H3O_plus}] = [${katex_OH_minus}] = 1.0 \\times 10^{-7} M`}/>.
+                           </p>
+                     </section>
+
+                      {/* Acidic, Basic, Neutral */}
+                     <section>
+                         <h2 className="text-3xl font-semibold font-playfair mt-8 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                             Acidic, Basic, and Neutral Solutions (25°C)
+                         </h2>
+                         <p className="leading-relaxed">
+                             The <InlineMath math={katex_Kw}/> relationship always holds:
+                             <ul className="list-disc list-inside ml-4 space-y-1 mt-2">
+                                 {/* **FIXED**: Used KaTeX constants */}
+                                 <li><strong className="font-semibold">Neutral:</strong> <InlineMath math={katex_H3O_eq_OH}/></li>
+                                 <li><strong className="text-coral dark:text-gold font-semibold">Acidic:</strong> <InlineMath math={katex_H3O_gt_OH}/> (or <InlineMath math={katex_H3O_gt_1e7}/>)</li>
+                                 <li><strong className="font-semibold text-teal dark:text-mint">Basic:</strong> <InlineMath math={katex_OH_gt_H3O}/> (or <InlineMath math={katex_OH_gt_1e7}/>)</li>
+                             </ul>
+                         </p>
+                     </section>
+
+                      {/* pH and pOH */}
+                      <section>
+                           <h2 className="text-3xl font-semibold font-playfair mt-8 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                             The pH and pOH Scales
+                         </h2>
+                          {/* ... text using constants ... */}
+                           <p className="leading-relaxed"><strong className="text-teal dark:text-teal font-semibold">pH scale</strong> (acidity):</p>
+                           <BlockMath math={katex_pH_def}/>
+                           <p className="leading-relaxed mt-3"><strong className="text-teal dark:text-teal font-semibold">pOH scale</strong> (basicity):</p>
+                           <BlockMath math={katex_pOH_def}/>
+                           <p className="mt-3 leading-relaxed">Relationship at 25°C:</p>
+                           <BlockMath math={katex_pH_pOH_relation}/>
+                            <p className="leading-relaxed mt-3">Key points at 25°C:</p>
+                              <ul className="list-disc list-inside ml-4 space-y-1 mt-2 text-sm">
+                                 <li>pH = 7 (Neutral)</li>
+                                 <li>pH &lt 7 (Acidic)</li>
+                                 <li>pH &gt 7 (Basic)</li>
+                                 <li>Low pH = High [H₃O⁺] = Acidic</li>
+                                 <li>Low pOH = High [OH⁻] = Basic</li>
+                              </ul>
+                           <p className="mt-3 leading-relaxed"> Conversions: <InlineMath math={katex_H3O_from_pH}/> and <InlineMath math={katex_OH_from_pOH}/>.</p>
+                      </section>
+
+                     {/* Acid/Base Strength & Constants */}
+                     <section>
+                           <h2 className="text-3xl font-semibold font-playfair mt-8 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                             Acid and Base Strength (K<sub className="font-serif">a</sub> and K<sub className="font-serif">b</sub>)
+                         </h2>
+                          {/* ... text using constants ... */}
+                          <p className="leading-relaxed">Weak acids/bases only partially ionize. Their strength is measured by equilibrium constants.</p>
+                         <h3 className="text-xl font-semibold font-playfair mt-4 mb-2">Acid Ionization Constant (<InlineMath math={katex_Ka}/>)</h3>
+                          <BlockMath math={katex_Ka_eq}/>
+                          <BlockMath math={katex_Ka_expr}/>
+                           <p className="leading-relaxed">Larger <InlineMath math={katex_Ka}/> = Stronger Acid.</p>
+                          <h3 className="text-xl font-semibold font-playfair mt-4 mb-2">Base Dissociation Constant (<InlineMath math={katex_Kb}/>)</h3>
+                           <BlockMath math={katex_Kb_eq}/>
+                           <BlockMath math={katex_Kb_expr}/>
+                           <p className="leading-relaxed">Larger <InlineMath math={katex_Kb}/> = Stronger Base.</p>
+                           <h3 className="text-xl font-semibold font-playfair mt-4 mb-2">Percent Ionization</h3>
+                           <BlockMath math={katex_PercentIon}/>
+                            <p className="leading-relaxed">Higher % ionization = Stronger (weak) acid/base. Increases with dilution.</p>
+                     </section>
+
+                      {/* Study Tips */}
+                     <section>
+                          <h2 className="text-3xl font-semibold font-playfair mt-8 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                             Study & Memorization Tips
+                         </h2>
+                          {/* ... Study tips content ... */}
+                            <ul className="list-disc list-outside ml-6 space-y-3 mt-2">
+                                <li><strong className="font-semibold">Master Kw:</strong> Kw = [H₃O⁺][OH⁻] = 10⁻¹⁴ is fundamental.</li>
+                                <li><strong className="font-semibold">pH Square Practice:</strong> Drill conversions between pH, pOH, [H₃O⁺], [OH⁻] using the formulas and pH + pOH = 14. Use the calculator!</li>
+                                 <li><strong className="font-semibold">Ka/Kb Meaning:</strong> Larger K = Stronger. Know the reaction it represents.</li>
+                                 <li><strong className="font-semibold">Logarithms:</strong> Understand that pH is a negative log scale. A 1-unit pH change is a 10x change in [H₃O⁺].</li>
+                                 <li><strong className="font-semibold">Visualize pH Scale:</strong> Use the interactive scale to connect pH values to acidity/basicity and common examples.</li>
+                                 <li><strong className="font-semibold">Problem Solving:</strong> Work through examples calculating pH of weak acids/bases using Ka/Kb (often needs ICE tables - a later topic).</li>
+                           </ul>
+                     </section>
+
+                </article>
+
+                {/* Right Column */}
+                <aside className="lg:col-span-5 space-y-8 mt-8 lg:mt-0">
+                     {/* Panel 1: Kw/Autoionization Video */}
+                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                          <YouTubeEmbed videoId="ZEi-DFEjGfk" title="Video: Autoionization of Water and Kw"/>
+                     </div>
+
+                     {/* Panel 2: pH/pOH Calculator & Visualizer */}
+                     <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                          <h3 className="text-xl font-semibold font-inter mb-4 text-blue-700 dark:text-blue-300">pH/pOH/Concentration Calculator (25°C)</h3>
+                          {/* Calculator Inputs */}
+                          <div className="mb-3 font-inter grid grid-cols-2 gap-4">
+                              <div>
+                                 <label htmlFor="inputType" className="block text-sm font-medium mb-1">Calculate from:</label>
+                                  <select id="inputType" value={inputType} onChange={(e) => setInputType(e.target.value as any)} className="w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 dark:text-light-gray" >
+                                      <option value="pH">pH</option>
+                                      <option value="pOH">pOH</option>
+                                      <option value="H3O">[H₃O⁺] (M)</option>
+                                      <option value="OH">[OH⁻] (M)</option>
+                                  </select>
+                              </div>
+                               <div>
+                                  <label htmlFor="inputValue" className="block text-sm font-medium mb-1">Enter Value:</label>
+                                  <input type="text" id="inputValue" value={inputValue} onChange={(e) => setInputValue(e.target.value)} className="w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 dark:text-light-gray" placeholder={inputType === 'H3O' || inputType === 'OH' ? 'e.g., 1.0e-7' : 'e.g., 7.0'} />
+                               </div>
+                          </div>
+                           {/* Display Results */}
+                           <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900 rounded shadow-inner text-sm font-inter space-y-1">
+                              <p>pH: <span className="font-semibold text-teal dark:text-mint">{calculatedValues.pH?.toFixed(2) ?? 'Invalid Input'}</span></p>
+                              <p>pOH: <span className="font-semibold text-teal dark:text-mint">{calculatedValues.pOH?.toFixed(2) ?? 'Invalid Input'}</span></p>
+                              <p>[H₃O⁺]: <span className="font-semibold text-teal dark:text-mint">{calculatedValues.H3O?.toExponential(2) ?? 'Invalid Input'}</span> M</p>
+                              <p>[OH⁻]: <span className="font-semibold text-teal dark:text-mint">{calculatedValues.OH?.toExponential(2) ?? 'Invalid Input'}</span> M</p>
+                          </div>
+                           {/* pH Scale Visualization */}
+                           <PhScaleVisualization pH={calculatedValues.pH} />
+                            <MiniCheckQuestion
+                             question={`If [OH⁻] = 2.5 x 10⁻⁴ M, what is the approximate pH?`}
+                             correctAnswer="pH ≈ 10.40"
+                             explanation={`First find pOH = -log(2.5 x 10⁻⁴) ≈ 3.60. Then pH = 14.00 - pOH = 14.00 - 3.60 = 10.40.`}
+                         />
+                     </div>
+
+                     {/* Panel 3: pH/pOH Video */}
+                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                         <YouTubeEmbed videoId="pQOa3bbS-zw" title="Video: pH, pOH, [H⁺], [OH⁻] Calculations"/>
+                     </div>
+
+                     {/* Panel 4: Ka/Kb Video */}
+                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                         <YouTubeEmbed videoId="4eNKPyXLw5s" title="Video: Acid/Base Strength, Ka and Kb"/>
+                     </div>
+
+                     {/* Panel 5: Ka/Kb Mini Question */}
+                     <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                         <h3 className="text-xl font-semibold font-inter mb-3 text-green-700 dark:text-green-300">Strength Check (K<sub className="font-inter">a</sub>/K<sub className="font-inter">b</sub>)</h3>
+                           <MiniCheckQuestion
+                             question="Which indicates a stronger base: Kb = 1 x 10⁻⁵ or Kb = 1 x 10⁻⁹?"
+                             correctAnswer="Kb = 1 x 10⁻⁵"
+                             explanation="A larger Kb value means the base accepts protons more readily (dissociates more in water to produce OH⁻), indicating a stronger base."
+                         />
+                     </div>
+
+                     {/* Panel 6: PhET Simulation Link */}
+                     <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                        <h3 className="text-xl font-semibold font-inter mb-3 text-center">Explore: Acid-Base Solutions</h3>
+                        <p className="text-sm text-center mb-4 font-inter text-dark-gray dark:text-light-gray">Visualize dissociation, pH, strength, and the role of water.</p>
+                         <div className="relative w-full overflow-hidden aspect-video border dark:border-gray-600 rounded bg-black">
+                            <a href="https://phet.colorado.edu/sims/html/acid-base-solutions/latest/acid-base-solutions_en.html" target="_blank" rel="noopener noreferrer" className="absolute inset-0 flex items-center justify-center bg-gray-800 hover:bg-gray-700 transition-colors">
+                                <span className="text-light-gray font-inter font-semibold p-4 text-center">Click to Open PhET: Acid-Base Solutions (New Tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+             {/* Quiz Button */}
+            <div className='flex justify-center items-center mt-12 lg:mt-16'>
+                <button
+                    onClick={() => setShowQuiz(true)}
+                    className="w-full sm:w-1/2 lg:w-1/3 bg-coral hover:bg-opacity-80 dark:bg-gold dark:text-deep-navy text-white font-bold font-inter py-3 px-6 rounded-lg transition-colors text-lg shadow-md"
+                >
+                    Test Your Equilibria Knowledge!
+                </button>
+            </div>
+        </main>
+
+         {/* Quiz Modal */}
+        {showQuiz && (
+             <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 p-4">
+              <div className="bg-off-white dark:bg-deep-navy p-6 sm:p-8 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto relative shadow-xl border dark:border-gray-700">
+                 <button onClick={resetQuiz} className="absolute top-3 right-3 text-dark-gray dark:text-light-gray hover:text-coral dark:hover:text-gold text-2xl" aria-label="Close quiz">×</button>
+                 <h2 className="text-2xl font-bold font-playfair mb-6 text-center text-dark-gray dark:text-light-gray">Ionic Equilibria & Strength Quiz</h2>
+                 <div className="space-y-6 font-inter">
+                  {quizQuestions.map((q, index) => (
+                    <QuizQuestion
+                      key={index}
+                      // questionNumber={index + 1} // Uncomment if needed
+                      question={q.question}
+                      options={q.options}
+                      correctAnswer={q.correctAnswer}
+                      hint={q.hint}
+                      selectedAnswer={selectedAnswers[index]}
+                      showResults={showResults}
+                      onSelectAnswer={(answerIndex: number) => handleAnswerSelect(index, answerIndex)}
+                    />
+                  ))}
+                 </div>
+                 <div className="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                     {!showResults ? (
+                         <button onClick={handleSubmit} className="w-full sm:w-auto bg-teal hover:bg-opacity-80 dark:bg-mint dark:text-deep-navy text-white font-bold font-inter py-2 px-6 rounded transition-colors disabled:opacity-50" disabled={selectedAnswers.includes(null)}>
+                             Submit Answers
+                         </button>
+                     ) : <div/>}
+                     <button onClick={resetQuiz} className="w-full sm:w-auto bg-coral hover:bg-opacity-80 dark:bg-gold dark:text-deep-navy text-white font-bold font-inter py-2 px-6 rounded transition-colors">
+                         Close Quiz
+                     </button>
+                 </div>
+                {showResults && (
+                  <div className="mt-6 p-4 bg-blue-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 text-center">
+                     <h3 className="text-xl font-bold font-playfair mb-2 text-dark-gray dark:text-light-gray">Quiz Results</h3>
+                     <p className="text-lg font-inter text-dark-gray dark:text-light-gray">
+                        You got <strong className="text-teal dark:text-mint">{score}</strong> out of <strong className="text-teal dark:text-mint">{quizQuestions.length}</strong> correct!
+                     </p>
+                     <p className="text-2xl font-bold font-inter mt-1 text-dark-gray dark:text-light-gray">
+                         ({((score / quizQuestions.length) * 100).toFixed(0)}%)
+                     </p>
+                  </div>
+                )}
+              </div>
+            </div>
+        )}
+    </div>
+  );
+}
+
+// Assign display name
+IonicEquilibriaPage.displayName = 'IonicEquilibriaPage';
+
+export default IonicEquilibriaPage;

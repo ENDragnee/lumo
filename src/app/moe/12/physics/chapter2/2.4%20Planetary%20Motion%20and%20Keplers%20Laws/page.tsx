@@ -1,12 +1,11 @@
 'use client';
 
 import { InlineMath, BlockMath } from 'react-katex';
-import { useState, useMemo, ChangeEvent } from 'react'; // Added ChangeEvent
-import QuizQuestion from '@/components/QuizQuestion'; // Assuming this component exists and works
+import { useState, useMemo, ChangeEvent } from 'react';
+import QuizQuestion from '@/components/QuizQuestion';
 import 'katex/dist/katex.min.css';
 
-// --- Type Definitions for Component Props ---
-
+// --- Type Definitions ---
 interface InteractiveSliderProps {
   label: string;
   unit: string;
@@ -29,11 +28,10 @@ interface MiniCheckQuestionProps {
   explanation: string;
 }
 
-// Assuming QuizQuestionProps looks something like this (adjust based on your actual component)
-// If your QuizQuestion component doesn't expect 'questionNumber', remove it here AND where it's passed below.
+// !! Adjust based on your actual QuizQuestion component !!
 interface QuizQuestionProps {
     key: number;
-    questionNumber: number; // Added this prop
+    // questionNumber?: number; // Make optional or ensure component accepts it
     question: string;
     options: string[];
     correctAnswer: number;
@@ -43,20 +41,20 @@ interface QuizQuestionProps {
     onSelectAnswer: (answerIndex: number) => void;
 }
 
+// --- Reusable Components (Typed and Styled) ---
 
-// --- Reusable Components with Types Applied ---
-
-// Slider Component
+// Slider Component (Applying Design)
 function InteractiveSlider({
     label, unit, min, max, step, value, onChange, formulaSymbol
-}: InteractiveSliderProps) { // Apply Props type
+}: InteractiveSliderProps) {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     onChange(parseFloat(event.target.value));
   };
 
   return (
     <div className="mb-4">
-      <label htmlFor={label} className="block text-sm font-medium mb-1">
+      {/* UI Font */}
+      <label htmlFor={label} className="block text-sm font-medium mb-1 font-inter text-dark-gray dark:text-light-gray">
         {label} (<InlineMath math={formulaSymbol} /> = {value.toFixed(unit === 'AU' || unit === 'years' ? 2 : 0)} {unit})
       </label>
       <input
@@ -66,10 +64,11 @@ function InteractiveSlider({
         max={max}
         step={step}
         value={value}
-        onChange={handleChange} // Use typed handler
-        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-indigo-600 dark:accent-indigo-400"
+        onChange={handleChange}
+        // Teal Accent for Physics/Science sliders
+        className="w-full h-2 bg-gray-300 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer accent-teal dark:accent-teal"
       />
-       <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
+       <div className="flex justify-between text-xs font-inter text-gray-500 dark:text-gray-400"> {/* UI Font */}
           <span>{min} {unit}</span>
           <span>{max} {unit}</span>
         </div>
@@ -77,16 +76,17 @@ function InteractiveSlider({
   );
 }
 
-// YouTube Embed Component
-function YouTubeEmbed({ videoId, title }: YouTubeEmbedProps) { // Apply Props type
+// YouTube Embed Component (Applying Design)
+function YouTubeEmbed({ videoId, title }: YouTubeEmbedProps) {
   return (
-    <div className="my-6">
-      <p className="mb-2 font-semibold">{title}:</p>
-      <div className="aspect-w-16 aspect-h-9">
+    <div className="my-4"> {/* Adjusted margin */}
+      {/* UI Font */}
+      <p className="mb-2 font-semibold font-inter text-dark-gray dark:text-light-gray">{title}:</p>
+      <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
          <iframe
-           className="w-full h-full rounded-lg shadow-md"
+           className="w-full h-full"
            src={`https://www.youtube.com/embed/${videoId}`}
-           title={title} // Use prop directly
+           title={title}
            frameBorder="0"
            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
            allowFullScreen>
@@ -96,27 +96,31 @@ function YouTubeEmbed({ videoId, title }: YouTubeEmbedProps) { // Apply Props ty
   );
 }
 
-// Mini Interactive Question Component
-function MiniCheckQuestion({ question, correctAnswer, explanation }: MiniCheckQuestionProps) { // Apply Props type
+// Mini Interactive Question Component (Applying Design)
+function MiniCheckQuestion({ question, correctAnswer, explanation }: MiniCheckQuestionProps) {
   const [revealed, setRevealed] = useState(false);
   return (
-    <div className="mt-4 p-3 border border-dashed border-blue-300 dark:border-blue-600 rounded-md bg-blue-50 dark:bg-gray-700">
-      <p className="font-medium text-sm mb-2">{question}</p>
+    // Panel styling for consistency
+    <div className="mt-4 p-4 border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 shadow-md">
+        {/* UI Font */}
+      <p className="font-medium text-sm mb-2 font-inter text-dark-gray dark:text-light-gray">{question}</p>
       {!revealed && (
         <button
           onClick={() => setRevealed(true)}
-          className="text-xs bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded transition-colors"
+            // Coral/Gold Accent for action button
+          className="text-xs bg-coral hover:bg-opacity-80 dark:bg-gold dark:text-deep-navy text-white font-inter font-semibold py-1 px-3 rounded transition-colors"
         >
           Check Answer
         </button>
       )}
       {revealed && (
-        <div className="text-sm space-y-1">
-          <p><strong className="text-green-600 dark:text-green-400">Answer:</strong> {correctAnswer}</p>
-          <p><strong className="text-gray-700 dark:text-gray-300">Explanation:</strong> {explanation}</p>
+        // UI Font
+        <div className="text-sm space-y-1 font-inter">
+          <p className="text-dark-gray dark:text-light-gray"><strong className="text-teal dark:text-mint">Answer:</strong> {correctAnswer}</p>
+          <p className="text-dark-gray dark:text-light-gray"><strong className="text-gray-600 dark:text-gray-400">Explanation:</strong> {explanation}</p>
            <button
             onClick={() => setRevealed(false)}
-            className="text-xs text-blue-600 dark:text-blue-400 hover:underline mt-1"
+            className="text-xs text-blue-600 dark:text-blue-400 hover:underline mt-1 font-inter"
           >
             Hide
           </button>
@@ -127,8 +131,7 @@ function MiniCheckQuestion({ question, correctAnswer, explanation }: MiniCheckQu
 }
 
 
-// --- Main Component ---
-
+// --- Page Specific Data ---
 const quizQuestions = [
     // ... (quiz questions array remains unchanged)
     {
@@ -243,8 +246,9 @@ const quizQuestions = [
     }
 ];
 
+// --- Main Page Component ---
 export default function PlanetaryMotionAndKeplersLaws() {
-  // --- State variables remain unchanged ---
+  // --- State variables ---
   const [showQuiz, setShowQuiz] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>(new Array(quizQuestions.length).fill(null));
   const [showResults, setShowResults] = useState(false);
@@ -255,7 +259,7 @@ export default function PlanetaryMotionAndKeplersLaws() {
   const [period2, setPeriod2] = useState(1.88);
   const [radius2, setRadius2] = useState(1.52);
 
-  // --- Memoized calculations remain unchanged ---
+  // --- Memoized calculations ---
   const keplerConstant1 = useMemo(() => {
       if (radius1 === 0) return NaN;
       return (Math.pow(period1, 2) / Math.pow(radius1, 3));
@@ -266,7 +270,7 @@ export default function PlanetaryMotionAndKeplersLaws() {
       return (Math.pow(period2, 2) / Math.pow(radius2, 3));
   }, [period2, radius2]);
 
-  // --- Quiz handlers remain unchanged ---
+  // --- Quiz handlers ---
   const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
     if (showResults) return;
     const newSelectedAnswers = [...selectedAnswers];
@@ -290,271 +294,325 @@ export default function PlanetaryMotionAndKeplersLaws() {
     setScore(0);
   }
 
-  // --- Helper function remains unchanged ---
+  // --- Helper function ---
   const getEccentricityDescription = (e: number): string => {
-      if (e === 0) return "A perfect circle! The two foci merge at the center.";
-      if (e < 0.3) return "A slightly flattened circle. Foci are close to the center.";
-      if (e < 0.7) return "A noticeable ellipse. Foci are clearly separated.";
-      if (e < 0.9) return "A very elongated ellipse. Foci are far from the center.";
-      return "Almost a parabola! Extremely elongated. (Max eccentricity for an ellipse is < 1)";
+      if (e === 0) return "A perfect circle!";
+      if (e < 0.3) return "A slightly flattened circle.";
+      if (e < 0.7) return "A noticeable ellipse.";
+      if (e < 0.9) return "A very elongated ellipse.";
+      return "Extremely elongated.";
   };
 
-  // --- JSX structure remains largely unchanged, only applying typed components ---
+  // --- Component Render ---
   return (
-    <div className="px-4 sm:px-6 py-6 max-w-4xl mx-auto text-justify dark:text-gray-300">
-      <h1 className="text-3xl font-bold mb-6 text-center dark:text-white">2.4 Planetary Motion & Kepler’s Laws</h1>
+    // Main container: Base colors, body font, min height
+    <div className="bg-off-white text-dark-gray dark:bg-deep-navy dark:text-light-gray min-h-screen font-lora">
+        {/* Assume Fixed Top Bar and Collapsible Sidebar are in Layout */}
 
-      {/* Historical Context Section */}
-      <section className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg shadow mb-8">
-        {/* ... section content ... */}
-        <h2 className="text-2xl font-semibold mt-2 mb-4 text-gray-700 dark:text-gray-300">From Earth-Centered to Sun-Centered</h2>
-        <p className="mb-3">
-          For centuries, people believed Earth was the center of everything (the <strong className="text-red-600 dark:text-red-400">Geocentric Model</strong>, championed by Ptolemy). It seemed obvious!
-        </p>
-        <p className="mb-3">
-          However, careful observations didn't quite fit. Nicolaus Copernicus bravely suggested maybe the Sun was the center (the <strong className="text-green-600 dark:text-green-400">Heliocentric Model</strong>). This was revolutionary!
-        </p>
-        <p>
-          Later, Tycho Brahe made incredibly precise measurements of planet positions. His assistant, Johannes Kepler, used this data goldmine to figure out the *mathematical rules* governing how planets move – Kepler's Laws.
-        </p>
-        <YouTubeEmbed
-            videoId="qOHZdK6F_58"
-            title="Video: Geocentric vs. Heliocentric Models"
-         />
-      </section>
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 py-8">
+            {/* Page Title: Header Font */}
+            <h1 className="text-4xl lg:text-5xl font-bold font-playfair mb-8 lg:mb-12 text-center">
+                2.4 Planetary Motion & Kepler’s Laws
+            </h1>
 
-      {/* Kepler's First Law Section */}
-      <section className="bg-indigo-50 dark:bg-gray-800 p-4 rounded-lg shadow mb-8 border-l-4 border-indigo-500 dark:border-indigo-300">
-         {/* ... section content ... */}
-          <h2 className="text-2xl font-semibold mt-2 mb-4 text-indigo-700 dark:text-indigo-300">1st Law: The Law of Ellipses</h2>
-        <p className="mb-3">
-            Kepler realized planets don't orbit in perfect circles, but in <strong className="text-indigo-600 dark:text-indigo-400">ellipses</strong>. An ellipse is like a squashed circle.
-        </p>
-        <p className="mb-3">
-            Crucially, the Sun isn't at the *center* of the ellipse, but at one of its two <strong className="text-indigo-600 dark:text-indigo-400">foci</strong> (plural of focus). This means a planet's distance from the Sun changes as it orbits.
-        </p>
-         <div className="text-sm p-2 bg-white dark:bg-gray-700 rounded shadow-inner my-3">
-             <strong>Analogy:</strong> Imagine two pins (the foci) on a board, a loop of string around them, and a pencil keeping the string taut. As you move the pencil, it traces an ellipse! The sum of the distances from the pencil to each pin stays constant (the string length).
-         </div>
-         <div className="mt-5 p-4 border border-indigo-200 dark:border-indigo-700 rounded-md bg-white dark:bg-gray-700">
-            <h4 className="text-lg font-semibold mb-3 text-indigo-800 dark:text-indigo-200">Orbit Shape: Eccentricity (<InlineMath math="e" />)</h4>
-            <p className="text-sm mb-3">Eccentricity measures how "squashed" an ellipse is. <InlineMath math="e=0" /> is a perfect circle, and <InlineMath math="e" /> close to 1 is a very elongated ellipse.</p>
-            <InteractiveSlider
-                label="Adjust Eccentricity" unit="" min={0} max={0.95} step={0.05}
-                value={eccentricity} onChange={setEccentricity} formulaSymbol="e"
-            />
-            <div className="mt-2 p-2 bg-indigo-100 dark:bg-gray-600 rounded">
-                <p className="text-sm font-medium text-center text-indigo-700 dark:text-indigo-300">
-                    {getEccentricityDescription(eccentricity)}
-                </p>
-            </div>
-         </div>
-          <MiniCheckQuestion
-              question="In Kepler's First Law, where is the Sun located within the planet's elliptical orbit?"
-              correctAnswer="At one of the two foci."
-              explanation="The Sun is not at the center of the ellipse (unless the orbit is perfectly circular, e=0), but offset at one focus point."
-          />
-         <YouTubeEmbed
-            videoId="qd2hZTKIb40"
-            title="Video: Understanding Ellipses and Kepler's 1st Law"
-         />
-      </section>
+            {/* Main Grid: 1 col mobile, 12 cols large screens */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-12">
 
-      {/* Kepler's Second Law Section */}
-      <section className="bg-teal-50 dark:bg-gray-800 p-4 rounded-lg shadow mb-8 border-l-4 border-teal-500 dark:border-teal-300">
-          {/* ... section content ... */}
-          <h2 className="text-2xl font-semibold mt-2 mb-4 text-teal-700 dark:text-teal-300">2nd Law: The Law of Equal Areas</h2>
-        <p className="mb-3">
-            This law describes *how fast* planets move. It states: A line connecting a planet to the Sun sweeps out <strong className="text-teal-600 dark:text-teal-400">equal areas in equal amounts of time</strong>.
-        </p>
-        <p className="mb-3">
-            Imagine cutting the orbit into time slices (e.g., 30-day intervals). The area of the "pizza slice" swept out by the planet-Sun line will be the same for every 30-day period.
-        </p>
-        <p className="font-semibold mb-3">
-            What does this mean for speed?
-             <ul className="list-disc list-inside ml-4 font-normal space-y-1 mt-1">
-                 <li>When the planet is <strong className="text-red-600 dark:text-red-400">closer</strong> to the Sun (at <strong className="text-red-500">perihelion</strong>), the "slice" is short but wide. To cover the same area in the same time, the planet must move <strong className="text-red-600 dark:text-red-400">faster</strong> along its orbital path.</li>
-                 <li>When the planet is <strong className="text-blue-600 dark:text-blue-400">farther</strong> from the Sun (at <strong className="text-blue-500">aphelion</strong>), the "slice" is long but narrow. The planet moves <strong className="text-blue-600 dark:text-blue-400">slower</strong> to sweep out the same area in that time.</li>
-             </ul>
-        </p>
-         <MiniCheckQuestion
-             question="According to Kepler's Second Law, when does a planet travel fastest in its orbit?"
-             correctAnswer="When it is closest to the Sun (perihelion)."
-             explanation="To sweep out the same area in the same time when the radius (planet-Sun line) is shorter, the planet must cover a longer arc distance, meaning it moves faster."
-         />
-         <YouTubeEmbed
-            videoId="jryS3ua4O3g"
-            title="Video: Visualizing Kepler's 2nd Law (Equal Areas)"
-         />
-      </section>
-
-      {/* Kepler's Third Law Section */}
-       <section className="bg-amber-50 dark:bg-gray-800 p-4 rounded-lg shadow mb-8 border-l-4 border-amber-500 dark:border-amber-300">
-         {/* ... section content ... */}
-          <h2 className="text-2xl font-semibold mt-2 mb-4 text-amber-700 dark:text-amber-300">3rd Law: The Law of Harmonies</h2>
-        <p className="mb-3">
-            This law relates a planet's orbital period (<InlineMath math="T" />, the time for one full orbit) to its average distance from the Sun (<InlineMath math="R" />, the semi-major axis of the ellipse).
-        </p>
-        <p className="mb-3">
-            It states: The square of the orbital period (<InlineMath math="T^2" />) is directly proportional to the cube of the average orbital radius (<InlineMath math="R^3" />).
-        </p>
-        <div className='overflow-x-auto text-wrap text-lg bg-white dark:bg-gray-700 p-3 rounded text-center shadow-inner mb-3'>
-            <BlockMath math="\frac{T^2}{R^3} = K \quad (\text{constant})" />
-        </div>
-        <p className="mb-4">
-            The amazing part: This constant <InlineMath math="K" /> is (almost exactly) the <strong className="text-amber-600 dark:text-amber-400">same for all planets orbiting the same star</strong> (like our Sun)! It doesn't depend on the planet's mass. This allows us to compare different planets in the same system.
-        </p>
-
-         <div className="mt-5 p-4 border border-amber-200 dark:border-amber-700 rounded-md bg-white dark:bg-gray-700">
-            <h4 className="text-lg font-semibold mb-3 text-amber-800 dark:text-amber-200">Interactive Kepler's 3rd Law Calculator</h4>
-            <p className="text-sm mb-4">Compare two planets. Adjust their orbital periods (in Earth years) and average distances (in Astronomical Units, AU, where 1 AU = Earth's average distance). See if <InlineMath math="T^2 / R^3" /> stays constant!</p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                 <div>
-                     <h5 className="font-semibold mb-2 text-center">Planet 1 (e.g., Earth)</h5>
-                     <InteractiveSlider
-                         label="Period (T₁)" unit="years" min={0.1} max={300} step={0.1}
-                         value={period1} onChange={setPeriod1} formulaSymbol="T_1"
-                     />
-                     <InteractiveSlider
-                         label="Avg. Radius (R₁)" unit="AU" min={0.1} max={40} step={0.1}
-                         value={radius1} onChange={setRadius1} formulaSymbol="R_1"
-                     />
-                      <div className="mt-2 p-2 bg-amber-100 dark:bg-gray-600 rounded text-center">
-                         <p className="text-sm font-medium">
-                            <InlineMath math="T_1^2 / R_1^3 \approx" /> {keplerConstant1.toFixed(3)}
-                         </p>
-                      </div>
-                 </div>
-                 <div>
-                     <h5 className="font-semibold mb-2 text-center">Planet 2 (e.g., Mars)</h5>
-                     <InteractiveSlider
-                         label="Period (T₂)" unit="years" min={0.1} max={300} step={0.1}
-                         value={period2} onChange={setPeriod2} formulaSymbol="T_2"
-                     />
-                     <InteractiveSlider
-                         label="Avg. Radius (R₂)" unit="AU" min={0.1} max={40} step={0.1}
-                         value={radius2} onChange={setRadius2} formulaSymbol="R_2"
-                     />
-                     <div className="mt-2 p-2 bg-amber-100 dark:bg-gray-600 rounded text-center">
-                        <p className="text-sm font-medium">
-                            <InlineMath math="T_2^2 / R_2^3 \approx" /> {keplerConstant2.toFixed(3)}
+                {/* Left Column (Static Content): 7 cols large */}
+                <article className="lg:col-span-7 space-y-6">
+                    {/* Historical Context */}
+                    <section>
+                        <h2 className="text-3xl font-semibold font-playfair mt-6 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                            From Earth-Centered to Sun-Centered
+                        </h2>
+                        <p>
+                          For centuries, people believed Earth was the center of everything (the <strong className="text-red-500 dark:text-coral">Geocentric Model</strong>, championed by Ptolemy). It seemed obvious!
                         </p>
-                     </div>
-                 </div>
+                        <p className="mt-3">
+                          However, careful observations didn't quite fit. Nicolaus Copernicus bravely suggested maybe the Sun was the center (the <strong className="text-green-500 dark:text-mint">Heliocentric Model</strong>). This was revolutionary!
+                        </p>
+                        <p className="mt-3">
+                          Later, Tycho Brahe made incredibly precise measurements of planet positions. His assistant, Johannes Kepler, used this data goldmine to figure out the mathematical rules governing how planets move – Kepler's Laws.
+                        </p>
+                    </section>
+
+                    {/* Kepler's First Law */}
+                    <section>
+                        <h2 className="text-3xl font-semibold font-playfair mt-8 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                            1st Law: The Law of Ellipses
+                        </h2>
+                        <p>
+                            Kepler realized planets don't orbit in perfect circles, but in <strong className="text-teal dark:text-teal font-semibold">ellipses</strong>. An ellipse is like a squashed circle.
+                        </p>
+                        <p className="mt-3">
+                            Crucially, the Sun isn't at the *center* of the ellipse, but at one of its two <strong className="text-teal dark:text-teal font-semibold">foci</strong>. This means a planet's distance from the Sun changes as it orbits.
+                        </p>
+                        {/* Analogy Block */}
+                         <div className="text-sm p-3 my-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 italic">
+                             <strong>Analogy:</strong> Imagine two pins (the foci) on a board, a loop of string around them, and a pencil keeping the string taut. As you move the pencil, it traces an ellipse! The sum of the distances from the pencil to each pin stays constant.
+                         </div>
+                    </section>
+
+                     {/* Kepler's Second Law */}
+                    <section>
+                         <h2 className="text-3xl font-semibold font-playfair mt-8 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                             2nd Law: The Law of Equal Areas
+                         </h2>
+                        <p>
+                            This law describes *how fast* planets move. It states: A line connecting a planet to the Sun sweeps out <strong className="text-teal dark:text-teal font-semibold">equal areas in equal amounts of time</strong>.
+                        </p>
+                        <p className="mt-3">
+                            Imagine cutting the orbit into time slices (e.g., 30-day intervals). The area of the "pizza slice" swept out will be the same for every 30-day period.
+                        </p>
+                        <p className="mt-4 font-semibold">
+                            What does this mean for speed?
+                             <ul className="list-disc list-inside ml-4 font-normal space-y-1 mt-2">
+                                 <li>When the planet is <strong className="text-coral dark:text-gold">closer</strong> to the Sun (at <strong className="font-medium">perihelion</strong>), it must move <strong className="text-coral dark:text-gold">faster</strong>.</li>
+                                 <li>When the planet is <strong className="text-blue-500 dark:text-mint">farther</strong> from the Sun (at <strong className="font-medium">aphelion</strong>), it moves <strong className="text-blue-500 dark:text-mint">slower</strong>.</li>
+                             </ul>
+                        </p>
+                    </section>
+
+                     {/* Kepler's Third Law */}
+                    <section>
+                         <h2 className="text-3xl font-semibold font-playfair mt-8 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">
+                             3rd Law: The Law of Harmonies
+                         </h2>
+                        <p>
+                            This law relates a planet's orbital period (<InlineMath math="T" />) to its average distance from the Sun (<InlineMath math="R" />).
+                        </p>
+                        <p className="mt-3">
+                            It states: The square of the orbital period (<InlineMath math="T^2" />) is directly proportional to the cube of the average orbital radius (<InlineMath math="R^3" />).
+                        </p>
+                         {/* Equation Block */}
+                        <div className='my-4 p-2 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 text-center'>
+                            <BlockMath math="\frac{T^2}{R^3} = K \quad (\text{constant})" />
+                        </div>
+                        <p>
+                            The amazing part: This constant <InlineMath math="K" /> is the <strong className="text-teal dark:text-teal font-semibold">same for all planets orbiting the same star</strong>! It allows us to compare different planets.
+                        </p>
+                         {/* Collapsible Data Table */}
+                         <details className="mt-4 text-sm font-inter"> {/* UI Font for Table */}
+                            <summary className="cursor-pointer font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white">
+                                Show Data Table (Earth & Mars in SI Units)
+                            </summary>
+                            <table className="w-full mt-2 border-collapse border border-gray-300 dark:border-gray-600 text-center text-xs">
+                                 <thead className="bg-gray-100 dark:bg-gray-700">
+                                    <tr>
+                                        <th className="border border-gray-300 dark:border-gray-600 px-2 py-1">Planet</th>
+                                        <th className="border border-gray-300 dark:border-gray-600 px-2 py-1">Period (s)</th>
+                                        <th className="border border-gray-300 dark:border-gray-600 px-2 py-1">Avg Dist (m)</th>
+                                        <th className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="T^2/R^3 (s^2/m^3)" /></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody className="bg-white dark:bg-gray-800">
+                                    <tr>
+                                        <td className="border border-gray-300 dark:border-gray-600 px-2 py-1">Earth</td>
+                                        <td className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="3.156 \times 10^7" /></td>
+                                        <td className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="1.496 \times 10^{11}" /></td>
+                                        <td className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="2.97 \times 10^{-19}" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td className="border border-gray-300 dark:border-gray-600 px-2 py-1">Mars</td>
+                                        <td className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="5.93 \times 10^7" /></td>
+                                        <td className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="2.279 \times 10^{11}" /></td>
+                                        <td className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="2.97 \times 10^{-19}" /></td>
+                                    </tr>
+                                    </tbody>
+                            </table>
+                        </details>
+                    </section>
+
+                </article> {/* End Left Column */}
+
+                {/* Right Column (Interactive Elements): 5 cols large */}
+                <aside className="lg:col-span-5 space-y-8 mt-8 lg:mt-0">
+
+                    {/* Panel 1: Historical Context Video */}
+                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                        <YouTubeEmbed
+                            videoId="qOHZdK6F_58"
+                            title="Video: Geocentric vs. Heliocentric Models"
+                        />
+                    </div>
+
+                    {/* Panel 2: Eccentricity Slider + Mini Question */}
+                    <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                        <h3 className="text-xl font-semibold font-inter mb-3 text-indigo-700 dark:text-indigo-300"> {/* UI Font */}
+                            Law 1: Orbit Shape (Eccentricity <InlineMath math="e" />)
+                        </h3>
+                        <p className="text-sm mb-3 font-inter text-dark-gray dark:text-light-gray"> {/* UI Font */}
+                            Eccentricity (<InlineMath math="e" />) measures how "squashed" an ellipse is. 0 = circle, close to 1 = very flat.
+                        </p>
+                        <InteractiveSlider
+                            label="Adjust Eccentricity" unit="" min={0} max={0.95} step={0.05}
+                            value={eccentricity} onChange={setEccentricity} formulaSymbol="e"
+                        />
+                        <div className="mt-2 p-2 bg-indigo-50 dark:bg-gray-700 rounded">
+                            <p className="text-sm font-medium text-center font-inter text-indigo-700 dark:text-indigo-300"> {/* UI Font */}
+                                {getEccentricityDescription(eccentricity)}
+                            </p>
+                        </div>
+                        {/* Mini Question related to Law 1 */}
+                         <MiniCheckQuestion
+                            question="In Kepler's First Law, where is the Sun located within the planet's elliptical orbit?"
+                            correctAnswer="At one of the two foci."
+                            explanation="The Sun is not at the center of the ellipse (unless e=0), but offset at one focus point."
+                        />
+                    </div>
+
+                     {/* Panel 3: Law 1 Video */}
+                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                         <YouTubeEmbed
+                            videoId="qd2hZTKIb40"
+                            title="Video: Understanding Ellipses & Kepler's 1st Law"
+                        />
+                    </div>
+
+                     {/* Panel 4: Law 2 Mini Question */}
+                    <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                         <h3 className="text-xl font-semibold font-inter mb-3 text-teal-700 dark:text-teal-300">Law 2 Check</h3> {/* UI Font */}
+                         <MiniCheckQuestion
+                            question="According to Kepler's Second Law, when does a planet travel fastest in its orbit?"
+                            correctAnswer="When it is closest to the Sun (perihelion)."
+                            explanation="To sweep out the same area in the same time when the radius is shorter, the planet must cover a longer arc distance, meaning it moves faster."
+                        />
+                    </div>
+
+                     {/* Panel 5: Law 2 Video */}
+                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                        <YouTubeEmbed
+                            videoId="jryS3ua4O3g"
+                            title="Video: Visualizing Kepler's 2nd Law"
+                        />
+                    </div>
+
+                    {/* Panel 6: Law 3 Calculator + Mini Question */}
+                    <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                         <h3 className="text-xl font-semibold font-inter mb-3 text-amber-700 dark:text-amber-300"> {/* UI Font */}
+                             Law 3: Interactive Calculator (<InlineMath math="T^2/R^3" />)
+                         </h3>
+                        <p className="text-sm mb-4 font-inter text-dark-gray dark:text-light-gray"> {/* UI Font */}
+                            Compare two planets (using Years and AU). See if <InlineMath math="T^2 / R^3" /> stays constant (~1 for our Sun).
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                             {/* Planet 1 */}
+                             <div>
+                                 <h5 className="font-semibold font-inter mb-2 text-center text-dark-gray dark:text-light-gray">Planet 1</h5>
+                                 <InteractiveSlider label="Period (T₁)" unit="years" min={0.1} max={300} step={0.1} value={period1} onChange={setPeriod1} formulaSymbol="T_1" />
+                                 <InteractiveSlider label="Avg. Radius (R₁)" unit="AU" min={0.1} max={40} step={0.1} value={radius1} onChange={setRadius1} formulaSymbol="R_1" />
+                                 <div className="mt-2 p-2 bg-amber-50 dark:bg-gray-700 rounded text-center">
+                                     <p className="text-sm font-medium font-inter text-dark-gray dark:text-light-gray">
+                                        <InlineMath math="T_1^2 / R_1^3 \approx" /> <span className="font-semibold text-teal dark:text-mint">{keplerConstant1.toFixed(3)}</span>
+                                     </p>
+                                 </div>
+                             </div>
+                             {/* Planet 2 */}
+                             <div>
+                                 <h5 className="font-semibold font-inter mb-2 text-center text-dark-gray dark:text-light-gray">Planet 2</h5>
+                                 <InteractiveSlider label="Period (T₂)" unit="years" min={0.1} max={300} step={0.1} value={period2} onChange={setPeriod2} formulaSymbol="T_2" />
+                                 <InteractiveSlider label="Avg. Radius (R₂)" unit="AU" min={0.1} max={40} step={0.1} value={radius2} onChange={setRadius2} formulaSymbol="R_2" />
+                                 <div className="mt-2 p-2 bg-amber-50 dark:bg-gray-700 rounded text-center">
+                                    <p className="text-sm font-medium font-inter text-dark-gray dark:text-light-gray">
+                                        <InlineMath math="T_2^2 / R_2^3 \approx" /> <span className="font-semibold text-teal dark:text-mint">{keplerConstant2.toFixed(3)}</span>
+                                    </p>
+                                 </div>
+                             </div>
+                        </div>
+                        {/* Mini Question related to Law 3 */}
+                        <MiniCheckQuestion
+                            question="If Planet A is farther from the Sun than Planet B, what does Kepler's Third Law imply about their orbital periods?"
+                            correctAnswer="Planet A will have a longer orbital period than Planet B."
+                            explanation="Since T²/R³ is constant, if R increases, T must also increase to keep the ratio the same (T increases ~ R^1.5)."
+                        />
+                    </div>
+
+                     {/* Panel 7: Law 3 Video */}
+                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                         <YouTubeEmbed
+                            videoId="KbXVpdlmYZo"
+                            title="Video: Understanding Kepler's 3rd Law"
+                         />
+                    </div>
+
+                    {/* Panel 8: PhET Simulation */}
+                    <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+                        <h3 className="text-xl font-semibold font-inter mb-3 text-center">Explore with PhET Simulation</h3> {/* UI Font */}
+                        <p className="text-sm text-center mb-4 font-inter text-dark-gray dark:text-light-gray">Visualize all three laws. Change planets, turn on tracers, observe velocity.</p>
+                        <div className="relative w-full overflow-hidden aspect-video border dark:border-gray-600 rounded bg-black">
+                          <iframe src="https://phet.colorado.edu/sims/html/keplers-laws/latest/keplers-laws_en.html"
+                            className='absolute top-0 left-0 w-full h-full'
+                            allowFullScreen
+                            title="PhET Kepler's Laws Simulation">
+                                <p className="text-light-gray text-center pt-10">Loading Simulation...</p>
+                          </iframe>
+                        </div>
+                    </div>
+
+                </aside> {/* End Right Column */}
+
+            </div> {/* End Main Grid */}
+
+            {/* Quiz Button */}
+            <div className='flex justify-center items-center mt-12 lg:mt-16'>
+                <button
+                    onClick={() => setShowQuiz(true)}
+                    // Coral/Gold Accent
+                    className="w-full sm:w-1/2 lg:w-1/3 bg-coral hover:bg-opacity-80 dark:bg-gold dark:text-deep-navy text-white font-bold font-inter py-3 px-6 rounded-lg transition-colors text-lg shadow-md"
+                >
+                    Take the Kepler's Laws Quiz!
+                </button>
             </div>
-             <p className="text-xs text-center mt-4 text-gray-600 dark:text-gray-400">
-                 Note: Values are approximate. The constant is nearly 1.00 when using units of Earth years and AU for planets around our Sun.
-             </p>
-         </div>
-         <MiniCheckQuestion
-             question="If Planet A is farther from the Sun than Planet B, what does Kepler's Third Law imply about their orbital periods?"
-             correctAnswer="Planet A will have a longer orbital period than Planet B."
-             explanation="Since T²/R³ is constant, if R (distance) increases, T (period) must also increase to keep the ratio the same (specifically, T must increase proportionally to R^(3/2))."
-         />
-         <YouTubeEmbed
-            videoId="KbXVpdlmYZo"
-            title="Video: Understanding Kepler's 3rd Law (Law of Harmonies)"
-         />
-          <details className="mt-4 text-sm">
-                <summary className="cursor-pointer font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white">Show Data Table (Earth & Mars)</summary>
-                <table className="w-full mt-2 border-collapse border border-gray-300 dark:border-gray-600 text-center text-xs">
-                     <thead className="bg-gray-100 dark:bg-gray-700">
-                        <tr>
-                            <th className="border border-gray-300 dark:border-gray-600 px-2 py-1">Planet</th>
-                            <th className="border border-gray-300 dark:border-gray-600 px-2 py-1">Period (s)</th>
-                            <th className="border border-gray-300 dark:border-gray-600 px-2 py-1">Avg Dist (m)</th>
-                            <th className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="T^2/R^3 (s^2/m^3)" /></th>
-                        </tr>
-                        </thead>
-                        <tbody className="bg-white dark:bg-gray-800">
-                        <tr>
-                            <td className="border border-gray-300 dark:border-gray-600 px-2 py-1">Earth</td>
-                            <td className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="3.156 \times 10^7" /></td>
-                            <td className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="1.496 \times 10^{11}" /></td>
-                            <td className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="2.97 \times 10^{-19}" /></td>
-                        </tr>
-                        <tr>
-                            <td className="border border-gray-300 dark:border-gray-600 px-2 py-1">Mars</td>
-                            <td className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="5.93 \times 10^7" /></td>
-                            <td className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="2.279 \times 10^{11}" /></td>
-                            <td className="border border-gray-300 dark:border-gray-600 px-2 py-1"><InlineMath math="2.97 \times 10^{-19}" /></td>
-                        </tr>
-                        </tbody>
-                </table>
-            </details>
-      </section>
 
-      {/* PhET Simulation Section */}
-       <div className="my-8 p-4 border dark:border-gray-600 rounded-lg shadow bg-gray-50 dark:bg-gray-800">
-         {/* ... section content ... */}
-         <h3 className="text-xl font-semibold mb-4 text-center">Explore with PhET Simulation</h3>
-        <p className="text-sm text-center mb-4">This powerful simulation lets you visualize all three of Kepler's Laws in action. Try changing the planet, turning on tracers, and observing the velocity and forces.</p>
-        <div className="relative w-full overflow-hidden aspect-video border dark:border-gray-700 rounded bg-black">
-          <iframe src="https://phet.colorado.edu/sims/html/keplers-laws/latest/keplers-laws_en.html"
-            className='absolute top-0 left-0 w-full h-full'
-            allowFullScreen
-            title="PhET Kepler's Laws Simulation">
-             <p className="text-white text-center pt-10">Loading PhET Simulation...</p>
-          </iframe>
-        </div>
-      </div>
+        </main> {/* End Page Content Area */}
 
-       {/* Quiz Button */}
-       <div className='flex justify-center items-center mt-10'>
-         {/* ... button content ... */}
-          <button
-            onClick={() => setShowQuiz(true)}
-            className="w-full sm:w-1/2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors text-lg shadow-md dark:bg-blue-700 dark:hover:bg-blue-800"
-          >
-            Take the Kepler's Laws Quiz!
-          </button>
-        </div>
-
-      {/* Quiz Modal */}
-      {showQuiz && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-900 p-6 sm:p-8 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto relative shadow-xl">
-             <button onClick={resetQuiz} className="absolute top-3 right-3 text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 text-2xl" aria-label="Close quiz">×</button>
-             <h2 className="text-2xl font-bold mb-6 text-center dark:text-white">Kepler's Laws Quiz</h2>
-             <div className="space-y-6">
-              {quizQuestions.map((q, index) => (
-                // IMPORTANT: Ensure your QuizQuestion component defines 'questionNumber' in its props interface.
-                // If not, remove the line below.
-                <QuizQuestion
-                  key={index}
-                  // questionNumber={index + 1} // Prop causing TS2322 if not defined in QuizQuestion
-                  question={q.question}
-                  options={q.options}
-                  correctAnswer={q.correctAnswer}
-                  hint={q.hint}
-                  selectedAnswer={selectedAnswers[index]}
-                  showResults={showResults}
-                  onSelectAnswer={(answerIndex: number) => handleAnswerSelect(index, answerIndex)} // Explicit type if needed
-                />
-              ))}
-             </div>
-             {/* Buttons and Results */}
-              <div className="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-                 {!showResults ? (
-                     <button onClick={handleSubmit} className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded transition-colors disabled:opacity-50" disabled={selectedAnswers.includes(null)}>
-                         Submit Answers
+        {/* --- Quiz Modal (Styled according to design) --- */}
+        {showQuiz && (
+            <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 p-4">
+              <div className="bg-off-white dark:bg-deep-navy p-6 sm:p-8 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto relative shadow-xl border dark:border-gray-700">
+                 <button onClick={resetQuiz} className="absolute top-3 right-3 text-dark-gray dark:text-light-gray hover:text-coral dark:hover:text-gold text-2xl" aria-label="Close quiz">×</button>
+                 <h2 className="text-2xl font-bold font-playfair mb-6 text-center text-dark-gray dark:text-light-gray">Kepler's Laws Quiz</h2> {/* Header Font */}
+                 <div className="space-y-6 font-inter"> {/* UI Font */}
+                  {quizQuestions.map((q, index) => (
+                    <QuizQuestion
+                      key={index}
+                      // questionNumber={index + 1} // Uncomment if QuizQuestion accepts this prop
+                      question={q.question}
+                      options={q.options}
+                      correctAnswer={q.correctAnswer}
+                      hint={q.hint}
+                      selectedAnswer={selectedAnswers[index]}
+                      showResults={showResults}
+                      onSelectAnswer={(answerIndex: number) => handleAnswerSelect(index, answerIndex)}
+                    />
+                  ))}
+                 </div>
+                 {/* Quiz Buttons */}
+                 <div className="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                     {!showResults ? (
+                         <button onClick={handleSubmit} className="w-full sm:w-auto bg-teal hover:bg-opacity-80 dark:bg-mint dark:text-deep-navy text-white font-bold font-inter py-2 px-6 rounded transition-colors disabled:opacity-50" disabled={selectedAnswers.includes(null)}>
+                             Submit Answers
+                         </button>
+                     ) : <div/>}
+                     <button onClick={resetQuiz} className="w-full sm:w-auto bg-coral hover:bg-opacity-80 dark:bg-gold dark:text-deep-navy text-white font-bold font-inter py-2 px-6 rounded transition-colors">
+                         Close Quiz
                      </button>
-                 ) : <div/>}
-                 <button onClick={resetQuiz} className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded transition-colors">
-                     Close Quiz
-                 </button>
-             </div>
-            {showResults && (
-              <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 rounded-lg text-center">
-                 <h3 className="text-xl font-bold mb-2 dark:text-white">Quiz Results</h3>
-                 <p className="text-lg dark:text-gray-200">You got <strong className="text-blue-600 dark:text-blue-400">{score}</strong> out of <strong className="text-blue-600 dark:text-blue-400">{quizQuestions.length}</strong> questions correct!</p>
-                 <p className="text-2xl font-bold mt-1 dark:text-white">({((score / quizQuestions.length) * 100).toFixed(0)}%)</p>
+                 </div>
+                 {/* Quiz Results */}
+                {showResults && (
+                  <div className="mt-6 p-4 bg-blue-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 text-center">
+                     <h3 className="text-xl font-bold font-playfair mb-2 text-dark-gray dark:text-light-gray">Quiz Results</h3> {/* Header Font */}
+                     <p className="text-lg font-inter text-dark-gray dark:text-light-gray"> {/* UI Font */}
+                        You got <strong className="text-teal dark:text-mint">{score}</strong> out of <strong className="text-teal dark:text-mint">{quizQuestions.length}</strong> correct!
+                     </p>
+                     <p className="text-2xl font-bold font-inter mt-1 text-dark-gray dark:text-light-gray"> {/* UI Font */}
+                         ({((score / quizQuestions.length) * 100).toFixed(0)}%)
+                     </p>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
+            </div>
+        )}
+    </div> // End Main Container
   );
 }
