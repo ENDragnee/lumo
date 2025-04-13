@@ -1,21 +1,27 @@
 import connectDB from '@/lib/mongodb'
-import SerializedData from "@/models/SerializedData"
+import SerializedData, { IContent } from "@/models/SerializedData"
+import { NextRequest } from 'next/server'
 
-export async function GET(request) {
+interface SelectedData {
+  data: string,
+  title: string
+}
+
+export async function GET(request: NextRequest) {
   try {
     await connectDB()
 
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('id')
 
-    let data
+    let data: SelectedData | null = null
 
     if (id) {
-      data = await SerializedData.findById(id).select('data -_id').exec()
+      data = await SerializedData.findById(id).select('data title -_id').exec()
     } else {
       data = await SerializedData.findOne()
         .sort({ createdAt: -1 })
-        .select('data -_id')
+        .select('data title -_id')
         .exec()
     }
 
@@ -26,7 +32,7 @@ export async function GET(request) {
       })
     }
 
-    return new Response(JSON.stringify({ data: data.data }), {
+    return new Response(JSON.stringify({ data: data.data, title: data.title }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     })

@@ -53,13 +53,12 @@ const useScrollDirection = () => {
 
   return scrollDirection;
 }
-// **** END OF HOOK DEFINITION ****
 
 
 export default function ContentLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const [isSidebarOpen, setIsSidebarOpen] = useState(true) // Left sidebar
-  const [isRecommendationOpen, setIsRecommendationOpen] = useState(true) // Right sidebar
+  const [isRecommendationOpen, setIsRecommendationOpen] = useState(false) // Right sidebar
   const [menuPosition, setMenuPosition] = useState<{ x: number; y: number } | null>(null)
   const [isMounted, setIsMounted] = useState(false);
   const [isTabManagerOpen, setIsTabManagerOpen] = useState(false);

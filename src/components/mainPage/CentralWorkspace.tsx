@@ -133,12 +133,12 @@ const CentralWorkspace = () => {
   return (
     <div className="flex flex-col flex-auto p-4 pb-16 md:p-4 md:pb-4 overflow-y-auto dark:bg-[#16181c] bg-white">
       <SearchForm />
-      <div className="w-full min-h-full px-4 py-8 rounded-lg bg-zinc-100 dark:bg-[#16181c] mb-12 md:mb-24">
+      <div className="w-full min-h-full px-4 py-8 rounded-lg bg-zinc-100 dark:bg-[#16181c] mb-12 md:mb-24 h-screen">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 h-screen"
+          className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
           {searchResults.map((item, index) => (
             <motion.div
