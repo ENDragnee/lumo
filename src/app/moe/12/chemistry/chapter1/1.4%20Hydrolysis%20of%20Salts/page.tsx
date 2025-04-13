@@ -395,7 +395,7 @@ const HydrolysisOfSaltsPage = () => { // Renamed component
                             </ul>
                            </p>
                            <p className="mt-3 leading-relaxed font-semibold text-coral dark:text-gold">
-                             Result: Hydrolysis produces excess <InlineMath math={katex_H3O_plus}/> ions. The solution becomes acidic (pH < 7 at 25°C).
+                             Result: Hydrolysis produces excess <InlineMath math={katex_H3O_plus}/> ions. The solution becomes acidic (pH &lt 7 at 25°C).
                            </p>
                            <BlockMath math={katex_WeakB_StrongA_Result}/>
                      </section>
@@ -419,7 +419,7 @@ const HydrolysisOfSaltsPage = () => { // Renamed component
                               The overall pH of the solution depends on the <strong className="text-coral dark:text-gold">relative strengths</strong> of the cation as an acid (measured by its <InlineMath math={katex_Ka}/>) and the anion as a base (measured by its <InlineMath math={katex_Kb}/>). Remember that for conjugates, <InlineMath math="K_a \times K_b = K_w"/>).
                            </p>
                             <ul className="list-disc list-outside ml-6 space-y-1 mt-2">
-                               <li>If <InlineMath math="K_a(\text{cation}) > K_b(\text{anion})"/>: Solution is <strong className="text-coral dark:text-gold">acidic</strong> (pH < 7).</li>
+                               <li>If <InlineMath math="K_a(\text{cation}) > K_b(\text{anion})"/>: Solution is <strong className="text-coral dark:text-gold">acidic</strong> (pH &lt 7).</li>
                                <li>If <InlineMath math="K_b(\text{anion}) > K_a(\text{cation})"/>: Solution is <strong className="text-teal dark:text-mint">basic</strong> (pH &gt 7).</li>
                                 <li>If <InlineMath math="K_a(\text{cation}) \approx K_b(\text{anion})"/>: Solution is approximately <strong className="font-semibold">neutral</strong> (pH ≈ 7).</li>
                             </ul>
