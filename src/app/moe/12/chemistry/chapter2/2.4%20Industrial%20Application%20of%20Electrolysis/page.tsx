@@ -413,7 +413,7 @@ const ElectrolysisApplicationsPage = () => { // Renamed component
                             4. Electrosynthesis (Chlor-Alkali Process)
                          </h2>
                          <p className="leading-relaxed">
-                             Electrolysis is a major industrial method for producing important chemicals. The <strong className="text-teal dark:text-teal font-semibold">chlor-alkali process</strong> electrolyzes concentrated aqueous sodium chloride (<InlineMath math={katex_NaCl}/>, brine) to produce three valuable products: chlorine gas (<InlineMath math={katex_Cl2}/>), hydrogen gas (<InlineMath math={katex_H2}/>), and sodium hydroxide (<InlineMath math={katex_NaOH}/>) solution.
+                             Electrolysis is a major industrial method for producing important chemicals. The <strong className="text-teal dark:text-teal font-semibold">chlor-alkali process</strong> electrolyzes concentrated aqueous sodium chloride (<InlineMath math={katex_NaCl}/>, brine) to produce three valuable products: chlorine gas (<InlineMath math={katex_Cl2}/>), hydrogen gas (<InlineMath math={katex_H2}/>), and sodium hydroxide (NaOH) solution.
                          </p>
                          <p className="mt-3 leading-relaxed">Using inert electrodes:</p>
                            <ul className="list-disc list-outside ml-6 space-y-2 mt-2 text-sm">
