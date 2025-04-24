@@ -198,7 +198,7 @@ export default function BookPage() {
                                 <motion.div key={item._id} variants={itemVariants}>
                                     <BookCard
                                         book={{ ...item, thumbnail: item.thumbnail || '/icons/folder-thumbnail.svg' }} // Ensure thumbnail fallback
-                                        onClick={handleItemClick}
+                                        onClick={() => handleItemClick(item)}
                                         // index={index} // Use variants instead of direct index delay
                                     />
                                 </motion.div>
