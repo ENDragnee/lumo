@@ -42,9 +42,9 @@ export async function middleware(request: NextRequest) {
   // If it's a public page, allow access directly
   if (isPublicPageRoute) {
     // Optional: Redirect logged-in users away from auth pages or landing pages they shouldn't see
-    if (token && (pathname.startsWith('/auth/') || pathname === '/landing')) {
-      return NextResponse.redirect(new URL('/dashboard', request.url));
-    }
+    // if (token && (pathname.startsWith('/auth/') || pathname === '/landing')) {
+    //   return NextResponse.redirect(new URL('/dashboard', request.url));
+    // }
     // Otherwise, allow access to the public page
     return NextResponse.next();
   }
