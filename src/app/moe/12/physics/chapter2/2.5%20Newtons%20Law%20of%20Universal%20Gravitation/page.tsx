@@ -6,7 +6,6 @@ import { InlineMath, BlockMath } from "react-katex"
 import { useState, useMemo, type ChangeEvent } from "react"
 import QuizQuestion from "@/components/QuizQuestion"
 import "katex/dist/katex.min.css"
-import Modal from "@/components/Modal"
 import YouTubePanel from "@/components/content-components/YouTubePanel"
 import SimulationPanel from "@/components/content-components/SimulationPanel"
 

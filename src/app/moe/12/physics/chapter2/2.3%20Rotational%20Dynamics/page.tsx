@@ -4,6 +4,8 @@ import { InlineMath, BlockMath } from 'react-katex';
 import { useState, useMemo, ChangeEvent } from 'react';
 import QuizQuestion from '@/components/QuizQuestion';
 import 'katex/dist/katex.min.css';
+import SimulationPanel from '@/components/content-components/SimulationPanel';
+import YouTubePanel from '@/components/content-components/YouTubePanel';
 
 // --- Type Definitions ---
 interface InteractiveSliderProps {
@@ -15,11 +17,6 @@ interface InteractiveSliderProps {
   value: number;
   onChange: (newValue: number) => void;
   formulaSymbol: string;
-}
-
-interface YouTubeEmbedProps {
-  videoId: string;
-  title: string;
 }
 
 // !! Ensure your QuizQuestion component accepts 'questionNumber' if you keep it below !!
@@ -65,26 +62,6 @@ function InteractiveSlider({
           <span>{min} {unit}</span>
           <span>{max} {unit}</span>
         </div>
-    </div>
-  );
-}
-
-// YouTube Embed Component
-function YouTubeEmbed({ videoId, title }: YouTubeEmbedProps) {
-  return (
-    <div className="my-4"> {/* Adjusted margin */}
-      <p className="mb-2 font-semibold font-inter text-dark-gray dark:text-light-gray">{title}:</p> {/* Apply UI Font */}
-      {/* Ensure aspect-ratio plugin or CSS is present */}
-      <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
-         <iframe
-           className="w-full h-full"
-           src={`https://www.youtube.com/embed/${videoId}`}
-           title={title}
-           frameBorder="0"
-           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-           allowFullScreen>
-         </iframe>
-      </div>
     </div>
   );
 }
@@ -401,12 +378,7 @@ export default function RotationalDynamics() {
                 <aside className="lg:col-span-5 space-y-8 mt-8 lg:mt-0">
 
                     {/* Interactive Panel 1: Intro Video */}
-                    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-                        <YouTubeEmbed
-                           videoId="hJ21gjh6_sM"
-                           title="Video Introduction: What is Torque?"
-                        />
-                    </div>
+                    <YouTubePanel videoId='T99yH_gw3p8' title='Video Introduction: Torque and Moment of Inertia' />
 
                      {/* Interactive Panel 2: Torque Calculator */}
                     <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
@@ -432,12 +404,7 @@ export default function RotationalDynamics() {
                     </div>
 
                      {/* Interactive Panel 3: Right Hand Rule Video */}
-                    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-                        <YouTubeEmbed
-                            videoId="dQSMPS5uVBg"
-                            title="Video Demo: The Right-Hand Rule for Torque"
-                         />
-                    </div>
+                     <YouTubePanel videoId='fuTVnSFBhwk' title='Video Explanation: Right Hand Rule for Torque' />
 
                     {/* Interactive Panel 4: Moment of Inertia Calculator */}
                     <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
@@ -462,34 +429,13 @@ export default function RotationalDynamics() {
                     </div>
 
                      {/* Interactive Panel 5: Moment of Inertia Video */}
-                    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-                         <YouTubeEmbed
-                            videoId="wghzlaCnGxE"
-                            title="Video Explanation: Moment of Inertia"
-                         />
-                    </div>
+                     <YouTubePanel videoId='ZrGhUTeIlWs' title='Video Explanation: Moment of Inertia' />
 
                      {/* Interactive Panel 6: Tau = I Alpha Video */}
-                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-                        <YouTubeEmbed
-                            videoId="iS84LKh_7l4"
-                            title="Video Explanation: Newton's Second Law for Rotation (τ = Iα)"
-                         />
-                    </div>
+                     <YouTubePanel videoId='lwCF0khryK8' title='Video Explanation: Tau = I Alpha' />
 
                     {/* Interactive Panel 7: PhET Simulation */}
-                    <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-                        <h3 className="text-xl font-semibold font-inter mb-3 text-center">Explore with PhET Simulation</h3> {/* UI Font */}
-                        <p className="text-sm text-center mb-4 font-inter text-dark-gray dark:text-light-gray">Apply torques and see the resulting rotation. Try changing forces and object shapes!</p>
-                        <div className="relative w-full overflow-hidden aspect-video border dark:border-gray-600 rounded bg-black">
-                          <iframe src="https://phet.colorado.edu/sims/cheerpj/rotation/latest/rotation.html?simulation=torque"
-                            className='absolute top-0 left-0 w-full h-full'
-                            allowFullScreen
-                            title="PhET Torque Simulation">
-                                <p className="text-light-gray text-center pt-10">Loading Simulation...</p> {/* Dark mode text color */}
-                          </iframe>
-                        </div>
-                    </div>
+                    <SimulationPanel title='Explore with PhET Simulation' description='Apply torques and see the resulting rotation. Try changing forces and object shapes!' simulationUrl='https://phet.colorado.edu/sims/cheerpj/rotation/latest/rotation.html?simulation=torque' />
                 </aside>
 
             </div> {/* End Main Grid */}
