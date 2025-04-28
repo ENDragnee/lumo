@@ -216,14 +216,81 @@ const CentralWorkspace = () => {
   const ContentCard = isMobile ? MobileCard : Card;
   const ContentCardContent = isMobile ? MobileCardContent : CardContent;
 
+  const SpecialContent = () => {
+    return (
+      <div className="px-4 py-4 md:px-0 md:py-6">
+        <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Featured Sections</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-8">
+          {specialCardsData.map((card, index) => (
+            <motion.div
+              key={card.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * index, duration: 0.4 }}
+              whileHover={{ y: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
+              className="h-full"
+            >
+              <Card
+                onClick={() => handleSpecialCardClick(card.path)}
+                className={`cursor-pointer transition-all duration-300 overflow-hidden group h-full flex flex-col justify-between ${card.bgColor} ${card.textColor || 'text-white'} shadow-md hover:shadow-lg`}
+              >
+                <CardContent className="p-5 md:p-6 flex-grow">
+                  <h3 className="font-bold text-lg md:text-xl mb-2 group-hover:underline">
+                    {card.title}
+                  </h3>
+                  <p className="text-sm opacity-90 line-clamp-3">
+                    {card.description}
+                  </p>
+                </CardContent>
+                <CardFooter className="p-4 pt-0">
+                  <div className="flex items-center justify-end w-full text-sm font-medium group-hover:translate-x-1 transition-transform duration-200 ease-in-out">
+                    Explore <ArrowRight className="ml-1.5 h-4 w-4" />
+                  </div>
+                </CardFooter>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col flex-auto p-4 pb-16 md:p-4 md:pb-4 overflow-y-auto dark:bg-gray-800 bg-white">
       <SearchForm />
 
+      {/* Regular Books Section */}
+      {/* <div className="w-full px-4 md:px-0 pb-12 md:pb-24">
+         <h2 className="text-xl font-semibold mb-4 md:mb-6 text-gray-800 dark:text-gray-200">My Books</h2>
+         {rootBooks.length > 0 ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
+            >
+              {rootBooks.map((book, index) => (
+                 <BookCard
+                    key={book._id}
+                    book={book}
+                    onClick={handleBookCardClick}
+                    index={index}
+                 />
+              ))}
+            </motion.div>
+          ) : (
+            !isLoading && !fetchError && (
+                <div className="text-center py-10 text-gray-500 dark:text-gray-400 border border-dashed dark:border-gray-700 border-gray-300 rounded-lg">
+                    You haven't created any books yet.
+                </div>
+            )
+          )}
+      </div> */}
+
       {/* Special Cards Section */}
       <div className="px-4 py-4 md:px-0 md:py-6">
         <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Featured Sections</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 md:gap-4 mb-8">
           {specialCardsData.map((card, index) => (
             <motion.div
               key={card.id}
@@ -256,43 +323,15 @@ const CentralWorkspace = () => {
         </div>
       </div>
 
-      {/* Regular Books Section */}
-      <div className="w-full px-4 md:px-0 pb-12 md:pb-24">
-         <h2 className="text-xl font-semibold mb-4 md:mb-6 text-gray-800 dark:text-gray-200">My Books</h2>
-         {rootBooks.length > 0 ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
-            >
-              {rootBooks.map((book, index) => (
-                 <BookCard
-                    key={book._id}
-                    book={book}
-                    onClick={handleBookCardClick}
-                    index={index}
-                 />
-              ))}
-            </motion.div>
-          ) : (
-            !isLoading && !fetchError && (
-                <div className="text-center py-10 text-gray-500 dark:text-gray-400 border border-dashed dark:border-gray-700 border-gray-300 rounded-lg">
-                    You haven't created any books yet.
-                </div>
-            )
-          )}
-      </div>
-
       {/* Recommended For You Grid */}
-      <div className="w-full px-4 py-4 md:px-0 md:py-6 rounded-lg mb-12 md:mb-24">
-         <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Recommended For You</h2>
+      <div className="w-full px-4 py-4 md:px-0 md:py-6 rounded-lg mb-0 md:mb-10">
+         <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Learning Materials</h2>
          {searchResults.length > 0 ? (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
+              className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-2"
             >
               {searchResults.map((item, index) => (
                 <motion.div
@@ -306,15 +345,15 @@ const CentralWorkspace = () => {
                     onMouseEnter={isMobile ? undefined : () => setHoveredCardId(item._id)}
                     onMouseLeave={isMobile ? undefined : () => setHoveredCardId(null)}
                     onClick={() => handleCardClick(item._id)}
-                    className="cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden group relative bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg flex flex-col h-full"
+                    className="cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden group relative bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg flex flex-col md:h-72 h-52 shadow-md"
                   >
-                    <div className="relative aspect-video overflow-hidden rounded-t-lg bg-gray-200 dark:bg-gray-700"> {/* Added fallback bg */}
+                    <div className="relative aspect-video overflow-hidden rounded-t-lg bg-gray-200 dark:bg-gray-700 h-4/5"> {/* Added fallback bg */}
                       {/* Construct the primary source URL */}
                       {/* Ensure item.thumbnail is not empty before constructing URL */}
                       <img
                         src={item.thumbnail ? `${process.env.NEXT_PUBLIC_CREATOR_URL || ''}${item.thumbnail}` : PLACEHOLDER_SVG_PATH}
                         alt={item.title}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full min-h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         onError={(e) => {
                           // Only set fallback if the current src isn't already the fallback
                           if (e.currentTarget.src !== window.location.origin + PLACEHOLDER_SVG_PATH) {
@@ -327,11 +366,11 @@ const CentralWorkspace = () => {
                       />
                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
-                    <ContentCardContent className="p-4 flex flex-col justify-between flex-grow">
+                    <ContentCardContent className="p-4 flex flex-col justify-between flex-grow bg-gray-50 dark:bg-slate-800">
                       <div>
-                        <h3 className="font-semibold text-base md:text-lg line-clamp-2 mb-1 group-hover:text-primary transition-colors duration-300 dark:text-gray-100">
+                        <p className="text-sm md:text-base line-clamp-2 group-hover:text-primary transition-colors duration-300 dark:text-gray-100 ">
                           {item.title}
-                        </h3>
+                        </p>
                         {item.description && (
                           <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-2">
                             {item.description}
@@ -339,7 +378,7 @@ const CentralWorkspace = () => {
                         )}
                       </div>
                        <div className="pt-2 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                         <span className="truncate pr-2">{item.institution || 'General'}</span>
+                         <span className="truncate pr-2 dark:text-blue-400 bg-gray-200 dark:bg-slate-700 rounded-md">{item.institution || 'General'}</span>
                          {item.progress !== undefined && item.progress > 0 && (
                            <ResponsiveCircularProgress value={item.progress} isHovered={hoveredCardId === item._id}/>
                          )}
