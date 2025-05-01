@@ -29,7 +29,7 @@ interface Content {
   thumbnail: string;
   subject: string;
   institution: string;
-  description?: string;
+  tags?: string[];
   progress?: number;
 }
 
@@ -158,7 +158,6 @@ const CentralWorkspace = () => {
   useEffect(() => {
     const fetchRecommendations = async () => {
       setIsRecsLoading(true);
-      // Reset error *only* if books haven't failed yet
        if (!fetchError) setFetchError(null);
       try {
         const res = await fetch("/api/recommendations");
@@ -166,21 +165,22 @@ const CentralWorkspace = () => {
              const errorData = await res.json().catch(() => ({}));
              throw new Error(errorData.error || `Failed to fetch recommendations (Status: ${res.status})`);
         }
-        const data = await res.json();
+        const data = await res.json(); // data is the array like [{_id: ..., tags: [...]}, ...]
         setSearchResults(
-          (data || []).map((item: any) => ({ // Ensure data is an array
+          (data || []).map((item: any) => ({
             _id: item._id,
-            title: item.title || 'Untitled', // Add fallback title
-            thumbnail: item.thumbnail || '', // Ensure thumbnail is at least an empty string
-            subject: item.subject || 'General', // Add fallback subject
-            institution: item.institution || 'Unknown', // Add fallback institution
-            description: item.data?.description || "",
-            progress: item.data?.progress || 0,
+            title: item.title || 'Untitled',
+            thumbnail: item.thumbnail || '',
+            subject: item.subject || 'General',     // Assuming these ARE top-level in recommendations API
+            institution: item.institution || 'Unknown', // Assuming these ARE top-level in recommendations API
+            // Adjust description/progress based on actual recommendations API response structure
+            description: item.description || "", // Example: if description is top-level
+            progress: item.progress || 0,       // Example: if progress is top-level
+            tags: item.tags || [], // <--- CORRECTED LINE: Access item.tags directly
           }))
         );
       } catch (err: any) {
         console.error("Recommendation Fetch Error:", err);
-        // Don't overwrite book error if it exists
         if (!fetchError) {
           setFetchError(err.message || "Failed to load recommendations");
         }
@@ -371,14 +371,27 @@ const CentralWorkspace = () => {
                         <p className="text-sm md:text-base line-clamp-2 group-hover:text-primary transition-colors duration-300 dark:text-gray-100 ">
                           {item.title}
                         </p>
-                        {item.description && (
-                          <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-2">
-                            {item.description}
-                          </p>
+
+                        {/* Check if tags exist and have items */}
+                        {item.tags && item.tags.length > 0 && (
+                          // Parent flex container: Apply flex properties here
+                          <div className="flex flex-row flex-wrap gap-x-1.5 gap-y-1 mt-1.5"> {/* Add flex, wrap, gap, and margin-top */}
+                            {/* Map through the tags directly inside the flex container */}
+                            {item.tags.map((tag, index) => (
+                              // Render each tag - using span might be more semantic, but p works too
+                              <span // Changed to span, but p is fine too
+                                key={`${item._id}-tag-${index}`} // Key remains on the mapped element
+                                className="inline-block text-xs px-1.5 py-0.5 dark:text-blue-300 bg-gray-200 dark:bg-slate-700 rounded-md text-gray-700 whitespace-nowrap" // Adjusted styling
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
                         )}
+
                       </div>
                        <div className="pt-2 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                         <span className="truncate pr-2 dark:text-blue-400 bg-gray-200 dark:bg-slate-700 rounded-md">{item.institution || 'General'}</span>
+                         {/* <span className="truncate pr-2 dark:text-blue-400 bg-gray-200 dark:bg-slate-700 rounded-md">{item.institution || 'General'}</span> */}
                          {item.progress !== undefined && item.progress > 0 && (
                            <ResponsiveCircularProgress value={item.progress} isHovered={hoveredCardId === item._id}/>
                          )}
