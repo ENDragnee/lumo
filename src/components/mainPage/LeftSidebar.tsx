@@ -224,7 +224,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
            <div>
              <button
                onClick={() => router.push('/main')}
-               className={`flex items-center w-full gap-2 p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
+               className={`flex items-center w-full gap-2 p-2 rounded-md hover:bg-neutral-300 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
              >
                <Home className="w-5 h-5 flex-shrink-0 text-neutral-500" />
                {!isCollapsed && (
@@ -287,7 +287,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
           {/* --- Recent Section --- */}
           <div>
             <button
-               className={`flex items-center w-full justify-between p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
+               className={`flex items-center w-full justify-between p-2 rounded-md hover:bg-neutral-300 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
                onClick={() => {
                  if (isCollapsed) {
                    setIsCollapsed(false);
@@ -322,7 +322,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
                   <a
                     key={history._id}
                     href={`/content?id=${history.content_id?._id}`}
-                    className={`group flex items-center justify-between gap-2 p-2 rounded-md text-sm transition-colors text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-neutral-200 ${focusRing}`}
+                    className={`group flex items-center justify-between gap-2 p-2 rounded-md text-sm transition-colors text-neutral-600 dark:text-neutral-400 hover:bg-neutral-300 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-neutral-200 ${focusRing}`}
                   >
                     <div className="flex flex-col overflow-hidden text-left">
                        {/* Principle 1: Typography - Primary item text */}
@@ -361,7 +361,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
           {/* --- Favorites Section --- */}
           <div>
              <button
-               className={`flex items-center w-full justify-between p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
+               className={`flex items-center w-full justify-between p-2 rounded-md hover:bg-neutral-300 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
                onClick={() => {
                  if (isCollapsed) {
                    setIsCollapsed(false);
@@ -395,7 +395,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
                   <a
                     key={item._id}
                     href={`/content?id=${item.content_id?._id}`}
-                    className={`group flex items-center gap-2 p-2 rounded-md text-sm transition-colors text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-neutral-200 ${focusRing}`}
+                    className={`group flex items-center gap-2 p-2 rounded-md text-sm transition-colors text-neutral-600 dark:text-neutral-400 hover:bg-neutral-300 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-neutral-200 ${focusRing}`}
                   >
                     <Star className="w-4 h-4 text-yellow-500 dark:text-yellow-400 flex-shrink-0" />
                     <span className="truncate font-medium text-neutral-700 dark:text-neutral-300 group-hover:text-neutral-900 dark:group-hover:text-neutral-100">
