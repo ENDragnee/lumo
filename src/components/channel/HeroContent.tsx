@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { ContentItem } from '@/types/creator'; // Adjust import path
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface HeroProps {
     popularVideos: ContentItem[];
@@ -12,6 +12,8 @@ interface HeroProps {
 export default function HeroContent({ popularVideos, autoScrollInterval = 5000 }: HeroProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isHovering, setIsHovering] = useState(false);
+    const router = useRouter();
+
 
     const goToPrevious = () => {
         const isFirstSlide = currentIndex === 0;
@@ -20,7 +22,7 @@ export default function HeroContent({ popularVideos, autoScrollInterval = 5000 }
     };
 
     const handleCardClick = (id: string) => {
-        const router = useRouter();
+        console.log(`Navigating to content with ID: ${id}`);
         router.push(`/content?id=${id}`);
     };
 
@@ -68,7 +70,7 @@ export default function HeroContent({ popularVideos, autoScrollInterval = 5000 }
                                 {/* Individual Slide Content */}
                                 <div className="relative group aspect-video"> {/* Maintain aspect ratio */}
                                      <img
-                                        src={video.thumbnail}
+                                        src={`${process.env.NEXT_PUBLIC_CREATOR_URL}${video.thumbnail}`}
                                         alt={`Thumbnail for ${video.title}`}
                                         className="w-full h-full object-cover text-[#1E1E24] dark:text-[#F5F7FA]" // Ensure image covers the area
                                     />

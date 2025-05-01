@@ -54,7 +54,7 @@ const BottomNavbar = () => {
       {/* Create Button */}
       <button
         type="button"
-        onClick={() => router.push("/create")} // Assuming '/create' is the correct path
+        onClick={() => router.push("https://lumo-creator.aasciihub.com")} // Assuming '/create' is the correct path
         title="Create"
         className={cn(itemBaseClass, itemInactiveClass, itemHoverClass)}
         aria-label="Create new content"

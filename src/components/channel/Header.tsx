@@ -108,7 +108,7 @@ export default function NewHeader({
                     {/* Creator Info */}
                     <div className="flex items-center space-x-4">
                         <Image
-                            src={creator.avatarUrl || '/default-avatar.png'}
+                            src={`${process.env.NEXT_PUBLIC_CREATOR_URL}${creator.avatarUrl}` || '/default-avatar.png'}
                             alt={`${creator.name}'s avatar`}
                             width={80} // Slightly larger default size
                             height={80}

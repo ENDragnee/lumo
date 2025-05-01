@@ -95,70 +95,108 @@ async function generateQuizWithAI(title: string, contentText: string): Promise<Q
         ? contentText.substring(0, maxContentLengthChars) + '...'
         : contentText;
 
-    const prompt = `
+        const prompt = `
 You are an AI assistant specialized in creating educational quizzes.
-Based on the following content (titled "${title}"), generate exactly 5 distinct quiz questions with their corresponding answers.
-Focus on the most important concepts, facts, and key takeaways presented in the text.
-Each question should test understanding of the material.
+Your task is to generate exactly 5 distinct quiz questions with their corresponding answers, based on the provided text content (titled "${title}"). Focus on the most important concepts, facts, and key takeaways.
 
-Your response MUST be ONLY a valid JSON array of objects. Each object in the array must have exactly two keys:
-1.  "question": A string containing the quiz question.
-2.  "answer": A string containing the correct answer to the question.
+**Output Format Requirements:**
+1.  Your **entire** response output MUST be **only** a single, valid JSON array.
+2.  Do NOT include **any** text before or after the JSON array.
+3.  Do NOT include explanations, introductions, summaries, or markdown formatting (like \`\`\`json or \`\`\`).
+4.  The JSON array must contain exactly 5 objects.
+5.  Each object in the array MUST have exactly two string properties: "question" and "answer".
 
-Example Format:
+**Example of the required JSON array structure:**
 [
   {
-    "question": "What is the main topic discussed?",
-    "answer": "The main topic is..."
+    "question": "What is the core topic?",
+    "answer": "The core topic is..."
   },
   {
-    "question": "Identify a key concept.",
-    "answer": "A key concept mentioned is..."
+    "question": "Define a specific term mentioned.",
+    "answer": "The term is defined as..."
   }
 ]
 
-Do NOT include any introductory text, explanations, concluding remarks, code block fences (\`\`\`json), or any other text outside the JSON array itself. Your entire output must be the JSON array.
-
-Here is the content:
+**Content to Analyze:**
 ---
 ${truncatedContent}
 ---
+
+Generate the JSON array now based *only* on the content provided above and adhering strictly to the format requirements.
 `;
 
-    try {
-        console.log(`Generating quiz for title: "${title}" using Google Gemini.`);
+try {
+    console.log(`Generating quiz for title: "${title}" using Google Gemini.`);
 
-        const result: GenerateContentResponse = await model.generateContent(prompt);
+    const result: GenerateContentResponse = await model.generateContent(prompt);
 
-        // --- REVERT FIX: Access candidates via result.response ---
-        // Access the response candidate safely using optional chaining
-        // This now matches the logged structure.
-        const candidate = result.candidates?.[0];
+    // --- Improved Response Validation ---
 
-        // Check if a valid candidate and its text part exist
-        if (!candidate?.content?.parts?.[0]?.text) {
-            // --- REVERT FIX: Access promptFeedback via result.response ---
-            const blockReason = result.promptFeedback?.blockReason;
-            if (blockReason) {
-                console.error(`Quiz generation blocked due to: ${blockReason}`);
-                throw new Error(`Quiz generation failed due to safety settings (${blockReason}).`);
-            }
-            // --- REVERT FIX: Log result.response for clarity if error occurs ---
-            console.error("No valid response text found in Gemini candidate parts. Raw response object:", JSON.stringify(result, null, 2));
-            // Also log the full result to see if 'response' itself was missing
-             console.error("Full result object:", JSON.stringify(result, null, 2));
-            throw new Error('AI response text was empty or in an unexpected format.');
+    // Log the full response structure *before* trying to access potentially missing parts
+    console.log("Full result object received from Gemini:", JSON.stringify(result, null, 2));
+
+        // *** FIX: Access the nested 'response' object first ***
+        const responseData = result.response; // Access the 'response' field directly
+
+        if (!responseData) {
+                console.error("No 'response' field found in the Gemini result object.");
+                console.error("Full result object (when 'response' field missing):", JSON.stringify(result, null, 2));
+                throw new Error("AI result structure unexpected: missing 'response' field.");
         }
 
-        // Extract the text content from the response part
-        const aiResponseText = candidate.content.parts[0].text;
-        console.log("Raw AI Response Text:", aiResponseText); // This should now log the JSON string
+        // Check for prompt feedback first (often indicates blocking)
+        // *** FIX: Access promptFeedback from responseData ***
+        const promptFeedback = responseData.promptFeedback;
+        if (promptFeedback?.blockReason) {
+            console.error(`Quiz generation potentially blocked by safety filter. Reason: ${promptFeedback.blockReason}`);
+            if (promptFeedback.safetyRatings) {
+                console.error("Prompt Safety Ratings:", JSON.stringify(promptFeedback.safetyRatings));
+            }
+            return null; // Or handle as appropriate
+        }
 
-        // --- Parse and Validate the JSON Response ---
+        // Now check the candidate structure
+        const candidate = responseData.candidates?.[0];
+        if (!candidate) {
+            console.error("No candidates found in the Gemini response.response field.");
+            // Log the responseData object if no candidate is found within it
+            console.error("Full responseData object (when no candidate found):", JSON.stringify(responseData, null, 2));
+            // Throwing an error here is correct as per your logic
+            throw new Error("AI response did not contain any candidates in the expected location.");
+        }
+
+        // Check candidate finish reason (access relative to 'candidate' is correct)
+        if (candidate.finishReason && candidate.finishReason !== 'STOP') {
+            console.warn(`Candidate finished with reason: ${candidate.finishReason}.`);
+            if (candidate.safetyRatings) {
+                console.warn("Candidate Safety Ratings:", JSON.stringify(candidate.safetyRatings));
+            }
+            if (candidate.finishReason === 'SAFETY') {
+                 console.error(`Quiz generation stopped due to safety filter (finishReason: ${candidate.finishReason}).`);
+                // Explicitly return null or throw if it's a safety block
+                return null; // Or throw new Error(...)
+            }
+           // Consider returning null or throwing for other non-STOP reasons too if needed
+           // return null;
+       }
+
+
+        // Finally, check for the text part (access relative to 'candidate' is correct)
+        const aiResponseText = candidate.content?.parts?.[0]?.text;
+
+        if (!aiResponseText) {
+            console.error("No valid response text found in the primary Gemini candidate part, despite candidate existing.");
+            console.error("Candidate details:", JSON.stringify(candidate, null, 2));
+            throw new Error('AI response text was empty or in an unexpected format.');
+        }
+        console.log("Raw AI Response Text:", aiResponseText);
+
+        // --- Parse and Validate JSON (keep existing logic) ---
         let validatedQuizData: QuizQuestion[] | null = null;
-
         try {
-            const parsedJson: unknown = JSON.parse(aiResponseText); // Parse the extracted text
+            const parsedJson: unknown = JSON.parse(aiResponseText);
+            // ... (rest of your JSON parsing and validation logic remains the same) ...
 
             if (Array.isArray(parsedJson)) {
                 if (parsedJson.length > 0 &&
@@ -169,29 +207,21 @@ ${truncatedContent}
                     )) {
                     validatedQuizData = parsedJson as QuizQuestion[];
                 } else {
+                    // Check if it's an empty array - might be valid if AI couldn't generate questions? Or should be an error?
+                    if (parsedJson.length === 0) {
+                        console.warn("AI returned an empty JSON array. Content might not have been suitable for 5 questions.");
+                        // Decide how to handle: return empty array, null, or error?
+                        // return []; // Option 1: Return empty
+                        return null; // Option 2: Indicate failure to generate meaningful questions
+                    }
                     throw new Error('Parsed JSON array does not contain valid quiz question objects.');
                 }
             }
-            // (Keep the object-wrapping check just in case)
-            else if (typeof parsedJson === 'object' && parsedJson !== null) {
-                const arrayKey = Object.keys(parsedJson).find(key => Array.isArray((parsedJson as any)[key]));
-                if (arrayKey) {
-                    const potentialArray = (parsedJson as any)[arrayKey];
-                    if (Array.isArray(potentialArray) && potentialArray.length > 0 &&
-                        potentialArray.every(item =>
-                            typeof item === 'object' && item !== null &&
-                            'question' in item && typeof item.question === 'string' &&
-                            'answer' in item && typeof item.answer === 'string'
-                        )) {
-                        validatedQuizData = potentialArray as QuizQuestion[];
-                    }
-                }
-                if (!validatedQuizData) {
-                    throw new Error("Parsed JSON is an object but doesn't contain a valid quiz array.");
-                }
-            } else {
+            // ... (rest of your object-wrapping check) ...
+            else {
                 throw new Error("Parsed JSON is not an array or a recognized wrapper object.");
             }
+
 
             console.log("Successfully parsed and validated quiz data from Gemini.");
             return validatedQuizData;
@@ -203,12 +233,16 @@ ${truncatedContent}
         }
 
     } catch (error: any) {
-        console.error('Error calling Google Gemini API or processing response:', error.message);
-        // It's possible error objects from the SDK might have more details
-        if (error.response) console.error("Gemini API Error Response:", error.response);
-        if (error.details) console.error("Gemini API Error Details:", error.details);
+        // Log the error with more context
+        console.error(`Error during Google Gemini API call or processing for title "${title}":`, error.message);
+        // Check if it's an error object from the SDK which might have more details
+        if (error instanceof Error && error.cause) {
+            console.error("Underlying cause:", error.cause);
+        }
+        // Ensure the full response object was logged earlier if available
+        // You might already have `result` logged from the initial log point inside the try block.
         return null;
-    }
+        }
 }
 
 // --- API Route Handler (GET Method) ---

@@ -196,7 +196,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
   return (
     <motion.div
       ref={sidebarRef}
-      className="h-full flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-300 scrollbar-track-transparent dark:scrollbar-thumb-neutral-700 border-r rounded-lg bg-neutral-100 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700"
+      className="h-full flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-300 scrollbar-track-transparent dark:scrollbar-thumb-neutral-700 border-r rounded-lg bg-gray-200 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700"
       initial={{ width: isCollapsed ? 80 : 260 }} // Consistent width
       animate={{ width: isCollapsed ? 80 : 260 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -224,7 +224,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
            <div>
              <button
                onClick={() => router.push('/main')}
-               className={`flex items-center w-full gap-2 p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
+               className={`flex items-center w-full gap-2 p-2 rounded-md hover:bg-neutral-300 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
              >
                <Home className="w-5 h-5 flex-shrink-0 text-neutral-500" />
                {!isCollapsed && (
@@ -235,7 +235,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
            </div>
 
           {/* --- Workspaces Section --- */}
-          <div>
+          {/* <div>
             <button
               className={`flex items-center w-full justify-between p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
               onClick={() => {
@@ -261,11 +261,10 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
                   ? <ChevronUp size={16} className="text-neutral-500" />
                   : <ChevronDown size={16} className="text-neutral-500" />
               )}
-            </button>
+            </button> */}
 
             {/* Workspace items */}
-            {!isCollapsed && isWorkspaceOpen && (
-              // Principle 2: Spacing - Indentation and vertical rhythm
+            {/* {!isCollapsed && isWorkspaceOpen && (
               <div className="pl-7 mt-1 space-y-1">
                 {workspaces.map((workspace: Workspace) => (
                   <button
@@ -277,20 +276,18 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
                     }`}
                     onClick={() => setActiveWorkspace(workspace.name)}
                   >
-                    {/* Consider adding CornerDownRight or specific workspace icon here */}
-                    {/* <CornerDownRight className="w-4 h-4 mr-2 flex-shrink-0 text-neutral-400" /> */}
+                    <CornerDownRight className="w-4 h-4 mr-2 flex-shrink-0 text-neutral-400" />
                     <span className="truncate">{workspace.name}</span>
                   </button>
                 ))}
-                {/* No "Show More" needed for workspaces based on current structure */}
               </div>
-            )}
-          </div>
+            )} */}
+          {/* </div> */}
 
           {/* --- Recent Section --- */}
           <div>
             <button
-               className={`flex items-center w-full justify-between p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
+               className={`flex items-center w-full justify-between p-2 rounded-md hover:bg-neutral-300 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
                onClick={() => {
                  if (isCollapsed) {
                    setIsCollapsed(false);
@@ -325,7 +322,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
                   <a
                     key={history._id}
                     href={`/content?id=${history.content_id?._id}`}
-                    className={`group flex items-center justify-between gap-2 p-2 rounded-md text-sm transition-colors text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-neutral-200 ${focusRing}`}
+                    className={`group flex items-center justify-between gap-2 p-2 rounded-md text-sm transition-colors text-neutral-600 dark:text-neutral-400 hover:bg-neutral-300 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-neutral-200 ${focusRing}`}
                   >
                     <div className="flex flex-col overflow-hidden text-left">
                        {/* Principle 1: Typography - Primary item text */}
@@ -364,7 +361,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
           {/* --- Favorites Section --- */}
           <div>
              <button
-               className={`flex items-center w-full justify-between p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
+               className={`flex items-center w-full justify-between p-2 rounded-md hover:bg-neutral-300 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
                onClick={() => {
                  if (isCollapsed) {
                    setIsCollapsed(false);
@@ -398,7 +395,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
                   <a
                     key={item._id}
                     href={`/content?id=${item.content_id?._id}`}
-                    className={`group flex items-center gap-2 p-2 rounded-md text-sm transition-colors text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-neutral-200 ${focusRing}`}
+                    className={`group flex items-center gap-2 p-2 rounded-md text-sm transition-colors text-neutral-600 dark:text-neutral-400 hover:bg-neutral-300 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-neutral-200 ${focusRing}`}
                   >
                     <Star className="w-4 h-4 text-yellow-500 dark:text-yellow-400 flex-shrink-0" />
                     <span className="truncate font-medium text-neutral-700 dark:text-neutral-300 group-hover:text-neutral-900 dark:group-hover:text-neutral-100">

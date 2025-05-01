@@ -16,6 +16,8 @@ interface DriveItemBase {
     createdAt: Date; // Keep as Date for potential client-side formatting
     updatedAt: Date; // Keep as Date
     parentId: string | null; // Always string or null in JSON
+    tags?: string[]; // Optional tags
+    createdBy: string; // User ID as string
 }
 
 interface DriveBook extends DriveItemBase {
@@ -87,7 +89,7 @@ export async function GET(request: NextRequest) {
             isTrash: false,
         };
 
-        const selectFields = '_id title thumbnail createdAt updatedAt parentId createdBy isDraft';
+        const selectFields = '_id title thumbnail createdAt updatedAt parentId createdBy isDraft tags';
 
         const booksPromise = Book.find(queryConditions)
             .select(selectFields)
@@ -112,6 +114,8 @@ export async function GET(request: NextRequest) {
                 createdAt: book.createdAt,
                 updatedAt: book.updatedAt,
                 parentId: book.parentId ? book.parentId.toString() : null,
+                tags: book.tags,
+                createdBy: book.createdBy.toString(),
                 type: 'book' as const,
             })),
             // Fix 1: Use 'as unknown as ExpectedType[]' for contents array
@@ -122,6 +126,8 @@ export async function GET(request: NextRequest) {
                 createdAt: content.createdAt,
                 updatedAt: content.updatedAt, // Now assumed to exist due to assertion
                 parentId: content.parentId ? content.parentId.toString() : null,
+                tags: content.tags,
+                createdBy: content.createdBy.toString(),
                 type: 'content' as const,
             }))
         ];
