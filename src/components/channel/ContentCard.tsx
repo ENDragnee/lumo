@@ -24,7 +24,7 @@ export default function ContentCard({ item, layout }: CardProps) {
         <div className={`bg-gray-200 dark:bg-[#2A3A3C] rounded-lg overflow-hidden shadow-md group ${layout !== 'carousel-mobile' ? hoverEffect : ''}`}>
             <div className="relative">
                  <img
-                    src={item.thumbnail}
+                    src={`${process.env.NEXT_PUBLIC_CREATOR_URL}${item.thumbnail}`}
                     alt={`Thumbnail for ${item.title}`}
                     className="w-full aspect-video object-cover"
                 />

@@ -68,7 +68,7 @@ export default function HeroContent({ popularVideos, autoScrollInterval = 5000 }
                                 {/* Individual Slide Content */}
                                 <div className="relative group aspect-video"> {/* Maintain aspect ratio */}
                                      <img
-                                        src={video.thumbnail}
+                                        src={`${process.env.NEXT_PUBLIC_CREATOR_URL}${video.thumbnail}`}
                                         alt={`Thumbnail for ${video.title}`}
                                         className="w-full h-full object-cover text-[#1E1E24] dark:text-[#F5F7FA]" // Ensure image covers the area
                                     />

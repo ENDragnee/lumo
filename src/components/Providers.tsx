@@ -21,12 +21,19 @@ export default function Providers({ children }: { children: ReactNode }) {
     "/content",
   ];
   const pathname = usePathname();
-  // Check if pathname is in excluded paths or contains "/moe/"
-  const isSidebarVisible = !(
-    excludedSidebarPaths.includes(pathname) || pathname.includes("/moe/")
-  );
 
-  // If the current route is excluded, render just the children
+  // --- Updated Condition ---
+  // Check if pathname is in the exact excluded paths OR starts with /moe/ OR starts with /aastu/
+  const shouldExcludeSidebar =
+    excludedSidebarPaths.includes(pathname) ||
+    pathname.startsWith("/moe") ||
+    pathname.startsWith("/aastu");
+  // Sidebar is visible if it should *not* be excluded
+  const isSidebarVisible = !shouldExcludeSidebar;
+  // --- End of Update ---
+
+
+  // If the current route is excluded, render just the children wrapped in providers
   if (!isSidebarVisible) {
     return (
       <SessionProvider>
@@ -50,7 +57,10 @@ export default function Providers({ children }: { children: ReactNode }) {
               setIsCollapsed={setIsLeftSidebarCollapsed}
             />
           </div>
-          <div className="flex-1 overflow-auto">{children}</div>
+          {/* Use flex-1 and overflow-auto on the main content area */}
+          <div className="flex-1 overflow-auto">
+            {children}
+          </div>
           <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
             <BottomNavbar />
           </div>

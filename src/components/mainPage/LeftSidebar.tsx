@@ -235,7 +235,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
            </div>
 
           {/* --- Workspaces Section --- */}
-          <div>
+          {/* <div>
             <button
               className={`flex items-center w-full justify-between p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
               onClick={() => {
@@ -261,11 +261,10 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
                   ? <ChevronUp size={16} className="text-neutral-500" />
                   : <ChevronDown size={16} className="text-neutral-500" />
               )}
-            </button>
+            </button> */}
 
             {/* Workspace items */}
-            {!isCollapsed && isWorkspaceOpen && (
-              // Principle 2: Spacing - Indentation and vertical rhythm
+            {/* {!isCollapsed && isWorkspaceOpen && (
               <div className="pl-7 mt-1 space-y-1">
                 {workspaces.map((workspace: Workspace) => (
                   <button
@@ -277,15 +276,13 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
                     }`}
                     onClick={() => setActiveWorkspace(workspace.name)}
                   >
-                    {/* Consider adding CornerDownRight or specific workspace icon here */}
-                    {/* <CornerDownRight className="w-4 h-4 mr-2 flex-shrink-0 text-neutral-400" /> */}
+                    <CornerDownRight className="w-4 h-4 mr-2 flex-shrink-0 text-neutral-400" />
                     <span className="truncate">{workspace.name}</span>
                   </button>
                 ))}
-                {/* No "Show More" needed for workspaces based on current structure */}
               </div>
-            )}
-          </div>
+            )} */}
+          {/* </div> */}
 
           {/* --- Recent Section --- */}
           <div>
