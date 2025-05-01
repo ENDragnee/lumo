@@ -212,7 +212,7 @@ const LoadingScreen = () => {
   // Redirect logic remains the same
   const handleRoute = () => {
     if (status === "loading") return; // Still wait for session
-    router.push(session ? "/main" : "/landing");
+    router.push(session ? "/landing" : "/landing"); 
   };
 
   // Ensure component is mounted before doing anything client-side

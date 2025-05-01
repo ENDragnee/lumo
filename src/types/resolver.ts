@@ -7,6 +7,8 @@ import { TextViewerComponent } from '@/components/widgets/TextViewerComponent'; 
 import { VideoComponentViewer } from '@/components/widgets/VideoComponentViewer'; // Adjust path if needed
 import { SimulationComponentViewer } from '@/components/widgets/SimulationComponentViewer'; // Adjust path if needed
 import { SimpleContainerViewer } from '@/components/widgets/SimpleContainerViewer'; // Adjust path as needed
+import { HeaderViewerComponent } from '@/components/widgets/HeaderViewerComponent';
+import { FooterViewerComponent } from '@/components/widgets/FooterViewerComponent';
 // ... import other viewer components ...
 
 
@@ -19,6 +21,8 @@ export const viewerResolver = {
   Image: ImageComponentViewer,
   Text: TextViewerComponent,
   Video: VideoComponentViewer,
-  Simulation: SimulationComponentViewer
+  Simulation: SimulationComponentViewer,
+  Header: HeaderViewerComponent,
+  Footer: FooterViewerComponent,
   // Quiz: QuizViewer, // Add mappings for all your components
 };

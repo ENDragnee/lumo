@@ -19,7 +19,6 @@ import { PanelLeftOpen, PanelLeftClose, PanelRightOpen, PanelRightClose, LayoutL
 import { cn } from "@/lib/utils"
 import RecommendedContent from "@/app/content/components/RecommendedContent"
 
-
 // **** USE SCROLL DIRECTION HOOK ****
 const useScrollDirection = () => {
   const [scrollDirection, setScrollDirection] = useState<"up" | "down">("up");

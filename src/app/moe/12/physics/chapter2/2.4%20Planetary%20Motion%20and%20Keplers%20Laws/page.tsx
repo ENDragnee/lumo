@@ -4,6 +4,8 @@ import { InlineMath, BlockMath } from 'react-katex';
 import { useState, useMemo, ChangeEvent } from 'react';
 import QuizQuestion from '@/components/QuizQuestion';
 import 'katex/dist/katex.min.css';
+import YouTubePanel from '@/components/content-components/YouTubePanel';
+import SimulationPanel from '@/components/content-components/SimulationPanel';
 
 // --- Type Definitions ---
 interface InteractiveSliderProps {
@@ -72,26 +74,6 @@ function InteractiveSlider({
           <span>{min} {unit}</span>
           <span>{max} {unit}</span>
         </div>
-    </div>
-  );
-}
-
-// YouTube Embed Component (Applying Design)
-function YouTubeEmbed({ videoId, title }: YouTubeEmbedProps) {
-  return (
-    <div className="my-4"> {/* Adjusted margin */}
-      {/* UI Font */}
-      <p className="mb-2 font-semibold font-inter text-dark-gray dark:text-light-gray">{title}:</p>
-      <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
-         <iframe
-           className="w-full h-full"
-           src={`https://www.youtube.com/embed/${videoId}`}
-           title={title}
-           frameBorder="0"
-           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-           allowFullScreen>
-         </iframe>
-      </div>
     </div>
   );
 }
@@ -429,12 +411,7 @@ export default function PlanetaryMotionAndKeplersLaws() {
                 <aside className="lg:col-span-5 space-y-8 mt-8 lg:mt-0">
 
                     {/* Panel 1: Historical Context Video */}
-                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-                        <YouTubeEmbed
-                            videoId="qOHZdK6F_58"
-                            title="Video: Geocentric vs. Heliocentric Models"
-                        />
-                    </div>
+                    <YouTubePanel videoId="S13Sr-H7TWI" title="Video: Geocentric vs. Heliocentric Models" />
 
                     {/* Panel 2: Eccentricity Slider + Mini Question */}
                     <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
@@ -462,12 +439,10 @@ export default function PlanetaryMotionAndKeplersLaws() {
                     </div>
 
                      {/* Panel 3: Law 1 Video */}
-                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-                         <YouTubeEmbed
-                            videoId="qd2hZTKIb40"
-                            title="Video: Understanding Ellipses & Kepler's 1st Law"
-                        />
-                    </div>
+                     <YouTubePanel videoId="qDHnWptz5Jo" title="Video: Understanding Ellipses & Kepler's 1st Law" />
+
+                     {/* Panel 5: Law 2 Video */}
+                     <YouTubePanel videoId='qd3dIGJqRDU' title="Video: Kepler's 2nd Law Explained" />
 
                      {/* Panel 4: Law 2 Mini Question */}
                     <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
@@ -476,14 +451,6 @@ export default function PlanetaryMotionAndKeplersLaws() {
                             question="According to Kepler's Second Law, when does a planet travel fastest in its orbit?"
                             correctAnswer="When it is closest to the Sun (perihelion)."
                             explanation="To sweep out the same area in the same time when the radius is shorter, the planet must cover a longer arc distance, meaning it moves faster."
-                        />
-                    </div>
-
-                     {/* Panel 5: Law 2 Video */}
-                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-                        <YouTubeEmbed
-                            videoId="jryS3ua4O3g"
-                            title="Video: Visualizing Kepler's 2nd Law"
                         />
                     </div>
 
@@ -528,26 +495,10 @@ export default function PlanetaryMotionAndKeplersLaws() {
                     </div>
 
                      {/* Panel 7: Law 3 Video */}
-                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-                         <YouTubeEmbed
-                            videoId="KbXVpdlmYZo"
-                            title="Video: Understanding Kepler's 3rd Law"
-                         />
-                    </div>
+                    <YouTubePanel videoId="KbXVpdlmYZo" title="Video: Kepler's 3rd Law Explained" />
 
                     {/* Panel 8: PhET Simulation */}
-                    <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-                        <h3 className="text-xl font-semibold font-inter mb-3 text-center">Explore with PhET Simulation</h3> {/* UI Font */}
-                        <p className="text-sm text-center mb-4 font-inter text-dark-gray dark:text-light-gray">Visualize all three laws. Change planets, turn on tracers, observe velocity.</p>
-                        <div className="relative w-full overflow-hidden aspect-video border dark:border-gray-600 rounded bg-black">
-                          <iframe src="https://phet.colorado.edu/sims/html/keplers-laws/latest/keplers-laws_en.html"
-                            className='absolute top-0 left-0 w-full h-full'
-                            allowFullScreen
-                            title="PhET Kepler's Laws Simulation">
-                                <p className="text-light-gray text-center pt-10">Loading Simulation...</p>
-                          </iframe>
-                        </div>
-                    </div>
+                    <SimulationPanel title='PhET Simulation: Kepler\’s Laws' simulationUrl='https://phet.colorado.edu/sims/html/keplers-laws/latest/keplers-laws_en.html' description='Visualize all three laws. Change planets, turn on tracers, observe velocity.'/>
 
                 </aside> {/* End Right Column */}
 

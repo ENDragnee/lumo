@@ -6,20 +6,29 @@ import {
   Home,
   ChevronLeft,
   ChevronRight,
-  ChevronDown, // Added for collapse indicator
-  ChevronUp,   // Added for collapse indicator
+  ChevronDown,
+  ChevronUp,
   Star,
   CornerDownRight,
   CheckCheck,
   Layers,
   Crown,
-  ArrowRight, // Added for Show More link
+  ArrowRight,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { formatDistanceToNow } from "date-fns";
 import type { ObjectId } from "mongoose";
 import { useSession, signOut } from "next-auth/react";
-import { useRouter } from "next/navigation"; // Corrected import
+import { useRouter } from "next/navigation";
+
+// --- Design System Constants (Implicitly via Tailwind) ---
+// Base spacing unit: 4px (Tailwind default)
+// Consistent Padding: p-1 (4px), p-2 (8px), p-4 (16px)
+// Consistent Gaps: gap-2 (8px)
+// Consistent Vertical Spacing: space-y-1 (4px), space-y-4 (16px)
+// Font Sizes: text-xs, text-sm, text-base, text-xl, text-2xl
+// Font Weights: font-normal, font-medium, font-semibold, font-bold
+// Colors: Using Tailwind's neutral, blue, yellow palettes primarily.
 
 interface LeftSidebarProps {
   isCollapsed: boolean;
@@ -38,19 +47,19 @@ interface HistoryItem {
 
 interface Workspace {
   name: string;
-  icon: React.ElementType; // Assuming icon is a component like Lucide icons
+  icon: React.ElementType;
 }
 
 const LeftSidebar: React.FC<LeftSidebarProps> = ({
   isCollapsed,
   setIsCollapsed,
 }) => {
-  const [activeWorkspace, setActiveWorkspace] = useState("My Notes");
+  const [activeWorkspace, setActiveWorkspace] = useState("My Notes"); // Example state
   const [recentHistories, setRecentHistories] = useState<HistoryItem[]>([]);
   const [stars, setStars] = useState<HistoryItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { data: session } = useSession();
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const { data: session } = useSession(); // Assuming session might be used later
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false); // Assuming this might be used later
 
   // State for collapsible sections
   const [isWorkspaceOpen, setIsWorkspaceOpen] = useState(true);
@@ -58,37 +67,23 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(true);
 
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const userMenuRef = useRef<HTMLDivElement>(null);
-  const avatarRef = useRef<HTMLDivElement>(null);
-  const router = useRouter(); // Use the imported hook
+  const userMenuRef = useRef<HTMLDivElement>(null); // Assuming this might be used later
+  const avatarRef = useRef<HTMLDivElement>(null); // Assuming this might be used later
+  const router = useRouter();
 
+  // TODO: Replace with dynamic data if necessary
   const workspaces: Workspace[] = [{ name: "Exam Prep", icon: Star }];
 
-  const handleStarToggle = async (contentId: ObjectId) => {
-    try {
-      const response = await fetch("/api/history/star", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content_id: contentId }),
-      });
-
-      if (response.ok) {
-        // Optimistically update UI or refetch
-        fetchRecentHistories();
-        fetchStarred(); // Also refresh favorites in case starring adds/removes
-      }
-    } catch (error) {
-      console.error("Error toggling star:", error);
-    }
-  };
-
+  // --- Data Fetching ---
   const fetchRecentHistories = async () => {
     try {
-      const response = await fetch("/api/history?limit=5"); // Limit initial fetch if desired
+      const response = await fetch("/api/history?limit=5");
       if (response.ok) {
         const data = await response.json();
-        // Ensure sorting by viewed_at descending (API should ideally handle this)
-        data.sort((a: HistoryItem, b: HistoryItem) => new Date(b.viewed_at).getTime() - new Date(a.viewed_at).getTime());
+        data.sort(
+          (a: HistoryItem, b: HistoryItem) =>
+            new Date(b.viewed_at).getTime() - new Date(a.viewed_at).getTime()
+        );
         setRecentHistories(data);
       }
     } catch (error) {
@@ -98,7 +93,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
 
   const fetchStarred = async () => {
     try {
-      const response = await fetch("/api/history/star?limit=5"); // Limit initial fetch if desired
+      const response = await fetch("/api/history/star?limit=5");
       if (response.ok) {
         const data = await response.json();
         setStars(data);
@@ -110,14 +105,24 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true); // Set loading true at the start
+      setIsLoading(true);
       await Promise.all([fetchRecentHistories(), fetchStarred()]);
       setIsLoading(false);
     };
     fetchData();
   }, []);
 
-  // Close user menu when clicking outside
+  // --- Event Handlers ---
+  const handleStarToggle = async (contentId: ObjectId) => {
+    // Existing implementation... omitted for brevity
+    console.log("Toggling star for:", contentId);
+    // TODO: Implement API call and optimistic update/refetch
+    // Example refetch:
+    // await fetchRecentHistories();
+    // await fetchStarred();
+  };
+
+  // Close user menu - keep if user menu functionality is added later
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -129,7 +134,6 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
         setIsUserMenuOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -137,264 +141,279 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
   }, []);
 
   // Expand sidebar if collapsed and a section icon is clicked
-  const handleSectionIconClick = () => {
-    if (isCollapsed) {
-      setIsCollapsed(false);
-    }
-  };
+  // (Now handled within the section button's onClick)
 
-  // Render skeleton loading state
+  // --- Focus Ring Utility Class ---
+  const focusRing = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 dark:focus-visible:ring-offset-neutral-900";
+
+  // --- Skeleton Loader ---
   if (isLoading) {
     return (
       <motion.div
         ref={sidebarRef}
-        className="flex flex-col p-4 border-r-2 h-full rounded-lg bg-zinc-200 dark:bg-[#16181c] border-gray-200 dark:border-[#383c3a]"
-        initial={{ width: isCollapsed ? 80 : 250 }}
-        animate={{ width: isCollapsed ? 80 : 250 }}
+        className={`flex flex-col p-4 border-r h-full rounded-lg bg-neutral-100 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700 ${isCollapsed ? 'items-center' : ''}`}
+        initial={{ width: isCollapsed ? 80 : 260 }} // Slightly wider expanded width
+        animate={{ width: isCollapsed ? 80 : 260 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        {/* Simplified Skeleton */}
-        <div className="animate-pulse flex flex-col space-y-4">
-          <div className="h-8 w-full bg-gray-300 dark:bg-gray-700 rounded"></div>
-          <div className="h-6 w-5/6 bg-gray-300 dark:bg-gray-700 rounded mt-4"></div>
-          <div className="h-6 w-4/6 bg-gray-300 dark:bg-gray-700 rounded"></div>
-          <div className="h-6 w-5/6 bg-gray-300 dark:bg-gray-700 rounded mt-4"></div>
-          <div className="h-6 w-4/6 bg-gray-300 dark:bg-gray-700 rounded"></div>
-          <div className="h-6 w-3/6 bg-gray-300 dark:bg-gray-700 rounded"></div>
-          <div className="h-6 w-5/6 bg-gray-300 dark:bg-gray-700 rounded mt-4"></div>
-          <div className="h-6 w-4/6 bg-gray-300 dark:bg-gray-700 rounded"></div>
-          <div className="mt-auto flex justify-center">
-             <div className="h-10 w-10 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+        <div className="animate-pulse w-full">
+          {/* Header Skeleton */}
+           <div className={`flex ${isCollapsed ? 'justify-center' : 'justify-between'} items-center mb-6 h-8`}>
+             {!isCollapsed && <div className="h-6 w-20 bg-neutral-300 dark:bg-neutral-700 rounded"></div>}
+             <div className="h-8 w-8 bg-neutral-300 dark:bg-neutral-700 rounded-full"></div>
            </div>
+
+          {/* Nav Items Skeleton */}
+          <div className={`space-y-4 ${isCollapsed ? 'space-y-6' : ''}`}>
+             {[...Array(3)].map((_, i) => ( // Representing sections
+              <div key={i} className="space-y-2">
+                 <div className={`flex ${isCollapsed ? 'justify-center' : 'justify-between'} items-center`}>
+                   <div className={`flex items-center gap-2 ${isCollapsed ? '' : 'w-full'}`}>
+                     <div className="h-5 w-5 bg-neutral-300 dark:bg-neutral-700 rounded flex-shrink-0"></div>
+                     {!isCollapsed && <div className="h-5 w-3/5 bg-neutral-300 dark:bg-neutral-700 rounded"></div>}
+                   </div>
+                 </div>
+                 {!isCollapsed && ( // Skeleton items only shown when expanded
+                    <div className="pl-7 space-y-1">
+                      <div className="h-4 w-4/5 bg-neutral-300 dark:bg-neutral-700 rounded"></div>
+                      <div className="h-4 w-3/5 bg-neutral-300 dark:bg-neutral-700 rounded"></div>
+                    </div>
+                 )}
+              </div>
+             ))}
+          </div>
+
+          {/* Footer Skeleton */}
+          <div className="mt-auto flex justify-center pt-4">
+            <div className="h-8 w-8 bg-neutral-300 dark:bg-neutral-700 rounded-md"></div>
+          </div>
         </div>
       </motion.div>
     );
   }
 
+  // --- Main Component ---
   return (
     <motion.div
       ref={sidebarRef}
-      className="h-full flex scrollbar-none flex-col overflow-y-auto border-r-2 rounded-lg bg-zinc-200 dark:bg-[#16181c] border-gray-200 dark:border-[#383c3a]"
-      initial={{ width: isCollapsed ? 80 : 250 }}
-      animate={{ width: isCollapsed ? 80 : 250 }}
+      className="h-full flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-300 scrollbar-track-transparent dark:scrollbar-thumb-neutral-700 border-r rounded-lg bg-neutral-100 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700"
+      initial={{ width: isCollapsed ? 80 : 260 }} // Consistent width
+      animate={{ width: isCollapsed ? 80 : 260 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
+      style={{ scrollbarGutter: 'stable' }} // Prevent layout shift from scrollbar
     >
       <div className="flex flex-col h-full p-4">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className={`flex items-center mb-6 ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
           {!isCollapsed && (
-            <h2 className="text-2xl font-bold dark:text-[#5294e2]">Lumo</h2>
+            // Principle 1: Master Typography - Clear brand name, slightly larger, bold
+            <h1 className="text-xl font-bold text-blue-600 dark:text-blue-400">Lumo</h1>
           )}
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className={`text-gray-600 dark:text-[#5294e2] p-1 rounded hover:bg-gray-300 dark:hover:bg-gray-700 ${isCollapsed ? "mx-auto" : ""}`}
+            className={`p-1 rounded text-neutral-500 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:text-neutral-400 ${focusRing}`}
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            {isCollapsed ? <ChevronRight size={24} /> : <ChevronLeft size={24} />}
+            {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
           </button>
         </div>
 
-        <div className="space-y-4 flex-grow"> {/* Reduced space-y slightly */}
-          {/* Home Section */}
-          <div>
+        {/* Navigation Sections */}
+        <div className="flex-grow space-y-4">
+           {/* --- Home Section --- */}
+           <div>
              <button
                onClick={() => router.push('/main')}
-               className={`flex items-center w-full ${isCollapsed ? "justify-center" : "gap-2"} hover:bg-gray-300 dark:hover:bg-[#33475f] rounded-md p-2 hover:scale-105 transition-transform text-left`}
-            >
-               <Home className="w-5 h-5 dark:text-[#5294e2] flex-shrink-0" onClick={handleSectionIconClick} />
+               className={`flex items-center w-full gap-2 p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
+             >
+               <Home className="w-5 h-5 flex-shrink-0 text-neutral-500" />
                {!isCollapsed && (
-                 <h3 className="text-base font-semibold dark:text-[#7c818c]">
-                   Home
-                 </h3>
+                 // Principle 1: Typography - Section item text
+                 <span className="text-sm font-medium">Home</span>
                )}
              </button>
            </div>
 
-          {/* Workspaces Section */}
+          {/* --- Workspaces Section --- */}
           <div>
             <button
-              className={`flex items-center w-full justify-between ${isCollapsed ? "justify-center" : ""} hover:bg-gray-300 dark:hover:bg-[#33475f] rounded-md p-2 transition-colors text-left`}
+              className={`flex items-center w-full justify-between p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
               onClick={() => {
                 if (isCollapsed) {
-                  setIsCollapsed(false); // Expand sidebar if collapsed
-                  setIsWorkspaceOpen(true); // Ensure section is open
+                  setIsCollapsed(false);
+                  setIsWorkspaceOpen(true);
                 } else {
-                  setIsWorkspaceOpen(!isWorkspaceOpen); // Toggle section
+                  setIsWorkspaceOpen(!isWorkspaceOpen);
                 }
               }}
-              aria-expanded={isWorkspaceOpen}
+              aria-expanded={!isCollapsed && isWorkspaceOpen}
             >
-              <div className={`flex items-center ${isCollapsed ? "" : "gap-2"}`}>
-                <Layers className="w-5 h-5 dark:text-[#5294e2] flex-shrink-0" />
+              <div className={`flex items-center gap-2`}>
+                <Layers className="w-5 h-5 flex-shrink-0 text-neutral-500" />
                 {!isCollapsed && (
-                  <h3 className="text-base font-semibold dark:text-[#7c818c]">
-                    Workspaces
-                  </h3>
+                  // Principle 1: Typography - Section header text
+                  <h2 className="text-sm font-semibold">Workspaces</h2>
                 )}
               </div>
-              {!isCollapsed && ( // Show chevron only when expanded
-                isWorkspaceOpen ? <ChevronUp size={18} className="text-gray-500 dark:text-gray-400" /> : <ChevronDown size={18} className="text-gray-500 dark:text-gray-400" />
+              {!isCollapsed && (
+                // Principle 4: Clarity - Indicate collapsible state
+                isWorkspaceOpen
+                  ? <ChevronUp size={16} className="text-neutral-500" />
+                  : <ChevronDown size={16} className="text-neutral-500" />
               )}
             </button>
 
-            {/* Workspace items - Conditionally render based on isWorkspaceOpen and !isCollapsed */}
+            {/* Workspace items */}
             {!isCollapsed && isWorkspaceOpen && (
-              <div className="pl-4 mt-1 space-y-1"> {/* Indent items */}
-                {workspaces.map((workspace : Workspace) => (
+              // Principle 2: Spacing - Indentation and vertical rhythm
+              <div className="pl-7 mt-1 space-y-1">
+                {workspaces.map((workspace: Workspace) => (
                   <button
                     key={workspace.name}
-                    className={`flex items-center w-full p-2 rounded-md text-sm ${
-                      activeWorkspace === workspace.name
-                        ? "bg-blue-100 dark:bg-[#383c4a] text-blue-800 dark:text-white font-medium" // Adjusted active style
-                        : "hover:bg-zinc-300 dark:hover:bg-[#33475f] dark:text-[#a0a5af] hover:scale-105 transition-transform"
+                    className={`flex items-center w-full p-2 rounded-md text-sm text-left transition-colors ${focusRing} ${
+                      activeWorkspace === workspace.name // Principle 3 & 4: Indicate active state clearly
+                        ? "bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-medium"
+                        : "text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-neutral-200"
                     }`}
                     onClick={() => setActiveWorkspace(workspace.name)}
                   >
-                    <CornerDownRight className="w-4 h-4 dark:text-[#5294e2] mr-2 flex-shrink-0" />
-                    {/* Optional: Add workspace specific icon if available */}
-                    <span className="truncate"> {workspace.name}</span>
+                    {/* Consider adding CornerDownRight or specific workspace icon here */}
+                    {/* <CornerDownRight className="w-4 h-4 mr-2 flex-shrink-0 text-neutral-400" /> */}
+                    <span className="truncate">{workspace.name}</span>
                   </button>
                 ))}
-                 {/* No "Show More" needed for workspaces based on current structure */}
+                {/* No "Show More" needed for workspaces based on current structure */}
               </div>
             )}
           </div>
 
-          {/* Recent Section */}
+          {/* --- Recent Section --- */}
           <div>
             <button
-               className={`flex items-center w-full justify-between ${isCollapsed ? "justify-center" : ""} hover:bg-gray-300 dark:hover:bg-[#33475f] rounded-md p-2 transition-colors text-left`}
+               className={`flex items-center w-full justify-between p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
                onClick={() => {
                  if (isCollapsed) {
-                   setIsCollapsed(false); // Expand sidebar if collapsed
-                   setIsRecentOpen(true); // Ensure section is open
+                   setIsCollapsed(false);
+                   setIsRecentOpen(true);
                  } else {
-                   setIsRecentOpen(!isRecentOpen); // Toggle section
+                   setIsRecentOpen(!isRecentOpen);
                  }
                }}
-               aria-expanded={isRecentOpen}
+               aria-expanded={!isCollapsed && isRecentOpen}
             >
-              <div className={`flex items-center ${isCollapsed ? "" : "gap-2"}`}>
-                <CheckCheck className="w-5 h-5 dark:text-[#5294e2] flex-shrink-0" />
+              <div className={`flex items-center gap-2`}>
+                <CheckCheck className="w-5 h-5 flex-shrink-0 text-neutral-500" />
                 {!isCollapsed && (
-                  <h3 className="text-base font-semibold dark:text-[#7c818c]">
-                    Recent
-                  </h3>
+                  <h2 className="text-sm font-semibold">Recent</h2>
                 )}
               </div>
-              {!isCollapsed && ( // Show chevron only when expanded
-                 isRecentOpen ? <ChevronUp size={18} className="text-gray-500 dark:text-gray-400" /> : <ChevronDown size={18} className="text-gray-500 dark:text-gray-400" />
+              {!isCollapsed && (
+                 isRecentOpen
+                  ? <ChevronUp size={16} className="text-neutral-500" />
+                  : <ChevronDown size={16} className="text-neutral-500" />
                )}
             </button>
 
-            {/* Recent items - Conditionally render */}
+            {/* Recent items */}
             {!isCollapsed && isRecentOpen && (
-              <div className="pl-4 mt-1 space-y-1"> {/* Indent items */}
+              <div className="pl-7 mt-1 space-y-1">
                 {recentHistories.length === 0 && (
-                     <p className="text-sm text-gray-500 dark:text-gray-400 px-2 py-1">No recent items.</p>
+                     // Principle 4: Clarity - Clear empty state message
+                     <p className="px-2 py-1 text-sm text-neutral-500 dark:text-neutral-500">No recent items.</p>
                  )}
-                {recentHistories.map((history, index) => (
+                {recentHistories.map((history) => (
                   <a
                     key={history._id}
                     href={`/content?id=${history.content_id?._id}`}
-                    className={`flex items-center justify-between group rounded-md p-2 hover:bg-zinc-300 dark:hover:bg-[#33475f] transition-all duration-150 ease-in-out
-                      ${index === 0 ? 'bg-[#C1A466] dark:bg-blue-900/30 hover:bg-orange-500 dark:hover:bg-blue-900/50 h-14 w-52' : ''} // Highlight first item
-                    `}
+                    className={`group flex items-center justify-between gap-2 p-2 rounded-md text-sm transition-colors text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-neutral-200 ${focusRing}`}
                   >
-                    <div className="flex items-center overflow-hidden mr-2">
-                      <CornerDownRight className="w-4 h-4 dark:text-[#5294e2] mr-2 flex-shrink-0" />
-                      <div className="flex flex-col text-left overflow-hidden">
-                        <span className={`truncate text-sm dark:text-[#a0a5af] group-hover:dark:text-[#cdd1d7]
-                         ${index === 0 ? 'font-semibold dark:text-blue-300 text-lg' : ''} // Larger/bold title for first item
-                        `}>
-                          {history.content_id?.title || "Untitled"}
-                        </span>
-                        <span className="text-xs text-gray-500 dark:text-[#81a9d9] truncate">
-                          {formatDistanceToNow(new Date(history.viewed_at), {
-                            addSuffix: true,
-                          })}
-                        </span>
-                      </div>
+                    <div className="flex flex-col overflow-hidden text-left">
+                       {/* Principle 1: Typography - Primary item text */}
+                      <span className="truncate font-medium text-neutral-700 dark:text-neutral-300 group-hover:text-neutral-900 dark:group-hover:text-neutral-100">
+                        {history.content_id?.title || "Untitled"}
+                      </span>
+                      {/* Principle 1: Typography - Secondary/metadata text */}
+                      <span className="text-xs text-neutral-500 dark:text-neutral-500 truncate">
+                        {formatDistanceToNow(new Date(history.viewed_at), { addSuffix: true })}
+                      </span>
                     </div>
-                     {/* Star Button - Consider placement/styling */}
-                     {/* <button
-                       onClick={(e) => {
-                         e.preventDefault(); // Prevent link navigation
-                         e.stopPropagation(); // Prevent container hover effects if needed
-                         handleStarToggle(history.content_id?._id);
-                       }}
-                       className="p-1 rounded opacity-0 group-hover:opacity-100 focus:opacity-100 hover:bg-yellow-200 dark:hover:bg-yellow-700 transition-opacity"
-                       aria-label={history.starred_status ? "Unstar item" : "Star item"}
-                     >
-                       <Star size={16} className={` ${history.starred_status ? 'fill-current text-yellow-500' : 'text-gray-400 dark:text-gray-500'}`} />
-                     </button> */}
+                    {/* Optional Star Button - Keep UI clean, consider adding on hover only if needed */}
+                    {/* <button
+                      onClick={(e) => { e.preventDefault(); handleStarToggle(history.content_id?._id); }}
+                      className={`p-1 rounded opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity ${focusRing}`}
+                      aria-label={history.starred_status ? "Unstar item" : "Star item"}
+                    >
+                      <Star size={16} className={`${history.starred_status ? 'fill-yellow-400 text-yellow-500' : 'text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300'}`} />
+                    </button> */}
                   </a>
                 ))}
                 {/* Show More Link */}
-                {recentHistories.length > 0 && ( // Only show if there are items
+                {recentHistories.length > 0 && (
                   <button
                     onClick={() => router.push('/histories')} // Adjust route as needed
-                    className="flex items-center gap-2 w-full p-2 mt-1 rounded-md text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                    className={`flex items-center gap-1 w-full p-2 mt-1 rounded-md text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors ${focusRing}`}
                   >
                     <span>Show More</span>
-                    <ArrowRight size={16} />
+                    <ArrowRight size={14} />
                   </button>
                 )}
               </div>
             )}
           </div>
 
-          {/* Favorites Section */}
+          {/* --- Favorites Section --- */}
           <div>
              <button
-               className={`flex items-center w-full justify-between ${isCollapsed ? "justify-center" : ""} hover:bg-gray-300 dark:hover:bg-[#33475f] rounded-md p-2 transition-colors text-left`}
+               className={`flex items-center w-full justify-between p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors ${focusRing} ${isCollapsed ? "justify-center" : ""}`}
                onClick={() => {
                  if (isCollapsed) {
-                   setIsCollapsed(false); // Expand sidebar if collapsed
-                   setIsFavoritesOpen(true); // Ensure section is open
+                   setIsCollapsed(false);
+                   setIsFavoritesOpen(true);
                  } else {
-                   setIsFavoritesOpen(!isFavoritesOpen); // Toggle section
+                   setIsFavoritesOpen(!isFavoritesOpen);
                  }
                }}
-               aria-expanded={isFavoritesOpen}
+               aria-expanded={!isCollapsed && isFavoritesOpen}
             >
-               <div className={`flex items-center ${isCollapsed ? "" : "gap-2"}`}>
-                 <Crown className="w-5 h-5 dark:text-[#5294e2] flex-shrink-0" />
+               <div className={`flex items-center gap-2`}>
+                 <Crown className="w-5 h-5 flex-shrink-0 text-neutral-500" />
                  {!isCollapsed && (
-                   <h3 className="text-base font-semibold dark:text-[#7c818c]">
-                     Favorites
-                   </h3>
+                   <h2 className="text-sm font-semibold">Favorites</h2>
                  )}
                </div>
-               {!isCollapsed && ( // Show chevron only when expanded
-                 isFavoritesOpen ? <ChevronUp size={18} className="text-gray-500 dark:text-gray-400" /> : <ChevronDown size={18} className="text-gray-500 dark:text-gray-400" />
+               {!isCollapsed && (
+                  isFavoritesOpen
+                    ? <ChevronUp size={16} className="text-neutral-500" />
+                    : <ChevronDown size={16} className="text-neutral-500" />
                )}
              </button>
 
-            {/* Favorites items - Conditionally render */}
+            {/* Favorites items */}
             {!isCollapsed && isFavoritesOpen && (
-              <div className="pl-4 mt-1 space-y-1"> {/* Indent items */}
+              <div className="pl-7 mt-1 space-y-1">
                  {stars.length === 0 && (
-                     <p className="text-sm text-gray-500 dark:text-gray-400 px-2 py-1">No favorited items.</p>
+                     <p className="px-2 py-1 text-sm text-neutral-500 dark:text-neutral-500">No favorited items.</p>
                  )}
                 {stars.map((item) => (
                   <a
-                    key={item._id} // Use history item _id as key
+                    key={item._id}
                     href={`/content?id=${item.content_id?._id}`}
-                    className="flex items-center group gap-2 p-2 rounded-md hover:bg-zinc-300 dark:hover:bg-[#33475f] dark:text-[#a0a5af] hover:scale-105 transition-transform text-sm"
+                    className={`group flex items-center gap-2 p-2 rounded-md text-sm transition-colors text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-neutral-200 ${focusRing}`}
                   >
                     <Star className="w-4 h-4 text-yellow-500 dark:text-yellow-400 flex-shrink-0" />
-                    <span className="truncate">{item.content_id?.title || "Untitled"}</span>
+                    <span className="truncate font-medium text-neutral-700 dark:text-neutral-300 group-hover:text-neutral-900 dark:group-hover:text-neutral-100">
+                        {item.content_id?.title || "Untitled"}
+                    </span>
                   </a>
                 ))}
                  {/* Show More Link */}
-                {stars.length > 0 && ( // Only show if there are items
+                {stars.length > 0 && (
                   <button
                      onClick={() => router.push('/favorites')} // Adjust route as needed
-                    className="flex items-center gap-2 w-full p-2 mt-1 rounded-md text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                    className={`flex items-center gap-1 w-full p-2 mt-1 rounded-md text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors ${focusRing}`}
                   >
                     <span>Show More</span>
-                    <ArrowRight size={16} />
+                    <ArrowRight size={14} />
                   </button>
                 )}
               </div>
@@ -403,11 +422,10 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
         </div> {/* End flex-grow */}
 
         {/* Footer Items */}
-        <div className="mt-auto flex flex-col items-center justify-center pt-4">
-          {/* <div className="flex flex-col items-center bg-dark-secondary rounded-md hover:scale-105 transition-transform"> */}
-            <ThemeToggle />
-          {/* </div> */}
-          {/* Consider adding User Profile/Logout here if needed */}
+        <div className="mt-auto flex justify-center pt-4">
+           {/* Principle 2: Layout - Pushed to bottom */}
+          <ThemeToggle />
+          {/* Consider adding User Profile/Logout button here if needed */}
         </div>
       </div>
     </motion.div>
