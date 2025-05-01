@@ -100,7 +100,7 @@ const UserIcon = () => {
                     </div>
 
                     {/* Menu Items */}
-                    <div className="py-1" role="none">
+                    {/* <div className="py-1" role="none">
                          <Link
                             href="/settings"
                             onClick={closeMenu}
@@ -110,7 +110,7 @@ const UserIcon = () => {
                             <Settings size={18} className="text-gray-500 dark:text-gray-400" />
                             <span>Settings</span>
                         </Link>
-                    </div>
+                    </div> */}
 
                     {/* Separator */}
                      <hr className="my-1 border-gray-200 dark:border-gray-700" />
