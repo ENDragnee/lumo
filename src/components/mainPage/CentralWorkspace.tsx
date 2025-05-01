@@ -10,9 +10,11 @@ import { MobileCard, MobileCardContent, MobileCardFooter } from "@/components/ui
 import { useMediaQuery } from "react-responsive";
 import SearchForm from "@/components/mainPage/SearchForm";
 import { BookCard } from "@/components/cards/BookCard";
+import Image from 'next/image'; // Import Next Image for optimized images
 
 // --- Constants for Fallback Images ---
 const PLACEHOLDER_SVG_PATH = '/placeholder.svg'; // Ensure placeholder.svg is in /public
+const PLACEHOLDER_AVATAR_PATH = '/placeholder-avatar.svg'; // Add a placeholder avatar
 
 interface Book {
   _id: string;
@@ -41,6 +43,25 @@ interface SpecialCardData {
   bgColor: string;
   textColor?: string;
 }
+
+// --- Creator Data Interface and Dummy Data ---
+interface Creator {
+    id: string;
+    name: string;
+    avatarUrl: string;
+    profileUrl?: string; // Optional link to creator's profile/content
+}
+
+const featuredCreatorsData: Creator[] = [
+    { id: 'creator-1', name: 'Kidus Goshu', avatarUrl: '/KG.png', profileUrl: '/creators/aris' },
+    { id: 'creator-2', name: 'Mastwal Mesfin', avatarUrl: '/mm.png', profileUrl: '/creators/elara' },
+    { id: 'creator-3', name: 'Matiyas Woldemariam', avatarUrl: '/mw.png', profileUrl: '/creators/ken' },
+    { id: 'creator-4', name: 'Maya Lin', avatarUrl: '/ascii.png', profileUrl: '/creators/maya' },
+    { id: 'creator-5', name: 'Sam Vector', avatarUrl: '/ascii.png', profileUrl: '/creators/sam' },
+    // Add more creators if needed
+];
+// --- End Creator Data ---
+
 
 const specialCardsData: SpecialCardData[] = [
   {
@@ -78,35 +99,56 @@ const getLevelOfUnderstandingColor = (progress: number) => {
 }
 
 const LoadingSkeleton = () => {
-  // ... (keep existing LoadingSkeleton code)
+  // Add skeleton for creators
   return (
     <div className="p-8">
-      {/* Optional: Add skeleton for special cards too */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        {Array.from({ length: 2 }).map((_, index) => (
-          <div key={index} className="h-36 rounded-lg bg-gray-200 dark:bg-gray-700 shimmer"></div>
-        ))}
-      </div>
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {Array.from({ length: 8 }).map((_, index) => (
-          <div
-            key={index}
-            className="cursor-pointer group dark:hover:bg-[#3337446c] hover:bg-zinc-200 rounded-md py-2 px-4"
-          >
-            <div className="relative aspect-video rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-700">
-              <div className="absolute inset-0 shimmer" />
+       {/* Special Cards Skeleton */}
+       <div className="mb-8">
+           <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-4 shimmer"></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+                {Array.from({ length: 2 }).map((_, index) => (
+                <div key={index} className="h-36 rounded-lg bg-gray-200 dark:bg-gray-700 shimmer"></div>
+                ))}
             </div>
-            <div className="mt-3 space-y-2">
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 shimmer" />
-              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full shimmer" />
-              <div className="flex justify-between">
-                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/3 shimmer" />
-                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/4 shimmer" />
-              </div>
+       </div>
+
+       {/* Creators Skeleton */}
+       <div className="mb-8">
+           <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-4 shimmer"></div>
+           <div className="flex space-x-6 overflow-hidden">
+               {Array.from({ length: 5 }).map((_, index) => (
+                  <div key={index} className="flex flex-col items-center flex-shrink-0">
+                     <div className="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700 mb-2 shimmer"></div>
+                     <div className="h-3 w-16 bg-gray-200 dark:bg-gray-700 rounded shimmer"></div>
+                  </div>
+               ))}
+           </div>
+       </div>
+
+       {/* Learning Materials Skeleton */}
+       <div>
+           <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-4 shimmer"></div>
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {Array.from({ length: 8 }).map((_, index) => (
+                <div
+                    key={index}
+                    className="cursor-pointer group dark:hover:bg-[#3337446c] hover:bg-zinc-200 rounded-md py-2 px-4"
+                >
+                    <div className="relative aspect-video rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-700">
+                    <div className="absolute inset-0 shimmer" />
+                    </div>
+                    <div className="mt-3 space-y-2">
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 shimmer" />
+                    <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full shimmer" />
+                    <div className="flex justify-between">
+                        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/3 shimmer" />
+                        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/4 shimmer" />
+                    </div>
+                    </div>
+                </div>
+                ))}
             </div>
-          </div>
-        ))}
-      </div>
+       </div>
       <style jsx global>{`
         @keyframes shimmer {
           0% { background-position: -200% 0; }
@@ -122,6 +164,14 @@ const LoadingSkeleton = () => {
              background-size: 200% 100%;
              animation: shimmer 1.5s infinite;
         }
+        /* Utility to hide scrollbar */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
       `}</style>
     </div>
   );
@@ -131,19 +181,20 @@ const LoadingSkeleton = () => {
 const CentralWorkspace = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const [rootBooks, setRootBooks] = useState<Book[]>([]);
+  // const [rootBooks, setRootBooks] = useState<Book[]>([]); // Keep if needed, commented out based on structure
   const [searchResults, setSearchResults] = useState<Content[]>([]);
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
-  const [isBooksLoading, setIsBooksLoading] = useState(true);
+  // const [isBooksLoading, setIsBooksLoading] = useState(true); // Keep if needed
   const [isRecsLoading, setIsRecsLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
 
+  // Commented out Book fetching if the section is removed/commented
+  /*
   useEffect(() => {
     const fetchRootBooks = async () => {
       setIsBooksLoading(true);
-      // Reset error *only* if recommendations haven't failed yet
       if (!fetchError) setFetchError(null);
       try {
         const res = await fetch("/api/drive?parentId=null&typeFilter=book");
@@ -152,7 +203,6 @@ const CentralWorkspace = () => {
           throw new Error(errorData.error || `Failed to fetch books (Status: ${res.status})`);
         }
         const data = await res.json();
-        // Ensure thumbnail is at least an empty string
         const formattedBooks = (data.items || []).map((book: any) => ({
             ...book,
             thumbnail: book.thumbnail || ''
@@ -166,10 +216,10 @@ const CentralWorkspace = () => {
         setIsBooksLoading(false);
       }
     };
-
     fetchRootBooks();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Run once on mount
+  }, []);
+  */
 
   useEffect(() => {
     const fetchRecommendations = async () => {
@@ -181,23 +231,22 @@ const CentralWorkspace = () => {
              const errorData = await res.json().catch(() => ({}));
              throw new Error(errorData.error || `Failed to fetch recommendations (Status: ${res.status})`);
         }
-        const data = await res.json(); // data is the array like [{_id: ..., tags: [...]}, ...]
+        const data = await res.json();
         setSearchResults(
           (data || []).map((item: any) => ({
             _id: item._id,
             title: item.title || 'Untitled',
             thumbnail: item.thumbnail || '',
-            subject: item.subject || 'General',     // Assuming these ARE top-level in recommendations API
-            institution: item.institution || 'Unknown', // Assuming these ARE top-level in recommendations API
-            // Adjust description/progress based on actual recommendations API response structure
-            description: item.description || "", // Example: if description is top-level
-            progress: item.progress,       // Example: if progress is top-level
-            tags: item.tags || [], // <--- CORRECTED LINE: Access item.tags directly
+            subject: item.subject || 'General',
+            institution: item.institution || 'Unknown',
+            description: item.description || "",
+            progress: item.progress,
+            tags: item.tags || [],
           }))
         );
       } catch (err: any) {
         console.error("Recommendation Fetch Error:", err);
-        if (!fetchError) {
+        if (!fetchError) { // Only set error if not already set by books fetch (if applicable)
           setFetchError(err.message || "Failed to load recommendations");
         }
         setSearchResults([]);
@@ -208,11 +257,13 @@ const CentralWorkspace = () => {
 
     fetchRecommendations();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Run once on mount
+  }, []);
 
   useEffect(() => {
-    setIsLoading(isBooksLoading || isRecsLoading);
-  }, [isBooksLoading, isRecsLoading]);
+    // Adjust isLoading based on which fetches are active
+    // setIsLoading(isBooksLoading || isRecsLoading); // Use this if books are fetched
+    setIsLoading(isRecsLoading); // Use this if only recommendations are fetched
+  }, [isRecsLoading]); // Add isBooksLoading here if used
 
   const handleBookCardClick = (bookId: string) => {
     router.push(`/book/${bookId}`);
@@ -226,87 +277,94 @@ const CentralWorkspace = () => {
     router.push(path);
   }
 
+  const handleCreatorClick = (profileUrl?: string) => {
+      if (profileUrl) {
+          router.push(profileUrl);
+      } else {
+          // Maybe show a toast or log that the profile is unavailable
+          console.log("Creator profile URL not available.");
+      }
+  }
+
+  // Handle image errors gracefully
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackPath: string) => {
+      const target = e.currentTarget;
+      if (target.src !== `${window.location.origin}${fallbackPath}`) {
+          console.warn(`Failed to load image: ${target.src}. Falling back to ${fallbackPath}.`);
+          target.onerror = null; // Prevent infinite loop if fallback fails
+          target.src = fallbackPath;
+      }
+  };
+
   if (isLoading) return <LoadingSkeleton />;
   if (fetchError && !isLoading) return <div className="p-8 text-center text-red-500">{`Error loading content: ${fetchError}`}</div>;
 
   const ContentCard = isMobile ? MobileCard : Card;
   const ContentCardContent = isMobile ? MobileCardContent : CardContent;
 
-  const SpecialContent = () => {
+
+  // --- Featured Creators Section Component ---
+  const FeaturedCreators = () => {
+    if (featuredCreatorsData.length === 0) return null; // Don't render if no creators
+
     return (
-      <div className="px-4 py-4 md:px-0 md:py-6">
-        <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Featured Sections</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-8">
-          {specialCardsData.map((card, index) => (
-            <motion.div
-              key={card.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index, duration: 0.4 }}
-              whileHover={{ y: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
-              className="h-full"
-            >
-              <Card
-                onClick={() => handleSpecialCardClick(card.path)}
-                className={`cursor-pointer transition-all duration-300 overflow-hidden group h-full flex flex-col justify-between ${card.bgColor} ${card.textColor || 'text-white'} shadow-md hover:shadow-lg`}
-              >
-                <CardContent className="p-5 md:p-6 flex-grow">
-                  <h3 className="font-bold text-lg md:text-xl mb-2 group-hover:underline">
-                    {card.title}
-                  </h3>
-                  <p className="text-sm opacity-90 line-clamp-3">
-                    {card.description}
-                  </p>
-                </CardContent>
-                <CardFooter className="p-4 pt-0">
-                  <div className="flex items-center justify-end w-full text-sm font-medium group-hover:translate-x-1 transition-transform duration-200 ease-in-out">
-                    Explore <ArrowRight className="ml-1.5 h-4 w-4" />
-                  </div>
-                </CardFooter>
-              </Card>
-            </motion.div>
-          ))}
+        <div className="px-4 py-6 md:px-0 md:py-8"> {/* Consistent padding */}
+            <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Featured Teachers</h2>
+            {/* Scrollable container */}
+            <div className="relative"> {/* Needed for potential scroll indicators if added later */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.5 }} // Adjusted delay
+                    className="flex space-x-5 md:space-x-8 overflow-x-auto pb-4 scrollbar-hide" // Added padding-bottom, scrollbar-hide utility
+                >
+                    {featuredCreatorsData.map((creator, index) => (
+                        <motion.div
+                            key={creator.id}
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 * index + 0.3, duration: 0.4 }} // Staggered animation
+                            whileHover={{ y: -4, scale: 1.03 }}
+                            className="flex flex-col items-center flex-shrink-0 w-20 group cursor-pointer" // Fixed width for consistency
+                            onClick={() => handleCreatorClick(creator.profileUrl)}
+                        >
+                            <div className="relative mb-2">
+                                <Image
+                                    src={creator.avatarUrl}
+                                    alt={creator.name}
+                                    width={128} // Specify size (e.g., w-16 = 64px)
+                                    height={128} // Specify size (e.g., h-16 = 64px)
+                                    className="rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 group-hover:border-primary dark:group-hover:border-primary transition-all duration-300 shadow-sm group-hover:shadow-md"
+                                    onError={(e) => handleImageError(e, PLACEHOLDER_AVATAR_PATH)}
+                                />
+                                {/* Optional: Online status indicator */}
+                                {/* <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-green-500 border-2 border-white dark:border-gray-800 ring-white ring-1"></span> */}
+                             </div>
+                            <p className="text-sm font-bold text-center text-gray-600 dark:text-gray-300 group-hover:text-primary dark:group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                                {creator.name}
+                            </p>
+                        </motion.div>
+                    ))}
+                </motion.div>
+                {/* Optional: Add fade overlays for scroll indication if needed */}
+            </div>
         </div>
-      </div>
     );
   }
+  // --- End Featured Creators Section ---
+
 
   return (
     <div className="flex flex-col flex-auto p-4 pb-16 md:p-4 md:pb-4 overflow-y-auto dark:bg-gray-800 bg-white">
       <SearchForm />
 
-      {/* Regular Books Section */}
-      {/* <div className="w-full px-4 md:px-0 pb-12 md:pb-24">
-         <h2 className="text-xl font-semibold mb-4 md:mb-6 text-gray-800 dark:text-gray-200">My Books</h2>
-         {rootBooks.length > 0 ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
-            >
-              {rootBooks.map((book, index) => (
-                 <BookCard
-                    key={book._id}
-                    book={book}
-                    onClick={handleBookCardClick}
-                    index={index}
-                 />
-              ))}
-            </motion.div>
-          ) : (
-            !isLoading && !fetchError && (
-                <div className="text-center py-10 text-gray-500 dark:text-gray-400 border border-dashed dark:border-gray-700 border-gray-300 rounded-lg">
-                    You haven't created any books yet.
-                </div>
-            )
-          )}
-      </div> */}
+      {/* (Optional) Regular Books Section - kept commented as per original */}
+      {/* <div className="w-full px-4 md:px-0 pb-12 md:pb-24"> ... </div> */}
 
       {/* Special Cards Section */}
       <div className="px-4 py-4 md:px-0 md:py-6">
         <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Featured Sections</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 md:gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 md:gap-4 mb-8"> {/* Reduced gap for mobile */}
           {specialCardsData.map((card, index) => (
             <motion.div
               key={card.id}
@@ -314,23 +372,25 @@ const CentralWorkspace = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * index, duration: 0.4 }}
               whileHover={{ y: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
-              className="h-full"
+              className="h-full" // Make sure motion div takes height
             >
               <Card
                 onClick={() => handleSpecialCardClick(card.path)}
-                className={`cursor-pointer transition-all duration-300 overflow-hidden group h-full flex flex-col justify-between ${card.bgColor} ${card.textColor || 'text-white'} shadow-md hover:shadow-lg`}
+                // Added flex flex-col to ensure content layout works correctly
+                className={`cursor-pointer transition-all duration-300 overflow-hidden group h-full flex flex-col justify-between ${card.bgColor} ${card.textColor || 'text-white'} shadow-md hover:shadow-lg rounded-lg`} // Ensure rounded corners
               >
-                <CardContent className="p-5 md:p-6 flex-grow">
-                  <h3 className="font-bold text-lg md:text-xl mb-2 group-hover:underline">
+                {/* flex-grow pushes footer down */}
+                <CardContent className="p-4 md:p-5 flex-grow">
+                  <h3 className="font-bold text-base md:text-lg mb-1.5 group-hover:underline"> {/* Adjusted text size */}
                     {card.title}
                   </h3>
-                  <p className="text-sm opacity-90 line-clamp-3">
+                  <p className="text-xs md:text-sm opacity-90 line-clamp-2 md:line-clamp-3"> {/* Adjusted text size & clamp */}
                     {card.description}
                   </p>
                 </CardContent>
-                <CardFooter className="p-4 pt-0">
-                   <div className="flex items-center justify-end w-full text-sm font-medium group-hover:translate-x-1 transition-transform duration-200 ease-in-out">
-                     Explore <ArrowRight className="ml-1.5 h-4 w-4" />
+                <CardFooter className="p-3 md:p-4 pt-0">
+                   <div className="flex items-center justify-end w-full text-xs md:text-sm font-medium group-hover:translate-x-1 transition-transform duration-200 ease-in-out">
+                     Explore <ArrowRight className="ml-1.5 h-3.5 w-3.5 md:h-4 md:w-4" /> {/* Adjusted icon size */}
                    </div>
                 </CardFooter>
               </Card>
@@ -339,19 +399,23 @@ const CentralWorkspace = () => {
         </div>
       </div>
 
-      {/* Recommended For You Grid */}
+      {/* --- INSERTED CREATORS SECTION --- */}
+      <FeaturedCreators />
+      {/* --- END CREATORS SECTION --- */}
+
+
+      {/* Recommended For You Grid / Learning Materials */}
       <div className="w-full px-4 py-4 md:px-0 md:py-6 rounded-lg mb-0 md:mb-10">
          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Learning Materials</h2>
          {searchResults.length > 0 ? (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              // Use grid with auto-rows to encourage similar heights before content loads
-              className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4" // Consistent gap
+              transition={{ delay: 0.4, duration: 0.5 }} // Delay slightly after creators
+              className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4"
             >
               {searchResults.map((item, index) => {
-                 const currentProgress = item.progress ?? 0; // Default to 0 for calculations
+                 const currentProgress = item.progress ?? 0;
                  const understandingLevel = getLevelOfUnderstanding(currentProgress);
                  const progressColor = getLevelOfUnderstandingColor(currentProgress);
 
@@ -360,47 +424,44 @@ const CentralWorkspace = () => {
                       key={item._id}
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.1 * index + 0.2, duration: 0.3 }}
-                      className="h-full flex" // Use flex on the container to ensure card takes full height
+                      transition={{ delay: 0.1 * index + 0.5, duration: 0.3 }} // Stagger after section animates
+                      className="h-full flex"
                     >
                       <ContentCard
                         onMouseEnter={isMobile ? undefined : () => setHoveredCardId(item._id)}
                         onMouseLeave={isMobile ? undefined : () => setHoveredCardId(null)}
                         onClick={() => handleCardClick(item._id)}
-                        // Ensure card itself is flex column and stretches
-                        className="w-full cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden group relative bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg flex flex-col shadow-md"
-                        // Removed fixed height (md:h-72 h-52) - let content define height within flex grid
+                        className="w-full cursor-pointer transition-shadow duration-300 overflow-hidden group relative bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg flex flex-col shadow-sm hover:shadow-md" // Added shadow consistency
                       >
-                        {/* Image Container - Fixed Aspect Ratio */}
-                        <div className="relative aspect-video w-full overflow-hidden rounded-t-lg bg-gray-200 dark:bg-gray-700 flex-shrink-0"> {/* Added flex-shrink-0 */}
-                          <img
-                            src={item.thumbnail ? `${process.env.NEXT_PUBLIC_CREATOR_URL || ''}${item.thumbnail}` : PLACEHOLDER_SVG_PATH}
-                            alt={item.title}
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            loading="lazy" // Add lazy loading
-                            onError={(e) => {
-                              if (e.currentTarget.src !== window.location.origin + PLACEHOLDER_SVG_PATH) {
-                                console.warn(`Failed to load image: ${e.currentTarget.src}. Falling back.`);
-                                e.currentTarget.onerror = null;
-                                e.currentTarget.src = PLACEHOLDER_SVG_PATH;
-                              }
-                            }}
-                          />
+                        {/* Image Container */}
+                        <div className="relative aspect-video w-full overflow-hidden rounded-t-lg bg-gray-200 dark:bg-gray-700 flex-shrink-0">
+                           {/* Using Next Image for optimization */}
+                           <Image
+                                src={item.thumbnail ? `${process.env.NEXT_PUBLIC_CREATOR_URL || ''}${item.thumbnail}` : PLACEHOLDER_SVG_PATH}
+                                alt={item.title}
+                                layout="fill" // Use layout="fill" with parent having position relative & dimensions
+                                objectFit="cover" // Like object-cover
+                                className="transition-transform duration-300 group-hover:scale-105"
+                                loading="lazy"
+                                onError={(e) => handleImageError(e, PLACEHOLDER_SVG_PATH)}
+                            />
                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </div>
 
-                        {/* Content Area - Takes remaining space */}
+                        {/* Content Area */}
                         <ContentCardContent className="p-3 md:p-4 flex flex-col flex-grow justify-between bg-gray-50 dark:bg-slate-800">
-                          {/* Top part: Title and Tags */}
+                          {/* Top part */}
                           <div className="flex-grow flex flex-col">
                             <p title={item.title} className="text-sm md:text-base font-medium line-clamp-2 group-hover:text-primary transition-colors duration-300 dark:text-gray-100 mb-1.5">
                               {item.title}
                             </p>
-                            <div className="flex flex-row items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                            {/* Tags and Progress Container */}
+                            <div className="flex flex-row items-end justify-between mt-auto pt-1"> {/* Use items-end and mt-auto */}
                               {/* Tags */}
                               {item.tags && item.tags.length > 0 && (
-                                <div className="flex flex-row flex-wrap gap-x-1.5 gap-y-1 mt-1.5 min-h-[24px]"> {/* Added min-height */}
-                                  {item.tags.slice(0, isMobile ? 2 : 3).map((tag, tagIndex) => (
+                                // Flex grow allows tags to take space, shrink prevents overflow, basis-0 starts small
+                                <div className="flex flex-row flex-wrap gap-x-1 gap-y-1 mr-2 flex-grow flex-shrink basis-0 min-w-0">
+                                  {item.tags.slice(0, isMobile ? 1 : 2).map((tag, tagIndex) => ( // Reduced tags shown slightly
                                     <span
                                       key={`${item._id}-tag-${tagIndex}`}
                                       className="inline-block text-xs px-1.5 py-0.5 dark:text-blue-300 bg-gray-200 dark:bg-slate-700 rounded-md text-gray-700 whitespace-nowrap"
@@ -410,19 +471,18 @@ const CentralWorkspace = () => {
                                   ))}
                                 </div>
                               )}
-                              {/* Bottom part: Progress Indicator (Always Rendered) */}
-                              <div className="pt-2 flex items-center justify-end text-xs text-gray-500 dark:text-gray-400 h-8 md:h-12 flex-shrink-0"> {/* Added flex-shrink-0 */}
+                              {/* Progress Indicator - flex-shrink-0 prevents it shrinking */}
+                              <div className="flex items-center justify-end text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">
                                 <ResponsiveCircularProgress
-                                    value={item.progress} // Pass raw value (or null) - component handles default
-                                    levelOfUnderstanding={understandingLevel} // Pass calculated level
-                                    color={progressColor} // Pass calculated color class
+                                    value={item.progress}
+                                    levelOfUnderstanding={understandingLevel}
+                                    color={progressColor}
                                     isHovered={hoveredCardId === item._id}
                                     alwaysShow={isMobile}
                                 />
                               </div>
                             </div>
                           </div>
-
                         </ContentCardContent>
                       </ContentCard>
                     </motion.div>
