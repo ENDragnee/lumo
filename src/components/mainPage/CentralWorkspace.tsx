@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Search, ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Footer from "@/components/footer";
@@ -33,6 +33,7 @@ interface Content {
   institution: string;
   tags?: string[];
   progress?: number;
+  description?: string; // Added description back if needed by logic
 }
 
 interface SpecialCardData {
@@ -99,7 +100,7 @@ const getLevelOfUnderstandingColor = (progress: number) => {
 }
 
 const LoadingSkeleton = () => {
-  // Add skeleton for creators
+  // Updated skeleton for creators grid
   return (
     <div className="p-8">
        {/* Special Cards Skeleton */}
@@ -112,14 +113,14 @@ const LoadingSkeleton = () => {
             </div>
        </div>
 
-       {/* Creators Skeleton */}
+       {/* Creators Skeleton (Grid) */}
        <div className="mb-8">
            <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-4 shimmer"></div>
-           <div className="flex space-x-6 overflow-hidden">
-               {Array.from({ length: 5 }).map((_, index) => (
-                  <div key={index} className="flex flex-col items-center flex-shrink-0">
-                     <div className="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700 mb-2 shimmer"></div>
-                     <div className="h-3 w-16 bg-gray-200 dark:bg-gray-700 rounded shimmer"></div>
+           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-4 md:gap-6">
+               {Array.from({ length: 7 }).map((_, index) => ( // Show more skeletons in the grid
+                  <div key={index} className="flex flex-col items-center">
+                     <div className="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 mb-3 shimmer"></div> {/* Larger avatar skeleton */}
+                     <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded shimmer"></div> {/* Slightly larger name skeleton */}
                   </div>
                ))}
            </div>
@@ -178,10 +179,61 @@ const LoadingSkeleton = () => {
 };
 
 
+const FeaturedCreators = React.memo(({ creators, onCreatorClick, onImageError }: {
+  creators: Creator[];
+  onCreatorClick: (profileUrl?: string) => void;
+  onImageError: (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackPath: string) => void;
+}) => {
+  if (creators.length === 0) return null;
+
+  console.log("Rendering FeaturedCreators"); // Add log to see when it *actually* renders
+
+  return (
+      <div className="w-full px-4 py-6 md:px-0 md:py-8">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Featured Teachers</h2>
+          <motion.div
+              // Removed initial/animate here as it should only animate once on initial load
+              // If you NEED animation on every *data* change, keep them, but it shouldn't animate on hover now.
+              transition={{ delay: 0.2, duration: 0.5 }} // Keep transition if desired for potential data load changes
+              className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-4 md:gap-6"
+          >
+              {creators.map((creator, index) => (
+                  <motion.div
+                      key={creator.id}
+                      initial={{ opacity: 0, y: 15 }} // Animate each item individually on load
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 * index + 0.3, duration: 0.4 }}
+                      whileHover={{ y: -4, scale: 1.03 }}
+                      className="flex flex-col items-center group cursor-pointer"
+                      onClick={() => onCreatorClick(creator.profileUrl)} // Use the prop function
+                  >
+                      <div className="relative mb-3">
+                          <Image
+                              src={creator.avatarUrl}
+                              alt={creator.name}
+                              width={96}
+                              height={96}
+                              className="rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 group-hover:border-primary dark:group-hover:border-primary transition-all duration-300 shadow-md group-hover:shadow-lg"
+                              onError={(e) => onImageError(e, PLACEHOLDER_AVATAR_PATH)} // Use the prop function
+                              style={{ aspectRatio: '1 / 1' }}
+                              priority={index < 7} // Prioritize loading for the first few visible images
+                          />
+                       </div>
+                      <p className="text-sm font-semibold text-center text-gray-700 dark:text-gray-300 group-hover:text-primary dark:group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                          {creator.name}
+                      </p>
+                  </motion.div>
+              ))}
+          </motion.div>
+      </div>
+  );
+});
+// Explicitly set displayName for easier debugging in React DevTools
+FeaturedCreators.displayName = 'FeaturedCreators';
 const CentralWorkspace = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  // const [rootBooks, setRootBooks] = useState<Book[]>([]); // Keep if needed, commented out based on structure
+  // const [rootBooks, setRootBooks] = useState<Book[]>([]); // Keep if needed
   const [searchResults, setSearchResults] = useState<Content[]>([]);
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -190,36 +242,10 @@ const CentralWorkspace = () => {
   const [isRecsLoading, setIsRecsLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
 
-  // Commented out Book fetching if the section is removed/commented
-  /*
-  useEffect(() => {
-    const fetchRootBooks = async () => {
-      setIsBooksLoading(true);
-      if (!fetchError) setFetchError(null);
-      try {
-        const res = await fetch("/api/drive?parentId=null&typeFilter=book");
-        if (!res.ok) {
-          const errorData = await res.json().catch(() => ({}));
-          throw new Error(errorData.error || `Failed to fetch books (Status: ${res.status})`);
-        }
-        const data = await res.json();
-        const formattedBooks = (data.items || []).map((book: any) => ({
-            ...book,
-            thumbnail: book.thumbnail || ''
-        }));
-        setRootBooks(formattedBooks);
-      } catch (err: any) {
-        console.error("Book Fetch Error:", err);
-        setFetchError(err.message || "Failed to load books");
-        setRootBooks([]);
-      } finally {
-        setIsBooksLoading(false);
-      }
-    };
-    fetchRootBooks();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  */
+  
+
+  // Commented out Book fetching
+  /* ... */
 
   useEffect(() => {
     const fetchRecommendations = async () => {
@@ -246,7 +272,7 @@ const CentralWorkspace = () => {
         );
       } catch (err: any) {
         console.error("Recommendation Fetch Error:", err);
-        if (!fetchError) { // Only set error if not already set by books fetch (if applicable)
+        if (!fetchError) {
           setFetchError(err.message || "Failed to load recommendations");
         }
         setSearchResults([]);
@@ -260,10 +286,8 @@ const CentralWorkspace = () => {
   }, []);
 
   useEffect(() => {
-    // Adjust isLoading based on which fetches are active
-    // setIsLoading(isBooksLoading || isRecsLoading); // Use this if books are fetched
-    setIsLoading(isRecsLoading); // Use this if only recommendations are fetched
-  }, [isRecsLoading]); // Add isBooksLoading here if used
+    setIsLoading(isRecsLoading);
+  }, [isRecsLoading]);
 
   const handleBookCardClick = (bookId: string) => {
     router.push(`/book/${bookId}`);
@@ -281,17 +305,15 @@ const CentralWorkspace = () => {
       if (profileUrl) {
           router.push(profileUrl);
       } else {
-          // Maybe show a toast or log that the profile is unavailable
           console.log("Creator profile URL not available.");
       }
   }
 
-  // Handle image errors gracefully
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackPath: string) => {
       const target = e.currentTarget;
       if (target.src !== `${window.location.origin}${fallbackPath}`) {
           console.warn(`Failed to load image: ${target.src}. Falling back to ${fallbackPath}.`);
-          target.onerror = null; // Prevent infinite loop if fallback fails
+          target.onerror = null;
           target.src = fallbackPath;
       }
   };
@@ -303,68 +325,17 @@ const CentralWorkspace = () => {
   const ContentCardContent = isMobile ? MobileCardContent : CardContent;
 
 
-  // --- Featured Creators Section Component ---
-  const FeaturedCreators = () => {
-    if (featuredCreatorsData.length === 0) return null; // Don't render if no creators
-
-    return (
-        <div className="px-4 py-6 md:px-0 md:py-8"> {/* Consistent padding */}
-            <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Featured Teachers</h2>
-            {/* Scrollable container */}
-            <div className="relative"> {/* Needed for potential scroll indicators if added later */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.5 }} // Adjusted delay
-                    className="flex space-x-5 md:space-x-8 overflow-x-auto pb-4 scrollbar-hide" // Added padding-bottom, scrollbar-hide utility
-                >
-                    {featuredCreatorsData.map((creator, index) => (
-                        <motion.div
-                            key={creator.id}
-                            initial={{ opacity: 0, y: 15 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 * index + 0.3, duration: 0.4 }} // Staggered animation
-                            whileHover={{ y: -4, scale: 1.03 }}
-                            className="flex flex-col items-center flex-shrink-0 w-20 group cursor-pointer" // Fixed width for consistency
-                            onClick={() => handleCreatorClick(creator.profileUrl)}
-                        >
-                            <div className="relative mb-2">
-                                <Image
-                                    src={creator.avatarUrl}
-                                    alt={creator.name}
-                                    width={128} // Specify size (e.g., w-16 = 64px)
-                                    height={128} // Specify size (e.g., h-16 = 64px)
-                                    className="rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 group-hover:border-primary dark:group-hover:border-primary transition-all duration-300 shadow-sm group-hover:shadow-md"
-                                    onError={(e) => handleImageError(e, PLACEHOLDER_AVATAR_PATH)}
-                                />
-                                {/* Optional: Online status indicator */}
-                                {/* <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-green-500 border-2 border-white dark:border-gray-800 ring-white ring-1"></span> */}
-                             </div>
-                            <p className="text-sm font-bold text-center text-gray-600 dark:text-gray-300 group-hover:text-primary dark:group-hover:text-primary transition-colors duration-300 line-clamp-2">
-                                {creator.name}
-                            </p>
-                        </motion.div>
-                    ))}
-                </motion.div>
-                {/* Optional: Add fade overlays for scroll indication if needed */}
-            </div>
-        </div>
-    );
-  }
-  // --- End Featured Creators Section ---
+  // --- Removed redundant FeaturedCreators definition ---
 
 
   return (
     <div className="flex flex-col flex-auto p-4 pb-16 md:p-4 md:pb-4 overflow-y-auto dark:bg-gray-800 bg-white">
       <SearchForm />
 
-      {/* (Optional) Regular Books Section - kept commented as per original */}
-      {/* <div className="w-full px-4 md:px-0 pb-12 md:pb-24"> ... </div> */}
-
       {/* Special Cards Section */}
       <div className="px-4 py-4 md:px-0 md:py-6">
         <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Featured Sections</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 md:gap-4 mb-8"> {/* Reduced gap for mobile */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 md:gap-4 mb-8">
           {specialCardsData.map((card, index) => (
             <motion.div
               key={card.id}
@@ -372,25 +343,23 @@ const CentralWorkspace = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * index, duration: 0.4 }}
               whileHover={{ y: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
-              className="h-full" // Make sure motion div takes height
+              className="h-full"
             >
               <Card
                 onClick={() => handleSpecialCardClick(card.path)}
-                // Added flex flex-col to ensure content layout works correctly
-                className={`cursor-pointer transition-all duration-300 overflow-hidden group h-full flex flex-col justify-between ${card.bgColor} ${card.textColor || 'text-white'} shadow-md hover:shadow-lg rounded-lg`} // Ensure rounded corners
+                className={`cursor-pointer transition-all duration-300 overflow-hidden group h-full flex flex-col justify-between ${card.bgColor} ${card.textColor || 'text-white'} shadow-md hover:shadow-lg rounded-lg`}
               >
-                {/* flex-grow pushes footer down */}
                 <CardContent className="p-4 md:p-5 flex-grow">
-                  <h3 className="font-bold text-base md:text-lg mb-1.5 group-hover:underline"> {/* Adjusted text size */}
+                  <h3 className="font-bold text-base md:text-lg mb-1.5 group-hover:underline">
                     {card.title}
                   </h3>
-                  <p className="text-xs md:text-sm opacity-90 line-clamp-2 md:line-clamp-3"> {/* Adjusted text size & clamp */}
+                  <p className="text-xs md:text-sm opacity-90 line-clamp-2 md:line-clamp-3">
                     {card.description}
                   </p>
                 </CardContent>
                 <CardFooter className="p-3 md:p-4 pt-0">
                    <div className="flex items-center justify-end w-full text-xs md:text-sm font-medium group-hover:translate-x-1 transition-transform duration-200 ease-in-out">
-                     Explore <ArrowRight className="ml-1.5 h-3.5 w-3.5 md:h-4 md:w-4" /> {/* Adjusted icon size */}
+                     Explore <ArrowRight className="ml-1.5 h-3.5 w-3.5 md:h-4 md:w-4" />
                    </div>
                 </CardFooter>
               </Card>
@@ -399,9 +368,13 @@ const CentralWorkspace = () => {
         </div>
       </div>
 
-      {/* --- INSERTED CREATORS SECTION --- */}
-      <FeaturedCreators />
-      {/* --- END CREATORS SECTION --- */}
+      {/* --- INSERTED & MODIFIED CREATORS SECTION --- */}
+      {/* --- Render the Standalone Creators Section --- */}
+      <FeaturedCreators
+        creators={featuredCreatorsData}
+        onCreatorClick={handleCreatorClick}
+        onImageError={handleImageError}
+      />      {/* --- END CREATORS SECTION --- */}
 
 
       {/* Recommended For You Grid / Learning Materials */}
@@ -411,7 +384,7 @@ const CentralWorkspace = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.5 }} // Delay slightly after creators
+              transition={{ delay: 0.4, duration: 0.5 }}
               className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4"
             >
               {searchResults.map((item, index) => {
@@ -424,44 +397,36 @@ const CentralWorkspace = () => {
                       key={item._id}
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.1 * index + 0.5, duration: 0.3 }} // Stagger after section animates
+                      transition={{ delay: 0.1 * index + 0.5, duration: 0.3 }}
                       className="h-full flex"
                     >
                       <ContentCard
                         onMouseEnter={isMobile ? undefined : () => setHoveredCardId(item._id)}
                         onMouseLeave={isMobile ? undefined : () => setHoveredCardId(null)}
                         onClick={() => handleCardClick(item._id)}
-                        className="w-full cursor-pointer transition-shadow duration-300 overflow-hidden group relative bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg flex flex-col shadow-sm hover:shadow-md" // Added shadow consistency
+                        className="w-full cursor-pointer transition-shadow duration-300 overflow-hidden group relative bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg flex flex-col shadow-sm hover:shadow-md"
                       >
-                        {/* Image Container */}
                         <div className="relative aspect-video w-full overflow-hidden rounded-t-lg bg-gray-200 dark:bg-gray-700 flex-shrink-0">
-                           {/* Using Next Image for optimization */}
                            <Image
                                 src={item.thumbnail ? `${process.env.NEXT_PUBLIC_CREATOR_URL || ''}${item.thumbnail}` : PLACEHOLDER_SVG_PATH}
                                 alt={item.title}
-                                layout="fill" // Use layout="fill" with parent having position relative & dimensions
-                                objectFit="cover" // Like object-cover
+                                layout="fill"
+                                objectFit="cover"
                                 className="transition-transform duration-300 group-hover:scale-105"
                                 loading="lazy"
                                 onError={(e) => handleImageError(e, PLACEHOLDER_SVG_PATH)}
                             />
                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </div>
-
-                        {/* Content Area */}
                         <ContentCardContent className="p-3 md:p-4 flex flex-col flex-grow justify-between bg-gray-50 dark:bg-slate-800">
-                          {/* Top part */}
                           <div className="flex-grow flex flex-col">
                             <p title={item.title} className="text-sm md:text-base font-medium line-clamp-2 group-hover:text-primary transition-colors duration-300 dark:text-gray-100 mb-1.5">
                               {item.title}
                             </p>
-                            {/* Tags and Progress Container */}
-                            <div className="flex flex-row items-end justify-between mt-auto pt-1"> {/* Use items-end and mt-auto */}
-                              {/* Tags */}
+                            <div className="flex flex-row items-end justify-between mt-auto pt-1">
                               {item.tags && item.tags.length > 0 && (
-                                // Flex grow allows tags to take space, shrink prevents overflow, basis-0 starts small
                                 <div className="flex flex-row flex-wrap gap-x-1 gap-y-1 mr-2 flex-grow flex-shrink basis-0 min-w-0">
-                                  {item.tags.slice(0, isMobile ? 1 : 2).map((tag, tagIndex) => ( // Reduced tags shown slightly
+                                  {item.tags.slice(0, isMobile ? 1 : 2).map((tag, tagIndex) => (
                                     <span
                                       key={`${item._id}-tag-${tagIndex}`}
                                       className="inline-block text-xs px-1.5 py-0.5 dark:text-blue-300 bg-gray-200 dark:bg-slate-700 rounded-md text-gray-700 whitespace-nowrap"
@@ -471,7 +436,6 @@ const CentralWorkspace = () => {
                                   ))}
                                 </div>
                               )}
-                              {/* Progress Indicator - flex-shrink-0 prevents it shrinking */}
                               <div className="flex items-center justify-end text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">
                                 <ResponsiveCircularProgress
                                     value={item.progress}
@@ -490,7 +454,6 @@ const CentralWorkspace = () => {
               })}
             </motion.div>
           ) : (
-            // No recommendations found message
             !isLoading && !fetchError && (
                 <div className="text-center col-span-full py-10 text-gray-500 dark:text-gray-400 border border-dashed dark:border-gray-700 border-gray-300 rounded-lg">
                     No recommendations found at the moment. Explore other sections!
