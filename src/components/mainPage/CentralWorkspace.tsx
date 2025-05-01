@@ -61,6 +61,22 @@ const specialCardsData: SpecialCardData[] = [
   },
 ];
 
+const levelOfUnderstanding = [ "None", "Needs working", "Intermediate", "Good", "Excellent" ];
+const getLevelOfUnderstanding = (progress: number) => {
+  if (progress < 20) return levelOfUnderstanding[0];
+  else if (progress < 40) return levelOfUnderstanding[1];
+  else if (progress < 60) return levelOfUnderstanding[2];
+  else if (progress < 80) return levelOfUnderstanding[3];
+  else return levelOfUnderstanding[4];
+}
+const getLevelOfUnderstandingColor = (progress: number) => {
+  if (progress < 20) return "text-red-500";
+  else if (progress < 40) return "text-orange-500";
+  else if (progress < 60) return "text-yellow-500";
+  else if (progress < 80) return "text-green-500";
+  else return "text-blue-500";
+}
+
 const LoadingSkeleton = () => {
   // ... (keep existing LoadingSkeleton code)
   return (
@@ -175,7 +191,7 @@ const CentralWorkspace = () => {
             institution: item.institution || 'Unknown', // Assuming these ARE top-level in recommendations API
             // Adjust description/progress based on actual recommendations API response structure
             description: item.description || "", // Example: if description is top-level
-            progress: item.progress || 0,       // Example: if progress is top-level
+            progress: item.progress,       // Example: if progress is top-level
             tags: item.tags || [], // <--- CORRECTED LINE: Access item.tags directly
           }))
         );
@@ -331,80 +347,93 @@ const CentralWorkspace = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-2"
+              // Use grid with auto-rows to encourage similar heights before content loads
+              className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4" // Consistent gap
             >
-              {searchResults.map((item, index) => (
-                <motion.div
-                  key={item._id}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.1 * index + 0.2, duration: 0.3 }}
-                  className="h-full"
-                >
-                  <ContentCard
-                    onMouseEnter={isMobile ? undefined : () => setHoveredCardId(item._id)}
-                    onMouseLeave={isMobile ? undefined : () => setHoveredCardId(null)}
-                    onClick={() => handleCardClick(item._id)}
-                    className="cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden group relative bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg flex flex-col md:h-72 h-52 shadow-md"
-                  >
-                    <div className="relative aspect-video overflow-hidden rounded-t-lg bg-gray-200 dark:bg-gray-700 h-4/5"> {/* Added fallback bg */}
-                      {/* Construct the primary source URL */}
-                      {/* Ensure item.thumbnail is not empty before constructing URL */}
-                      <img
-                        src={item.thumbnail ? `${process.env.NEXT_PUBLIC_CREATOR_URL || ''}${item.thumbnail}` : PLACEHOLDER_SVG_PATH}
-                        alt={item.title}
-                        className="w-full min-h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        onError={(e) => {
-                          // Only set fallback if the current src isn't already the fallback
-                          if (e.currentTarget.src !== window.location.origin + PLACEHOLDER_SVG_PATH) {
-                            console.warn(`Failed to load image: ${e.currentTarget.src}. Falling back to placeholder.`);
-                            e.currentTarget.onerror = null; // Prevent future error triggers for this element
-                            e.currentTarget.src = PLACEHOLDER_SVG_PATH; // Use constant
-                            e.currentTarget.classList.add('image-fallback'); // Optional class for styling
-                          }
-                        }}
-                      />
-                       <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <ContentCardContent className="p-4 flex flex-col justify-between flex-grow bg-gray-50 dark:bg-slate-800">
-                      <div>
-                        <p className="text-sm md:text-base line-clamp-2 group-hover:text-primary transition-colors duration-300 dark:text-gray-100 ">
-                          {item.title}
-                        </p>
+              {searchResults.map((item, index) => {
+                 const currentProgress = item.progress ?? 0; // Default to 0 for calculations
+                 const understandingLevel = getLevelOfUnderstanding(currentProgress);
+                 const progressColor = getLevelOfUnderstandingColor(currentProgress);
 
-                        {/* Check if tags exist and have items */}
-                        {item.tags && item.tags.length > 0 && (
-                          // Parent flex container: Apply flex properties here
-                          <div className="flex flex-row flex-wrap gap-x-1.5 gap-y-1 mt-1.5"> {/* Add flex, wrap, gap, and margin-top */}
-                            {/* Map through the tags directly inside the flex container */}
-                            {item.tags.map((tag, index) => (
-                              // Render each tag - using span might be more semantic, but p works too
-                              <span // Changed to span, but p is fine too
-                                key={`${item._id}-tag-${index}`} // Key remains on the mapped element
-                                className="inline-block text-xs px-1.5 py-0.5 dark:text-blue-300 bg-gray-200 dark:bg-slate-700 rounded-md text-gray-700 whitespace-nowrap" // Adjusted styling
-                              >
-                                {tag}
-                              </span>
-                            ))}
+                 return (
+                    <motion.div
+                      key={item._id}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.1 * index + 0.2, duration: 0.3 }}
+                      className="h-full flex" // Use flex on the container to ensure card takes full height
+                    >
+                      <ContentCard
+                        onMouseEnter={isMobile ? undefined : () => setHoveredCardId(item._id)}
+                        onMouseLeave={isMobile ? undefined : () => setHoveredCardId(null)}
+                        onClick={() => handleCardClick(item._id)}
+                        // Ensure card itself is flex column and stretches
+                        className="w-full cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden group relative bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg flex flex-col shadow-md"
+                        // Removed fixed height (md:h-72 h-52) - let content define height within flex grid
+                      >
+                        {/* Image Container - Fixed Aspect Ratio */}
+                        <div className="relative aspect-video w-full overflow-hidden rounded-t-lg bg-gray-200 dark:bg-gray-700 flex-shrink-0"> {/* Added flex-shrink-0 */}
+                          <img
+                            src={item.thumbnail ? `${process.env.NEXT_PUBLIC_CREATOR_URL || ''}${item.thumbnail}` : PLACEHOLDER_SVG_PATH}
+                            alt={item.title}
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            loading="lazy" // Add lazy loading
+                            onError={(e) => {
+                              if (e.currentTarget.src !== window.location.origin + PLACEHOLDER_SVG_PATH) {
+                                console.warn(`Failed to load image: ${e.currentTarget.src}. Falling back.`);
+                                e.currentTarget.onerror = null;
+                                e.currentTarget.src = PLACEHOLDER_SVG_PATH;
+                              }
+                            }}
+                          />
+                           <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+
+                        {/* Content Area - Takes remaining space */}
+                        <ContentCardContent className="p-3 md:p-4 flex flex-col flex-grow justify-between bg-gray-50 dark:bg-slate-800">
+                          {/* Top part: Title and Tags */}
+                          <div className="flex-grow flex flex-col">
+                            <p title={item.title} className="text-sm md:text-base font-medium line-clamp-2 group-hover:text-primary transition-colors duration-300 dark:text-gray-100 mb-1.5">
+                              {item.title}
+                            </p>
+                            <div className="flex flex-row items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                              {/* Tags */}
+                              {item.tags && item.tags.length > 0 && (
+                                <div className="flex flex-row flex-wrap gap-x-1.5 gap-y-1 mt-1.5 min-h-[24px]"> {/* Added min-height */}
+                                  {item.tags.slice(0, isMobile ? 2 : 3).map((tag, tagIndex) => (
+                                    <span
+                                      key={`${item._id}-tag-${tagIndex}`}
+                                      className="inline-block text-xs px-1.5 py-0.5 dark:text-blue-300 bg-gray-200 dark:bg-slate-700 rounded-md text-gray-700 whitespace-nowrap"
+                                    >
+                                      {tag}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                              {/* Bottom part: Progress Indicator (Always Rendered) */}
+                              <div className="pt-2 flex items-center justify-end text-xs text-gray-500 dark:text-gray-400 h-8 md:h-12 flex-shrink-0"> {/* Added flex-shrink-0 */}
+                                <ResponsiveCircularProgress
+                                    value={item.progress} // Pass raw value (or null) - component handles default
+                                    levelOfUnderstanding={understandingLevel} // Pass calculated level
+                                    color={progressColor} // Pass calculated color class
+                                    isHovered={hoveredCardId === item._id}
+                                    alwaysShow={isMobile}
+                                />
+                              </div>
+                            </div>
                           </div>
-                        )}
 
-                      </div>
-                       <div className="pt-2 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                         {/* <span className="truncate pr-2 dark:text-blue-400 bg-gray-200 dark:bg-slate-700 rounded-md">{item.institution || 'General'}</span> */}
-                         {item.progress !== undefined && item.progress > 0 && (
-                           <ResponsiveCircularProgress value={item.progress} isHovered={hoveredCardId === item._id}/>
-                         )}
-                      </div>
-                    </ContentCardContent>
-                  </ContentCard>
-                </motion.div>
-              ))}
+                        </ContentCardContent>
+                      </ContentCard>
+                    </motion.div>
+                 );
+              })}
             </motion.div>
           ) : (
+            // No recommendations found message
             !isLoading && !fetchError && (
-                <div className="text-center py-10 text-gray-500 dark:text-gray-400 border border-dashed dark:border-gray-700 border-gray-300 rounded-lg">
-                    No recommendations found at the moment.
+                <div className="text-center col-span-full py-10 text-gray-500 dark:text-gray-400 border border-dashed dark:border-gray-700 border-gray-300 rounded-lg">
+                    No recommendations found at the moment. Explore other sections!
                 </div>
             )
           )}
