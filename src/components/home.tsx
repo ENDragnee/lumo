@@ -107,7 +107,7 @@ export default function LandingPage() {
         // Removed dark theme toggling logic, forcing dark mode
         <div className="dark"> {/* Force dark mode */}
              {/* Persistent Background */}
-            <div className="fixed inset-0 -z-10 h-full w-full bg-gradient-to-b from-[#0a0f1f] to-[#0f172a] bg-[linear-gradient(to_right,#1e293b20_1px,transparent_1px),linear-gradient(to_bottom,#1e293b20_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-70"></div> {/* Dark gradient + subtle grid */}
+            <div className="fixed inset-0 -z-10 h-full w-full from-[#0a0f1f] to-[#0f172a] bg-[linear-gradient(to_right,#1e293b20_1px,transparent_1px),linear-gradient(to_bottom,#1e293b20_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-70"></div> {/* Dark gradient + subtle grid */}
 
             {/* Scroll Visual Element */}
             <ScrollVisualStory />
@@ -127,8 +127,8 @@ export default function LandingPage() {
                         <nav className="hidden md:flex items-center space-x-3">
                             <Button variant="link" size="sm" onClick={() => scrollToSection('features')} className="text-gray-300 hover:text-white text-sm">Features</Button>
                             <Button variant="link" size="sm" onClick={() => scrollToSection('contact')} className="text-gray-300 hover:text-white text-sm">Contact</Button>
-                            <Button variant="ghost" size="sm" onClick={() => router.push('/signin')} className="text-gray-300 hover:text-white hover:bg-slate-700/50 text-sm px-3 py-1.5 rounded-md">Sign In</Button>
-                            <Button onClick={() => router.push('/signup')} className={`${primaryButtonStyle} text-sm px-4 py-1.5`}>
+                            <Button variant="ghost" size="sm" onClick={() => router.push('/auth/signin')} className="text-gray-300 hover:text-white hover:bg-slate-700/50 text-sm px-3 py-1.5 rounded-md">Sign In</Button>
+                            <Button onClick={() => router.push('/auth/signup')} className={`${primaryButtonStyle} text-sm px-4 py-1.5`}>
                                 Get Early Access <ChevronRight className="h-4 w-4" />
                             </Button>
                         </nav>
@@ -166,7 +166,7 @@ export default function LandingPage() {
                             <motion.div
                                 variants={fadeIn('up', 0.4, 0.6)} initial="hidden" whileInView="show" viewport={{ once: true }}
                             >
-                                <Button onClick={() => router.push('/signup')} className={`${primaryButtonStyle} text-base px-6 py-2.5`}>
+                                <Button onClick={() => router.push('/auth/signup')} className={`${primaryButtonStyle} text-base px-6 py-2.5`}>
                                     Get Early Access <ChevronRight className="h-5 w-5" />
                                 </Button>
                             </motion.div>
