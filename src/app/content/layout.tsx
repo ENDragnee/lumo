@@ -20,6 +20,8 @@ import BottomNavbar from "@/components/mainPage/BottomNavbar"
 // Use consistent icons for Recommendation Toggle
 import { PanelLeftOpen, PanelLeftClose, PanelRightOpen, PanelRightClose, LayoutList } from "lucide-react";
 import { cn } from "@/lib/utils"
+import 'katex/dist/katex.min.css'; // Add this line
+
 
 // **** USE SCROLL DIRECTION HOOK ****
 const useScrollDirection = () => {
