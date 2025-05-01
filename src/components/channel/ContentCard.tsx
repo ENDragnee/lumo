@@ -1,5 +1,7 @@
 import { ContentItem } from '@/types/creator'; // Adjust import path
+import { on } from 'events';
 // import { FaBook, FaPlayCircle, FaList } from 'react-icons/fa'; // Example using react-icons
+import { useRouter } from 'next/navigation';
 
 interface CardProps {
     item: ContentItem;
@@ -7,6 +9,7 @@ interface CardProps {
 }
 
 export default function ContentCard({ item, layout }: CardProps) {
+    const router = useRouter();
     // Placeholder for content type icon
     const ContentIcon = () => {
         switch (item.type) {
@@ -21,7 +24,17 @@ export default function ContentCard({ item, layout }: CardProps) {
     const hoverEffect = "transition-transform duration-200 ease-in-out hover:scale-105";
     // Add group for potential hover effects on children
     return (
-        <div className={`bg-gray-200 dark:bg-[#2A3A3C] rounded-lg overflow-hidden shadow-md group ${layout !== 'carousel-mobile' ? hoverEffect : ''}`}>
+        <div className={`bg-gray-200 dark:bg-[#2A3A3C] rounded-lg overflow-hidden shadow-md group ${layout !== 'carousel-mobile' ? hoverEffect : ''}` }
+            onClick={() => router.push(`/content?contentId=${item._id}`)} // Navigate to content detail page
+            onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                    router.push(`/content?contentId=${item._id}`);
+                }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={`View details for ${item.title}`}
+        >
             <div className="relative">
                  <img
                     src={`${process.env.NEXT_PUBLIC_CREATOR_URL}${item.thumbnail}`}

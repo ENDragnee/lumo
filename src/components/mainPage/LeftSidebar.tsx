@@ -196,7 +196,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
   return (
     <motion.div
       ref={sidebarRef}
-      className="h-full flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-300 scrollbar-track-transparent dark:scrollbar-thumb-neutral-700 border-r rounded-lg bg-neutral-100 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700"
+      className="h-full flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-300 scrollbar-track-transparent dark:scrollbar-thumb-neutral-700 border-r rounded-lg bg-gray-200 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700"
       initial={{ width: isCollapsed ? 80 : 260 }} // Consistent width
       animate={{ width: isCollapsed ? 80 : 260 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}

@@ -7,6 +7,8 @@ import { Eye, GraduationCap, Star, X } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 // Removed useMediaQuery as direct conditional classes handle responsiveness well
 
 // Extend NextAuth session type to include user ID
@@ -41,6 +43,7 @@ export default function RecommendedContent({ isOpen = false, toggleOpen }: Recom
   const [recommendations, setRecommendations] = useState<RecommendedItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const fetchRecommendations = async () => {
@@ -161,55 +164,57 @@ export default function RecommendedContent({ isOpen = false, toggleOpen }: Recom
             ) : (
               recommendations.map((item) => (
                 // Improved Card Styling
-                <Link
-                  key={item._id}
-                  href={`/content?id=${item._id}`}
-                  className="group block bg-white dark:bg-[#31333c] border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-md dark:hover:bg-[#3b3e48] rounded-lg p-2.5 transition-all duration-200"
-                  onClick={toggleOpen} // Optional: Close sidebar when clicking a link
-                >
-                  <div className="relative aspect-[16/10] rounded-md overflow-hidden mb-2.5">
-                    {item.thumbnail ? (
-                      <img
-                          src={`${process.env.NEXT_PUBLIC_CREATOR_URL}${item.thumbnail}`}
-                          alt={item.title}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          loading="lazy"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
-                          <span className="text-gray-500 dark:text-gray-400 text-sm font-medium">Preview N/A</span>
+                <div onClick={() => {router.push(`/content?id=${item._id}`); toggleOpen}} key={item._id} className="w-full cursor-pointer">
+                  {/* <Link
+                    key={item._id}
+                    href={`/content?id=${item._id}`}
+                    className="group block bg-white dark:bg-[#31333c] border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-md dark:hover:bg-[#3b3e48] rounded-lg p-2.5 transition-all duration-200"
+                    onClick={toggleOpen} // Optional: Close sidebar when clicking a link
+                  > */}
+                    <div className="relative aspect-[16/10] rounded-md overflow-hidden mb-2.5">
+                      {item.thumbnail ? (
+                        <img
+                            src={`${process.env.NEXT_PUBLIC_CREATOR_URL}${item.thumbnail}`}
+                            alt={item.title}
+                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            loading="lazy"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
+                            <span className="text-gray-500 dark:text-gray-400 text-sm font-medium">Preview N/A</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <h3 className="font-semibold text-sm text-gray-800 dark:text-gray-100 line-clamp-2 mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                      {item.title}
+                    </h3>
+
+                    <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-1.5">
+                      <GraduationCap className="h-3.5 w-3.5 mr-1.5 flex-shrink-0" />
+                      <span className="line-clamp-1" title={item.institution}>{item.institution || 'Unknown Institution'}</span>
+                    </div>
+
+                    <div className="flex justify-between items-center text-xs text-gray-500 dark:text-gray-400">
+                      <div className="flex items-center" title={`${item.views > 0 || item.views != undefined ? item.views : 0} views`}>
+                        <Eye className="h-3.5 w-3.5 mr-1" />
+                        {formatViews(item.views)}
+                      </div>
+                      <div className="flex items-center" title={`${formatPassRate(item.passRate)}`}>
+                        <Star className="h-3.5 w-3.5 mr-1 text-yellow-500" />
+                        {formatPassRate(item.passRate)}
+                      </div>
+                    </div>
+
+                    {item.subject && (
+                      <div className="mt-2">
+                          <span className="inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-medium px-2 py-0.5 rounded-full">
+                            {item.subject}
+                          </span>
                       </div>
                     )}
-                  </div>
-
-                  <h3 className="font-semibold text-sm text-gray-800 dark:text-gray-100 line-clamp-2 mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400">
-                    {item.title}
-                  </h3>
-
-                  <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-1.5">
-                    <GraduationCap className="h-3.5 w-3.5 mr-1.5 flex-shrink-0" />
-                    <span className="line-clamp-1" title={item.institution}>{item.institution || 'Unknown Institution'}</span>
-                  </div>
-
-                  <div className="flex justify-between items-center text-xs text-gray-500 dark:text-gray-400">
-                    <div className="flex items-center" title={`${item.views} views`}>
-                      <Eye className="h-3.5 w-3.5 mr-1" />
-                      {formatViews(item.views)}
-                    </div>
-                    <div className="flex items-center" title={`${formatPassRate(item.passRate)}`}>
-                      <Star className="h-3.5 w-3.5 mr-1 text-yellow-500" />
-                      {formatPassRate(item.passRate)}
-                    </div>
-                  </div>
-
-                  {item.subject && (
-                     <div className="mt-2">
-                        <span className="inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-medium px-2 py-0.5 rounded-full">
-                           {item.subject}
-                        </span>
-                     </div>
-                  )}
-                </Link>
+                  {/* </Link> */}
+                </div>
               ))
             )}
           </div>
