@@ -37,7 +37,7 @@ export default function Providers({ children }: { children: ReactNode }) {
   if (!isSidebarVisible) {
     return (
       <SessionProvider>
-        <ThemeProvider attribute="class" enableSystem defaultTheme="light">
+        <ThemeProvider attribute="class" defaultTheme="light">
           <Toaster position="top-center" expand={false} richColors className="mt-10" />
           {children}
         </ThemeProvider>
