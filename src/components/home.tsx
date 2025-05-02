@@ -3,28 +3,54 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label"; // Keep Label for form accessibility
+// import { Label } from "@/components/ui/label"; // Keep Label if using elsewhere, otherwise remove if unused
 import { Textarea } from "@/components/ui/textarea";
 import {
     Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-    GraduationCap, Lightbulb, Zap, Rocket, MoveRight, ChevronRight, Menu, Sun, Moon, // ChevronRight for buttons
+    GraduationCap, Lightbulb, Zap, Rocket, MoveRight, ChevronRight, Menu, X, Sun, Moon, // Added X for close icon
     PenSquare, DraftingCompass, BrainCircuit, Computer, ShieldCheck, Feather, School, Building,
     Video, AudioWaveform, Puzzle, ListChecks, Users, BarChart, Bot, BookOpen, Target, // Target for Focus Tools
     Mail, Phone, Linkedin, Github, Layers // Layers for Accessible Tech
 } from 'lucide-react';
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { motion, useScroll, useTransform } from "framer-motion";
+// Import AnimatePresence and motion
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 
-// --- Animation Variants (Keep as is or adjust timings) ---
-const fadeIn = (direction = 'up', delay = 0, duration = 0.5) => ({ /* ... */ });
-const staggerContainer = (staggerChildren = 0.1, delayChildren = 0) => ({ /* ... */ });
+// --- Animation Variants ---
+const fadeIn = (direction = 'up', delay = 0, duration = 0.5) => ({
+    hidden: {
+        opacity: 0,
+        y: direction === 'up' ? 20 : direction === 'down' ? -20 : 0,
+        x: direction === 'left' ? 20 : direction === 'right' ? -20 : 0,
+    },
+    show: {
+        opacity: 1,
+        y: 0,
+        x: 0,
+        transition: {
+            type: 'spring', // Or 'tween'
+            duration: duration,
+            delay: delay,
+            ease: 'easeOut'
+        }
+    }
+});
+const staggerContainer = (staggerChildren = 0.1, delayChildren = 0) => ({
+    hidden: {},
+    show: {
+        transition: {
+            staggerChildren: staggerChildren,
+            delayChildren: delayChildren,
+        }
+    }
+});
 // --- (End Animation Variants) ---
 
 
-// --- New Scroll-Linked Visual Component ---
+// --- Scroll-Linked Visual Component ---
 function ScrollVisualStory() {
     const targetRef = useRef<HTMLDivElement | null>(null);
     const { scrollYProgress } = useScroll({
@@ -32,22 +58,18 @@ function ScrollVisualStory() {
         offset: ["start start", "end end"] // Track scroll progress across the entire target container
     });
 
-    // Example: Animate the length of an SVG path
-    // Adjust the 'd' attribute to create a path that visually spans your page height
-    // The path starts off-screen top-left-ish and curves/moves down towards bottom-right-ish
+    // Animate the length of an SVG path
     const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
-    const pathDraw = useTransform(scrollYProgress, value => `path(${value * 100}%)`); // Example - may need different transform
 
     return (
         <motion.div
             ref={targetRef}
             className="fixed inset-0 z-0 pointer-events-none" // Position behind content, ignore pointer
-            // style={{ clipPath: pathDraw }} // Example usage of clip-path
         >
-            {/* Option 1: SVG Path Animation */}
+            {/* SVG Path Animation */}
              <svg width="100%" height="100%" viewBox="0 0 50 1000" preserveAspectRatio="none" className="absolute top-0 left-0 w-full h-full">
                  <motion.path
-                    d="M 10 0 Q 40 250, 10 500 T 40 1000" // Example simple S-curve path - NEEDS ADJUSTMENT FOR YOUR LAYOUT
+                    d="M 10 0 Q 40 250, 10 500 T 40 1000" // Example S-curve path
                     fill="none"
                     stroke="url(#line-gradient)" // Apply gradient stroke
                     strokeWidth="1.5" // Thinner line
@@ -63,9 +85,6 @@ function ScrollVisualStory() {
                     </linearGradient>
                  </defs>
             </svg>
-
-            {/* Option 2: Animated Gradient Blob (more complex) */}
-            {/* <motion.div className="absolute ... bg-gradient-radial ... " style={{ opacity: scrollYProgress, scale: ... }} /> */}
         </motion.div>
     );
 }
@@ -76,38 +95,56 @@ export default function LandingPage() {
     const { data: session } = useSession();
     const [isMobile, setIsMobile] = useState(false);
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for mobile menu visibility
 
     useEffect(() => {
         // Set default theme to dark
         document.documentElement.classList.add('dark');
-        // Basic mobile check
-        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+
+        // Check mobile status on mount and resize
+        const checkMobile = () => {
+            const mobile = window.innerWidth < 768;
+            setIsMobile(mobile);
+            if (!mobile) {
+                setIsMobileMenuOpen(false); // Automatically close mobile menu if resizing to desktop
+            }
+        };
         checkMobile();
         window.addEventListener('resize', checkMobile);
+
+        // Cleanup listener on component unmount
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log("Contact Form Submitted:", formData);
-        alert("Message sent! (Logged to console)");
-        setFormData({ name: '', email: '', message: '' });
+        // Replace with actual form submission logic (e.g., API call)
+        alert("Message sent! (Check browser console for data)");
+        setFormData({ name: '', email: '', message: '' }); // Reset form
     };
 
+    // Function to scroll to a section smoothly and close mobile menu
     const scrollToSection = (id: string) => {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        setIsMobileMenuOpen(false); // Close menu when a section link is clicked
     };
 
-    // Define common button style based on PDF
+    // Function to navigate using router and close mobile menu
+    const navigateAndCloseMenu = (path: string) => {
+        router.push(path);
+        setIsMobileMenuOpen(false);
+    };
+
+    // Define common button styles
     const primaryButtonStyle = "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-2 px-5 rounded-md inline-flex items-center gap-1.5 transition duration-200 ease-in-out";
     const secondaryButtonStyle = "border border-purple-500/50 hover:border-purple-500/80 hover:bg-purple-500/10 text-purple-300 font-semibold py-2 px-5 rounded-md inline-flex items-center gap-1.5 transition duration-200 ease-in-out";
 
-
     return (
-        // Removed dark theme toggling logic, forcing dark mode
-        <div className="dark"> {/* Force dark mode */}
-             {/* Persistent Background */}
-            <div className="fixed inset-0 -z-10 h-full w-full from-[#0a0f1f] to-[#0f172a] bg-[linear-gradient(to_right,#1e293b20_1px,transparent_1px),linear-gradient(to_bottom,#1e293b20_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-70"></div> {/* Dark gradient + subtle grid */}
+        // Force dark mode
+        <div className="dark">
+            {/* Persistent Background */}
+            <div className="fixed inset-0 -z-10 h-full w-full from-[#0a0f1f] to-[#0f172a] bg-[linear-gradient(to_right,#1e293b20_1px,transparent_1px),linear-gradient(to_bottom,#1e293b20_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-70"></div>
 
             {/* Scroll Visual Element */}
             <ScrollVisualStory />
@@ -119,7 +156,7 @@ export default function LandingPage() {
                     <div className="flex items-center justify-between w-full max-w-7xl">
                         {/* Logo */}
                         <a className="flex items-center group" href="#">
-                             <GraduationCap className="h-6 w-6 text-blue-400" /> {/* Adjusted icon color */}
+                             <GraduationCap className="h-6 w-6 text-blue-400" />
                              <span className="ml-2 text-xl font-bold tracking-tight text-white">Lumo</span>
                         </a>
 
@@ -135,16 +172,69 @@ export default function LandingPage() {
 
                         {/* Mobile Menu Button */}
                         <div className="md:hidden">
-                            <Button variant="ghost" size="icon" className="text-gray-300 hover:bg-slate-700/50">
-                                <Menu className="h-6 w-6" /> {/* TODO: Implement mobile menu */}
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="text-gray-300 hover:bg-slate-700/50"
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} // Toggle mobile menu state
+                                aria-label="Toggle menu" // Accessibility label
+                                aria-expanded={isMobileMenuOpen} // Accessibility state
+                            >
+                                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                             </Button>
                         </div>
                     </div>
+
+                    {/* --- Mobile Menu Panel --- */}
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.div
+                                key="mobile-menu" // Unique key for AnimatePresence tracking
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="absolute top-16 left-0 right-0 bg-[#0a0f1f]/95 backdrop-blur-md border-b border-slate-700/50 shadow-lg z-40 overflow-hidden md:hidden" // Styles for the mobile menu panel, hidden on medium screens and up
+                            >
+                                <nav className="flex flex-col p-4 space-y-3">
+                                    {/* Optional: Add other links if desired for mobile */}
+                                    
+                                    <Button
+                                        variant="ghost"
+                                        onClick={() => scrollToSection('features')}
+                                        className="w-full justify-start text-gray-200 hover:bg-slate-700/50 px-3 py-2 text-left"
+                                    >
+                                        Features
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        onClick={() => scrollToSection('contact')}
+                                        className="w-full justify-start text-gray-200 hover:bg-slate-700/50 px-3 py-2 text-left"
+                                    >
+                                        Contact
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        onClick={() => navigateAndCloseMenu('/auth/signin')}
+                                        className="w-full justify-start text-gray-200 hover:bg-slate-700/50 px-3 py-2 text-left"
+                                    >
+                                        Sign In
+                                    </Button>
+                                    <Button
+                                        onClick={() => navigateAndCloseMenu('/auth/signup')}
+                                        className={`${primaryButtonStyle} w-full justify-center text-sm px-4 py-2`} // Full width for mobile
+                                    >
+                                        Get Early Access <ChevronRight className="h-4 w-4 ml-1" />
+                                    </Button>
+                                </nav>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </header>
 
                 {/* --- Main Content --- */}
                 <main className="flex-1 flex flex-col items-center px-4 sm:px-6 lg:px-8">
-                    <div className="w-full max-w-6xl"> {/* Adjusted max-width slightly */}
+                    <div className="w-full max-w-6xl"> {/* Max width container */}
 
                         {/* --- 1. Hero Section --- */}
                         <section
@@ -184,7 +274,7 @@ export default function LandingPage() {
                                     </p>
                                     <div className="bg-gradient-to-br from-slate-800/50 to-slate-800/20 border border-slate-700/60 rounded-lg p-4 flex items-start gap-3">
                                         <div className="mt-1">
-                                            <Layers className="h-6 w-6 text-blue-400 flex-shrink-0" /> {/* Using Layers for 'OS' feel */}
+                                            <Layers className="h-6 w-6 text-blue-400 flex-shrink-0" />
                                         </div>
                                         <div>
                                             <h4 className="font-semibold text-white mb-1">Accessible Technology</h4>
@@ -195,13 +285,12 @@ export default function LandingPage() {
                                     </div>
                                 </motion.div>
                                 <motion.div variants={fadeIn('left', 0.1, 0.6)} initial="hidden" whileInView="show" viewport={{ once: true }} className="aspect-video bg-slate-700 rounded-lg shadow-lg flex items-center justify-center">
-                                    {/* Replace with actual image */}
-                                    <img src="/placeholder-students.jpg" alt="Ethiopian students using computers" className="object-cover w-full h-full rounded-lg"/>
-                                    {/* <span className="text-gray-400 text-sm">[Placeholder: Image of Students]</span> */}
+                                     {/* Replace with an actual image or keep placeholder */}
+                                     <img src="/placeholder-students.jpg" alt="Ethiopian students using computers" className="object-cover w-full h-full rounded-lg"/>
+                                     {/* <span className="text-gray-400 text-sm">[Placeholder: Image of Students]</span> */}
                                 </motion.div>
                             </div>
                         </section>
-
 
                         {/* --- 3. Lumo's Core Toolkit --- */}
                         <section id="features" className="w-full py-20 md:py-28 lg:py-32">
@@ -213,49 +302,14 @@ export default function LandingPage() {
                             </motion.h2>
                             <motion.div
                                 variants={staggerContainer(0.1)} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }}
-                                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" // Reduced gap
+                                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
                             >
-                                {/* Feature Card Component (Example - Repeat for others) */}
-                                <FeatureCard
-                                    icon={Puzzle} // Replace with appropriate icons
-                                    title="Interactive Simulations"
-                                    description="Bring concepts like Chemistry & Physics to life with hands-on virtual experiments."
-                                    delay={0}
-                                />
-                                <FeatureCard
-                                    icon={Bot}
-                                    title="AI Tutor"
-                                    description="Get personalized explanations and 24/7 guidance adapting to your learning style."
-                                    delay={0.1}
-                                />
-                                <FeatureCard
-                                    icon={PenSquare}
-                                    title="Creator Studio"
-                                    description="Build custom lessons with text, video, quizzes, and more. For educators & students."
-                                    delay={0.2}
-                                />
-                                <FeatureCard
-                                    icon={BarChart}
-                                    title="Progress Tracking"
-                                    description="Monitor your learning journey with detailed metrics and visual reports."
-                                    delay={0.05} // Adjust delays for second row if needed
-                                />
-                                <FeatureCard
-                                    icon={Target} // Using Target for Focus Tools
-                                    title="Focus Tools"
-                                    description="Build effective study habits using techniques like the Pomodoro timer."
-                                    delay={0.15}
-                                />
-                                <FeatureCard
-                                    icon={BookOpen} // Using BookOpen for Rich Content
-                                    title="Rich Content"
-                                    description="Learn through visuals, audio, and interactions catering to diverse learning styles."
-                                    delay={0.25}
-                                />
-                                 {/* Add the duplicate row from PDF if desired */}
-                                {/* <FeatureCard icon={BarChart} title="Progress Tracking" description="..." delay={0.3}/>
-                                <FeatureCard icon={Target} title="Focus Tools" description="..." delay={0.35}/>
-                                <FeatureCard icon={BookOpen} title="Rich Content" description="..." delay={0.4}/> */}
+                                <FeatureCard icon={Puzzle} title="Interactive Simulations" description="Bring concepts like Chemistry & Physics to life with hands-on virtual experiments." delay={0} />
+                                <FeatureCard icon={Bot} title="AI Tutor" description="Get personalized explanations and 24/7 guidance adapting to your learning style." delay={0.1} />
+                                <FeatureCard icon={PenSquare} title="Creator Studio" description="Build custom lessons with text, video, quizzes, and more. For educators & students." delay={0.2} />
+                                <FeatureCard icon={BarChart} title="Progress Tracking" description="Monitor your learning journey with detailed metrics and visual reports." delay={0.05} />
+                                <FeatureCard icon={Target} title="Focus Tools" description="Build effective study habits using techniques like the Pomodoro timer." delay={0.15} />
+                                <FeatureCard icon={BookOpen} title="Rich Content" description="Learn through visuals, audio, and interactions catering to diverse learning styles." delay={0.25} />
                             </motion.div>
                         </section>
 
@@ -279,7 +333,7 @@ export default function LandingPage() {
                                 variants={fadeIn('up', 0.3, 0.6)} initial="hidden" whileInView="show" viewport={{ once: true }}
                                 className="flex flex-col sm:flex-row justify-center items-center gap-4"
                             >
-                                <Button onClick={() => router.push('/signup')} className={`${primaryButtonStyle} text-base px-6 py-2.5 w-full sm:w-auto`}>
+                                <Button onClick={() => router.push('/auth/signup')} className={`${primaryButtonStyle} text-base px-6 py-2.5 w-full sm:w-auto`}>
                                     Sign Up for Early Access <ChevronRight className="h-5 w-5" />
                                 </Button>
                                 <Button onClick={() => scrollToSection('contact')} className={`${secondaryButtonStyle} text-base px-6 py-2.5 w-full sm:w-auto`}>
@@ -308,18 +362,9 @@ export default function LandingPage() {
                                         Have questions or interested in partnering? We'd love to hear from you.
                                     </p>
                                     <div className="space-y-2 text-gray-400">
-                                        <div className="flex items-center gap-2">
-                                            <Phone className="h-4 w-4 text-blue-400"/>
-                                            <span>+251 911 37 61 45</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <Phone className="h-4 w-4 text-blue-400"/>
-                                            <span>+251 915 94 95 51</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <Mail className="h-4 w-4 text-blue-400"/>
-                                            <a href="mailto:info@ascii-technologies.com" className="hover:text-blue-300">info@ascii-technologies.com</a>
-                                        </div>
+                                        <div className="flex items-center gap-2"> <Phone className="h-4 w-4 text-blue-400"/> <span>+251 911 37 61 45</span> </div>
+                                        <div className="flex items-center gap-2"> <Phone className="h-4 w-4 text-blue-400"/> <span>+251 915 94 95 51</span> </div>
+                                        <div className="flex items-center gap-2"> <Mail className="h-4 w-4 text-blue-400"/> <a href="mailto:info@ascii-technologies.com" className="hover:text-blue-300">info@ascii-technologies.com</a> </div>
                                     </div>
                                 </motion.div>
 
@@ -327,13 +372,12 @@ export default function LandingPage() {
                                 <motion.form onSubmit={handleFormSubmit} variants={fadeIn('left', 0.1, 0.6)} className="space-y-4">
                                     <h3 className="text-xl font-semibold text-white mb-3">Send us a Message</h3>
                                      <div>
-                                        {/* Removed explicit labels for cleaner look like PDF, use placeholders */}
                                         <Input
                                             id="name" name="name" type="text"
                                             value={formData.name}
                                             onChange={(e) => setFormData({...formData, name: e.target.value})}
                                             placeholder="Your Name" required
-                                            className="bg-slate-700/50 border-slate-600/80 placeholder-gray-400 text-white rounded-md h-10 px-3 focus:border-blue-500 focus:ring-blue-500/50"
+                                            className="bg-slate-700/50 border-slate-600/80 placeholder-gray-400 text-white rounded-md h-10 px-3 focus:border-blue-500 focus:ring-blue-500/50 w-full"
                                         />
                                     </div>
                                      <div>
@@ -342,7 +386,7 @@ export default function LandingPage() {
                                             value={formData.email}
                                             onChange={(e) => setFormData({...formData, email: e.target.value})}
                                             placeholder="Your Email" required
-                                            className="bg-slate-700/50 border-slate-600/80 placeholder-gray-400 text-white rounded-md h-10 px-3 focus:border-blue-500 focus:ring-blue-500/50"
+                                            className="bg-slate-700/50 border-slate-600/80 placeholder-gray-400 text-white rounded-md h-10 px-3 focus:border-blue-500 focus:ring-blue-500/50 w-full"
                                         />
                                     </div>
                                     <div>
@@ -351,7 +395,7 @@ export default function LandingPage() {
                                             value={formData.message}
                                             onChange={(e) => setFormData({...formData, message: e.target.value})}
                                             placeholder="Your Message" required rows={4}
-                                            className="bg-slate-700/50 border-slate-600/80 placeholder-gray-400 text-white rounded-md px-3 py-2 focus:border-blue-500 focus:ring-blue-500/50"
+                                            className="bg-slate-700/50 border-slate-600/80 placeholder-gray-400 text-white rounded-md px-3 py-2 focus:border-blue-500 focus:ring-blue-500/50 w-full"
                                         />
                                     </div>
                                     <div>
@@ -373,6 +417,7 @@ export default function LandingPage() {
                             © {new Date().getFullYear()} ASCII Technologies (Lumo). All rights reserved.
                         </p>
                         <div className="flex space-x-4">
+                            {/* Replace # with actual links if available */}
                             <a href="#" className="text-xs text-gray-400 hover:text-white">Privacy</a>
                             <a href="#" className="text-xs text-gray-400 hover:text-white">Terms</a>
                             <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }} className="text-xs text-gray-400 hover:text-white">Contact</a>
