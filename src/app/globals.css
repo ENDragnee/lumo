@@ -2,394 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  font-family: var(--font-roboto), Arial, Helvetica, sans-serif;
-}
-
-body {
-  font-family: var(--font-roboto), Arial, Helvetica, sans-serif;
-}
-
 @layer base {
   :root {
-    --background: #ffffff;
-    --foreground: rgb(39, 42, 49);
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
-    --card: #ffffff;
-    --card-foreground: rgb(64,69,82);
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
 
-    --popover: #ffffff;
-    --popover-foreground: rgb(38, 40, 46);
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: rgb(33, 36, 43);
-    --primary-foreground: #ffffff;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: rgb(241,245,249);
-    --secondary-foreground: rgb(64,69,82);
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --muted: rgb(241,245,249);
-    --muted-foreground: rgb(100,116,139);
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: rgb(241,245,249);
-    --accent-foreground: rgb(64,69,82);
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: rgb(239,68,68);
-    --destructive-foreground: rgb(249,250,251);
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: rgb(226,232,240);
-    --input: rgb(226,232,240);
-    --ring: rgb(64,69,82);
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    /* Base background using your desired color */
-    --background: #0F172A;
-    /* Light text for high contrast */
-    --foreground: #E2E8F0;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-    /* Cards & popovers are given a slightly lighter dark hue */
-    --card: #1E293B;
-    --card-foreground: #F1F5F9;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: #1E293B;
-    --popover-foreground: #F1F5F9;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
 
-    /* Primary accent – a vivid blue that contrasts nicely with the dark background */
-    --primary: #3B82F6;
-    --primary-foreground: #0F172A;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-    /* Secondary elements use the same dark base as cards */
-    --secondary: #1E293B;
-    --secondary-foreground: #F1F5F9;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
 
-    /* Muted colors for less prominent elements */
-    --muted: #64748B;
-    --muted-foreground: #CBD5E1;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-    /* Accent – a teal that works well as a highlight */
-    --accent: #38B2AC;
-    --accent-foreground: #0F172A;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
 
-    /* Destructive actions remain a bold red for immediate attention */
-    --destructive: #E53E3E;
-    --destructive-foreground: #F1F5F9;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
 
-    /* Darker border and input colors help define element boundaries */
-    --border: #334155;
-    --input: #334155;
-
-    /* Using the primary blue for focus rings */
-    --ring: #3B82F6;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
   }
-  
+}
+
+@layer base {
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-    transition: background-color 0.3s, color 0.3s;
   }
-
-  .dark body {
-    @apply bg-background text-foreground;
-  }
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  appearance: none;
-}
-
-/* VS Code-inspired styles */
-.vscode-tree-view {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-}
-
-.vscode-tree-item {
-  display: flex;
-  align-items: center;
-  padding: 3px 0;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.vscode-tree-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.vscode-tree-item-active {
-  background-color: rgba(255, 255, 255, 0.05);
-  font-weight: bold;
-}
-
-.vscode-tree-item-icon {
-  width: 16px;
-  height: 16px;
-  margin-right: 6px;
-}
-
-.vscode-tree-item-label {
-  flex-grow: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.vscode-tree-item-arrow {
-  width: 16px;
-  height: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease;
-}
-
-.vscode-tree-item-arrow-expanded {
-  transform: rotate(90deg);
-}
-
-/* Smooth transitions */
-.transition-vscode {
-  transition: all 0.2s ease-in-out;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #383c4a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #5c6370;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #6e7686;
-}
-
-/* Existing styles... */
-
-
-/* Responsive styles */
-@media (max-width: 768px) {
-  .sidebar-collapsed {
-    width: 0;
-    overflow: hidden;
-  }
-
-  .sidebar-expanded {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 50;
-  }
-
-  .main-content {
-    margin-left: 0;
-  }
-
-  #content img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  #content video {
-    max-width: 100%;
-    height: auto;
-  }
-
-  #content table {
-    width: 100%;
-    table-layout: auto;
-  }
-}
-
-/* Pill-shaped search bar */
-.search-bar {
-  border-radius: 9999px;
-}
-
-/* Collapsible animations */
-.collapsible-content {
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-}
-
-.collapsible-content[data-state="open"] {
-  max-height: 1000px;
-}
-
-.collapsible-content[data-state="closed"] {
-  max-height: 0;
-}
-
-/* Rotate chevron for open state */
-.collapsible-trigger[data-state="open"] .chevron {
-  transform: rotate(90deg);
-}
-
-/* Add to your globals.css */
-@layer utilities {
-  .scrollbar-thin {
-    scrollbar-width: thin;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 4px;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: #E5E7EB;
-    border-radius: 2px;
-  }
-  
-  .dark .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: #4b5162;
-  }
-      /* Hide scrollbar for Chrome, Safari, and Opera */
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-
-    .no-scrollbar {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-    }
-    .scrollbar-none {
-      scrollbar-width: none; /* Firefox */
-    }
-  
-    .scrollbar-none::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Edge */
-    }
-    @keyframes pulse-slow {
-      0%, 100% { transform: scale(1); opacity: 0.9; }
-      50% { transform: scale(1.05); opacity: 1; }
-    }
-    .animate-pulse-slow {
-      animation: pulse-slow 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-}
-
-.craft-markdown-display {
-  text-align: inherit;
-  line-height: 1.6;
-}
-
-/* --- LIST STYLING --- */
-.craft-markdown-display ul,
-.craft-markdown-display ol {
-  margin-top: 0.8em;
-  margin-bottom: 0.8em;
-  /* --- FIX: Ensure list markers are positioned correctly --- */
-  list-style-position: outside; /* Markers should be outside the text flow */
-  /* --- FIX: Ensure indentation works with markers --- */
-  padding-left: 2em; /* Indentation from the parent edge */
-}
-
-/* --- FIX: Explicitly set list styles to override resets --- */
-.craft-markdown-display ul {
-  list-style-type: disc; /* Default bullet for top-level UL */
-}
-
-.craft-markdown-display ol {
-  list-style-type: decimal; /* Default numbering for top-level OL */
-}
-
-/* Nested list styling (Common Practice) */
-.craft-markdown-display ul ul {
-  list-style-type: circle; /* Open circle for second level */
-}
-.craft-markdown-display ul ul ul {
-  list-style-type: square; /* Square for third level */
-}
-/* Add more levels if needed, alternating styles */
-
-.craft-markdown-display ol ol {
-  list-style-type: lower-alpha; /* a, b, c for second level */
-}
-.craft-markdown-display ol ol ol {
-  list-style-type: lower-roman; /* i, ii, iii for third level */
-}
-/* Add more levels if needed */
-
-
-/* Indentation for nested lists (relative to parent li) */
-.craft-markdown-display li > ul,
-.craft-markdown-display li > ol {
-  margin-top: 0.3em;
-  margin-bottom: 0.3em; /* Consistent spacing */
-  padding-left: 1.5em;  /* Additional indent for the nested list */
-}
-
-
-.craft-markdown-display li {
-  margin-bottom: 0.3em; /* Spacing between list items */
-}
-
-
-/* --- Other potential Markdown element styling (Keep as is) --- */
-.craft-markdown-display h1,
-.craft-markdown-display h2,
-.craft-markdown-display h3,
-.craft-markdown-display h4,
-.craft-markdown-display h5,
-.craft-markdown-display h6 {
-  margin-top: 1.2em;
-  margin-bottom: 0.6em;
-  line-height: 1.3;
-  font-weight: 600; /* Or inherit */
-}
-
-.craft-markdown-display p {
-  margin-bottom: 0.8em;
-}
-
-.craft-markdown-display strong {
-  font-weight: bold;
-}
-
-.craft-markdown-display em {
-  font-style: italic;
-}
-
-.craft-markdown-display blockquote {
-  margin-left: 1em;
-  padding-left: 1em;
-  border-left: 3px solid #ccc;
-  color: #555;
-  font-style: italic;
-}
-
-.craft-markdown-display code {
-    background-color: #f0f0f0;
-    padding: 0.2em 0.4em;
-    border-radius: 3px;
-    font-size: 0.9em;
-    font-family: monospace;
-}
-.craft-markdown-display pre code {
-    display: block;
-    padding: 0.8em;
-    overflow-x: auto;
 }
