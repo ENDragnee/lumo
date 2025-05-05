@@ -31,7 +31,14 @@ export default function CourseNavigatorLayout({ children }: CourseNavigatorLayou
     setCollapsed(!collapsed)
   }
 
-  const handleCourseSelect = (course: string, department: string, year: string, semester: string, stream?: string) => {
+  const handleCourseSelect = (
+    courseData: string | { code: string; name: string },
+    department: string,
+    year: string,
+    semester: string,
+    stream?: string
+  ) => {
+    const course = typeof courseData === "string" ? courseData : courseData.name
     setSelectedCourse({
       course,
       department,

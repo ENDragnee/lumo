@@ -527,7 +527,7 @@ export default function MachineLearningIntro() {
               {/* Placeholder for Venn Diagram (e.g., from page 68) */}
               <div className="my-4 p-3 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 text-center">
                 <p className="text-xs font-inter text-gray-500 dark:text-gray-400">
-                  (See diagram on page 68 showing AI > ML > DL, with DS overlapping)
+                  (See diagram on page 68 showing AI &gt ML &gt DL, with DS overlapping)
                 </p>
               </div>
             </section>

@@ -1,7 +1,7 @@
 import { Code } from 'lucide-react';
 
 // courseData.js
-const parseCourseString = (courseString) => {
+const parseCourseString = (courseString:string) => {
   if (typeof courseString !== 'string') return courseString; // Avoid processing non-strings
 
   const parts = courseString.split(':');
@@ -27,6 +27,7 @@ const parseCourseString = (courseString) => {
     code: code,
     name: name,
     chapters: [], // Initialize with an empty array for chapters
+    type: 'course', // Default type
   };
 
   if (isPlaceholder) {

@@ -20,6 +20,7 @@ interface CourseDetailProps {
   year?: string;
   semester?: string;
   stream?: string;
+  onChapterSelect: (chapterId: string) => void;
 }
 
 export default function CourseDetail({
