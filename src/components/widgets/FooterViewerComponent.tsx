@@ -46,7 +46,7 @@ export const FooterViewerComponent: React.FC<FooterViewerComponentProps> = ({
 
   return (
     // Apply container styles and optionally add margin for spacing
-    <footer style={containerStyle} className="my-2 text-sm"> {/* Use <footer> semantic tag */}
+    <footer style={containerStyle} className="my-2 text-sm dark:text-gray-50"> {/* Use <footer> semantic tag */}
        {/* --- Markdown Rendering --- */}
        {/* Apply prose styles matching the FooterComponent's display mode (prose-sm) */}
        <div className="prose prose-sm max-w-none">

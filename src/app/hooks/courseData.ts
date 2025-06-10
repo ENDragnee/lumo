@@ -1,4 +1,55 @@
 import { Code } from 'lucide-react';
+import path from 'path';
+
+// --- Define Interfaces/Types for Course Data Structure ---
+// (Same as before, ensure your actual data matches this structure)
+export type CourseObject = {
+  code: string;
+  name: string;
+  chapters?: ChaptersArray[];
+  description?: string;
+  instructor?: string;
+  credits?: number;
+  duration?: string;
+  students?: number;
+  prerequisites?: string[];
+  [key: string]: any;
+};
+export type CoursesArray = string[] | CourseObject[];
+type ChapterObject = {
+  name?: string;
+  description?: string;
+  path?:string;
+  duration?:number;
+  chapters?: ChaptersArray[]
+}
+export type ChaptersArray = string[] | ChapterObject[];
+
+// A semester can either have streams (object mapping stream name to courses)
+// or just be an array of courses directly.
+export type StreamData = { [streamName: string]: CoursesArray };
+export type SemesterData = CoursesArray | StreamData;
+
+// A year maps semester names to semester data
+export type YearData = { [semesterName: string]: SemesterData };
+
+// A department has a name and course structure by year/semester
+export type Department = {
+  name: string;
+  coursesByYearSemester: Record<string, YearData>; // Use Record for string keys
+  abbreviation: string
+};
+
+// A college has a name and a list of departments
+export type College = {
+  name: string;
+  departments: Department[];
+};
+
+// The overall course data structure
+export type CourseData = {
+  colleges: College[];
+};
 
 // courseData.js
 const parseCourseString = (courseString:string) => {
@@ -28,6 +79,7 @@ const parseCourseString = (courseString:string) => {
     name: name,
     chapters: [], // Initialize with an empty array for chapters
     type: 'course', // Default type
+    path: '', // Initialize with an empty string for path
   };
 
   if (isPlaceholder) {
@@ -37,7 +89,7 @@ const parseCourseString = (courseString:string) => {
   return courseObject;
 };
 
-export const courseData = {
+export const courseData: CourseData = {
   colleges: [
     {
       name: 'College of Engineering',
@@ -45,13 +97,14 @@ export const courseData = {
         {
           name: 'Bachelor of Science Degree in Architecture',
           abbreviation: 'ARCH',
-          coursesByYearSemester: {
+          coursesByYearSemester : {
             'Year 2': {
               'Semester I': [
                 {
                   code: 'ARCH2101',
                   name: 'Basic Design',
                   chapters: [],
+                  path: "",
                 },
                 {
                   code: 'ARCH2103',
@@ -76,7 +129,7 @@ export const courseData = {
               ],
               'Semester II': [
                 {
-                  Code: 'ARCH2102',
+                  code: 'ARCH2102',
                   name: 'Basic Architectural Design',
                   chapters: [],
                 },
@@ -112,7 +165,7 @@ export const courseData = {
                 {
                   code: 'ARCH3111',
                   name: 'Architectural Design I',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH3113',
@@ -186,7 +239,7 @@ export const courseData = {
                 {
                   code: 'ARCH3130',
                   name: 'Internship-I',
-                  chapters: 5,
+                  chapters: [],
                 },
               ],
             },
@@ -1071,6 +1124,7 @@ export const courseData = {
                 {
                   code: 'SWEG4101',
                   name: 'Principles of Compiler Design',
+                  description: '',
                   chapters: 5,
                 },
                 {
@@ -1135,7 +1189,7 @@ export const courseData = {
                 {
                   code: 'SWEG4114',
                   name: 'Industrial Internship',
-                  chapters: 1,
+                  chapters: [],
                 },
               ],
             },

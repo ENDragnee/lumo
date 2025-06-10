@@ -51,7 +51,7 @@ export const TextViewerComponent: React.FC<TextViewerComponentProps> = ({
 
   return (
     <div style={containerStyle} className="my-2"> {/* my-2 adds vertical margin */}
-       <div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl max-w-none">
+       <div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl max-w-none dark:text-gray-100">
          <ReactMarkdown
             // --- Add Math Plugins ---
             remarkPlugins={[remarkGfm, remarkMath]}

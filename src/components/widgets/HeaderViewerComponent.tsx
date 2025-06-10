@@ -46,7 +46,7 @@ export const HeaderViewerComponent: React.FC<HeaderViewerComponentProps> = ({
 
   return (
     // Apply container styles and optionally add margin for spacing
-    <header style={containerStyle} className="my-4"> {/* Use <header> semantic tag */}
+    <header style={containerStyle} className="my-4 dark:text-gray-200"> {/* Use <header> semantic tag */}
        {/* --- Markdown Rendering --- */}
        {/* Apply prose styles matching the HeaderComponent's display mode */}
        <div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl max-w-none">

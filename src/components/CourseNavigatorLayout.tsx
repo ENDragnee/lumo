@@ -10,6 +10,7 @@ import { Menu, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
+import { CourseData, courseData } from "@/app/hooks/courseData"
 
 interface CourseNavigatorLayoutProps {
   children: React.ReactNode
@@ -19,11 +20,7 @@ export default function CourseNavigatorLayout({ children }: CourseNavigatorLayou
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
   const [selectedCourse, setSelectedCourse] = useState<{
-    course: string
-    department?: string
-    year?: string
-    semester?: string
-    stream?: string
+    courseData: CourseData | string
   } | null>(null)
   const [selectedChapter, setSelectedChapter] = useState<string | null>(null)
 
@@ -32,19 +29,10 @@ export default function CourseNavigatorLayout({ children }: CourseNavigatorLayou
   }
 
   const handleCourseSelect = (
-    courseData: string | { code: string; name: string },
-    department: string,
-    year: string,
-    semester: string,
-    stream?: string
+    courseData: CourseData | string,
   ) => {
-    const course = typeof courseData === "string" ? courseData : courseData.name
     setSelectedCourse({
-      course,
-      department,
-      year,
-      semester,
-      stream,
+      courseData,
     })
     setSelectedChapter(null)
     setSidebarOpen(false)
@@ -84,11 +72,7 @@ export default function CourseNavigatorLayout({ children }: CourseNavigatorLayou
     } else if (selectedCourse) {
       return (
         <CourseDetail
-          course={selectedCourse.course}
-          department={selectedCourse.department}
-          year={selectedCourse.year}
-          semester={selectedCourse.semester}
-          stream={selectedCourse.stream}
+          courseData={selectedCourse.courseData}
           onChapterSelect={handleChapterSelect}
         />
       )
@@ -111,7 +95,7 @@ export default function CourseNavigatorLayout({ children }: CourseNavigatorLayou
             {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
           </Button>
         </div>
-        <CourseNavigatorSidebar collapsed={collapsed} onSelect={handleCourseSelect} />
+        <CourseNavigatorSidebar courseData={courseData} collapsed={collapsed} onSelect={handleCourseSelect} />
       </div>
 
       {/* Mobile Sidebar */}
@@ -123,7 +107,7 @@ export default function CourseNavigatorLayout({ children }: CourseNavigatorLayou
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="p-0 w-80">
-          <CourseNavigatorSidebar onSelect={handleCourseSelect} collapsed={false} />
+          <CourseNavigatorSidebar courseData={courseData} onSelect={handleCourseSelect} collapsed={false} />
         </SheetContent>
       </Sheet>
 

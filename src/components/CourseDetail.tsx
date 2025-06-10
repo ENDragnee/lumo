@@ -13,100 +13,17 @@ import {
 } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { CourseData } from '@/app/hooks/courseData';
 
 interface CourseDetailProps {
-  course: string;
-  department?: string;
-  year?: string;
-  semester?: string;
-  stream?: string;
+  courseData: CourseData | string;
   onChapterSelect: (chapterId: string) => void;
 }
 
 export default function CourseDetail({
-  course,
-  department,
-  year,
-  semester,
-  stream,
+  courseData
 }: CourseDetailProps) {
   // In a real app, you would fetch this data based on the course ID
-  const courseData = {
-    title: course,
-    description:
-      'This course provides a comprehensive introduction to the fundamental concepts, principles, and applications of the subject. Students will learn theoretical foundations and practical skills through lectures, discussions, and hands-on exercises.',
-    instructor: 'Dr. Sarah Johnson',
-    credits: 4,
-    duration: '16 weeks',
-    students: 42,
-    prerequisites: ['Introduction to Programming', 'Calculus I'],
-    chapters: [
-      {
-        id: 'ch1',
-        title: 'Introduction to the Course',
-        duration: '1 week',
-        topics: [
-          'Course Overview',
-          'Historical Context',
-          'Fundamental Concepts',
-        ],
-      },
-      {
-        id: 'ch2',
-        title: 'Theoretical Foundations',
-        duration: '3 weeks',
-        topics: [
-          'Core Principles',
-          'Mathematical Models',
-          'Analytical Frameworks',
-        ],
-      },
-      {
-        id: 'ch3',
-        title: 'Applied Methodologies',
-        duration: '4 weeks',
-        topics: [
-          'Practical Applications',
-          'Case Studies',
-          'Problem-Solving Techniques',
-        ],
-      },
-      {
-        id: 'ch4',
-        title: 'Advanced Concepts',
-        duration: '3 weeks',
-        topics: ['Specialized Topics', 'Current Research', 'Emerging Trends'],
-      },
-      {
-        id: 'ch5',
-        title: 'Project Development',
-        duration: '4 weeks',
-        topics: [
-          'Project Planning',
-          'Implementation',
-          'Testing and Evaluation',
-        ],
-      },
-      {
-        id: 'ch6',
-        title: 'Final Assessment',
-        duration: '1 week',
-        topics: [
-          'Comprehensive Review',
-          'Final Examination',
-          'Project Presentations',
-        ],
-      },
-    ],
-    outcomes: [
-      'Demonstrate understanding of core principles and concepts',
-      'Apply theoretical knowledge to solve practical problems',
-      'Analyze complex systems using appropriate methodologies',
-      'Develop and implement effective solutions to real-world challenges',
-      'Communicate technical information clearly and effectively',
-    ],
-  };
-
   const [selectedChapter, setSelectedChapter] = useState<string | null>(null);
 
   const handleChapterClick = (chapterId: string) => {
@@ -144,7 +61,7 @@ export default function CourseDetail({
                 )}
               </div>
               <h1 className="text-2xl md:text-3xl font-bold mb-2">
-                {courseData.title}
+                {course}
               </h1>
               <p className="text-blue-100 max-w-2xl">
                 {courseData.description}
