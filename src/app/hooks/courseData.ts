@@ -2,11 +2,25 @@ import { Code } from 'lucide-react';
 import path from 'path';
 
 // --- Define Interfaces/Types for Course Data Structure ---
-// (Same as before, ensure your actual data matches this structure)
+
+// A chapter can be a simple string or a more detailed object.
+// A ChapterObject can itself contain a list of sub-chapters.
+type ChapterObject = {
+  name?: string;
+  description?: string;
+  path?: string;
+  duration?: number;
+  chapters?: ChaptersArray; // Can contain sub-chapters
+};
+
+// Corrected: An array of chapters can contain a mix of strings or ChapterObjects.
+export type ChaptersArray = (string | ChapterObject)[];
+
+// A course is a detailed object.
 export type CourseObject = {
   code: string;
   name: string;
-  chapters?: ChaptersArray[];
+  chapters?: ChaptersArray; // Corrected: A course has one list of chapters.
   description?: string;
   instructor?: string;
   credits?: number;
@@ -15,15 +29,9 @@ export type CourseObject = {
   prerequisites?: string[];
   [key: string]: any;
 };
-export type CoursesArray = string[] | CourseObject[];
-type ChapterObject = {
-  name?: string;
-  description?: string;
-  path?:string;
-  duration?:number;
-  chapters?: ChaptersArray[]
-}
-export type ChaptersArray = string[] | ChapterObject[];
+
+// Corrected: An array of courses can contain a mix of strings and CourseObjects.
+export type CoursesArray = (string | CourseObject)[];
 
 // A semester can either have streams (object mapping stream name to courses)
 // or just be an array of courses directly.
@@ -37,7 +45,7 @@ export type YearData = { [semesterName: string]: SemesterData };
 export type Department = {
   name: string;
   coursesByYearSemester: Record<string, YearData>; // Use Record for string keys
-  abbreviation: string
+  abbreviation: string;
 };
 
 // A college has a name and a list of departments
@@ -52,7 +60,7 @@ export type CourseData = {
 };
 
 // courseData.js
-const parseCourseString = (courseString:string) => {
+const parseCourseString = (courseString: string) => {
   if (typeof courseString !== 'string') return courseString; // Avoid processing non-strings
 
   const parts = courseString.split(':');
@@ -97,14 +105,14 @@ export const courseData: CourseData = {
         {
           name: 'Bachelor of Science Degree in Architecture',
           abbreviation: 'ARCH',
-          coursesByYearSemester : {
+          coursesByYearSemester: {
             'Year 2': {
               'Semester I': [
                 {
                   code: 'ARCH2101',
                   name: 'Basic Design',
                   chapters: [],
-                  path: "",
+                  path: '',
                 },
                 {
                   code: 'ARCH2103',
@@ -170,69 +178,69 @@ export const courseData: CourseData = {
                 {
                   code: 'ARCH3113',
                   name: 'Building Materials and Construction III',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH3115',
                   name: 'History of Architecture II',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH3119',
                   name: 'Graphics Communication Skills III (Professional CAD)',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH3121',
                   name: 'Theory and Design of Structures III',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH3117',
                   name: 'Visual & History of Arts',
-                  chapters: 5,
+                  chapters: [],
                 },
               ],
               'Semester II': [
                 {
                   code: 'ARCH3120',
                   name: 'Architectural Design II',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH3114',
                   name: 'Architectural Sciences I (Water and sewage)',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH3116',
                   name: 'General Building Heritage',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH3118',
                   name: 'Landscape Design',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH3122',
                   name: 'Professional Practice I',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH3124',
                   name: 'Surveying',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH3128',
                   name: 'Ethiopian History of Architecture',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH3126',
                   name: 'Introduction to Environmental Planning',
-                  chapters: 5,
+                  chapters: [],
                 },
               ],
               'Semester III (Summer)': [
@@ -248,37 +256,37 @@ export const courseData: CourseData = {
                 {
                   code: 'ARCH4125',
                   name: 'Architectural Sciences II (heating, cooling, ventilation)',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ETP4115',
                   name: 'Integrated Engineering Team Project',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH4129',
                   name: 'Building Workshop I (Masonry)',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH4131',
                   name: 'Integrated Design Project I',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH4133',
                   name: 'Introduction to Urban Planning',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH4135',
                   name: 'Professional Practice II',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'ARCH4123',
                   name: 'Theory of Architecture I',
-                  chapters: 5,
+                  chapters: [],
                 },
               ],
               'Semester II': [
@@ -1125,64 +1133,64 @@ export const courseData: CourseData = {
                   code: 'SWEG4101',
                   name: 'Principles of Compiler Design',
                   description: '',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'SWEG4103',
                   name: 'Mobile Computing and Programming',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'SWEG4105',
                   name: 'Software Design and Architecture',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'SWEG4117',
                   name: 'Introduction to Artificial Intelligence',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'SWEG4109',
                   name: 'Computer Graphics',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'IETP4115',
                   name: 'Integrated Engineering team project', // Note affiliation
-                  chapters: 5,
+                  chapters: [],
                 },
               ],
               'Semester II': [
                 {
                   code: 'SWEG4102',
                   name: 'Embedded Systems',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'SWEG4104',
                   name: 'Software Project Management',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'SWEG4106',
                   name: 'Software Quality Assurance and Testing',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'SWEG4108',
                   name: 'Research Methods in Software Engineering',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'SWEG4110',
                   name: 'Human Computer Interaction',
-                  chapters: 5,
+                  chapters: [],
                 },
                 {
                   code: 'SWEG4112',
                   name: 'Introduction to Machine learning',
-                  chapters: 5,
+                  chapters: [],
                 },
               ],
               'Semester III (Summer)': [
@@ -1506,34 +1514,3 @@ export const courseData: CourseData = {
     },
   ],
 };
-
-// --- Automated Transformation (Conceptual) ---
-// You could write a script to perform this transformation automatically:
-/*
-function transformCourseData(data) {
-  data.colleges.forEach(college => {
-    college.departments.forEach(department => {
-      Object.values(department.coursesByYearSemester).forEach(yearData => {
-        Object.keys(yearData).forEach(semesterKey => {
-          const coursesOrStreams = yearData[semesterKey];
-          if (Array.isArray(coursesOrStreams)) {
-            // Direct semester list
-            yearData[semesterKey] = coursesOrStreams.map(parseCourseString);
-          } else if (typeof coursesOrStreams === 'object' && coursesOrStreams !== null) {
-             // Handle Streams (e.g., ECEg/MEng Year 4/5 Sem II)
-            Object.keys(coursesOrStreams).forEach(streamName => {
-               if (Array.isArray(coursesOrStreams[streamName])) {
-                   coursesOrStreams[streamName] = coursesOrStreams[streamName].map(parseCourseString);
-               }
-            });
-          }
-        });
-      });
-    });
-  });
-  return data;
-}
-
-// const updatedCourseData = transformCourseData(JSON.parse(JSON.stringify(courseData))); // Use deep copy if needed
-// console.log(JSON.stringify(updatedCourseData, null, 2)); // Pretty print to check
-*/
