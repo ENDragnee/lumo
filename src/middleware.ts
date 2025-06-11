@@ -3,7 +3,7 @@ import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 
 // Keep your public page routes here
-const publicPageRoutes = ['/', '/landing', '/auth/signin', '/auth/signup', '/main'];
+const publicPageRoutes = ['/', '/landing', '/auth/signin', '/auth/signup'];
 
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
