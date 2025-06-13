@@ -13,15 +13,19 @@ import {
 } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { CourseData } from '@/app/hooks/courseData';
+import { CourseData, CourseObject } from '@/app/hooks/courseData';
 
 interface CourseDetailProps {
-  courseData: CourseData | string;
+  semester: string;
+  stream: string;
+  courseObject: CourseObject;
   onChapterSelect: (chapterId: string) => void;
 }
 
 export default function CourseDetail({
-  courseData
+  courseObject,
+  semester,
+  stream
 }: CourseDetailProps) {
   // In a real app, you would fetch this data based on the course ID
   const [selectedChapter, setSelectedChapter] = useState<string | null>(null);
@@ -40,11 +44,11 @@ export default function CourseDetail({
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 text-blue-100 text-sm mb-2">
-                <span>{department || 'Department'}</span>
-                {year && (
+                <span>{courseObject.department || 'Department'}</span>
+                {courseObject.year && (
                   <>
                     <span>•</span>
-                    <span>{year}</span>
+                    <span>{courseObject.year}</span>
                   </>
                 )}
                 {semester && (
@@ -61,10 +65,10 @@ export default function CourseDetail({
                 )}
               </div>
               <h1 className="text-2xl md:text-3xl font-bold mb-2">
-                {course}
+                {courseObject.name}
               </h1>
               <p className="text-blue-100 max-w-2xl">
-                {courseData.description}
+                {courseObject.description}
               </p>
             </div>
             <div className="flex-shrink-0">
@@ -103,7 +107,7 @@ export default function CourseDetail({
                           <div>
                             <p className="font-medium">Instructor</p>
                             <p className="text-sm text-gray-500">
-                              {courseData.instructor}
+                              {courseObject.instructor}
                             </p>
                           </div>
                         </div>
@@ -112,7 +116,7 @@ export default function CourseDetail({
                           <div>
                             <p className="font-medium">Duration</p>
                             <p className="text-sm text-gray-500">
-                              {courseData.duration}
+                              {courseObject.duration}
                             </p>
                           </div>
                         </div>
@@ -121,7 +125,7 @@ export default function CourseDetail({
                           <div>
                             <p className="font-medium">Credits</p>
                             <p className="text-sm text-gray-500">
-                              {courseData.credits} credits
+                              {courseObject.credits} credits
                             </p>
                           </div>
                         </div>
@@ -130,7 +134,7 @@ export default function CourseDetail({
                           <div>
                             <p className="font-medium">Students</p>
                             <p className="text-sm text-gray-500">
-                              {courseData.students} enrolled
+                              {courseObject.students} enrolled
                             </p>
                           </div>
                         </div>
@@ -139,7 +143,7 @@ export default function CourseDetail({
                       <div>
                         <h3 className="font-medium mb-2">Prerequisites</h3>
                         <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
-                          {courseData.prerequisites.map((prereq, index) => (
+                          {courseObject?.prerequisites?.map((prereq, index) => (
                             <li key={index}>{prereq}</li>
                           ))}
                         </ul>
@@ -156,7 +160,7 @@ export default function CourseDetail({
                     </CardHeader>
                     <CardContent>
                       <ul className="space-y-3">
-                        {courseData.outcomes.map((outcome, index) => (
+                        {courseObject?.outcomes?.map((outcome, index) => (
                           <li key={index} className="flex gap-2">
                             <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
                             <span className="text-gray-700">{outcome}</span>
@@ -178,9 +182,9 @@ export default function CourseDetail({
                     <CardContent className="p-0">
                       <ScrollArea className="h-[400px]">
                         <div className="divide-y">
-                          {courseData.chapters.map((chapter) => (
+                          {courseObject.chapters.map((chapter) => (
                             <button
-                              key={chapter.id}
+                              key={chapter?.id}
                               className="w-full text-left p-4 hover:bg-gray-50 transition-colors"
                               onClick={() => handleChapterClick(chapter.id)}
                             >
@@ -225,7 +229,7 @@ export default function CourseDetail({
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-6">
-                    {courseData.chapters.map((chapter, index) => (
+                    {courseObject.chapters.map((chapter, index) => (
                       <div
                         key={chapter.id}
                         className="border rounded-lg overflow-hidden"

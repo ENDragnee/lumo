@@ -8,14 +8,11 @@ import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { CourseData } from "@/app/hooks/courseData"
-import { YearData } from "@/app/hooks/courseData"
-import { StreamData } from "@/app/hooks/courseData"
-import { CoursesArray } from "@/app/hooks/courseData"
+import { CourseData, YearData, StreamData, CoursesArray, CourseObject } from "@/app/hooks/courseData"
 
 interface CourseNavigatorSidebarProps {
   courseData: CourseData // Optional prop for course data, if needed
-  onSelect?: (courseData: CourseData | string) => void
+  onSelect?: (courseData: CourseObject) => void
   collapsed?: boolean
 }
 
@@ -142,10 +139,10 @@ export default function CourseNavigatorSidebar({ courseData, onSelect, collapsed
   }
 
   // Adjust 'course' type based on CoursesArray definition
-  const handleCourseSelect = (courseData: CourseData | string) => {
+  const handleCourseSelect = (courseObject: CourseObject) => {
     if (onSelect && selectedDeptIndex !== null && departments[selectedDeptIndex]) {
       onSelect(
-        courseData
+        courseObject
       )
     }
   }

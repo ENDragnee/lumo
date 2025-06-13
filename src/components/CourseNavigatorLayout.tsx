@@ -10,7 +10,7 @@ import { Menu, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
-import { CourseData, courseData } from "@/app/hooks/courseData"
+import { CourseData, courseData, CourseObject } from "@/app/hooks/courseData"
 
 interface CourseNavigatorLayoutProps {
   children: React.ReactNode
@@ -20,7 +20,7 @@ export default function CourseNavigatorLayout({ children }: CourseNavigatorLayou
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
   const [selectedCourse, setSelectedCourse] = useState<{
-    courseData: CourseData | string
+    courseObject: CourseObject
   } | null>(null)
   const [selectedChapter, setSelectedChapter] = useState<string | null>(null)
 
@@ -29,10 +29,10 @@ export default function CourseNavigatorLayout({ children }: CourseNavigatorLayou
   }
 
   const handleCourseSelect = (
-    courseData: CourseData | string,
+    courseObject: CourseObject,
   ) => {
     setSelectedCourse({
-      courseData,
+      courseObject,
     })
     setSelectedChapter(null)
     setSidebarOpen(false)
@@ -44,7 +44,7 @@ export default function CourseNavigatorLayout({ children }: CourseNavigatorLayou
     // In a real Next.js app, you would use router.push here
     // This simulates changing the URL
     if (selectedCourse) {
-      const courseId = selectedCourse.course.replace(/\s+/g, "-").toLowerCase()
+      const courseId = selectedCourse.courseObject.replace(/\s+/g, "-").toLowerCase()
       window.history.pushState({}, "", `/courses/${courseId}/chapters/${chapterId}`)
     }
   }
@@ -54,7 +54,7 @@ export default function CourseNavigatorLayout({ children }: CourseNavigatorLayou
 
     // In a real Next.js app, you would use router.push here
     if (selectedCourse) {
-      const courseId = selectedCourse.course.replace(/\s+/g, "-").toLowerCase()
+      const courseId = selectedCourse.courseObject.replace(/\s+/g, "-").toLowerCase()
       window.history.pushState({}, "", `/courses/${courseId}`)
     }
   }
@@ -65,14 +65,16 @@ export default function CourseNavigatorLayout({ children }: CourseNavigatorLayou
       return (
         <ChapterDetail
           chapterId={selectedChapter}
-          courseId={selectedCourse.course.replace(/\s+/g, "-").toLowerCase()}
+          courseId={selectedCourse.courseObject.replace(/\s+/g, "-").toLowerCase()}
           onBack={handleBackToCourse}
         />
       )
     } else if (selectedCourse) {
       return (
         <CourseDetail
-          courseData={selectedCourse.courseData}
+          semester=""
+          stream=""
+          courseObject={selectedCourse.courseObject}
           onChapterSelect={handleChapterSelect}
         />
       )

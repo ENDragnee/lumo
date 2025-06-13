@@ -7,11 +7,13 @@ import path from 'path';
 // A ChapterObject can itself contain a list of sub-chapters.
 // In courseData.ts
 export type ChapterObject = {
-  name?: string;
+  id: string;
+  title?: string;
   description?: string;
   path?: string;
   duration?: number; // Duration in minutes
   chapters?: ChaptersArray;
+  topics: string[]; // List of topics covered in this chapter
   // --- ADD THESE FIELDS for rich UI ---
   sections?: {
     id: string;
@@ -30,13 +32,14 @@ export type ChapterObject = {
 };
 
 // Corrected: An array of chapters can contain a mix of strings or ChapterObjects.
-export type ChaptersArray = (string | ChapterObject)[];
+export type ChaptersArray = (ChapterObject)[];
 
 // A course is a detailed object.
 export type CourseObject = {
   code: string;
   name: string;
-  chapters?: ChaptersArray; // Corrected: A course has one list of chapters.
+  chapters: ChaptersArray; // Corrected: A course has one list of chapters.
+  outcomes?: string[]; // Learning outcomes
   description?: string;
   instructor?: string;
   credits?: number;
@@ -76,11 +79,11 @@ export type CourseData = {
 };
 
 // courseData.js
-const parseCourseString = (courseString: string) => {
+export const parseCourseString = (courseString: string) => {
   if (typeof courseString !== 'string') return courseString; // Avoid processing non-strings
 
   const parts = courseString.split(':');
-  let code = null;
+  let code = "";
   let name = courseString.trim();
   let isPlaceholder = false;
 
@@ -98,9 +101,10 @@ const parseCourseString = (courseString: string) => {
   }
   // For other strings without a clear code: name format, code remains null, name is the full string
 
-  const courseObject = {
+  const courseObject:CourseObject = {
     code: code,
     name: name,
+    outcomes: [],
     chapters: [], // Initialize with an empty array for chapters
     type: 'course', // Default type
     path: '', // Initialize with an empty string for path
