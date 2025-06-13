@@ -16,7 +16,7 @@ const roboto = Roboto({
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${roboto.variable} font-sans`} suppressHydrationWarning>
-      <body className="min-h-screen bg-white dark:bg-[#383c4a] text-black dark:text-white">
+      <body className="min-h-screen">
         <Providers>
             <div>{children}</div>
         </Providers>

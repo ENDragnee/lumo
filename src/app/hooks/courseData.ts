@@ -5,12 +5,28 @@ import path from 'path';
 
 // A chapter can be a simple string or a more detailed object.
 // A ChapterObject can itself contain a list of sub-chapters.
-type ChapterObject = {
+// In courseData.ts
+export type ChapterObject = {
   name?: string;
   description?: string;
   path?: string;
-  duration?: number;
-  chapters?: ChaptersArray; // Can contain sub-chapters
+  duration?: number; // Duration in minutes
+  chapters?: ChaptersArray;
+  // --- ADD THESE FIELDS for rich UI ---
+  sections?: {
+    id: string;
+    title: string;
+    type: 'video' | 'reading' | 'interactive' | 'quiz';
+    duration: string; // e.g., "15 minutes"
+    completed: boolean;
+  }[];
+  resources?: {
+    id: string;
+    title: string;
+    type: 'pdf' | 'doc' | 'link';
+    size?: string; // e.g., "2.4 MB"
+    url?: string;
+  }[];
 };
 
 // Corrected: An array of chapters can contain a mix of strings or ChapterObjects.
