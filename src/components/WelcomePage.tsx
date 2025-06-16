@@ -1,11 +1,62 @@
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
-import { BookOpen, Users, CheckCircle, MessageSquare, GraduationCap, ChevronRight } from "lucide-react"
+import { CheckCircle, MessageSquare, GraduationCap } from "lucide-react"
+
+import { courseData } from "@/app/hooks/courseData"
+import type { Department } from "@/app/hooks/courseData"
+
+// Import the new Client Component and its type
+import { DepartmentCard, UIDepartment } from "@/components/DepartmentCard"
+
+// Helper to create a URL-friendly slug from a name
+const createSlug = (name: string): string => name.toLowerCase().replace(/\s+/g, "-")
+
+// Helper to infer a category from the college name for filtering
+const getCategoryFromCollege = (collegeName: string): string => {
+  const lowerCaseName = collegeName.toLowerCase()
+  if (lowerCaseName.includes("engineering")) return "engineering"
+  if (lowerCaseName.includes("science")) return "science"
+  return "other"
+}
+
+// This component can remain inside WelcomePage as it has no client-side logic
+const DepartmentGrid = ({ departments }: { departments: UIDepartment[] }) => {
+  if (!departments || departments.length === 0) {
+    return (
+      <div className="text-center py-8 col-span-full">
+        <p className="text-gray-500">No programs found in this category.</p>
+      </div>
+    )
+  }
+  return (
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {departments.map((dept) => (
+        <DepartmentCard key={dept.id} department={dept} />
+      ))}
+    </div>
+  )
+}
 
 export default function WelcomePage() {
+  // --- Data Transformation (Server-Side Logic) ---
+  const allDepartments: UIDepartment[] = courseData.colleges.flatMap((college) =>
+    college.departments.map((dept) => ({
+      ...dept,
+      id: createSlug(dept.name),
+      collegeName: college.name,
+      category: getCategoryFromCollege(college.name),
+      image: `/images/${createSlug(dept.name)}.webp`,
+      students: Math.floor(Math.random() * 50) + 70,
+      duration: "5 years",
+    }))
+  )
+
+  const engineeringDepts = allDepartments.filter((d) => d.category === "engineering")
+  const scienceDepts = allDepartments.filter((d) => d.category === "science")
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
@@ -26,7 +77,7 @@ export default function WelcomePage() {
               Education creates a better future
             </h1>
             <p className="text-gray-600 mb-6 max-w-md">
-              Discover the comprehensive curriculum and courses offered at Addis Ababa Science and Technology
+              Discover the comprehensive curriculum and programs offered at Addis Ababa Science and Technology
               University. Find the right path for your academic journey.
             </p>
           </div>
@@ -36,80 +87,28 @@ export default function WelcomePage() {
         </div>
       </section>
 
-      {/* Featured Courses Section */}
+      {/* Featured Programs Section */}
       <section className="py-12 px-6 md:px-8 lg:px-12 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-[#c69323] mb-8">Explore Featured Courses</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-[#c69323] mb-8">Explore Our Programs</h2>
 
           <Tabs defaultValue="all" className="mb-8">
-            <TabsList className="mx-auto flex justify-center mb-6">
+            <TabsList className="mx-auto flex justify-center mb-6 flex-wrap h-auto">
               <TabsTrigger value="all">All Categories</TabsTrigger>
               <TabsTrigger value="engineering">Engineering</TabsTrigger>
-              <TabsTrigger value="computing">Computing</TabsTrigger>
               <TabsTrigger value="science">Science</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="all" className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  title: "Software Engineering",
-                  image: "/images/software.webp",
-                  students: 120,
-                  duration: "5 years",
-                },
-                {
-                  title: "Electrical Engineering",
-                  image: "/images/electrical.webp",
-                  students: 85,
-                  duration: "5 years",
-                },
-                {
-                  title: "Mechanical Engineering",
-                  image: "/images/mechanical.webp",
-                  students: 95,
-                  duration: "5 years",
-                },
-              ].map((course, i) => (
-                <Card key={i} className="overflow-hidden">
-                  <div className="relative h-40">
-                    <Image src={course.image || "/placeholder.svg"} alt={course.title} fill className="object-cover" />
-                  </div>
-                  <CardContent className="p-4">
-                    <h3 className="font-semibold text-lg mb-2">{course.title}</h3>
-                    <div className="flex justify-between items-center mb-3">
-                      <div className="flex items-center text-sm text-gray-500">
-                        <Users className="h-4 w-4 mr-1" />
-                        <span>{course.students} students</span>
-                      </div>
-                      <div className="flex items-center text-sm text-gray-500">
-                        <BookOpen className="h-4 w-4 mr-1" />
-                        <span>{course.duration}</span>
-                      </div>
-                    </div>
-                    <Button variant="outline" className="w-full">
-                      Explore Course
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
+            <TabsContent value="all">
+              <DepartmentGrid departments={allDepartments} />
             </TabsContent>
 
             <TabsContent value="engineering">
-              <div className="text-center py-8">
-                <p className="text-gray-500">Engineering courses content will appear here.</p>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="computing">
-              <div className="text-center py-8">
-                <p className="text-gray-500">Computing courses content will appear here.</p>
-              </div>
+              <DepartmentGrid departments={engineeringDepts} />
             </TabsContent>
 
             <TabsContent value="science">
-              <div className="text-center py-8">
-                <p className="text-gray-500">Science courses content will appear here.</p>
-              </div>
+              <DepartmentGrid departments={scienceDepts} />
             </TabsContent>
           </Tabs>
         </div>
@@ -165,20 +164,10 @@ export default function WelcomePage() {
 
             <div className="relative h-[300px] md:h-[400px]">
               <div className="absolute top-0 left-0 w-3/4 h-3/4 rounded-lg overflow-hidden">
-                <Image
-                  src="/images/interactive1.webp"
-                  alt="Students collaborating"
-                  fill
-                  className="object-cover"
-                />
+                <Image src="/images/interactive1.webp" alt="Students collaborating" fill className="object-cover" />
               </div>
               <div className="absolute bottom-0 right-0 w-2/3 h-2/3 rounded-lg overflow-hidden border-4 border-white">
-                <Image
-                  src="/images/interactive2.webp"
-                  alt="Professor teaching"
-                  fill
-                  className="object-cover"
-                />
+                <Image src="/images/interactive2.webp" alt="Professor teaching" fill className="object-cover" />
               </div>
             </div>
           </div>

@@ -1,115 +1,29 @@
 "use client"
 
 import React, { useState, useMemo } from "react"
-// Assuming data is in this file and has the structure defined below
-// import { courseData } from "../app/hooks/courseData"
-import { GraduationCap, School } from "lucide-react"
+
+import { GraduationCap, School, Home } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-
-// --- Define Interfaces/Types for Course Data Structure ---
-// (Same as before, ensure your actual data matches this structure)
-type CoursesArray = string[] | { code: string; name: string }[]; // Allow strings or objects
-
-// A semester can either have streams (object mapping stream name to courses)
-// or just be an array of courses directly.
-type StreamData = { [streamName: string]: CoursesArray };
-type SemesterData = CoursesArray | StreamData;
-
-// A year maps semester names to semester data
-type YearData = { [semesterName: string]: SemesterData };
-
-// A department has a name and course structure by year/semester
-type Department = {
-  name: string;
-  coursesByYearSemester: Record<string, YearData>; // Use Record for string keys
-};
-
-// A college has a name and a list of departments
-type College = {
-  name: string;
-  departments: Department[];
-};
-
-// The overall course data structure
-type CourseData = {
-  colleges: College[];
-};
-
-// --- Placeholder Course Data (Replace with your actual import) ---
-const courseData: CourseData = {
-  colleges: [
-    {
-      name: "College of Engineering",
-      departments: [
-        {
-          name: "Software Engineering",
-          coursesByYearSemester: {
-            "Year 2": {
-              "Semester I": ["Data Structures", "Algorithms", "Discrete Maths"],
-              "Semester II": ["OOP", "Computer Architecture", "Statistics"],
-            },
-            "Year 3": {
-              "Semester I": ["Database Systems", "Operating Systems", "Networks"],
-              "Semester II": { // Example with Streams
-                 "Software Stream": ["Advanced SWE", "Software Testing"],
-                 "AI Stream": ["Intro to AI", "Machine Learning Basics"],
-                 "Network Stream": ["Network Security", "Wireless Comms"]
-              }
-            },
-             "Year 4": { // Example with Course Objects
-                "Semester I": [
-                   { code: "SWE401", name: "Software Project Management"},
-                   { code: "SWE402", name: "Formal Methods"}
-                ]
-             }
-          },
-        },
-        {
-          name: "Electrical Engineering",
-          coursesByYearSemester: {
-             "Year 1": {
-                 "Semester I": ["Physics I", "Calculus I", "Intro to EE"],
-                 "Semester II": ["Physics II", "Calculus II", "Programming Basics"]
-             },
-          },
-        },
-      ],
-    },
-     {
-       name: "College of Natural Sciences",
-       departments: [
-          {
-             name: "Computer Science",
-              coursesByYearSemester: {
-                 "Year 1": {
-                    "Semester I": ["Intro to CS", "Calculus I"],
-                    "Semester II": ["Programming I", "Linear Algebra"]
-                 }
-              }
-          }
-       ]
-    }
-  ],
-};
-// --- End of Placeholder Data ---
-
+import { CourseData, YearData, StreamData, CoursesArray, CourseObject } from "@/app/hooks/courseData"
+import { useRouter } from "next/navigation"
 
 interface CourseNavigatorSidebarProps {
-  // Adjust the 'course' type here if your courses are objects
-  onSelect?: (courseData: string | { code: string; name: string }, department: string, year: string, semester: string, stream?: string) => void
+  courseData: CourseData // Optional prop for course data, if needed
+  onSelect?: (courseData: CourseObject) => void
   collapsed?: boolean
 }
 
-export default function CourseNavigatorSidebar({ onSelect, collapsed = false }: CourseNavigatorSidebarProps) {
+export default function CourseNavigatorSidebar({ courseData, onSelect, collapsed = false }: CourseNavigatorSidebarProps) {
   const [selectedCollegeIndex, setSelectedCollegeIndex] = useState<number | null>(null)
   const [selectedDeptIndex, setSelectedDeptIndex] = useState<number | null>(null)
   const [selectedYear, setSelectedYear] = useState<string>("")
   const [selectedSemester, setSelectedSemester] = useState<string>("")
   const [selectedStream, setSelectedStream] = useState<string>("")
+  const router = useRouter()
 
   // --- Memoized Derived State ---
   const colleges = useMemo(() => courseData.colleges, [])
@@ -227,18 +141,13 @@ export default function CourseNavigatorSidebar({ onSelect, collapsed = false }: 
   }
 
   // Adjust 'course' type based on CoursesArray definition
-  const handleCourseSelect = (courseData: string | { code: string; name: string }) => {
+  const handleCourseSelect = (courseObject: CourseObject) => {
     if (onSelect && selectedDeptIndex !== null && departments[selectedDeptIndex]) {
       onSelect(
-        courseData,
-        departments[selectedDeptIndex].name, // Safe access due to check
-        selectedYear,
-        selectedSemester,
-        selectedStream || undefined // Pass undefined if no stream selected
+        courseObject
       )
     }
   }
-
 
   // --- Rendering Logic ---
 
@@ -247,7 +156,9 @@ export default function CourseNavigatorSidebar({ onSelect, collapsed = false }: 
     return (
         <div className="flex flex-col h-full items-center border-r border-gray-200 bg-white">
             <div className="p-4 border-b border-gray-200 w-full flex justify-center">
-            <School className="h-6 w-6 text-[#c69323]" />
+              <Button onClick={() => router.push("/main")} variant="ghost" className="w-full justify-center">
+                <School className="h-6 w-6 text-[#c69323]" />
+              </Button>
             </div>
             <ScrollArea className="flex-1 w-full">
             <div className="p-2 flex flex-col items-center space-y-4">
@@ -332,6 +243,12 @@ export default function CourseNavigatorSidebar({ onSelect, collapsed = false }: 
   // Expanded view rendering
   return (
     <div className="flex flex-col h-full border-r border-gray-200 bg-white">
+      <div className="p-4 border-b border-gray-200">
+          <a href="/main">
+            <h2 className="text-lg font-semibold text-[#c69323]">{process.env.NEXT_PUBLIC_PROJECT_NAME}</h2>
+            <p className="text-xs text-gray-600 dark:text-gray-300">Go back to home</p>
+          </a>          
+      </div>
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center gap-2 mb-2">
           <School className="h-5 w-5 text-[#c69323]" />
@@ -457,41 +374,54 @@ export default function CourseNavigatorSidebar({ onSelect, collapsed = false }: 
                 <h3 className="text-sm font-medium text-gray-800">Available Courses</h3>
               </div>
               <Accordion type="single" collapsible className="w-full space-y-1">
-                 {/* FIX: Add types for course and index */}
-                 {/* Also handle case where course is an object */}
-                {courses.map((courseItem: string | { code: string; name: string }, index: number) => {
-                   const courseName = typeof courseItem === 'string' ? courseItem : courseItem.name;
-                   const courseKey = typeof courseItem === 'string' ? courseItem : courseItem.code; // Use code for key if object
-                   const hasDetails = typeof courseItem !== 'string'; // Check if we have more than just a name
-
-                  return (
-                     <AccordionItem key={`${courseKey}-${index}`} value={`item-${index}`} className="border-none">
-                       <AccordionTrigger className="text-sm py-1.5 px-2 hover:no-underline hover:bg-gray-100 rounded-md text-left font-normal leading-snug">
-                         {courseName}
-                       </AccordionTrigger>
-                       <AccordionContent className="pb-0">
-                         <div className="px-2 pt-1 pb-2 text-xs text-gray-600 bg-gray-50 rounded-b-md">
-                            {hasDetails && typeof courseItem !== 'string' && ( // Display code if available
-                               <p className="mb-1 text-gray-500">Code: {courseItem.code}</p>
-                            )}
+                {/* Handle both string[] and CourseObject[] */}
+                {(courses as Array<any>).map((courseItem, index) => {
+                  // If courseItem is a string, treat as a message or course name
+                  if (typeof courseItem === "string") {
+                    return (
+                      <AccordionItem key={`string-${index}`} value={`item-${index}`} className="border-none">
+                        <AccordionTrigger className="text-sm py-1.5 px-2 hover:no-underline hover:bg-gray-100 rounded-md text-left font-normal leading-snug">
+                          {courseItem}
+                        </AccordionTrigger>
+                        <AccordionContent className="pb-0">
+                          <div className="px-2 pt-1 pb-2 text-xs text-gray-600 bg-gray-50 rounded-b-md">
                             <p className="mb-2 italic">
-                               {hasDetails ? "Further details can be shown here." : "No additional details provided."}
+                              No additional details provided.
                             </p>
-                           {onSelect && ( // Only show button if onSelect is provided
-                              <Button
-                                 size="sm" // Use extra small size
-                                 variant="outline"
-                                 className="w-full text-[#c69323] border-[#c69323] hover:bg-blue-50 hover:text-[#ac7a10]"
-                                 onClick={() => handleCourseSelect(courseItem)} // Pass the original course item
-                              >
-                                 View Course Details
-                              </Button>
-                            )}
-                         </div>
-                       </AccordionContent>
-                     </AccordionItem>
-                   );
-                 })}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    );
+                  }
+                  // Otherwise, assume courseItem is a CourseObject
+                  const courseName = courseItem.name;
+                  const courseKey = courseItem.code;
+                  return (
+                    <AccordionItem key={`${courseKey}-${index}`} value={`item-${index}`} className="border-none">
+                      <AccordionTrigger className="text-sm py-1.5 px-2 hover:no-underline hover:bg-gray-100 rounded-md text-left font-normal leading-snug">
+                        {courseName}
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-0">
+                        <div className="px-2 pt-1 pb-2 text-xs text-gray-600 bg-gray-50 rounded-b-md">
+                          <p className="mb-1 text-gray-500">Code: {courseItem.code}</p>
+                          <p className="mb-2 italic">
+                            Further details can be shown here.
+                          </p>
+                          {onSelect && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="w-full text-[#c69323] border-[#c69323] hover:bg-blue-50 hover:text-[#ac7a10]"
+                              onClick={() => handleCourseSelect(courseItem)}
+                            >
+                              View Course Details
+                            </Button>
+                          )}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                })}
               </Accordion>
             </div>
           )}
