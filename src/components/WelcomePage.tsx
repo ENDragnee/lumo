@@ -6,7 +6,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle, MessageSquare, GraduationCap } from "lucide-react"
 
 import { courseData } from "@/app/hooks/courseData"
-import type { Department } from "@/app/hooks/courseData"
 
 // Import the new Client Component and its type
 import { DepartmentCard, UIDepartment } from "@/components/DepartmentCard"

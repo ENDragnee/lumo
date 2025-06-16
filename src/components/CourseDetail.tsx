@@ -13,7 +13,8 @@ import {
 } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { CourseData, CourseObject } from '@/app/hooks/courseData';
+import { courseData, CourseData, CourseObject } from '@/app/hooks/courseData';
+import { useRouter } from 'next/navigation';
 
 interface CourseDetailProps {
   semester: string;
@@ -29,6 +30,7 @@ export default function CourseDetail({
 }: CourseDetailProps) {
   // In a real app, you would fetch this data based on the course ID
   const [selectedChapter, setSelectedChapter] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleChapterClick = (chapterId: string) => {
     // In a real app, this would navigate to the chapter page
@@ -72,7 +74,7 @@ export default function CourseDetail({
               </p>
             </div>
             <div className="flex-shrink-0">
-              <Button className="bg-white text-[#c69323] hover:bg-blue-50">
+              <Button className="bg-white text-[#c69323] hover:bg-blue-50" onClick={() => router.push(`${courseObject.path}`)}>
                 Enroll in Course
               </Button>
             </div>
@@ -209,7 +211,7 @@ export default function CourseDetail({
                       <Button
                         variant="outline"
                         className="w-full"
-                        onClick={() => handleChapterClick('ch1')}
+                        onClick={() => router.push(`${courseObject.chapters[0].path}`)}
                       >
                         Start Learning
                       </Button>
