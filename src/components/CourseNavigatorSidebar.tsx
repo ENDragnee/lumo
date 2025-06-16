@@ -2,13 +2,14 @@
 
 import React, { useState, useMemo } from "react"
 
-import { GraduationCap, School } from "lucide-react"
+import { GraduationCap, School, Home } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { CourseData, YearData, StreamData, CoursesArray, CourseObject } from "@/app/hooks/courseData"
+import { useRouter } from "next/navigation"
 
 interface CourseNavigatorSidebarProps {
   courseData: CourseData // Optional prop for course data, if needed
@@ -22,6 +23,7 @@ export default function CourseNavigatorSidebar({ courseData, onSelect, collapsed
   const [selectedYear, setSelectedYear] = useState<string>("")
   const [selectedSemester, setSelectedSemester] = useState<string>("")
   const [selectedStream, setSelectedStream] = useState<string>("")
+  const router = useRouter()
 
   // --- Memoized Derived State ---
   const colleges = useMemo(() => courseData.colleges, [])
@@ -154,7 +156,9 @@ export default function CourseNavigatorSidebar({ courseData, onSelect, collapsed
     return (
         <div className="flex flex-col h-full items-center border-r border-gray-200 bg-white">
             <div className="p-4 border-b border-gray-200 w-full flex justify-center">
-            <School className="h-6 w-6 text-[#c69323]" />
+              <Button onClick={() => router.push("/main")} variant="ghost" className="w-full justify-center">
+                <School className="h-6 w-6 text-[#c69323]" />
+              </Button>
             </div>
             <ScrollArea className="flex-1 w-full">
             <div className="p-2 flex flex-col items-center space-y-4">
@@ -239,6 +243,12 @@ export default function CourseNavigatorSidebar({ courseData, onSelect, collapsed
   // Expanded view rendering
   return (
     <div className="flex flex-col h-full border-r border-gray-200 bg-white">
+      <div className="p-4 border-b border-gray-200">
+          <a href="/main">
+            <h2 className="text-lg font-semibold text-[#c69323]">{process.env.NEXT_PUBLIC_PROJECT_NAME}</h2>
+            <p className="text-xs text-gray-600 dark:text-gray-300">Go back to home</p>
+          </a>          
+      </div>
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center gap-2 mb-2">
           <School className="h-5 w-5 text-[#c69323]" />
