@@ -22152,8 +22152,8 @@ export const courseData: CourseData = {
           }
         },
         {
-          "name": "Fresh Man",
-          "abbreviation": "FRESH",
+          "name": "Engineering Fresh Man",
+          "abbreviation": "EFRESH",
           "coursesByYearSemester":{
             "Year 1": {
                 "Semester I": [
@@ -22590,8 +22590,8 @@ export const courseData: CourseData = {
       name: 'College of Natural and Applied Sciences',
       departments: [
         {
-          "name": "Fresh Man",
-          "abbreviation": "FRESH",
+          "name": "Applied Fresh Man",
+          "abbreviation": "AFRESH",
           "coursesByYearSemester":{
             "Year 1": {
                 "Semester I": [
