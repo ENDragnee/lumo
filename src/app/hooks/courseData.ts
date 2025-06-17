@@ -17210,176 +17210,308 @@ export const courseData: CourseData = {
             "Year 2": {
               "Semester I": [
                 {
-                  "code": "MEng2005",
-                  "name": "Engineering Mechanics I (Statics)",
-                  "description": "A study of the equilibrium of particles and rigid bodies under the action of forces. Covers force systems, equilibrium conditions, analysis of trusses and frames, friction, and centroids.",
+                  "code": "MEng2101",
+                  "name": "Engineering Drawing",
+                  "description": "Fundamentals of technical drawing for engineers. This course covers orthographic and isometric projections, sectioning, dimensioning, and an introduction to computer-aided drafting (CAD) for creating mechanical component drawings.",
                   "credits": 3,
+                  "prerequisites": [],
                   "outcomes": [
-                    "Draw free-body diagrams and apply equilibrium equations to solve for unknown forces.",
-                    "Analyze forces in truss and frame members.",
-                    "Calculate centroids and moments of inertia for various shapes.",
-                    "Solve problems involving static and kinetic friction."
+                    "Visualize objects in three dimensions and represent them in two dimensions according to established standards.",
+                    "Create and interpret engineering drawings for mechanical components and assemblies.",
+                    "Use CAD software to produce clear and accurate technical drawings.",
+                    "Understand and apply standard dimensioning and tolerancing practices."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ed_ch1",
+                      "title": "Introduction to Engineering Graphics",
+                      "topics": [
+                        "Drafting Instruments and Their Uses",
+                        "Lettering, Line Types, and Standards",
+                        "Geometric Constructions"
+                      ]
+                    },
+                    {
+                      "id": "ed_ch2",
+                      "title": "Orthographic and Pictorial Projections",
+                      "topics": [
+                        "Theory of Projection and Multi-view Drawings",
+                        "Isometric Projections and Sketching",
+                        "Auxiliary Views"
+                      ]
+                    },
+                    {
+                      "id": "ed_ch3",
+                      "title": "Sectional Views and Dimensioning",
+                      "topics": [
+                        "Types of Sections (Full, Half, Offset)",
+                        "Dimensioning Standards and Practices",
+                        "Tolerancing Basics"
+                      ]
+                    },
+                    {
+                      "id": "ed_ch4",
+                      "title": "CAD and Assembly Drawings",
+                      "topics": [
+                        "Introduction to Computer-Aided Drafting (CAD)",
+                        "Creating 2D Drawings in CAD",
+                        "Introduction to Assembly Drawings and Bills of Materials"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Comp2103",
+                  "name": "Introduction to computer programing",
+                  "description": "An introductory course on computer programming principles and problem-solving using a high-level language like MATLAB or Python. Focuses on algorithms, data structures, and fundamental programming constructs relevant to solving mechanical engineering problems.",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "outcomes": [
+                    "Develop algorithms and flowcharts to solve engineering problems.",
+                    "Write, debug, and execute programs to perform calculations and data analysis.",
+                    "Understand and apply fundamental concepts like variables, loops, functions, and arrays.",
+                    "Use programming for data visualization and to solve numerical problems."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "prog_ch1",
+                      "title": "Problem Solving and Algorithms",
+                      "topics": [
+                        "Flowcharts and Pseudocode",
+                        "Program Development Cycle",
+                        "Introduction to Programming Environments (MATLAB/Python)"
+                      ]
+                    },
+                    {
+                      "id": "prog_ch2",
+                      "title": "Programming Fundamentals",
+                      "topics": [
+                        "Data Types, Variables, and Constants",
+                        "Operators and Expressions",
+                        "Input/Output Operations"
+                      ]
+                    },
+                    {
+                      "id": "prog_ch3",
+                      "title": "Control Structures and Functions",
+                      "topics": [
+                        "Conditional Statements (if, else-if)",
+                        "Looping Structures (for, while)",
+                        "User-Defined Functions and Scripting"
+                      ]
+                    },
+                    {
+                      "id": "prog_ch4",
+                      "title": "Applications in Mechanical Engineering",
+                      "topics": [
+                        "Vector and Matrix Operations",
+                        "Plotting and Data Visualization",
+                        "Solving Systems of Linear Equations",
+                        "Numerical Root Finding"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "CEng2105",
+                  "name": "Engineering Mechanics I",
+                  "description": "A fundamental course on the analysis of forces acting on particles and rigid bodies in equilibrium. Covers vector mechanics, equilibrium of forces, analysis of structures (trusses, frames), friction, and centroids, providing a foundation for machine design and structural analysis.",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "outcomes": [
+                    "Apply principles of vector mechanics to solve force problems.",
+                    "Draw accurate free-body diagrams and apply equilibrium equations to solve for unknown forces.",
+                    "Analyze forces in trusses, frames, and machines.",
+                    "Determine centroids, centers of gravity, and moments of inertia for various shapes."
                   ],
                   "chapters": [
                     {
                       "id": "statics_ch1",
-                      "title": "Force Systems and Resultants",
+                      "title": "Introduction to Statics and Force Systems",
                       "topics": [
-                        "Vectors and Scalars",
+                        "Vector Operations",
+                        "Force Systems",
                         "Moments and Couples",
-                        "Equivalent Force-Couple Systems"
+                        "Resultants of Force Systems"
                       ]
                     },
                     {
                       "id": "statics_ch2",
-                      "title": "Equilibrium of Rigid Bodies",
+                      "title": "Equilibrium of Particles and Rigid Bodies",
                       "topics": [
                         "Free-Body Diagrams",
-                        "Equations of Equilibrium in 2D and 3D",
-                        "Constraints and Statically Determinate Systems"
+                        "Equations of Equilibrium in 2D",
+                        "Equations of Equilibrium in 3D"
                       ]
                     },
                     {
                       "id": "statics_ch3",
-                      "title": "Structural Analysis",
+                      "title": "Analysis of Structures",
                       "topics": [
-                        "Analysis of Trusses (Method of Joints, Method of Sections)",
-                        "Analysis of Frames and Machines"
+                        "Trusses (Method of Joints, Method of Sections)",
+                        "Frames and Machines",
+                        "Internal Forces in Beams"
                       ]
                     },
                     {
                       "id": "statics_ch4",
                       "title": "Distributed Forces and Friction",
                       "topics": [
-                        "Centroids and Center of Gravity",
+                        "Centroids and Centers of Gravity",
                         "Moments of Inertia",
-                        "Laws of Dry Friction"
+                        "Theory of Dry Friction"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "MEng2001",
-                  "name": "Engineering Drawing",
-                  "description": "Fundamental principles of engineering drawing, orthographic projections, sectional views, tolerancing, and an introduction to computer-aided design (CAD) software.",
-                  "credits": 3,
+                  "code": "Math2101",
+                  "name": "Applied Mathematics II",
+                  "description": "Continues the study of mathematical concepts essential for engineering, with a focus on ordinary differential equations, linear algebra, vector calculus, and Laplace transforms, all of which are foundational for mechanical system modeling.",
+                  "credits": 4,
+                  "prerequisites": [],
                   "outcomes": [
-                    "Create and interpret multi-view orthographic projections.",
-                    "Apply standard dimensioning and tolerancing techniques (GD&T).",
-                    "Produce assembly drawings with parts lists.",
-                    "Use basic CAD tools to create 2D and 3D engineering models."
+                    "Solve first and second-order ordinary differential equations relevant to mechanical vibrations and thermal systems.",
+                    "Perform operations with matrices and solve systems of linear equations.",
+                    "Apply vector calculus concepts to understand fields in fluid mechanics and heat transfer.",
+                    "Understand and apply Laplace transforms for dynamic system and control analysis."
                   ],
                   "chapters": [
                     {
-                      "id": "ed_ch1",
-                      "title": "Drafting Fundamentals",
+                      "id": "am2_ch1",
+                      "title": "Ordinary Differential Equations (ODEs)",
                       "topics": [
-                        "Lettering, Line Types, and Scale",
-                        "Geometric Constructions",
-                        "Orthographic Projections"
+                        "First-Order ODEs",
+                        "Second-Order Linear ODEs with Constant Coefficients",
+                        "Applications in Mechanical Systems"
                       ]
                     },
                     {
-                      "id": "ed_ch2",
-                      "title": "Sectional and Auxiliary Views",
+                      "id": "am2_ch2",
+                      "title": "Linear Algebra",
                       "topics": [
-                        "Types of Sections",
-                        "Auxiliary Views",
-                        "Dimensioning and Tolerancing"
+                        "Matrices, Vectors, and Determinants",
+                        "Solving Systems of Linear Equations",
+                        "Eigenvalues and Eigenvectors"
                       ]
                     },
                     {
-                      "id": "ed_ch3",
-                      "title": "3D Modeling with CAD",
+                      "id": "am2_ch3",
+                      "title": "Vector Calculus",
                       "topics": [
-                        "Introduction to CAD Interface",
-                        "Part Modeling (Extrude, Revolve, Cut)",
-                        "Creating Assemblies"
+                        "Vector Functions",
+                        "Gradient, Divergence, and Curl",
+                        "Line and Surface Integrals"
                       ]
                     },
                     {
-                      "id": "ed_ch4",
-                      "title": "Working Drawings",
+                      "id": "am2_ch4",
+                      "title": "Laplace Transforms",
                       "topics": [
-                        "Detail Drawings",
-                        "Assembly Drawings and Bills of Materials",
-                        "Introduction to GD&T"
+                        "Definition and Properties of Laplace Transforms",
+                        "Inverse Laplace Transforms",
+                        "Solving ODEs using Laplace Transforms"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "MEng2103",
-                  "name": "Engineering Thermodynamics I",
-                  "description": "Introduction to the principles of thermodynamics. Covers properties of pure substances, the First and Second Laws of Thermodynamics, and their application to engineering systems.",
+                  "code": "Econ2009",
+                  "name": "Economics",
+                  "description": "An introduction to microeconomic and macroeconomic principles, including supply and demand, market structures, national income, inflation, and fiscal and monetary policy, with relevance to manufacturing and technology sectors.",
                   "credits": 3,
+                  "prerequisites": [],
                   "outcomes": [
-                    "Apply the First Law of Thermodynamics to closed and open systems.",
-                    "Use property tables (e.g., steam tables) to determine fluid states.",
-                    "Understand the concepts of entropy, reversibility, and the Second Law.",
-                    "Analyze basic power and refrigeration cycles."
+                    "Understand the basic principles of supply, demand, and market equilibrium.",
+                    "Analyze different market structures and their impact on firms and consumers.",
+                    "Grasp key macroeconomic indicators and policy tools.",
+                    "Apply economic principles to understand issues in technology-driven industries."
                   ],
                   "chapters": [
                     {
-                      "id": "thermo1_ch1",
-                      "title": "Concepts and Properties",
+                      "id": "econ_ch1",
+                      "title": "Introduction to Economics",
                       "topics": [
-                        "Systems and Control Volumes",
-                        "Properties of a Pure Substance",
-                        "Use of Property Tables"
+                        "The Economic Problem of Scarcity",
+                        "Opportunity Cost",
+                        "Production Possibilities Frontier"
                       ]
                     },
                     {
-                      "id": "thermo1_ch2",
-                      "title": "The First Law of Thermodynamics",
+                      "id": "econ_ch2",
+                      "title": "Microeconomics",
                       "topics": [
-                        "Energy, Heat, and Work",
-                        "Energy Balance for Closed Systems",
-                        "Energy Balance for Open Systems (Control Volumes)"
+                        "Supply and Demand",
+                        "Elasticity",
+                        "Theory of Production and Costs"
                       ]
                     },
                     {
-                      "id": "thermo1_ch3",
-                      "title": "The Second Law of Thermodynamics",
+                      "id": "econ_ch3",
+                      "title": "Macroeconomics",
                       "topics": [
-                        "Heat Engines and Refrigerators",
-                        "Reversible and Irreversible Processes",
-                        "The Carnot Cycle"
-                      ]
-                    },
-                    {
-                      "id": "thermo1_ch4",
-                      "title": "Entropy",
-                      "topics": [
-                        "The Clausius Inequality",
-                        "Principle of Increase of Entropy",
-                        "Isentropic Processes"
+                        "Measuring National Income (GDP)",
+                        "Inflation and Unemployment",
+                        "Monetary and Fiscal Policy"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "EMEC2102",
-                  "name": "Materials Science and Engineering",
-                  "description": "Study of the structure, properties, and processing of engineering materials, including metals, ceramics, polymers, and composites.",
-                  "credits": 3,
-                  "chapters": []
+                  "code": "GLTr2011",
+                  "name": "Global Trend",
+                  "description": "A course exploring major global trends, issues, and challenges in the 21st century, covering topics like globalization, international relations, global security, environmental challenges, and development.",
+                  "credits": 2,
+                  "prerequisites": [],
+                  "outcomes": [
+                    "Identify and analyze major trends shaping the contemporary world.",
+                    "Understand the interconnectedness of global political, economic, and social systems.",
+                    "Critically evaluate different perspectives on global issues such as security, climate change, and migration."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "gt_ch1",
+                      "title": "Understanding Globalization",
+                      "topics": [
+                        "Dimensions of Globalization",
+                        "Debates on Globalization"
+                      ]
+                    },
+                    {
+                      "id": "gt_ch2",
+                      "title": "International Relations and Security",
+                      "topics": [
+                        "Theories of International Relations",
+                        "The Concept of Security",
+                        "Conflict and Terrorism"
+                      ]
+                    },
+                    {
+                      "id": "gt_ch3",
+                      "title": "Contemporary Global Challenges",
+                      "topics": [
+                        "Environmental Change",
+                        "Global Poverty and Development",
+                        "Foreign Policy and Diplomacy"
+                      ]
+                    }
+                  ]
                 }
               ],
               "Semester II": [
                 {
                   "code": "MEng2102",
-                  "name": "Engineering Mechanics II (Dynamics)",
-                  "description": "A study of the motion of particles and rigid bodies. Covers kinematics (geometry of motion) and kinetics (relation between forces and motion) using Newton's laws, work-energy, and impulse-momentum methods.",
+                  "name": "Engineering Mechanics II",
+                  "description": "A study of the motion of particles and rigid bodies. Covers kinematics (motion) and kinetics (forces causing motion), including principles of work-energy and impulse-momentum, with applications to machine components, robotics, and vehicle dynamics.",
                   "credits": 3,
                   "prerequisites": [
-                    "MEng2005"
+                    "CEng2105"
                   ],
                   "outcomes": [
-                    "Analyze the kinematics of particles and rigid bodies in plane motion.",
-                    "Apply Newton's second law to solve dynamics problems.",
-                    "Utilize work-energy and impulse-momentum principles.",
-                    "Understand the fundamentals of mechanical vibrations."
+                    "Analyze the kinematics of particles and rigid bodies using various coordinate systems.",
+                    "Apply Newton's second law to solve problems involving forces, mass, and acceleration.",
+                    "Use work-energy and impulse-momentum methods to analyze the motion of engineering systems.",
+                    "Understand the fundamental principles of mechanical vibrations."
                   ],
                   "chapters": [
                     {
@@ -17387,144 +17519,285 @@ export const courseData: CourseData = {
                       "title": "Kinematics of Particles",
                       "topics": [
                         "Rectilinear and Curvilinear Motion",
-                        "Relative Motion"
+                        "Rectangular, Normal/Tangential, and Cylindrical Coordinates"
                       ]
                     },
                     {
                       "id": "dyn_ch2",
                       "title": "Kinetics of Particles",
                       "topics": [
-                        "Newton's Second Law",
-                        "Work-Energy Principle",
-                        "Impulse-Momentum Principle"
+                        "Newton's Second Law of Motion",
+                        "Work and Energy Methods",
+                        "Impulse and Momentum Methods"
                       ]
                     },
                     {
                       "id": "dyn_ch3",
-                      "title": "Kinematics of Rigid Bodies",
+                      "title": "Planar Kinematics of Rigid Bodies",
                       "topics": [
                         "Translation and Rotation",
                         "General Plane Motion",
-                        "Instantaneous Center of Zero Velocity"
+                        "Relative Velocity and Acceleration Analysis"
                       ]
                     },
                     {
                       "id": "dyn_ch4",
-                      "title": "Kinetics of Rigid Bodies",
+                      "title": "Planar Kinetics of Rigid Bodies",
                       "topics": [
-                        "Equations of Motion for a Rigid Body",
-                        "Work and Energy for Rigid Bodies"
+                        "Force, Mass, and Acceleration of Rigid Bodies",
+                        "Work, Energy, and Momentum for Rigid Bodies"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "MEng2104",
-                  "name": "Strength of Materials",
-                  "description": "Analyzes the internal effects of forces on deformable bodies. Covers concepts of stress, strain, torsion, bending, shear in beams, stress transformation, and column buckling.",
+                  "name": "Strength of Materials I",
+                  "description": "A foundational course on the behavior of solid materials subjected to stresses and strains. Topics include stress, strain, mechanical properties of materials, axial load, torsion, bending, and shear, forming the basis for machine design.",
                   "credits": 3,
                   "prerequisites": [
-                    "MEng2005"
+                    "CEng2105"
                   ],
                   "outcomes": [
-                    "Calculate stresses and strains in structural members under various loads.",
-                    "Analyze members subjected to axial, torsional, and bending loads.",
-                    "Draw shear and moment diagrams for beams.",
-                    "Apply stress transformation equations and Mohr's circle."
+                    "Understand the concepts of stress and strain and their relationship through material properties.",
+                    "Analyze stresses and deformations in members subjected to axial, torsional, and bending loads.",
+                    "Construct shear force and bending moment diagrams for determinate beams.",
+                    "Apply principles of stress transformation and analyze simple columns for buckling."
                   ],
                   "chapters": [
                     {
                       "id": "som_ch1",
                       "title": "Stress and Strain",
                       "topics": [
-                        "Normal and Shear Stress",
-                        "Hooke's Law and Material Properties",
-                        "Axial Loading and Deformation"
+                        "Concept of Stress and Strain",
+                        "Mechanical Properties of Materials",
+                        "Hooke's Law and Axially Loaded Members"
                       ]
                     },
                     {
                       "id": "som_ch2",
                       "title": "Torsion and Bending",
                       "topics": [
-                        "Torsional Deformation of Shafts",
-                        "Shear and Moment Diagrams",
-                        "Flexural Stress in Beams"
+                        "Torsion of Circular Shafts",
+                        "Shear and Bending Moment Diagrams",
+                        "Bending Stresses in Beams (The Flexure Formula)"
                       ]
                     },
                     {
                       "id": "som_ch3",
-                      "title": "Stress Transformation and Combined Loadings",
+                      "title": "Shear Stress and Combined Stresses",
                       "topics": [
-                        "Transverse Shear in Beams",
-                        "Stress Transformation and Mohr's Circle"
+                        "Transverse Shear Stress in Beams",
+                        "Stress Transformation using Mohr's Circle",
+                        "Principal Stresses"
                       ]
                     },
                     {
                       "id": "som_ch4",
-                      "title": "Deflection and Buckling",
+                      "title": "Beam Deflection and Column Buckling",
                       "topics": [
-                        "Deflection of Beams",
-                        "Buckling of Columns"
+                        "Integration Method for Beam Deflection",
+                        "Buckling of Columns (Euler's Formula)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Math2142",
+                  "name": "Applied Mathematics III",
+                  "description": "Advanced mathematical methods essential for mechanical engineering, focusing on Fourier analysis, partial differential equations (PDEs), and complex variables for modeling complex systems.",
+                  "credits": 4,
+                  "prerequisites": [
+                    "Math2101"
+                  ],
+                  "outcomes": [
+                    "Represent periodic functions using Fourier series and analyze signals using Fourier transforms.",
+                    "Formulate and solve partial differential equations that describe physical phenomena like heat transfer and wave propagation.",
+                    "Apply complex variable theory to solve engineering problems.",
+                    "Understand the mathematical foundations for advanced studies in fluids, heat transfer, and vibrations."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "am3_ch1",
+                      "title": "Fourier Series and Transforms",
+                      "topics": [
+                        "Fourier Series for Periodic Functions",
+                        "Fourier Transform for Non-periodic Functions",
+                        "Applications in Vibration and Signal Analysis"
+                      ]
+                    },
+                    {
+                      "id": "am3_ch2",
+                      "title": "Partial Differential Equations (PDEs)",
+                      "topics": [
+                        "Formulation of PDEs in Engineering",
+                        "The Wave Equation and the Heat Equation",
+                        "Laplace's Equation"
+                      ]
+                    },
+                    {
+                      "id": "am3_ch3",
+                      "title": "Complex Variables",
+                      "topics": [
+                        "Complex Numbers and Functions",
+                        "Cauchy's Integral Theorem",
+                        "Residue Theory"
+                      ]
+                    },
+                    {
+                      "id": "am3_ch4",
+                      "title": "Introduction to Numerical Methods for PDEs",
+                      "topics": [
+                        "Finite Difference Method",
+                        "Application to Heat Conduction"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "MEng2106",
-                  "name": "Manufacturing Technology I",
-                  "description": "An introduction to manufacturing processes, including metal casting, forming, machining, and joining, with an emphasis on process capabilities and limitations.",
+                  "name": "Engineering Thermodynamics I",
+                  "description": "Introduces the fundamental principles of thermodynamics, covering the First and Second Laws, properties of pure substances, and the analysis of power and refrigeration cycles, with applications to heat engines and thermal systems.",
                   "credits": 3,
+                  "prerequisites": [],
                   "outcomes": [
-                    "Identify and describe a wide range of manufacturing processes.",
-                    "Understand the fundamentals of metal cutting and machining operations.",
-                    "Compare different casting, forming, and joining techniques.",
-                    "Select appropriate manufacturing processes based on material and geometry."
+                    "Apply the First Law of Thermodynamics to analyze closed and open systems.",
+                    "Determine thermodynamic properties of substances using tables and equations of state.",
+                    "Apply the Second Law of Thermodynamics and concepts of entropy and efficiency to analyze system performance.",
+                    "Analyze and evaluate basic power generation and refrigeration cycles."
                   ],
                   "chapters": [
                     {
-                      "id": "mfg1_ch1",
-                      "title": "Casting Processes",
+                      "id": "thermo1_ch1",
+                      "title": "Introduction and the First Law",
                       "topics": [
-                        "Solidification of Metals",
-                        "Sand Casting",
-                        "Investment Casting and Die Casting"
+                        "Basic Concepts and Definitions",
+                        "The First Law for Closed and Open Systems",
+                        "Enthalpy and Heat Capacity"
                       ]
                     },
                     {
-                      "id": "mfg1_ch2",
-                      "title": "Metal Forming",
+                      "id": "thermo1_ch2",
+                      "title": "Properties of Pure Substances",
                       "topics": [
-                        "Fundamentals of Metal Forming",
-                        "Bulk Deformation (Forging, Rolling, Extrusion)",
-                        "Sheet Metalworking"
+                        "PVT Behavior",
+                        "Thermodynamic Property Tables",
+                        "Ideal and Real Gas Models"
                       ]
                     },
                     {
-                      "id": "mfg1_ch3",
-                      "title": "Machining Processes",
+                      "id": "thermo1_ch3",
+                      "title": "The Second Law of Thermodynamics",
                       "topics": [
-                        "Theory of Metal Cutting",
-                        "Turning, Drilling, and Milling Operations",
-                        "Cutting Tools and Fluids"
+                        "Statements of the Second Law",
+                        "Entropy and the Increase of Entropy Principle",
+                        "Carnot Cycle and Thermodynamic Efficiency"
                       ]
                     },
                     {
-                      "id": "mfg1_ch4",
-                      "title": "Joining Processes",
+                      "id": "thermo1_ch4",
+                      "title": "Power and Refrigeration Cycles",
                       "topics": [
-                        "Welding (Arc, Gas, Resistance)",
-                        "Brazing and Soldering",
-                        "Mechanical Fastening"
+                        "Vapor Power Cycles (Rankine)",
+                        "Gas Power Cycles (Otto, Diesel, Brayton)",
+                        "Refrigeration Cycles"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "MEng2108",
-                  "name": "Fluid Mechanics I",
-                  "description": "Introduction to the mechanics of fluids. Topics include fluid properties, hydrostatics, buoyancy, and the principles of conservation of mass, momentum, and energy for fluid flow.",
-                  "credits": 3,
-                  "chapters": []
+                  "name": "Basic Workshop Practice",
+                  "description": "A hands-on course providing practical experience with basic manufacturing processes, including metalworking, machining (lathing, milling), welding, and fabrication. Emphasizes safety, proper use of tools, and precision measurement.",
+                  "credits": 2,
+                  "prerequisites": [],
+                  "outcomes": [
+                    "Safely operate common workshop machinery such as lathes, milling machines, and drill presses.",
+                    "Gain practical skills in metal forming, cutting, and joining through hands-on projects.",
+                    "Develop proficiency in using precision measurement tools.",
+                    "Develop an appreciation for manufacturing processes, materials, and craftsmanship."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "wp1_ch1",
+                      "title": "Workshop Safety and Bench Work",
+                      "topics": [
+                        "Safety Rules and Personal Protective Equipment (PPE)",
+                        "Use of Measuring and Marking Tools",
+                        "Filing, Sawing, and Drilling"
+                      ]
+                    },
+                    {
+                      "id": "wp1_ch2",
+                      "title": "Machining Processes",
+                      "topics": [
+                        "Introduction to the Lathe (Turning, Facing, Threading)",
+                        "Introduction to the Milling Machine (Milling, Boring)"
+                      ]
+                    },
+                    {
+                      "id": "wp1_ch3",
+                      "title": "Joining Processes",
+                      "topics": [
+                        "Introduction to Arc Welding",
+                        "Introduction to Gas Welding",
+                        "Fastening and Assembly"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "MEng2110",
+                  "name": "Machine Drawing with CAD",
+                  "description": "An advanced course in computer-aided design focusing on the creation of detailed assembly drawings, 3D solid modeling of machine components, and the application of standardized tolerancing for machine elements.",
+                  "credits": 4,
+                  "prerequisites": [
+                    "MEng2101"
+                  ],
+                  "outcomes": [
+                    "Create complex 3D solid models of machine parts using CAD software.",
+                    "Generate detailed 2D manufacturing drawings with multiple views, sections, and dimensions from 3D models.",
+                    "Create complex assembly models and generate exploded views and bills of materials (BOM).",
+                    "Apply Geometric Dimensioning and Tolerancing (GD&T) to engineering drawings."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "mdcad_ch1",
+                      "title": "3D Solid Modeling Fundamentals",
+                      "topics": [
+                        "Sketching and Constraints",
+                        "Extrude, Revolve, and Sweep Features",
+                        "Holes, Fillets, and Chamfers"
+                      ]
+                    },
+                    {
+                      "id": "mdcad_ch2",
+                      "title": "Advanced Part Modeling",
+                      "topics": [
+                        "Patterning and Mirroring Features",
+                        "Creating Ribs and Webs",
+                        "Introduction to Surface Modeling"
+                      ]
+                    },
+                    {
+                      "id": "mdcad_ch3",
+                      "title": "Assembly Modeling",
+                      "topics": [
+                        "Mating Constraints",
+                        "Top-down and Bottom-up Assembly",
+                        "Interference Detection and Exploded Views"
+                      ]
+                    },
+                    {
+                      "id": "mdcad_ch4",
+                      "title": "Detailed Drawing and Geometric Tolerancing",
+                      "topics": [
+                        "Creating Drawing Views from Models",
+                        "Bills of Materials (BOM)",
+                        "Fundamentals of Geometric Dimensioning and Tolerancing (GD&T)"
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -17532,130 +17805,850 @@ export const courseData: CourseData = {
               "Semester I": [
                 {
                   "code": "MEng3101",
-                  "name": "Machine Elements I",
-                  "description": "Analysis and design of common mechanical components. Covers stress analysis under various loading conditions, failure theories, and the design of shafts, bearings, and keys.",
+                  "name": "Engineering Thermodynamics II",
+                  "description": "An advanced study of thermodynamics building upon fundamental principles. This course covers the analysis of gas mixtures, psychrometrics, chemical reactions and combustion, and thermodynamic property relations.",
                   "credits": 3,
                   "prerequisites": [
-                    "MEng2104"
+                    "MEng2106"
                   ],
                   "outcomes": [
-                    "Apply static and fatigue failure theories to machine component design.",
-                    "Design shafts for stress and deflection.",
-                    "Select appropriate rolling-contact bearings for an application.",
-                    "Design permanent and detachable joints."
+                    "Analyze the properties and processes of ideal and real gas mixtures.",
+                    "Apply psychrometric principles to analyze air-conditioning processes.",
+                    "Perform thermodynamic analysis of reacting systems and determine combustion products.",
+                    "Derive and use fundamental thermodynamic property relations like the Maxwell relations."
                   ],
                   "chapters": [
                     {
-                      "id": "me1_ch1",
-                      "title": "Fundamentals of Mechanical Design",
+                      "id": "thermo2_ch1",
+                      "title": "Gas Mixtures",
                       "topics": [
-                        "The Design Process",
-                        "Materials Selection",
-                        "Load and Stress Analysis"
+                        "Ideal Gas Mixtures: Dalton's and Amagat's Laws",
+                        "Properties of Gas Mixtures",
+                        "Real Gas Mixtures"
                       ]
                     },
                     {
-                      "id": "me1_ch2",
-                      "title": "Failure Prevention",
+                      "id": "thermo2_ch2",
+                      "title": "Psychrometrics",
                       "topics": [
-                        "Static Failure Theories (Ductile, Brittle)",
-                        "Fatigue Failure Theories (S-N Diagrams, Goodman, Soderberg)"
+                        "Properties of Atmospheric Air",
+                        "The Psychrometric Chart",
+                        "Analysis of Air-Conditioning Processes"
                       ]
                     },
                     {
-                      "id": "me1_ch3",
-                      "title": "Design of Shafts and Associated Parts",
+                      "id": "thermo2_ch3",
+                      "title": "Chemical Reactions and Combustion",
                       "topics": [
-                        "Shaft Design for Static and Fatigue Loading",
-                        "Keys and Couplings"
+                        "Fuels and Combustion Stoichiometry",
+                        "Enthalpy of Formation and Combustion",
+                        "First-Law Analysis of Reacting Systems",
+                        "Adiabatic Flame Temperature"
                       ]
                     },
                     {
-                      "id": "me1_ch4",
-                      "title": "Bearings and Joints",
+                      "id": "thermo2_ch4",
+                      "title": "Thermodynamic Property Relations",
                       "topics": [
-                        "Rolling-Contact Bearings",
-                        "Screws and Fasteners",
-                        "Welded Joints"
+                        "Maxwell Relations",
+                        "The Clapeyron Equation",
+                        "Joule-Thomson Coefficient",
+                        "Developing Property Tables"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "MEng3103",
-                  "name": "Heat Transfer",
-                  "description": "Study of the modes of heat transfer (conduction, convection, radiation) and their application in the design of engineering systems and thermal management.",
+                  "name": "Strength of Materials II",
+                  "description": "An advanced course in mechanics of materials, covering failure theories for static loading, fatigue analysis for fluctuating stresses, energy methods for deflection analysis, and special topics like curved beams and contact stresses.",
                   "credits": 3,
                   "prerequisites": [
-                    "MEng2108",
-                    "MEng2103"
+                    "MEng2104"
                   ],
                   "outcomes": [
-                    "Solve one-dimensional steady-state and transient conduction problems.",
-                    "Use correlations to calculate heat transfer coefficients for forced and natural convection.",
-                    "Design and analyze the performance of heat exchangers.",
-                    "Analyze radiative heat transfer between surfaces."
+                    "Apply various static failure theories (e.g., Distortion Energy, Maximum Shear Stress) to predict yielding.",
+                    "Analyze components subjected to fatigue loading and estimate their life.",
+                    "Use energy methods (e.g., Castigliano's theorem) to determine deflections and solve indeterminate problems.",
+                    "Analyze stresses in more complex geometries and loading conditions."
                   ],
                   "chapters": [
                     {
-                      "id": "ht_ch1",
-                      "title": "Conduction",
+                      "id": "som2_ch1",
+                      "title": "Theories of Failure",
                       "topics": [
-                        "Fourier's Law",
-                        "Thermal Resistance Networks",
-                        "Extended Surfaces (Fins)",
-                        "Transient Conduction (Lumped Capacitance)"
+                        "Maximum-Normal-Stress Theory",
+                        "Maximum-Shear-Stress Theory",
+                        "Distortion-Energy Theory",
+                        "Mohr's Theory for Brittle Materials"
                       ]
                     },
                     {
-                      "id": "ht_ch2",
-                      "title": "Convection",
+                      "id": "som2_ch2",
+                      "title": "Fatigue Analysis",
                       "topics": [
-                        "Boundary Layers",
-                        "Forced Convection (Internal and External Flow)",
-                        "Natural Convection"
+                        "Stress-Life (S-N) Diagrams",
+                        "Endurance Limit and Modifying Factors",
+                        "Fatigue Failure Criteria for Fluctuating Stress"
                       ]
                     },
                     {
-                      "id": "ht_ch3",
-                      "title": "Heat Exchangers",
+                      "id": "som2_ch3",
+                      "title": "Energy Methods",
                       "topics": [
-                        "Types of Heat Exchangers",
-                        "Log Mean Temperature Difference (LMTD) Method",
-                        "Effectiveness-NTU Method"
+                        "Strain Energy",
+                        "Castigliano's Theorem",
+                        "Deflection of Beams and Trusses"
                       ]
                     },
                     {
-                      "id": "ht_ch4",
-                      "title": "Radiation",
+                      "id": "som2_ch4",
+                      "title": "Advanced Topics",
                       "topics": [
-                        "Blackbody Radiation",
-                        "View Factors",
-                        "Radiation Exchange between Gray Surfaces"
+                        "Analysis of Curved Beams",
+                        "Thick-Walled Cylinders",
+                        "Contact Stresses"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "ECEg3101",
+                  "name": "Basic Electricity and Electronics",
+                  "description": "A service course for mechanical engineers covering the fundamentals of DC/AC circuits, basic semiconductor devices (diodes, transistors), and operational amplifiers, providing a foundation for mechatronics and control systems.",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "outcomes": [
+                    "Analyze simple DC and single-phase AC circuits.",
+                    "Understand the operation of diodes and transistors and their basic applications.",
+                    "Design simple application circuits using operational amplifiers.",
+                    "Grasp the fundamentals of electric motors and transformers."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "bee_ch1",
+                      "title": "DC and AC Circuit Fundamentals",
+                      "topics": [
+                        "Ohm's Law, KVL, KCL",
+                        "Network Theorems (Thevenin, Norton)",
+                        "Phasors, Impedance, and AC Power"
+                      ]
+                    },
+                    {
+                      "id": "bee_ch2",
+                      "title": "Semiconductor Diodes",
+                      "topics": [
+                        "PN Junction",
+                        "Diode Circuits and Applications (Rectifiers, Clippers)"
+                      ]
+                    },
+                    {
+                      "id": "bee_ch3",
+                      "title": "Transistors and Operational Amplifiers",
+                      "topics": [
+                        "Bipolar Junction Transistors (BJTs) as Switches and Amplifiers",
+                        "Introduction to MOSFETs",
+                        "Ideal Op-Amp and Basic Configurations"
+                      ]
+                    },
+                    {
+                      "id": "bee_ch4",
+                      "title": "Introduction to Electrical Machines",
+                      "topics": [
+                        "Principles of Transformers",
+                        "DC Motors",
+                        "AC Induction Motors"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "MEng3105",
-                  "name": "Theory of Machines I (Kinematics)",
-                  "description": "Kinematic analysis of mechanisms. Covers the study of motion in linkages, cams, and gear trains without regard to the forces causing the motion.",
+                  "name": "Engineering Materials",
+                  "description": "A comprehensive study of the structure, properties, processing, and performance of engineering materials. This course covers metals, polymers, ceramics, and composites, with an emphasis on material selection for mechanical design.",
+                  "credits": 4,
+                  "prerequisites": [],
+                  "outcomes": [
+                    "Relate the microstructure of materials to their mechanical, thermal, and electrical properties.",
+                    "Interpret phase diagrams to predict phase composition and the effects of heat treatment.",
+                    "Understand mechanisms of material degradation, including fracture, fatigue, and corrosion.",
+                    "Select appropriate materials for mechanical design applications based on performance requirements and cost."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "matsci_ch1",
+                      "title": "Structure and Imperfections",
+                      "topics": [
+                        "Atomic Structure and Interatomic Bonding",
+                        "Crystalline Structures",
+                        "Point, Line, and Surface Defects"
+                      ]
+                    },
+                    {
+                      "id": "matsci_ch2",
+                      "title": "Phase Diagrams and Transformations",
+                      "topics": [
+                        "Phase Equilibria and Phase Diagrams (e.g., Iron-Carbon)",
+                        "Phase Transformations and Heat Treatment of Steels",
+                        "Strengthening Mechanisms"
+                      ]
+                    },
+                    {
+                      "id": "matsci_ch3",
+                      "title": "Classes of Engineering Materials",
+                      "topics": [
+                        "Ferrous and Non-ferrous Alloys",
+                        "Polymers (Thermoplastics, Thermosets)",
+                        "Ceramics and Glasses",
+                        "Composite Materials"
+                      ]
+                    },
+                    {
+                      "id": "matsci_ch4",
+                      "title": "Material Performance and Selection",
+                      "topics": [
+                        "Fracture Mechanics",
+                        "Fatigue and Creep",
+                        "Corrosion",
+                        "Material Selection Process"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "MEng3107",
+                  "name": "Fluid Mechanics I",
+                  "description": "An introduction to the fundamental concepts of fluid mechanics. The course covers fluid properties, fluid statics, kinematics of fluid flow, and the application of integral conservation laws (mass, momentum, energy) to fluid systems.",
                   "credits": 3,
                   "prerequisites": [
                     "MEng2102"
                   ],
+                  "outcomes": [
+                    "Analyze forces on submerged plane and curved surfaces in static fluids.",
+                    "Apply the continuity, momentum, and energy (Bernoulli) equations to solve fluid flow problems.",
+                    "Use dimensional analysis and the Buckingham Pi theorem to analyze physical systems.",
+                    "Understand the concepts of stream anctions and velocity potentials for ideal fluid flow."
+                  ],
                   "chapters": [
                     {
-                      "id": "tom1_ch1",
-                      "title": "Kinematic Fundamentals",
+                      "id": "fm1_ch1",
+                      "title": "Fluid Properties and Statics",
                       "topics": [
-                        "Mechanisms and Kinematic Chains",
-                        "Mobility (Gruebler's Equation)",
-                        "Position and Displacement Analysis"
+                        "Density, Viscosity, and Pressure",
+                        "Manometry",
+                        "Hydrostatic Forces on Surfaces",
+                        "Buoyancy and Stability"
                       ]
                     },
                     {
-                      "id": "tom1_ch2",
+                      "id": "fm1_ch2",
+                      "title": "Kinematics of Fluid Flow",
+                      "topics": [
+                        "Lagrangian and Eulerian Descriptions",
+                        "Streamlines, Pathlines, and Streaklines",
+                        "The Material Derivative"
+                      ]
+                    },
+                    {
+                      "id": "fm1_ch3",
+                      "title": "Integral Form of Conservation Laws",
+                      "topics": [
+                        "Conservation of Mass (Continuity Equation)",
+                        "Conservation of Linear Momentum",
+                        "Conservation of Energy (Bernoulli Equation)"
+                      ]
+                    },
+                    {
+                      "id": "fm1_ch4",
+                      "title": "Dimensional Analysis and Ideal Flow",
+                      "topics": [
+                        "The Buckingham Pi Theorem",
+                        "Similitude and Modeling",
+                        "Introduction to Potential Flow"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Hist2002",
+                  "name": "History of Ethiopia and the Horn",
+                  "description": "A survey of the history of Ethiopia and the Horn of Africa from ancient times to the modern era, focusing on social, political, economic, and cultural developments.",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "outcomes": [
+                    "Understand the major historical periods and developments in Ethiopia and the Horn.",
+                    "Analyze the interactions between different peoples and states in the region.",
+                    "Appreciate the historical roots of contemporary issues in the region."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "hist_eth_ch1",
+                      "title": "Ancient and Medieval Periods",
+                      "topics": [
+                        "The Aksumite Kingdom",
+                        "The Zagwe Dynasty",
+                        "The 'Restored' Solomonic Dynasty"
+                      ]
+                    },
+                    {
+                      "id": "hist_eth_ch2",
+                      "title": "Early Modern and Modern Eras",
+                      "topics": [
+                        "The Gondarine Period and 'Zemene Mesafint'",
+                        "Territorial Unification and Expansion (1855-1991)"
+                      ]
+                    },
+                    {
+                      "id": "hist_eth_ch3",
+                      "title": "Contemporary Ethiopia and the Horn",
+                      "topics": [
+                        "Post-1991 Political and Social Developments",
+                        "Regional Relations and Conflicts"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "Semester II": [
+                {
+                  "code": "MEng3102",
+                  "name": "IC Engines",
+                  "description": "A comprehensive study of internal combustion engines. This course covers the thermodynamic analysis of ideal and actual engine cycles, engine operating characteristics, combustion in SI and CI engines, and engine systems.",
+                  "credits": 3,
+                  "prerequisites": [
+                    "MEng3101"
+                  ],
+                  "outcomes": [
+                    "Analyze ideal air-standard cycles (Otto, Diesel, Dual) and compare them with actual engine cycles.",
+                    "Understand the processes of combustion in spark-ignition (SI) and compression-ignition (CI) engines.",
+                    "Calculate and evaluate engine performance parameters such as power, efficiency, and specific fuel consumption.",
+                    "Describe the function of major engine systems, including fuel, ignition, lubrication, and cooling systems."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ice_ch1",
+                      "title": "Engine Fundamentals and Thermodynamic Cycles",
+                      "topics": [
+                        "Engine Terminology and Classification",
+                        "Air-Standard Otto, Diesel, and Dual Cycles",
+                        "Fuel-Air Cycles and Actual Cycles"
+                      ]
+                    },
+                    {
+                      "id": "ice_ch2",
+                      "title": "Combustion",
+                      "topics": [
+                        "Combustion in SI Engines (Abnormal Combustion: Knock)",
+                        "Combustion in CI Engines (Ignition Delay)",
+                        "Combustion Chambers"
+                      ]
+                    },
+                    {
+                      "id": "ice_ch3",
+                      "title": "Engine Performance Parameters",
+                      "topics": [
+                        "Power, Torque, and Mean Effective Pressure",
+                        "Volumetric, Thermal, and Mechanical Efficiencies",
+                        "Performance Maps"
+                      ]
+                    },
+                    {
+                      "id": "ice_ch4",
+                      "title": "Engine Systems and Emissions",
+                      "topics": [
+                        "Fuel and Ignition Systems",
+                        "Engine Cooling and Lubrication",
+                        "Emission Formation and Control"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "MEng3104",
+                  "name": "Introduction to Numerical methods and FEM",
+                  "description": "Introduces numerical techniques for solving engineering problems and provides a foundation for the Finite Element Method (FEM). Covers root finding, solving systems of equations, and the theory and application of FEM for simple structural and thermal analysis.",
+                  "credits": 3,
+                  "prerequisites": [
+                    "Comp2103",
+                    "Math2142"
+                  ],
+                  "outcomes": [
+                    "Apply numerical methods to solve systems of algebraic and differential equations.",
+                    "Understand the theoretical basis of the Finite Element Method, including element formulation and assembly.",
+                    "Perform finite element analysis of simple 1D problems (bars, trusses).",
+                    "Use commercial FEM software to solve 2D structural and thermal problems."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "num_ch1",
+                      "title": "Review of Numerical Methods",
+                      "topics": [
+                        "Solving Systems of Linear Equations",
+                        "Numerical Integration",
+                        "Solving Ordinary Differential Equations"
+                      ]
+                    },
+                    {
+                      "id": "num_ch2",
+                      "title": "Introduction to the Finite Element Method",
+                      "topics": [
+                        "General Steps of FEM",
+                        "The Concept of Discretization",
+                        "Shape Functions"
+                      ]
+                    },
+                    {
+                      "id": "num_ch3",
+                      "title": "1D Finite Element Analysis",
+                      "topics": [
+                        "Analysis of Bars and Trusses",
+                        "1D Heat Conduction",
+                        "Element Stiffness Matrix and Assembly"
+                      ]
+                    },
+                    {
+                      "id": "num_ch4",
+                      "title": "2D Finite Element Analysis and Applications",
+                      "topics": [
+                        "Plane Stress and Plane Strain Elements",
+                        "Introduction to FEM Software (e.g., ANSYS, ABAQUS)",
+                        "Meshing and Post-processing"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "MEng3106",
+                  "name": "Machine Elements I",
+                  "description": "Fundamentals of designing common machine components. This course covers stress analysis under various loading conditions, failure theories for both static and fatigue loading, and the design and analysis of shafts, fasteners, and permanent joints.",
+                  "credits": 3,
+                  "prerequisites": [
+                    "MEng2104",
+                    "MEng2110"
+                  ],
+                  "outcomes": [
+                    "Apply various theories of failure to predict yielding and fracture in machine components.",
+                    "Design components to withstand both static and fluctuating (fatigue) loads.",
+                    "Design shafts and keys for power transmission based on strength and deflection criteria.",
+                    "Analyze and select threaded fasteners and design welded joints for specific load cases."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "me1_ch1",
+                      "title": "Introduction to Design and Failure Theories",
+                      "topics": [
+                        "The Design Process",
+                        "Material Properties and Selection",
+                        "Static Failure Theories (Distortion Energy, Max-Shear)"
+                      ]
+                    },
+                    {
+                      "id": "me1_ch2",
+                      "title": "Fatigue Failure Analysis",
+                      "topics": [
+                        "Stress-Life (S-N) Approach",
+                        "Endurance Limit and Modifying Factors",
+                        "Fatigue Failure Criteria (Goodman, Gerber, Soderberg)"
+                      ]
+                    },
+                    {
+                      "id": "me1_ch3",
+                      "title": "Design of Shafts",
+                      "topics": [
+                        "Shaft Stresses due to Bending and Torsion",
+                        "Shaft Design for Static and Fatigue Loading",
+                        "Critical Speeds of Shafts"
+                      ]
+                    },
+                    {
+                      "id": "me1_ch4",
+                      "title": "Design of Mechanical Joints",
+                      "topics": [
+                        "Threaded Fasteners and Power Screws",
+                        "Static and Fatigue Loading of Bolts",
+                        "Welded Joints"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "MEng3108",
+                  "name": "Manufacturing Processes",
+                  "description": "A comprehensive survey of the primary manufacturing processes used to shape engineering materials. The course covers casting, forming, machining, joining, and an introduction to modern manufacturing techniques.",
+                  "credits": 3,
+                  "prerequisites": [
+                    "MEng2108"
+                  ],
+                  "outcomes": [
+                    "Understand the science and technology behind a wide variety of manufacturing processes.",
+                    "Select an appropriate manufacturing process based on material, geometry, tolerances, and production volume.",
+                    "Analyze key process parameters and their effect on product quality and cost.",
+                    "Gain an appreciation for the capabilities and limitations of different manufacturing methods."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "mp_ch1",
+                      "title": "Casting and Forming Processes",
+                      "topics": [
+                        "Solidification and Casting Processes (Sand, Die)",
+                        "Bulk Deformation (Forging, Rolling, Extrusion)",
+                        "Sheet Metal Forming (Bending, Drawing, Stamping)"
+                      ]
+                    },
+                    {
+                      "id": "mp_ch2",
+                      "title": "Machining Processes",
+                      "topics": [
+                        "Theory of Metal Cutting",
+                        "Turning, Milling, Drilling, and Grinding Operations",
+                        "Cutting Tools and Machinability"
+                      ]
+                    },
+                    {
+                      "id": "mp_ch3",
+                      "title": "Joining and Assembly Processes",
+                      "topics": [
+                        "Welding Processes (Arc, Gas, Resistance)",
+                        "Brazing, Soldering, and Adhesive Bonding",
+                        "Mechanical Fastening"
+                      ]
+                    },
+                    {
+                      "id": "mp_ch4",
+                      "title": "Modern and Polymer Manufacturing",
+                      "topics": [
+                        "Non-traditional Machining (EDM, Laser)",
+                        "Introduction to Additive Manufacturing (3D Printing)",
+                        "Processing of Polymers (Injection Molding, Extrusion)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "MCEg3110",
+                  "name": "Introduction to Mechatronics",
+                  "description": "An introductory course on the synergistic integration of mechanical engineering with electronics and intelligent computer control in the design of products and processes. Covers sensors, actuators, microcontrollers, and system modeling.",
+                  "credits": 3,
+                  "prerequisites": [
+                    "ECEg3101",
+                    "Comp2103"
+                  ],
+                  "outcomes": [
+                    "Select appropriate sensors and actuators for a given mechatronic application.",
+                    "Model the dynamic behavior of basic mechatronic systems.",
+                    "Program microcontrollers (e.g., Arduino) to acquire sensor data and control actuators.",
+                    "Integrate mechanical, electronic, and software components to create a simple functional system."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "mecha_ch1",
+                      "title": "Introduction to Mechatronic Systems",
+                      "topics": [
+                        "Key Elements of Mechatronics",
+                        "System Modeling",
+                        "Design Process"
+                      ]
+                    },
+                    {
+                      "id": "mecha_ch2",
+                      "title": "Sensors and Actuators",
+                      "topics": [
+                        "Sensors for Displacement, Temperature, and Force",
+                        "DC Motors, Stepper Motors, and Servo Motors",
+                        "Hydraulic and Pneumatic Actuators"
+                      ]
+                    },
+                    {
+                      "id": "mecha_ch3",
+                      "title": "Microcontroller Systems",
+                      "topics": [
+                        "Microcontroller Architecture",
+                        "Programming in C/C++ (Arduino)",
+                        "Digital and Analog I/O"
+                      ]
+                    },
+                    {
+                      "id": "mecha_ch4",
+                      "title": "System Integration and Control",
+                      "topics": [
+                        "Signal Conditioning",
+                        "Interfacing and Communication",
+                        "Introduction to Digital Control"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "MEng3112",
+                  "name": "Fluid Mechanics II",
+                  "description": "Builds upon Fluid Mechanics I, covering more advanced topics including the differential form of the conservation laws, viscous flow in pipes, external flow over bodies, introduction to compressible flow, and turbomachinery.",
+                  "credits": 3,
+                  "prerequisites": [
+                    "MEng3107"
+                  ],
+                  "outcomes": [
+                    "Analyze laminar and turbulent flow in pipes and calculate friction losses.",
+                    "Calculate lift and drag forces on immersed bodies.",
+                    "Understand the fundamentals of compressible flow, including shock waves and nozzles.",
+                    "Analyze the performance of basic pumps and turbines."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "fm2_ch1",
+                      "title": "Differential Analysis of Fluid Flow",
+                      "topics": [
+                        "The Continuity Equation (Differential Form)",
+                        "The Navier-Stokes Equations",
+                        "Introduction to Potential Flow"
+                      ]
+                    },
+                    {
+                      "id": "fm2_ch2",
+                      "title": "Internal Viscous Flow",
+                      "topics": [
+                        "Laminar and Turbulent Flow in Pipes",
+                        "The Moody Chart and Friction Factor",
+                        "Minor Losses and Analysis of Pipe Networks"
+                      ]
+                    },
+                    {
+                      "id": "fm2_ch3",
+                      "title": "External Viscous Flow",
+                      "topics": [
+                        "The Boundary Layer Concept",
+                        "Drag and Lift",
+                        "Flow Over Immersed Bodies"
+                      ]
+                    },
+                    {
+                      "id": "fm2_ch4",
+                      "title": "Compressible Flow and Turbomachinery",
+                      "topics": [
+                        "Isentropic Flow and Mach Number",
+                        "Normal Shock Waves",
+                        "Pumps and Turbines"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "Year 4": {
+              "Semester I": [
+                {
+                  "code": "MEng4101",
+                  "name": "Machine Elements II",
+                  "credits": 3,
+                  "description": "An advanced study of the design and analysis of machine components, including gears, bearings, clutches, brakes, and flexible mechanical elements like belts and chains.",
+                  "outcomes": [
+                    "Design and analyze various types of gears for strength and wear.",
+                    "Select appropriate rolling and sliding contact bearings for specific applications.",
+                    "Analyze and design clutches, brakes, and couplings.",
+                    "Understand the design principles for flexible power transmission elements."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "me2_ch1",
+                      "title": "Gears",
+                      "topics": [
+                        "Spur, Helical, Bevel, and Worm Gears",
+                        "Force Analysis and Stress in Gears",
+                        "Gear Train Design"
+                      ]
+                    },
+                    {
+                      "id": "me2_ch2",
+                      "title": "Rolling and Sliding Bearings",
+                      "topics": [
+                        "Bearing Types and Selection",
+                        "Load-Life Relations for Rolling Bearings",
+                        "Lubrication and Journal Bearings"
+                      ]
+                    },
+                    {
+                      "id": "me2_ch3",
+                      "title": "Clutches, Brakes, and Couplings",
+                      "topics": [
+                        "Analysis of Disc Clutches and Brakes",
+                        "Band Brakes",
+                        "Design of Rigid and Flexible Couplings"
+                      ]
+                    },
+                    {
+                      "id": "me2_ch4",
+                      "title": "Flexible Mechanical Elements",
+                      "topics": [
+                        "Belt Drives (Flat and V-belts)",
+                        "Chain Drives",
+                        "Wire Ropes"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "MEng4103",
+                  "name": "Heat Transfer",
+                  "credits": 3,
+                  "description": "A comprehensive course on the fundamental principles of heat transfer, covering conduction, convection, and radiation, and their application to the design of thermal systems.",
+                  "outcomes": [
+                    "Analyze steady-state and transient heat conduction problems.",
+                    "Apply empirical correlations to solve forced and natural convection problems.",
+                    "Analyze radiative heat exchange between surfaces.",
+                    "Design and analyze heat exchangers."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ht_ch1",
+                      "title": "Introduction to Heat Transfer and Conduction",
+                      "topics": [
+                        "Mechanisms of Heat Transfer",
+                        "Steady-State Conduction in Plane Walls and Cylinders",
+                        "Fins and Extended Surfaces"
+                      ]
+                    },
+                    {
+                      "id": "ht_ch2",
+                      "title": "Convection",
+                      "topics": [
+                        "Principles of Convection",
+                        "Forced Convection over Flat Plates and in Pipes",
+                        "Natural Convection"
+                      ]
+                    },
+                    {
+                      "id": "ht_ch3",
+                      "title": "Radiation",
+                      "topics": [
+                        "Blackbody and Graybody Radiation",
+                        "View Factors",
+                        "Radiative Exchange between Surfaces"
+                      ]
+                    },
+                    {
+                      "id": "ht_ch4",
+                      "title": "Heat Exchangers",
+                      "topics": [
+                        "Types of Heat Exchangers",
+                        "Log Mean Temperature Difference (LMTD) Method",
+                        "Effectiveness-NTU Method"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "MEng4105",
+                  "name": "Fluid Power Systems",
+                  "credits": 3,
+                  "description": "A study of hydraulic and pneumatic systems used for power transmission and control. Covers components, circuit design, and applications in industrial automation and mobile machinery.",
+                  "outcomes": [
+                    "Understand the principles of hydraulic and pneumatic power generation.",
+                    "Analyze and select components like pumps, valves, cylinders, and motors.",
+                    "Design basic hydraulic and pneumatic circuits to perform specific tasks.",
+                    "Read and interpret fluid power system schematics."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "fps_ch1",
+                      "title": "Introduction to Fluid Power",
+                      "topics": [
+                        "Pascal's Law and Basic Principles",
+                        "Hydraulic Fluids and Properties",
+                        "Comparison of Hydraulic, Pneumatic, and Electrical Systems"
+                      ]
+                    },
+                    {
+                      "id": "fps_ch2",
+                      "title": "Fluid Power Components",
+                      "topics": [
+                        "Pumps and Compressors",
+                        "Actuators (Cylinders and Motors)",
+                        "Valves (Directional, Pressure, Flow control)"
+                      ]
+                    },
+                    {
+                      "id": "fps_ch3",
+                      "title": "Hydraulic Circuit Design",
+                      "topics": [
+                        "Basic Circuits",
+                        "Sequencing Circuits",
+                        "Pressure Control Circuits"
+                      ]
+                    },
+                    {
+                      "id": "fps_ch4",
+                      "title": "Pneumatic Systems and Logic",
+                      "topics": [
+                        "Pneumatic Components",
+                        "Pneumatic Circuit Design",
+                        "Introduction to Electro-Pneumatics"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "ECEg4107",
+                  "name": "Electrical Power and Machines",
+                  "credits": 3,
+                  "description": "A service course for mechanical engineers covering the fundamentals of electric power systems and the operation of common electrical machines, including transformers, DC motors, and AC motors.",
+                  "outcomes": [
+                    "Understand basic AC circuit analysis and three-phase power concepts.",
+                    "Explain the operating principles of transformers.",
+                    "Analyze the characteristics and control of DC motors.",
+                    "Analyze the performance of AC induction and synchronous motors."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "epm_ch1",
+                      "title": "AC Circuits and Transformers",
+                      "topics": [
+                        "Three-Phase Systems",
+                        "Power in AC Circuits",
+                        "Transformer Principles and Operation"
+                      ]
+                    },
+                    {
+                      "id": "epm_ch2",
+                      "title": "DC Machines",
+                      "topics": [
+                        "Principle of Operation of DC Generators and Motors",
+                        "Torque-Speed Characteristics",
+                        "Speed Control of DC Motors"
+                      ]
+                    },
+                    {
+                      "id": "epm_ch3",
+                      "title": "AC Machines",
+                      "topics": [
+                        "Three-Phase Induction Motors",
+                        "Synchronous Motors",
+                        "Single-Phase Motors"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "MEng4109",
+                  "name": "Mechanisms of Machinery",
+                  "credits": 3,
+                  "description": "A study of the kinematics and dynamics of machinery. Covers the analysis of motion, velocities, and accelerations in linkages, cams, and gear trains.",
+                  "outcomes": [
+                    "Perform kinematic analysis of linkages to determine position, velocity, and acceleration.",
+                    "Design cam profiles to achieve specified follower motion.",
+                    "Analyze the kinematics of various types of gear trains.",
+                    "Perform basic dynamic force analysis on machinery."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "mom_ch1",
+                      "title": "Kinematic Fundamentals",
+                      "topics": [
+                        "Mechanisms and Kinematic Chains",
+                        "Mobility and Degrees of Freedom",
+                        "Position Analysis"
+                      ]
+                    },
+                    {
+                      "id": "mom_ch2",
                       "title": "Velocity and Acceleration Analysis",
                       "topics": [
                         "Graphical and Analytical Methods",
@@ -17664,357 +18657,1239 @@ export const courseData: CourseData = {
                       ]
                     },
                     {
-                      "id": "tom1_ch3",
+                      "id": "mom_ch3",
                       "title": "Cams and Gears",
                       "topics": [
-                        "Cam Design and Follower Motion",
-                        "Fundamental Law of Gearing",
-                        "Analysis of Gear Trains (Simple, Compound, Epicyclic)"
+                        "Cam Design",
+                        "Gear Terminology",
+                        "Analysis of Simple, Compound, and Epicyclic Gear Trains"
+                      ]
+                    },
+                    {
+                      "id": "mom_ch4",
+                      "title": "Dynamic Force Analysis",
+                      "topics": [
+                        "Inertia Forces and Torques",
+                        "Balancing of Rotating Masses"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "MEng3109",
-                  "name": "Control Systems",
-                  "description": "Introduction to the analysis and design of linear feedback control systems. Covers system modeling, time-domain and frequency-domain analysis, stability, and controller design.",
+                  "code": "IETP4115",
+                  "name": "Integrated Engineering Team Project",
                   "credits": 3,
-                  "chapters": []
+                  "description": "A multidisciplinary project where teams of students from various engineering disciplines collaborate to solve a complex, real-world design problem, often simulating an industrial project environment.",
+                  "outcomes": [
+                    "Collaborate effectively within a diverse engineering team.",
+                    "Integrate knowledge from different engineering disciplines to create a holistic solution.",
+                    "Apply project management principles to meet deadlines and deliverables.",
+                    "Communicate complex technical solutions through professional reports and presentations."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ietp_ch1",
+                      "title": "Project Inception and Planning",
+                      "topics": []
+                    },
+                    {
+                      "id": "ietp_ch2",
+                      "title": "Conceptual Design and Feasibility",
+                      "topics": []
+                    },
+                    {
+                      "id": "ietp_ch3",
+                      "title": "Detailed Design and Analysis",
+                      "topics": []
+                    }
+                  ]
                 }
               ],
-              "Semester II": [
+              "Semester II": {
+                "Mechanical Core": [
+                  {
+                    "code": "MEng4102",
+                    "name": "Material Handling Equipment",
+                    "credits": 3,
+                    "description": "A study of the various types of equipment used for handling and transporting materials in industrial settings, including conveyors, cranes, and industrial trucks.",
+                    "outcomes": [
+                      "Classify and select appropriate material handling equipment for different applications.",
+                      "Analyze the capacity and power requirements of conveying systems.",
+                      "Understand the design and safety considerations for cranes and hoists.",
+                      "Evaluate the economics of material handling systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4404",
+                    "name": "Computer Integrated Manufacturing",
+                    "credits": 3,
+                    "description": "Covers the integration of computer systems in manufacturing environments, including CAD/CAM, robotics, flexible manufacturing systems (FMS), and computer-aided process planning (CAPP).",
+                    "outcomes": [
+                      "Understand the components and architecture of a CIM system.",
+                      "Explain the principles of CAD/CAM integration.",
+                      "Analyze the role of industrial robots in manufacturing.",
+                      "Describe the concept and benefits of flexible manufacturing systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4106",
+                    "name": "Motor Vehicles Engineering",
+                    "credits": 3,
+                    "description": "An introduction to the engineering principles of automotive vehicles. Covers vehicle systems including the engine, transmission, suspension, braking, and steering.",
+                    "outcomes": [
+                      "Describe the function and operation of major vehicle subsystems.",
+                      "Analyze basic vehicle performance characteristics.",
+                      "Understand the principles of powertrain and drivetrain systems.",
+                      "Explain the operation of steering, suspension, and braking systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4606",
+                    "name": "Turbomachinery I",
+                    "credits": 3,
+                    "description": "A foundational course on the principles of turbomachinery, covering the application of fluid mechanics and thermodynamics to the analysis and design of turbines, pumps, and compressors.",
+                    "outcomes": [
+                      "Apply fundamental principles of energy and momentum transfer in turbomachines.",
+                      "Analyze the performance of pumps and hydraulic turbines using velocity triangles.",
+                      "Analyze the performance of compressors and gas/steam turbines.",
+                      "Understand the concept of turbomachine efficiencies."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4110",
+                    "name": "Refrigeration and Air Conditioning",
+                    "credits": 4,
+                    "description": "A study of the principles and applications of refrigeration and air conditioning systems. Covers thermodynamic cycles, psychrometrics, system components, and load calculations.",
+                    "outcomes": [
+                      "Analyze vapor-compression and other refrigeration cycles.",
+                      "Use psychrometric charts to analyze air conditioning processes.",
+                      "Perform cooling and heating load calculations for buildings.",
+                      "Select and analyze the performance of key HVAC components."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4112",
+                    "name": "Machine Design Project",
+                    "credits": 3,
+                    "description": "A project-based course requiring students to apply principles of machine element design to a comprehensive design problem, culminating in a detailed design report and drawings.",
+                    "outcomes": [
+                      "Synthesize knowledge from previous courses to solve a complex design problem.",
+                      "Perform detailed design and analysis of multiple machine components within a system.",
+                      "Produce a professional set of design calculations and engineering drawings.",
+                      "Work in a team to manage a design project."
+                    ],
+                    "chapters": []
+                  }
+                ],
+                "Automotive": [
+                  {
+                    "code": "MEng4102",
+                    "name": "Material Handling Equipment",
+                    "credits": 3,
+                    "description": "A study of the various types of equipment used for handling and transporting materials in industrial and automotive manufacturing settings.",
+                    "outcomes": [
+                      "Classify and select appropriate material handling equipment.",
+                      "Analyze the capacity and power requirements of conveying systems.",
+                      "Understand the design and safety considerations for cranes and hoists."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4106",
+                    "name": "Motor Vehicles Engineering",
+                    "credits": 3,
+                    "description": "An introduction to the engineering principles of automotive vehicles. Covers vehicle systems including the engine, transmission, suspension, braking, and steering.",
+                    "outcomes": [
+                      "Describe the function and operation of major vehicle subsystems.",
+                      "Analyze basic vehicle performance characteristics.",
+                      "Understand the principles of powertrain and drivetrain systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4108",
+                    "name": "Turbomachinery",
+                    "credits": 4,
+                    "description": "A course on the principles of turbomachinery, with a focus on applications in automotive systems like turbochargers.",
+                    "outcomes": [
+                      "Apply fundamental principles of energy and momentum transfer in turbomachines.",
+                      "Analyze the performance of compressors and turbines using velocity triangles.",
+                      "Understand the matching of compressors and turbines in turbochargers."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4110",
+                    "name": "Refrigeration and Air Conditioning",
+                    "credits": 4,
+                    "description": "A study of the principles and applications of refrigeration and air conditioning systems, with a focus on automotive HVAC systems.",
+                    "outcomes": [
+                      "Analyze vapor-compression refrigeration cycles used in vehicles.",
+                      "Use psychrometric charts to analyze automotive air conditioning processes.",
+                      "Perform cooling load calculations for vehicle cabins.",
+                      "Understand the operation of automotive HVAC components."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4310",
+                    "name": "Automotive Electrical Systems",
+                    "credits": 3,
+                    "description": "A study of the electrical and electronic systems in modern automobiles, including starting, charging, ignition, lighting, and basic sensor networks.",
+                    "outcomes": [
+                      "Understand the operation of the battery, starting motor, and alternator.",
+                      "Analyze ignition and fuel injection systems.",
+                      "Troubleshoot basic automotive electrical circuits.",
+                      "Explain the function of various electronic control units (ECUs)."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4112",
+                    "name": "Machine Design Project",
+                    "credits": 3,
+                    "description": "A project-based course requiring students to apply principles of machine element design to a comprehensive design problem, often with an automotive focus.",
+                    "outcomes": [
+                      "Synthesize knowledge to solve a complex design problem.",
+                      "Perform detailed design and analysis of multiple machine components.",
+                      "Produce a professional set of design calculations and drawings."
+                    ],
+                    "chapters": []
+                  }
+                ],
+                "Manufacturing": [
+                  {
+                    "code": "MEng4102",
+                    "name": "Material Handling Equipment",
+                    "credits": 3,
+                    "description": "A study of the various types of equipment used for handling and transporting materials in manufacturing environments.",
+                    "outcomes": [
+                      "Classify and select appropriate material handling equipment.",
+                      "Analyze the capacity and power requirements of conveying systems.",
+                      "Understand the design and safety considerations for cranes and hoists."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4404",
+                    "name": "Computer Integrated Manufacturing",
+                    "credits": 3,
+                    "description": "Covers the integration of computer systems in manufacturing environments, including CAD/CAM, robotics, flexible manufacturing systems (FMS), and computer-aided process planning (CAPP).",
+                    "outcomes": [
+                      "Understand the components and architecture of a CIM system.",
+                      "Explain the principles of CAD/CAM integration.",
+                      "Analyze the role of industrial robots in manufacturing.",
+                      "Describe the concept and benefits of flexible manufacturing systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4406",
+                    "name": "Metal Casting Technology",
+                    "credits": 3,
+                    "description": "A study of the science and technology of metal casting processes. Covers pattern design, molding, melting, solidification, and casting defects.",
+                    "outcomes": [
+                      "Understand the principles of metal solidification and fluid flow in molds.",
+                      "Design patterns and gating systems for various casting processes.",
+                      "Select appropriate casting processes for different materials and geometries.",
+                      "Analyze and prevent common casting defects."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4402",
+                    "name": "Machining Technology",
+                    "credits": 3,
+                    "description": "A course on the theory and practice of metal cutting processes. Covers the mechanics of chip formation, cutting tool materials, and the operation of various machine tools.",
+                    "outcomes": [
+                      "Analyze the mechanics of metal cutting.",
+                      "Select appropriate cutting tools and parameters for different machining operations.",
+                      "Understand the capabilities of lathes, milling machines, and drilling machines.",
+                      "Introduction to CNC machining."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "Stat5115",
+                    "name": "Probability and Statistics for Engineers",
+                    "credits": 3,
+                    "description": "Application of probability theory and statistical techniques to analyze engineering data, with a focus on quality control, reliability, and experimental design in manufacturing.",
+                    "outcomes": [
+                      "Apply probability distributions to model manufacturing processes.",
+                      "Perform hypothesis testing to analyze process changes.",
+                      "Use statistical process control (SPC) charts to monitor quality.",
+                      "Design and analyze experiments (DOE) to optimize processes."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4112",
+                    "name": "Machine Design Project",
+                    "credits": 3,
+                    "description": "A project-based course requiring students to apply principles of machine element design to a comprehensive design problem, often related to manufacturing machinery or fixtures.",
+                    "outcomes": [
+                      "Synthesize knowledge to solve a complex design problem.",
+                      "Perform detailed design and analysis of multiple machine components.",
+                      "Produce a professional set of design calculations and drawings."
+                    ],
+                    "chapters": []
+                  }
+                ],
+                "Mechanical Design": [
+                  {
+                    "code": "MEng4102",
+                    "name": "Material Handling Equipment",
+                    "credits": 3,
+                    "description": "A study of the various types of equipment used for handling and transporting materials in industrial settings.",
+                    "outcomes": [
+                      "Classify and select appropriate material handling equipment.",
+                      "Analyze the capacity and power requirements of conveying systems.",
+                      "Understand the design and safety considerations for cranes and hoists."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "Stat5115",
+                    "name": "Probability and Statistics for Engineers",
+                    "credits": 3,
+                    "description": "Application of probability theory and statistical techniques to analyze engineering data, with a focus on reliability, tolerance design, and experimental design.",
+                    "outcomes": [
+                      "Apply probability distributions to analyze component reliability.",
+                      "Perform hypothesis testing to validate design changes.",
+                      "Understand statistical tolerance analysis.",
+                      "Design and analyze experiments (DOE) to optimize designs."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4106",
+                    "name": "Motor Vehicles Engineering",
+                    "credits": 3,
+                    "description": "An introduction to the engineering principles of automotive vehicles. Covers vehicle systems including the engine, transmission, suspension, braking, and steering.",
+                    "outcomes": [
+                      "Describe the function and operation of major vehicle subsystems.",
+                      "Analyze basic vehicle performance characteristics.",
+                      "Understand the principles of powertrain and drivetrain systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4108",
+                    "name": "Turbomachinery",
+                    "credits": 4,
+                    "description": "A foundational course on the principles of turbomachinery, covering the application of fluid mechanics and thermodynamics to the analysis and design of turbines, pumps, and compressors.",
+                    "outcomes": [
+                      "Apply fundamental principles of energy and momentum transfer in turbomachines.",
+                      "Analyze the performance of pumps and hydraulic turbines using velocity triangles.",
+                      "Analyze the performance of compressors and gas/steam turbines."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "IEng4110",
+                    "name": "Total Quality Management",
+                    "credits": 3,
+                    "description": "Covers the principles and practices of Total Quality Management (TQM), including customer focus, continuous improvement, employee involvement, and the use of quality tools.",
+                    "outcomes": [
+                      "Understand the philosophies of quality gurus like Deming and Juran.",
+                      "Apply basic quality improvement tools (e.g., Pareto charts, fishbone diagrams).",
+                      "Explain the principles of Six Sigma and lean manufacturing.",
+                      "Understand the requirements of quality management systems like ISO 9000."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4112",
+                    "name": "Machine Design Project",
+                    "credits": 3,
+                    "description": "A project-based course requiring students to apply principles of machine element design to a comprehensive design problem, emphasizing detailed analysis and optimization.",
+                    "outcomes": [
+                      "Synthesize knowledge to solve a complex design problem.",
+                      "Perform detailed design and analysis of multiple machine components.",
+                      "Produce a professional set of design calculations and drawings."
+                    ],
+                    "chapters": []
+                  }
+                ],
+                "Thermal": [
+                  {
+                    "code": "MEng4102",
+                    "name": "Material Handling Equipment",
+                    "credits": 3,
+                    "description": "A study of the various types of equipment used for handling and transporting materials in industrial and power plant settings.",
+                    "outcomes": [
+                      "Classify and select appropriate material handling equipment.",
+                      "Analyze the capacity and power requirements of conveying systems.",
+                      "Understand the design and safety considerations for cranes and hoists."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4106",
+                    "name": "Motor Vehicles Engineering",
+                    "credits": 3,
+                    "description": "An introduction to the engineering principles of automotive vehicles, with a focus on engine and thermal systems.",
+                    "outcomes": [
+                      "Describe the function and operation of major vehicle subsystems.",
+                      "Analyze basic vehicle performance characteristics.",
+                      "Understand the principles of internal combustion engines and their cooling systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4110",
+                    "name": "Refrigeration and Air Conditioning",
+                    "credits": 3,
+                    "description": "A study of the principles and applications of refrigeration and air conditioning systems. Covers thermodynamic cycles, psychrometrics, system components, and load calculations.",
+                    "outcomes": [
+                      "Analyze vapor-compression and other refrigeration cycles.",
+                      "Use psychrometric charts to analyze air conditioning processes.",
+                      "Perform cooling and heating load calculations for buildings.",
+                      "Select and analyze the performance of key HVAC components."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4606",
+                    "name": "Turbomachinery I",
+                    "credits": 3,
+                    "description": "A foundational course on the principles of turbomachinery, covering the application of fluid mechanics and thermodynamics to the analysis and design of turbines, pumps, and compressors.",
+                    "outcomes": [
+                      "Apply fundamental principles of energy and momentum transfer in turbomachines.",
+                      "Analyze the performance of pumps and hydraulic turbines using velocity triangles.",
+                      "Analyze the performance of compressors and gas/steam turbines."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng4602",
+                    "name": "Renewable Energy Systems",
+                    "credits": 3,
+                    "description": "An engineering study of various renewable energy technologies, with a focus on the thermal aspects of solar, geothermal, and biomass energy systems.",
+                    "outcomes": [
+                      "Analyze the performance of solar thermal collectors for water heating and power generation.",
+                      "Understand the principles of geothermal energy extraction and utilization.",
+                      "Analyze biomass conversion processes like combustion and gasification.",
+                      "Evaluate the potential of different renewable energy sources."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "Stat5115",
+                    "name": "Probability and Statistics for Engineers",
+                    "credits": 3,
+                    "description": "Application of probability theory and statistical techniques to analyze engineering data, with a focus on reliability, and design of thermal experiments.",
+                    "outcomes": [
+                      "Apply probability distributions to model system reliability.",
+                      "Perform hypothesis testing to analyze experimental results.",
+                      "Develop regression models for correlating thermal data.",
+                      "Design and analyze experiments (DOE) to optimize thermal systems."
+                    ],
+                    "chapters": []
+                  }
+                ]
+              },
+              "Semester III (Summer)": [
                 {
-                  "code": "MEng3102",
-                  "name": "Machine Elements II",
-                  "description": "Continuation of Machine Elements I. Covers the design of more complex components, including gears, brakes, clutches, and flexible mechanical elements like belts and chains.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "MEng3101"
+                  "code": "MEng4114",
+                  "name": "Industrial Internship",
+                  "credits": 6,
+                  "description": "A supervised, practical work experience program in a mechanical engineering related industrial setting. Students apply their academic knowledge to real-world problems, develop professional skills, and gain exposure to industry practices.",
+                  "outcomes": [
+                    "Apply theoretical knowledge to solve practical engineering problems in an industrial environment.",
+                    "Develop professional communication, teamwork, and problem-solving skills.",
+                    "Gain an understanding of the organizational structure, operations, and safety culture of a company.",
+                    "Produce a comprehensive technical report and presentation detailing the internship experience and project work."
                   ],
-                  "chapters": [
-                    {
-                      "id": "me2_ch1",
-                      "title": "Spur and Helical Gears",
-                      "topics": [
-                        "Gear Kinematics and Nomenclature",
-                        "Bending Strength (Lewis Equation)",
-                        "Surface Strength (AGMA Standards)"
-                      ]
-                    },
-                    {
-                      "id": "me2_ch2",
-                      "title": "Bevel and Worm Gears",
-                      "topics": [
-                        "Analysis of Bevel Gears",
-                        "Analysis of Worm Gearing"
-                      ]
-                    },
-                    {
-                      "id": "Clutches, Brakes, and Springs",
-                      "topics": [
-                        "Design of Clutches and Brakes",
-                        "Spring Design (Helical, Leaf)",
-                        "Flywheels"
-                      ]
-                    },
-                    {
-                      "id": "me2_ch4",
-                      "title": "Flexible Mechanical Elements",
-                      "topics": [
-                        "Belt Drives",
-                        "Chain Drives",
-                        "Wire Ropes"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "MEng3104",
-                  "name": "Mechanical Vibrations",
-                  "description": "Analysis of the oscillatory motion of mechanical systems. Covers free and forced vibration of single and multiple degree-of-freedom systems, and vibration control.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "MEng2102"
-                  ],
-                  "chapters": [
-                    {
-                      "id": "vib_ch1",
-                      "title": "Single Degree-of-Freedom Systems",
-                      "topics": [
-                        "Free Undamped Vibration",
-                        "Free Damped Vibration",
-                        "Forced Vibration and Resonance"
-                      ]
-                    },
-                    {
-                      "id": "vib_ch2",
-                      "title": "Vibration Control",
-                      "topics": [
-                        "Vibration Isolation",
-                        "Vibration Absorbers"
-                      ]
-                    },
-                    {
-                      "id": "vib_ch3",
-                      "title": "Two Degree-of-Freedom Systems",
-                      "topics": [
-                        "Equations of Motion",
-                        "Natural Frequencies and Mode Shapes"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "MEng3108",
-                  "name": "Engineering Thermodynamics II",
-                  "description": "Application of thermodynamics to power and refrigeration cycles. Covers gas and vapor power cycles, psychrometry, and combustion.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "MEng2103"
-                  ],
-                  "chapters": [
-                    {
-                      "id": "thermo2_ch1",
-                      "title": "Gas Power Cycles",
-                      "topics": [
-                        "Otto Cycle",
-                        "Diesel Cycle",
-                        "Brayton Cycle (Gas Turbines)"
-                      ]
-                    },
-                    {
-                      "id": "thermo2_ch2",
-                      "title": "Vapor Power Cycles",
-                      "topics": [
-                        "Rankine Cycle",
-                        "Reheat and Regeneration"
-                      ]
-                    },
-                    {
-                      "id": "thermo2_ch3",
-                      "title": "Refrigeration and Psychrometry",
-                      "topics": [
-                        "Vapor-Compression Refrigeration",
-                        "Properties of Moist Air (Psychrometrics)"
-                      ]
-                    },
-                    {
-                      "id": "thermo2_ch4",
-                      "title": "Chemical Reactions and Combustion",
-                      "topics": [
-                        "Enthalpy of Formation",
-                        "First Law Analysis of Reacting Systems"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "MEng3110",
-                  "name": "Measurement and Instrumentation",
-                  "description": "Principles and practices of engineering measurement. Covers instrument characteristics, data acquisition, and techniques for measuring common physical quantities.",
-                  "credits": 3,
-                  "chapters": []
-                }
-              ]
-            },
-            "Year 4": {
-              "Semester I": [
-                {
-                  "code": "MEng4101",
-                  "name": "Mechanical Engineering Design I",
-                  "description": "The first course in a two-part capstone design sequence. Focuses on the engineering design process, problem definition, concept generation, and project planning.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "MEng3102"
-                  ],
-                  "chapters": [
-                    {
-                      "id": "design1_ch1",
-                      "title": "The Design Process",
-                      "topics": [
-                        "Problem Identification and Specification",
-                        "Concept Generation and Evaluation",
-                        "Design for X (Manufacturability, Assembly, etc.)"
-                      ]
-                    },
-                    {
-                      "id": "design1_ch2",
-                      "title": "Project Management",
-                      "topics": [
-                        "Project Planning and Scheduling (Gantt Charts)",
-                        "Teamwork and Communication",
-                        "Engineering Ethics"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "MEng4103",
-                  "name": "Finite Element Analysis",
-                  "description": "Introduction to the theory and application of the finite element method for solving engineering problems, particularly in stress analysis and heat transfer.",
-                  "credits": 3,
-                  "chapters": [
-                    {
-                      "id": "fea_ch1",
-                      "title": "FEA Fundamentals",
-                      "topics": [
-                        "The Finite Element Method Concept",
-                        "Discretization and Meshing",
-                        "Shape Functions"
-                      ]
-                    },
-                    {
-                      "id": "fea_ch2",
-                      "title": "Structural Analysis",
-                      "topics": [
-                        "Analysis of Trusses and Beams",
-                        "2D Plane Stress and Plane Strain",
-                        "3D Solid Elements"
-                      ]
-                    },
-                    {
-                      "id": "fea_ch3",
-                      "title": "Thermal and Dynamic Analysis",
-                      "topics": [
-                        "Steady-State Heat Transfer Analysis",
-                        "Introduction to Modal Analysis"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "MEng4105",
-                  "name": "Power Plant Engineering",
-                  "description": "Study of various types of power generation systems, including thermal (steam, gas), hydroelectric, and nuclear power plants, along with their components and performance.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "MEng3108"
-                  ],
-                  "chapters": []
-                },
-                {
-                  "code": "MEng4107",
-                  "name": "Mechatronics",
-                  "description": "An integrative course on the design of mechatronic systems, combining mechanical elements, electronics, sensors, actuators, and computer control.",
-                  "credits": 3,
-                  "chapters": []
-                }
-              ],
-              "Semester II": [
-                {
-                  "code": "MEng4102",
-                  "name": "Mechanical Engineering Design II",
-                  "description": "The conclusion of the capstone design sequence. Students work in teams to complete the detailed design, fabrication, and testing of their project, culminating in a final report and presentation.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "MEng4101"
-                  ],
-                  "chapters": []
-                },
-                {
-                  "code": "MEng4104",
-                  "name": "HVAC Systems",
-                  "description": "Design and analysis of heating, ventilating, and air-conditioning (HVAC) systems. Covers psychrometrics, load calculations, and system design.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "MEng3108"
-                  ],
-                  "chapters": [
-                    {
-                      "id": "hvac_ch1",
-                      "title": "Psychrometrics and Comfort",
-                      "topics": [
-                        "Properties of Moist Air",
-                        "The Psychrometric Chart",
-                        "Thermal Comfort"
-                      ]
-                    },
-                    {
-                      "id": "hvac_ch2",
-                      "title": "Load Calculations",
-                      "topics": [
-                        "Heating Load Calculation",
-                        "Cooling Load Calculation",
-                        "Ventilation Requirements"
-                      ]
-                    },
-                    {
-                      "id": "hvac_ch3",
-                      "title": "HVAC Systems and Components",
-                      "topics": [
-                        "Vapor-Compression Cycle",
-                        "Duct Design",
-                        "Air Distribution Systems"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "MEng4108",
-                  "name": "Introduction to Computational Fluid Dynamics (CFD)",
-                  "description": "An introduction to the principles and application of CFD for solving fluid flow and heat transfer problems.",
-                  "credits": 2,
-                  "chapters": []
-                },
-                {
-                  "code": "MEng4112",
-                  "name": "Internship",
-                  "description": "Supervised practical work experience in a mechanical engineering organization. Students apply academic knowledge in a real-world setting and submit a report.",
-                  "credits": 0,
                   "chapters": []
                 }
               ]
             },
             "Year 5": {
-              "Semester I": [
-                {
-                  "code": "MEng5101",
-                  "name": "B.Sc. Thesis I",
-                  "description": "The first phase of the final year thesis project. Students work with a faculty advisor to identify a research topic, conduct a literature survey, and write a detailed research proposal.",
-                  "credits": 2,
-                  "chapters": []
-                },
-                {
-                  "code": "MEng5103",
-                  "name": "Engineering Ethics and Law",
-                  "description": "Examines the professional and ethical responsibilities of engineers, covering codes of conduct, liability, intellectual property, and the societal impact of technology.",
-                  "credits": 2,
-                  "chapters": []
-                },
-                {
-                  "code": "MEng5201",
-                  "name": "Elective I",
-                  "description": "Students select a specialized course from a list of approved technical electives such as Automotive Engineering, Renewable Energy Systems, or Advanced Materials.",
-                  "credits": 3,
-                  "chapters": []
-                }
-              ],
-              "Semester II": [
-                {
-                  "code": "MEng5102",
-                  "name": "B.Sc. Thesis II",
-                  "description": "The second and final phase of the thesis project. Students execute their research plan, analyze data, and write the final thesis document, culminating in an oral defense.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "MEng5101"
-                  ],
-                  "chapters": []
-                },
-                {
-                  "code": "ECEG5106",
-                  "name": "Entrepreneurship for Engineers",
-                  "description": "Introduction to the principles of entrepreneurship, including opportunity recognition, business model development, funding, and intellectual property strategy, tailored for technology ventures.",
-                  "credits": 2,
-                  "chapters": []
-                },
-                {
-                  "code": "MEng5202",
-                  "name": "Elective II",
-                  "description": "Students select a second specialized course from a list of approved technical electives such as Robotics, Fracture Mechanics, or Turbomachinery.",
-                  "credits": 3,
-                  "chapters": []
-                }
-              ]
+              "Semester I": {
+                "Mechanical Core": [
+                  {
+                    "code": "MEng5101",
+                    "name": "Power Plant Engineering",
+                    "credits": 3,
+                    "description": "A study of the design and operation of various types of power plants, including steam, gas turbine, and combined cycle plants.",
+                    "outcomes": [
+                      "Analyze thermodynamic cycles of different power plants.",
+                      "Understand the function of major power plant components like boilers, turbines, and condensers.",
+                      "Evaluate the performance and efficiency of power generation systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5103",
+                    "name": "Mechanical Vibration",
+                    "credits": 3,
+                    "description": "A course on the theory and analysis of mechanical vibrations. Covers single and multi-degree-of-freedom systems, and methods for vibration control.",
+                    "outcomes": [
+                      "Model and analyze the free and forced vibration of single-degree-of-freedom systems.",
+                      "Determine natural frequencies and mode shapes for multi-degree-of-freedom systems.",
+                      "Understand the principles of vibration measurement and control."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5105",
+                    "name": "Maintenance of Machinery",
+                    "credits": 3,
+                    "description": "Covers the principles and practices of industrial maintenance, including maintenance strategies, reliability engineering, and condition monitoring techniques.",
+                    "outcomes": [
+                      "Compare different maintenance strategies (preventive, predictive, corrective).",
+                      "Apply reliability concepts to maintenance planning.",
+                      "Understand various condition monitoring techniques (vibration analysis, oil analysis)."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5607",
+                    "name": "Turbomachinery II",
+                    "credits": 2,
+                    "description": "An advanced course in turbomachinery focusing on detailed design considerations, performance analysis under off-design conditions, and advanced topics.",
+                    "outcomes": [
+                      "Perform detailed design of turbine and compressor blades.",
+                      "Analyze the performance of turbomachines at off-design operating points.",
+                      "Understand phenomena like surge and stall in compressors."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5309",
+                    "name": "Heavy Duty and Construction Equipment",
+                    "credits": 2,
+                    "description": "A study of the design, operation, and performance of heavy equipment used in construction, mining, and agriculture.",
+                    "outcomes": [
+                      "Identify and describe the function of various types of heavy equipment.",
+                      "Analyze the powertrain and hydraulic systems of heavy machinery.",
+                      "Estimate the productivity and operating costs of equipment."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5111",
+                    "name": "Integrated Design Project",
+                    "credits": 3,
+                    "description": "A capstone design project where students work in teams to solve a comprehensive mechanical engineering design problem, integrating various sub-disciplines.",
+                    "outcomes": [
+                      "Synthesize knowledge from across the curriculum to develop a complete system design.",
+                      "Manage a complex design project from conception to detailed design.",
+                      "Produce a professional design report and presentation."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5113",
+                    "name": "Final Year Project Phase I",
+                    "credits": 0,
+                    "description": "The first phase of the final year project, focusing on topic selection, literature review, and the development of a detailed research proposal.",
+                    "outcomes": [
+                      "Formulate a clear research problem and objectives.",
+                      "Conduct a systematic literature review.",
+                      "Write a comprehensive research proposal."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "Stat5115",
+                    "name": "Probability and Statistics for Engineers",
+                    "credits": 3,
+                    "description": "Application of probability theory and statistical techniques to analyze engineering data, focusing on reliability, quality control, and experimental design.",
+                    "outcomes": [
+                      "Apply probability distributions to model engineering systems.",
+                      "Perform hypothesis testing and regression analysis.",
+                      "Use statistical process control (SPC) charts.",
+                      "Design and analyze experiments (DOE)."
+                    ],
+                    "chapters": []
+                  }
+                ],
+                "Automotive": [
+                  {
+                    "code": "Stat5115",
+                    "name": "Probability and Statistics for Engineers",
+                    "credits": 3,
+                    "description": "Application of probability theory and statistical techniques to analyze automotive engineering data, focusing on reliability, quality control, and testing.",
+                    "outcomes": [
+                      "Apply probability distributions to analyze component reliability and warranty data.",
+                      "Perform hypothesis testing to validate design changes.",
+                      "Use statistical process control (SPC) charts in manufacturing.",
+                      "Design and analyze experiments (DOE) for performance optimization."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5103",
+                    "name": "Mechanical Vibration",
+                    "credits": 3,
+                    "description": "A course on the theory and analysis of mechanical vibrations, with a focus on applications in vehicle dynamics, ride comfort, and noise, vibration, and harshness (NVH).",
+                    "outcomes": [
+                      "Model and analyze vehicle suspension systems.",
+                      "Determine natural frequencies and mode shapes of vehicle components.",
+                      "Understand the principles of vibration isolation and damping in automotive applications."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5305",
+                    "name": "Automotive Electronics Systems",
+                    "credits": 3,
+                    "description": "An advanced study of the electronic control systems in modern vehicles, including engine management systems (EMS), transmission control, anti-lock braking systems (ABS), and in-vehicle networking.",
+                    "outcomes": [
+                      "Analyze the operation of electronic engine control units.",
+                      "Understand the principles of electronic stability control and ABS.",
+                      "Describe in-vehicle communication protocols like CAN bus.",
+                      "Diagnose faults in automotive electronic systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5307",
+                    "name": "Fleet and Transport Management",
+                    "credits": 2,
+                    "description": "Covers the principles of managing fleets of vehicles, including vehicle acquisition, maintenance scheduling, route optimization, and logistics.",
+                    "outcomes": [
+                      "Develop strategies for vehicle procurement and replacement.",
+                      "Implement effective fleet maintenance programs.",
+                      "Use software tools for transport and logistics planning.",
+                      "Analyze the economics of fleet operation."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5309",
+                    "name": "Heavy Duty and Construction Equipment",
+                    "credits": 2,
+                    "description": "A study of the design, operation, and performance of heavy-duty vehicles and equipment used in construction and transport.",
+                    "outcomes": [
+                      "Identify and describe the function of various types of heavy equipment.",
+                      "Analyze the powertrain and hydraulic systems of heavy machinery.",
+                      "Estimate the productivity and operating costs of equipment."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5311",
+                    "name": "IC Engines and Motor Vehicles Lab",
+                    "credits": 1,
+                    "description": "A hands-on laboratory course focused on the testing and performance evaluation of internal combustion engines and vehicle subsystems.",
+                    "outcomes": [
+                      "Perform engine dynamometer tests to measure performance characteristics.",
+                      "Disassemble and assemble key engine and vehicle components.",
+                      "Use diagnostic tools to analyze vehicle systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5111",
+                    "name": "Integrated Design Project",
+                    "credits": 3,
+                    "description": "A capstone design project where students work in teams to design a complete automotive system or vehicle component.",
+                    "outcomes": [
+                      "Synthesize knowledge to develop a complete automotive design.",
+                      "Manage a complex design project from conception to detailed design.",
+                      "Produce a professional design report and presentation."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5113",
+                    "name": "Final Year Project Phase I",
+                    "credits": 0,
+                    "description": "The first phase of the final year project, focusing on topic selection, literature review, and the development of a detailed research proposal.",
+                    "outcomes": [
+                      "Formulate a clear research problem and objectives.",
+                      "Conduct a systematic literature review.",
+                      "Write a comprehensive research proposal."
+                    ],
+                    "chapters": []
+                  }
+                ],
+                "Manufacturing": [
+                  {
+                    "code": "MEng5411",
+                    "name": "Engineering Measurement and Metrology",
+                    "credits": 2,
+                    "description": "A study of the science of measurement and the instruments used for dimensional inspection and quality control in manufacturing.",
+                    "outcomes": [
+                      "Understand the principles of metrology and standards of measurement.",
+                      "Use various precision measurement instruments.",
+                      "Analyze measurement uncertainty.",
+                      "Understand the operation of Coordinate Measuring Machines (CMM)."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5403",
+                    "name": "Welding Technology",
+                    "credits": 3,
+                    "description": "A comprehensive study of welding processes, metallurgy, and the design and inspection of welded joints.",
+                    "outcomes": [
+                      "Compare and select appropriate welding processes.",
+                      "Understand the metallurgy of welds and the heat-affected zone.",
+                      "Design welded connections for static and fatigue loading.",
+                      "Apply non-destructive testing (NDT) methods for weld inspection."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5105",
+                    "name": "Maintenance of Machinery",
+                    "credits": 3,
+                    "description": "Covers the principles and practices of industrial maintenance, including maintenance strategies, reliability engineering, and condition monitoring techniques.",
+                    "outcomes": [
+                      "Compare different maintenance strategies.",
+                      "Apply reliability concepts to maintenance planning.",
+                      "Understand various condition monitoring techniques."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5103",
+                    "name": "Mechanical Vibration",
+                    "credits": 3,
+                    "description": "A course on the theory and analysis of mechanical vibrations, with a focus on applications in machine tool dynamics and process stability.",
+                    "outcomes": [
+                      "Model and analyze the vibration of manufacturing equipment.",
+                      "Understand the phenomenon of chatter in machining.",
+                      "Apply principles of vibration control to improve manufacturing processes."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5405",
+                    "name": "Tool and Die Design",
+                    "credits": 3,
+                    "description": "Focuses on the design of tools, dies, jigs, and fixtures used in various manufacturing processes like stamping, forging, and machining.",
+                    "outcomes": [
+                      "Design cutting tools for specific machining operations.",
+                      "Design dies for sheet metal stamping and bulk forming processes.",
+                      "Design jigs and fixtures to locate and hold workpieces.",
+                      "Select appropriate materials for tools and dies."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5111",
+                    "name": "Integrated Design Project",
+                    "credits": 3,
+                    "description": "A capstone design project where students work in teams to design a complete manufacturing system or process.",
+                    "outcomes": [
+                      "Synthesize knowledge to develop a complete manufacturing process plan.",
+                      "Manage a complex design project from conception to detailed design.",
+                      "Produce a professional design report and presentation."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5113",
+                    "name": "Final Year Project Phase I",
+                    "credits": 0,
+                    "description": "The first phase of the final year project, focusing on topic selection, literature review, and the development of a detailed research proposal.",
+                    "outcomes": [
+                      "Formulate a clear research problem and objectives.",
+                      "Conduct a systematic literature review.",
+                      "Write a comprehensive research proposal."
+                    ],
+                    "chapters": []
+                  }
+                ],
+                "Mechanical Design": [
+                  {
+                    "code": "MEng5501",
+                    "name": "Product Design and Development",
+                    "credits": 3,
+                    "description": "Covers the entire product development process, from identifying customer needs to concept generation, product architecture, and prototyping.",
+                    "outcomes": [
+                      "Apply systematic methods for identifying customer needs.",
+                      "Use concept generation and selection techniques.",
+                      "Understand the principles of product architecture and design for manufacturing (DFM).",
+                      "Develop a complete product development plan."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5103",
+                    "name": "Mechanical Vibration",
+                    "credits": 3,
+                    "description": "A course on the theory and analysis of mechanical vibrations. Covers single and multi-degree-of-freedom systems, and methods for vibration control.",
+                    "outcomes": [
+                      "Model and analyze the free and forced vibration of single-degree-of-freedom systems.",
+                      "Determine natural frequencies and mode shapes for multi-degree-of-freedom systems.",
+                      "Understand the principles of vibration measurement and control."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5105",
+                    "name": "Maintenance of Machinery",
+                    "credits": 3,
+                    "description": "Covers the principles and practices of industrial maintenance, including maintenance strategies, reliability engineering, and condition monitoring techniques.",
+                    "outcomes": [
+                      "Compare different maintenance strategies.",
+                      "Apply reliability concepts to maintenance planning.",
+                      "Understand various condition monitoring techniques."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5503",
+                    "name": "Introduction to Tribology",
+                    "credits": 3,
+                    "description": "A study of the science and engineering of interacting surfaces in relative motion. Covers friction, wear, and lubrication.",
+                    "outcomes": [
+                      "Understand the fundamental mechanisms of friction and wear.",
+                      "Analyze different lubrication regimes.",
+                      "Select materials and lubricants to minimize friction and wear.",
+                      "Apply tribological principles to the design of machine elements."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5505",
+                    "name": "Rotor Dynamics",
+                    "credits": 3,
+                    "description": "A specialized course on the dynamic behavior of rotating machinery. Covers topics like critical speeds, balancing, and the effects of bearings and seals.",
+                    "outcomes": [
+                      "Analyze the lateral and torsional vibrations of rotating shafts.",
+                      "Calculate the critical speeds of rotor-bearing systems.",
+                      "Understand the principles of rotor balancing.",
+                      "Analyze the stability of rotor systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5111",
+                    "name": "Integrated Design Project",
+                    "credits": 3,
+                    "description": "A capstone design project where students work in teams to carry out the detailed design and analysis of a complex mechanical system.",
+                    "outcomes": [
+                      "Synthesize knowledge to solve a complex design problem.",
+                      "Perform advanced analysis using tools like FEA.",
+                      "Produce a professional design report and presentation."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5113",
+                    "name": "Final Year Project Phase I",
+                    "credits": 0,
+                    "description": "The first phase of the final year project, focusing on topic selection, literature review, and the development of a detailed research proposal.",
+                    "outcomes": [
+                      "Formulate a clear research problem and objectives.",
+                      "Conduct a systematic literature review.",
+                      "Write a comprehensive research proposal."
+                    ],
+                    "chapters": []
+                  }
+                ],
+                "Thermal": [
+                  {
+                    "code": "MEng5101",
+                    "name": "Power Plant Engineering",
+                    "credits": 3,
+                    "description": "A study of the design and operation of various types of power plants, including steam, gas turbine, and combined cycle plants.",
+                    "outcomes": [
+                      "Analyze thermodynamic cycles of different power plants.",
+                      "Understand the function of major power plant components like boilers, turbines, and condensers.",
+                      "Evaluate the performance and efficiency of power generation systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5603",
+                    "name": "Thermo-Fluid System Design",
+                    "credits": 3,
+                    "description": "A project-based course on the design and optimization of systems involving fluid flow and heat transfer, such as piping networks, heat exchanger systems, and power cycles.",
+                    "outcomes": [
+                      "Design and analyze complex piping networks.",
+                      "Optimize the design of heat exchanger systems.",
+                      "Synthesize components into a complete thermo-fluid system.",
+                      "Use computational tools for system simulation and design."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5607",
+                    "name": "Turbomachinery II",
+                    "credits": 2,
+                    "description": "An advanced course in turbomachinery focusing on detailed design considerations, performance analysis under off-design conditions, and advanced topics.",
+                    "outcomes": [
+                      "Perform detailed design of turbine and compressor blades.",
+                      "Analyze the performance of turbomachines at off-design operating points.",
+                      "Understand phenomena like surge and stall in compressors."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5601",
+                    "name": "Energy Auditing and Management",
+                    "credits": 3,
+                    "description": "Covers the principles and techniques for auditing energy use in industrial and commercial facilities and for managing energy consumption to improve efficiency and reduce costs.",
+                    "outcomes": [
+                      "Conduct a detailed energy audit of a facility.",
+                      "Identify and quantify energy conservation opportunities.",
+                      "Perform economic analysis of energy efficiency measures.",
+                      "Understand the principles of an energy management system (e.g., ISO 50001)."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5111",
+                    "name": "Integrated Design Project",
+                    "credits": 3,
+                    "description": "A capstone design project where students work in teams to design a complete thermal energy system.",
+                    "outcomes": [
+                      "Synthesize knowledge to develop a complete thermal system design.",
+                      "Manage a complex design project from conception to detailed design.",
+                      "Produce a professional design report and presentation."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5103",
+                    "name": "Mechanical Vibration",
+                    "credits": 3,
+                    "description": "A course on the theory and analysis of mechanical vibrations, with applications in thermal and power generation equipment.",
+                    "outcomes": [
+                      "Model and analyze the vibration of rotating machinery.",
+                      "Understand vibration issues in piping and heat exchangers.",
+                      "Apply principles of vibration control and monitoring."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5105",
+                    "name": "Maintenance of Machinery",
+                    "credits": 3,
+                    "description": "Covers the principles and practices of industrial maintenance, with a focus on equipment found in power and process plants.",
+                    "outcomes": [
+                      "Compare different maintenance strategies.",
+                      "Apply reliability concepts to maintenance planning.",
+                      "Understand various condition monitoring techniques."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5113",
+                    "name": "Final Year Project Phase I",
+                    "credits": 0,
+                    "description": "The first phase of the final year project, focusing on topic selection, literature review, and the development of a detailed research proposal.",
+                    "outcomes": [
+                      "Formulate a clear research problem and objectives.",
+                      "Conduct a systematic literature review.",
+                      "Write a comprehensive research proposal."
+                    ],
+                    "chapters": []
+                  }
+                ]
+              },
+              "Semester II": {
+                "Mechanical Core": [
+                  {
+                    "code": "IEng5102",
+                    "name": "Industrial Management and Engineering Economy",
+                    "credits": 3,
+                    "description": "Covers principles of industrial management and the application of economic analysis to engineering projects.",
+                    "outcomes": [
+                      "Apply project management techniques.",
+                      "Understand quality management principles.",
+                      "Evaluate engineering alternatives using economic analysis."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5104",
+                    "name": "Measurement and Instrumentation",
+                    "credits": 3,
+                    "description": "Covers the principles of measurement systems, sensors, signal conditioning, and data acquisition.",
+                    "outcomes": [
+                      "Analyze the characteristics of measurement systems.",
+                      "Select appropriate sensors for measuring physical quantities.",
+                      "Design basic signal conditioning and data acquisition systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5106",
+                    "name": "Control Systems Engineering",
+                    "credits": 3,
+                    "description": "Introduces the analysis and design of linear feedback control systems, covering modeling, stability, and controller design.",
+                    "outcomes": [
+                      "Develop mathematical models for physical systems.",
+                      "Analyze the stability and performance of control systems.",
+                      "Design PID controllers to meet performance specifications."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5108",
+                    "name": "Final Year Project Phase II",
+                    "credits": 6,
+                    "description": "The execution phase of the final year project, culminating in a final report and oral defense.",
+                    "outcomes": [
+                      "Execute an independent engineering project.",
+                      "Analyze results and draw valid conclusions.",
+                      "Produce a professional final report.",
+                      "Defend the project work effectively."
+                    ],
+                    "chapters": []
+                  }
+                ],
+                "Automotive": [
+                  {
+                    "code": "MEng5102",
+                    "name": "Industrial Management and Engineering Economy",
+                    "credits": 3,
+                    "description": "Covers principles of industrial management and the application of economic analysis to engineering projects, with a focus on the automotive industry.",
+                    "outcomes": [
+                      "Apply project management techniques in an automotive context.",
+                      "Understand quality management principles like lean and six sigma.",
+                      "Evaluate engineering alternatives using economic analysis."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5104",
+                    "name": "Measurement and Instrumentation",
+                    "credits": 3,
+                    "description": "Covers the principles of measurement systems, sensors, signal conditioning, and data acquisition, with applications in vehicle testing and diagnostics.",
+                    "outcomes": [
+                      "Analyze the characteristics of measurement systems.",
+                      "Select appropriate sensors for automotive applications.",
+                      "Design basic data acquisition systems for vehicle testing."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5106",
+                    "name": "Control Systems Engineering",
+                    "credits": 3,
+                    "description": "Introduces the analysis and design of linear feedback control systems, with applications to automotive systems like cruise control and electronic throttle control.",
+                    "outcomes": [
+                      "Develop mathematical models for vehicle systems.",
+                      "Analyze the stability and performance of control systems.",
+                      "Design PID controllers for automotive applications."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5308",
+                    "name": "Automotive Maintenance",
+                    "credits": 3,
+                    "description": "Covers the principles and practices of automotive service and maintenance, including diagnostic procedures, repair techniques, and service management.",
+                    "outcomes": [
+                      "Develop systematic diagnostic procedures for vehicle faults.",
+                      "Understand modern repair techniques and tools.",
+                      "Plan and manage an automotive service facility.",
+                      "Interpret service manuals and technical bulletins."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5108",
+                    "name": "Final Year Project Phase II",
+                    "credits": 6,
+                    "description": "The execution phase of the final year project, culminating in a final report and oral defense.",
+                    "outcomes": [
+                      "Execute an independent engineering project.",
+                      "Analyze results and draw valid conclusions.",
+                      "Produce a professional final report.",
+                      "Defend the project work effectively."
+                    ],
+                    "chapters": []
+                  }
+                ],
+                "Manufacturing": [
+                  {
+                    "code": "MEng5102",
+                    "name": "Industrial Management and Engineering Economy",
+                    "credits": 3,
+                    "description": "Covers principles of industrial management and the application of economic analysis to engineering projects, with a focus on manufacturing operations.",
+                    "outcomes": [
+                      "Apply project management techniques to manufacturing projects.",
+                      "Understand quality management principles like lean and six sigma.",
+                      "Evaluate manufacturing process alternatives using economic analysis."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5404",
+                    "name": "Modern Manufacturing Technology",
+                    "credits": 3,
+                    "description": "A study of advanced and non-traditional manufacturing processes, such as additive manufacturing (3D printing), laser processing, and micro-fabrication.",
+                    "outcomes": [
+                      "Understand the principles of various additive manufacturing technologies.",
+                      "Analyze applications of laser and waterjet cutting.",
+                      "Describe the processes used in micro- and nano-manufacturing.",
+                      "Compare the capabilities of different modern manufacturing processes."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5106",
+                    "name": "Control Systems Engineering",
+                    "credits": 3,
+                    "description": "Introduces the analysis and design of linear feedback control systems, with applications to manufacturing automation and process control.",
+                    "outcomes": [
+                      "Develop mathematical models for manufacturing processes.",
+                      "Analyze the stability and performance of control systems.",
+                      "Design PID controllers for process automation."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5408",
+                    "name": "Metal Forming Technology",
+                    "credits": 3,
+                    "description": "A course on the principles and analysis of bulk and sheet metal forming processes, such as forging, rolling, extrusion, and deep drawing.",
+                    "outcomes": [
+                      "Analyze stresses and strains in metal forming processes.",
+                      "Apply plasticity theory to forming problems.",
+                      "Design basic forming processes and estimate required forces.",
+                      "Understand the metallurgy of formed products."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5108",
+                    "name": "Final Year Project Phase II",
+                    "credits": 6,
+                    "description": "The execution phase of the final year project, culminating in a final report and oral defense.",
+                    "outcomes": [
+                      "Execute an independent engineering project.",
+                      "Analyze results and draw valid conclusions.",
+                      "Produce a professional final report.",
+                      "Defend the project work effectively."
+                    ],
+                    "chapters": []
+                  }
+                ],
+                "Mechanical Design": [
+                  {
+                    "code": "MEng5102",
+                    "name": "Industrial Management and Engineering Economy",
+                    "credits": 3,
+                    "description": "Covers principles of industrial management and the application of economic analysis to engineering projects, with a focus on product development and design decisions.",
+                    "outcomes": [
+                      "Apply project management techniques to design projects.",
+                      "Understand quality management in the design process.",
+                      "Evaluate design alternatives using economic analysis."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5504",
+                    "name": "Introduction to Robotics and Automation",
+                    "credits": 3,
+                    "description": "Covers the fundamentals of industrial robotics and automation systems. Includes robot kinematics, programming, and system integration.",
+                    "outcomes": [
+                      "Analyze the kinematics of robotic manipulators.",
+                      "Program industrial robots for various tasks.",
+                      "Select components for and design a simple automated workcell.",
+                      "Understand the role of sensors in robotic systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5106",
+                    "name": "Control Systems Engineering",
+                    "credits": 3,
+                    "description": "Introduces the analysis and design of linear feedback control systems, with applications to mechatronic and mechanical systems.",
+                    "outcomes": [
+                      "Develop mathematical models for mechanical systems.",
+                      "Analyze the stability and performance of control systems.",
+                      "Design PID controllers for motion control."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5108",
+                    "name": "Final Year Project Phase II",
+                    "credits": 6,
+                    "description": "The execution phase of the final year project, culminating in a final report and oral defense.",
+                    "outcomes": [
+                      "Execute an independent engineering project.",
+                      "Analyze results and draw valid conclusions.",
+                      "Produce a professional final report.",
+                      "Defend the project work effectively."
+                    ],
+                    "chapters": []
+                  }
+                ],
+                "Thermal": [
+                  {
+                    "code": "MEng5102",
+                    "name": "Industrial Management and Engineering Economy",
+                    "credits": 3,
+                    "description": "Covers principles of industrial management and the application of economic analysis to energy and thermal system projects.",
+                    "outcomes": [
+                      "Apply project management techniques to energy projects.",
+                      "Understand quality management principles.",
+                      "Evaluate energy system alternatives using economic analysis."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5602",
+                    "name": "Computational Fluid Dynamics",
+                    "credits": 3,
+                    "description": "An introduction to the theory and application of Computational Fluid Dynamics (CFD). Covers discretization methods, solution algorithms, and the use of commercial CFD software.",
+                    "outcomes": [
+                      "Understand the fundamental principles of CFD.",
+                      "Apply finite difference and finite volume methods to simple problems.",
+                      "Use commercial CFD software to set up and solve a thermo-fluid problem.",
+                      "Critically analyze and interpret CFD results."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5606",
+                    "name": "Internal Combustion Engines",
+                    "credits": 3,
+                    "description": "A detailed study of the design, operation, and performance of internal combustion engines. Covers thermodynamic cycles, combustion, and engine systems.",
+                    "outcomes": [
+                      "Analyze ideal and actual engine cycles.",
+                      "Understand the processes of combustion in spark-ignition and compression-ignition engines.",
+                      "Analyze engine performance parameters.",
+                      "Describe fuel, lubrication, and cooling systems."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5106",
+                    "name": "Control Systems Engineering",
+                    "credits": 3,
+                    "description": "Introduces the analysis and design of linear feedback control systems, with applications to thermal and fluid systems.",
+                    "outcomes": [
+                      "Develop mathematical models for thermal-fluid processes.",
+                      "Analyze the stability and performance of control systems.",
+                      "Design PID controllers for temperature and flow control."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "MEng5108",
+                    "name": "Final Year Project Phase II",
+                    "credits": 6,
+                    "description": "The execution phase of the final year project, culminating in a final report and oral defense.",
+                    "outcomes": [
+                      "Execute an independent engineering project.",
+                      "Analyze results and draw valid conclusions.",
+                      "Produce a professional final report.",
+                      "Defend the project work effectively."
+                    ],
+                    "chapters": []
+                  }
+                ]
+              }
             }
           }
         },
@@ -18027,50 +19902,49 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG2101",
                   "name": "Introduction to Software Engineering and Computing",
-                  "description": "An overview of the software development lifecycle, methodologies (like Agile and Waterfall), and the profession of software engineering, including ethical responsibilities.",
-                  "credits": 3,
+                  "credits": 4,
+                  "prerequisites": [],
                   "outcomes": [
-                    "Understand the fundamental stages of the software development lifecycle.",
-                    "Compare and contrast different software process models.",
-                    "Recognize the roles and responsibilities of a software engineer.",
-                    "Appreciate the ethical and professional issues in computing."
+                    "Describe the phases of the software development life cycle (SDLC).",
+                    "Compare and contrast various software process models like Waterfall and Agile.",
+                    "Understand the importance of requirements engineering.",
+                    "Recognize the professional and ethical responsibilities of a software engineer."
                   ],
                   "chapters": [
                     {
                       "id": "isec_ch1",
-                      "title": "The Software Process",
+                      "title": "Introduction to Software Engineering",
                       "topics": [
-                        "Software Engineering as a discipline",
-                        "The Software Development Lifecycle (SDLC)",
-                        "Process Models: Waterfall, Incremental, Spiral"
+                        "The Software Crisis and Evolution of Software Engineering",
+                        "Professional and Ethical Responsibility",
+                        "Software Engineering as a Discipline"
                       ]
                     },
                     {
                       "id": "isec_ch2",
-                      "title": "Agile Methodologies",
+                      "title": "Software Processes",
                       "topics": [
-                        "The Agile Manifesto",
-                        "Scrum: Roles, Events, Artifacts",
-                        "Extreme Programming (XP)"
+                        "Software Process Models (Waterfall, Incremental, Spiral)",
+                        "Agile Methodologies (Scrum, Extreme Programming)",
+                        "Process Activities"
                       ]
                     },
                     {
                       "id": "isec_ch3",
-                      "title": "Core Engineering Activities",
+                      "title": "Requirements Engineering",
                       "topics": [
-                        "Introduction to Requirements Engineering",
-                        "Introduction to Software Design",
-                        "Introduction to Testing",
-                        "Introduction to Maintenance"
+                        "Functional and Non-functional Requirements",
+                        "Requirements Elicitation and Analysis",
+                        "Requirements Specification and Validation"
                       ]
                     },
                     {
                       "id": "isec_ch4",
-                      "title": "The Engineering Profession",
+                      "title": "Introduction to Software Design and Project Management",
                       "topics": [
-                        "Professional and Ethical Responsibility",
-                        "Intellectual Property",
-                        "Teamwork and Collaboration"
+                        "Architectural Design",
+                        "Object-Oriented Design Concepts",
+                        "Project Planning and Risk Management"
                       ]
                     }
                   ]
@@ -18078,50 +19952,50 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG2103",
                   "name": "Fundamentals of Programming I",
-                  "description": "Introduction to programming using a procedural language like C++. Covers fundamental concepts such as variables, control flow, functions, arrays, and basic problem-solving techniques.",
-                  "credits": 4,
-                  path:"/FOP101",
+                  "credits": 3,
+                  "prerequisites": [],
                   "outcomes": [
-                    "Write, compile, and debug simple programs.",
-                    "Use fundamental programming constructs like variables, loops, and conditionals.",
-                    "Decompose problems into smaller, manageable parts using functions.",
-                    "Use arrays to store and manipulate collections of data."
+                    "Write, compile, and debug programs using a procedural language like C++.",
+                    "Effectively use fundamental data types, control structures (loops, conditionals), and functions.",
+                    "Understand and apply the concepts of pointers and dynamic memory allocation.",
+                    "Implement basic data structures like arrays and structures."
                   ],
                   "chapters": [
                     {
                       "id": "fp1_ch1",
-                      "title": "Introduction to Programming",
+                      "title": "Introduction to Programming and C++",
                       "topics": [
-                        "Programming Languages",
                         "Development Environment Setup",
-                        "Basic Syntax and Structure"
+                        "Basic Program Structure",
+                        "Variables, Data Types, and Operators"
                       ]
                     },
                     {
                       "id": "fp1_ch2",
-                      "title": "Variables and Control Flow",
+                      "title": "Control Flow",
                       "topics": [
-                        "Data Types (int, float, char)",
                         "Conditional Statements (if, else, switch)",
-                        "Loops (for, while, do-while)"
+                        "Looping Constructs (for, while, do-while)",
+                        "Break and Continue"
                       ]
                     },
                     {
                       "id": "fp1_ch3",
-                      "title": "Functions",
+                      "title": "Functions and Modular Programming",
                       "topics": [
                         "Defining and Calling Functions",
-                        "Parameters and Return Values",
+                        "Parameter Passing (Pass-by-value, Pass-by-reference)",
                         "Scope and Lifetime of Variables"
                       ]
                     },
                     {
                       "id": "fp1_ch4",
-                      "title": "Arrays and Pointers",
+                      "title": "Pointers and Data Structures",
                       "topics": [
-                        "Declaring and Initializing Arrays",
-                        "Multi-dimensional Arrays",
-                        "Introduction to Pointers"
+                        "Arrays and Strings",
+                        "Pointers and Memory Addresses",
+                        "Dynamic Memory Allocation (new, delete)",
+                        "Structures (structs)"
                       ]
                     }
                   ]
@@ -18129,52 +20003,168 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG2105",
                   "name": "Discrete Mathematics for Software Engineering",
-                  "description": "Fundamental mathematical concepts required for computer science, including logic, sets, relations, functions, counting principles, and graph theory.",
                   "credits": 3,
+                  "prerequisites": [],
                   "outcomes": [
-                    "Apply propositional and predicate logic to formalize arguments.",
-                    "Use set theory, relations, and functions to model computational problems.",
-                    "Apply counting principles to analyze algorithm complexity.",
-                    "Use graph theory to model and solve network-related problems."
+                    "Apply propositional and predicate logic to formalize and analyze arguments.",
+                    "Utilize set theory, functions, and relations to solve problems.",
+                    "Apply graph theory concepts to model and solve problems related to networks and data structures.",
+                    "Use combinatorial analysis and recurrence relations to analyze algorithms."
                   ],
                   "chapters": [
                     {
-                      "id": "dm_ch1",
+                      "id": "dmse_ch1",
                       "title": "Logic and Proofs",
                       "topics": [
-                        "Propositional Logic and Truth Tables",
-                        "Logical Equivalence",
-                        "Predicate Logic and Quantifiers",
+                        "Propositional Logic and Logical Equivalence",
+                        "Predicates and Quantifiers",
                         "Rules of Inference and Proof Techniques"
                       ]
                     },
                     {
-                      "id": "dm_ch2",
-                      "title": "Set Theory, Functions, and Relations",
+                      "id": "dmse_ch2",
+                      "title": "Sets, Functions, and Relations",
                       "topics": [
-                        "Sets and Set Operations",
+                        "Set Theory and Operations",
                         "Functions (Injective, Surjective, Bijective)",
-                        "Relations and their Properties",
+                        "Relations and Their Properties",
                         "Equivalence Relations"
                       ]
                     },
                     {
-                      "id": "dm_ch3",
-                      "title": "Counting and Combinatorics",
-                      "topics": [
-                        "The Pigeonhole Principle",
-                        "Permutations and Combinations",
-                        "Recurrence Relations"
-                      ]
-                    },
-                    {
-                      "id": "dm_ch4",
+                      "id": "dmse_ch3",
                       "title": "Graph Theory",
                       "topics": [
                         "Graph Terminology and Representation",
-                        "Connectivity, Paths, and Circuits",
-                        "Eulerian and Hamiltonian Paths",
-                        "Introduction to Trees"
+                        "Paths, Connectivity, and Euler/Hamiltonian Paths",
+                        "Trees and Spanning Trees"
+                      ]
+                    },
+                    {
+                      "id": "dmse_ch4",
+                      "title": "Counting and Recurrence Relations",
+                      "topics": [
+                        "The Basics of Counting (Sum and Product Rules)",
+                        "Permutations and Combinations",
+                        "Solving Linear Recurrence Relations"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "HiES2010",
+                  "name": "History of Ethiopia and the horn",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "outcomes": [
+                    "Understand the major historical periods and developments in Ethiopia and the Horn.",
+                    "Analyze the interactions between different peoples and states in the region.",
+                    "Appreciate the historical roots of contemporary issues in the region."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "hist_eth_ch1",
+                      "title": "Ancient and Medieval Periods",
+                      "topics": [
+                        "The Aksumite Kingdom",
+                        "The Zagwe Dynasty",
+                        "The 'Restored' Solomonic Dynasty"
+                      ]
+                    },
+                    {
+                      "id": "hist_eth_ch2",
+                      "title": "Early Modern and Modern Eras",
+                      "topics": [
+                        "The Gondarine Period and 'Zemene Mesafint'",
+                        "Territorial Unification and Expansion (1855-1991)"
+                      ]
+                    },
+                    {
+                      "id": "hist_eth_ch3",
+                      "title": "Contemporary Ethiopia and the Horn",
+                      "topics": [
+                        "Post-1991 Political and Social Developments",
+                        "Regional Relations and Conflicts"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Econ1101",
+                  "name": "Introduction to Economics",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "outcomes": [
+                    "Understand the basic principles of supply, demand, and market equilibrium.",
+                    "Analyze different market structures and their impact on firms and consumers.",
+                    "Grasp key macroeconomic indicators and policy tools.",
+                    "Apply economic principles to understand national and global economic issues."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "econ_ch1",
+                      "title": "Introduction to Economics",
+                      "topics": [
+                        "The Economic Problem of Scarcity",
+                        "Opportunity Cost",
+                        "Production Possibilities Frontier"
+                      ]
+                    },
+                    {
+                      "id": "econ_ch2",
+                      "title": "Microeconomics",
+                      "topics": [
+                        "Supply and Demand",
+                        "Elasticity",
+                        "Theory of Production and Costs"
+                      ]
+                    },
+                    {
+                      "id": "econ_ch3",
+                      "title": "Macroeconomics",
+                      "topics": [
+                        "Measuring National Income (GDP)",
+                        "Inflation and Unemployment",
+                        "Monetary and Fiscal Policy"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "GLaf1002",
+                  "name": "Global Trend",
+                  "credits": 2,
+                  "prerequisites": [],
+                  "outcomes": [
+                    "Identify and analyze major trends shaping the contemporary world.",
+                    "Understand the interconnectedness of global political, economic, and social systems.",
+                    "Critically evaluate different perspectives on global issues such as security, climate change, and migration."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "gt_ch1",
+                      "title": "Understanding Globalization",
+                      "topics": [
+                        "Dimensions of Globalization",
+                        "Debates on Globalization"
+                      ]
+                    },
+                    {
+                      "id": "gt_ch2",
+                      "title": "International Relations and Security",
+                      "topics": [
+                        "Theories of International Relations",
+                        "The Concept of Security",
+                        "Conflict and Terrorism"
+                      ]
+                    },
+                    {
+                      "id": "gt_ch3",
+                      "title": "Contemporary Global Challenges",
+                      "topics": [
+                        "Environmental Change",
+                        "Global Poverty and Development",
+                        "Foreign Policy and Diplomacy"
                       ]
                     }
                   ]
@@ -18184,53 +20174,52 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG2102",
                   "name": "Fundamentals of Programming II",
-                  "description": "Builds on Programming I, introducing object-oriented concepts, fundamental data structures, memory management, and file I/O.",
-                  "credits": 4,
+                  "credits": 3,
                   "prerequisites": [
                     "SWEG2103"
                   ],
                   "outcomes": [
-                    "Apply object-oriented principles like encapsulation.",
-                    "Implement and use fundamental data structures like linked lists.",
-                    "Manage memory using dynamic allocation.",
-                    "Perform file input and output operations."
+                    "Design and implement software solutions using object-oriented principles like encapsulation, inheritance, and polymorphism.",
+                    "Implement and analyze fundamental data structures including linked lists, stacks, queues, and trees.",
+                    "Understand the principles of recursion and its applications.",
+                    "Handle exceptions and perform file input/output operations."
                   ],
                   "chapters": [
                     {
                       "id": "fp2_ch1",
-                      "title": "Introduction to Object-Oriented Programming",
+                      "title": "Object-Oriented Programming Concepts",
                       "topics": [
-                        "Structures and Classes",
-                        "Objects, Methods, and Member Variables",
-                        "Constructors and Destructors",
-                        "The 'this' pointer"
+                        "Classes and Objects",
+                        "Encapsulation and Data Hiding",
+                        "Inheritance",
+                        "Polymorphism and Virtual Functions"
                       ]
                     },
                     {
                       "id": "fp2_ch2",
-                      "title": "Dynamic Memory Management",
+                      "title": "Linear Data Structures",
                       "topics": [
-                        "Pointers and Memory",
-                        "Dynamic Memory Allocation (new, delete)",
-                        "Common Memory Errors"
+                        "Linked Lists (Singly, Doubly)",
+                        "Stacks and their applications",
+                        "Queues and their applications"
                       ]
                     },
                     {
                       "id": "fp2_ch3",
-                      "title": "File I/O and Exception Handling",
+                      "title": "Non-Linear Data Structures",
                       "topics": [
-                        "Streams and File Operations",
-                        "Reading from and Writing to Files",
-                        "Introduction to Exception Handling (try, catch)"
+                        "Recursion",
+                        "Trees (Binary Trees, Binary Search Trees)",
+                        "Introduction to Hash Tables"
                       ]
                     },
                     {
                       "id": "fp2_ch4",
-                      "title": "Basic Data Structures",
+                      "title": "Advanced Topics",
                       "topics": [
-                        "Implementing a Dynamic Array (Vector)",
-                        "Singly Linked Lists",
-                        "Introduction to Stacks and Queues"
+                        "Templates and Generic Programming",
+                        "Exception Handling",
+                        "File I/O Streams"
                       ]
                     }
                   ]
@@ -18238,13 +20227,13 @@ export const courseData: CourseData = {
                 {
                   "code": "EEng2004",
                   "name": "Digital Logic Design",
-                  "description": "Fundamentals of digital circuits, Boolean algebra, combinational and sequential logic design. Forms the hardware foundation for understanding computer architecture.",
                   "credits": 3,
+                  "prerequisites": [],
                   "outcomes": [
-                    "Apply Boolean algebra and K-maps to simplify logic expressions.",
-                    "Design and analyze combinational logic circuits.",
-                    "Design and analyze sequential logic circuits like counters and registers.",
-                    "Understand the building blocks of digital computers."
+                    "Apply Boolean algebra and Karnaugh maps to simplify logic expressions.",
+                    "Design and analyze standard combinational logic circuits like adders, decoders, and multiplexers.",
+                    "Design and analyze standard sequential logic circuits like latches, flip-flops, registers, and counters.",
+                    "Understand the basic building blocks of digital computers."
                   ],
                   "chapters": [
                     {
@@ -18252,22 +20241,22 @@ export const courseData: CourseData = {
                       "title": "Number Systems and Boolean Algebra",
                       "topics": [
                         "Binary, Octal, Hexadecimal Systems",
-                        "Logic Gates",
-                        "Boolean Algebra and De Morgan's Theorems"
+                        "Boolean Algebra Postulates and Theorems",
+                        "Logic Gates"
                       ]
                     },
                     {
                       "id": "dld_ch2",
                       "title": "Combinational Logic Design",
                       "topics": [
-                        "Karnaugh Maps (K-maps)",
-                        "Adders, Subtractors, Decoders, Multiplexers",
-                        "HDL for Combinational Circuits"
+                        "Logic Minimization using Karnaugh Maps",
+                        "Design of Adders, Comparators, Encoders, Decoders",
+                        "Multiplexers and Demultiplexers"
                       ]
                     },
                     {
                       "id": "dld_ch3",
-                      "title": "Sequential Logic",
+                      "title": "Sequential Logic Design",
                       "topics": [
                         "Latches and Flip-Flops (SR, D, JK, T)",
                         "Analysis of Clocked Sequential Circuits",
@@ -18279,8 +20268,8 @@ export const courseData: CourseData = {
                       "title": "Registers and Counters",
                       "topics": [
                         "Registers and Shift Registers",
-                        "Ripple Counters",
-                        "Synchronous Counters"
+                        "Synchronous and Asynchronous Counters",
+                        "Introduction to Hardware Description Languages (HDL)"
                       ]
                     }
                   ]
@@ -18288,32 +20277,31 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG2106",
                   "name": "Data Communication and Computer Networks",
-                  "description": "Introduction to network protocols, layered architectures (OSI, TCP/IP), data transmission, and key concepts of data communication.",
-                  "credits": 3,
+                  "credits": 4,
+                  "prerequisites": [],
                   "outcomes": [
                     "Explain the function of each layer in the OSI and TCP/IP models.",
-                    "Understand the basics of signal encoding and data transmission.",
-                    "Describe how IP addressing and basic routing work.",
-                    "Differentiate between TCP and UDP protocols."
+                    "Understand data link layer protocols, including error detection, flow control, and multiple access control.",
+                    "Analyze IP addressing, subnetting, and the principles of routing algorithms.",
+                    "Describe the operation and services of transport layer protocols like TCP and UDP."
                   ],
                   "chapters": [
                     {
                       "id": "dccn_ch1",
-                      "title": "Introduction to Networks",
+                      "title": "Introduction to Networks and Layered Architecture",
                       "topics": [
-                        "Network Topologies",
-                        "OSI Model",
-                        "TCP/IP Protocol Suite"
+                        "Network Topologies and Categories",
+                        "The OSI and TCP/IP Reference Models",
+                        "Physical Layer: Transmission Media"
                       ]
                     },
                     {
                       "id": "dccn_ch2",
-                      "title": "Physical and Data Link Layers",
+                      "title": "Data Link Layer",
                       "topics": [
-                        "Data and Signals",
-                        "Transmission Media",
-                        "Error Detection and Correction",
-                        "MAC Protocols (Ethernet)"
+                        "Framing and Error Detection/Correction",
+                        "Flow Control Protocols",
+                        "Medium Access Control (MAC) Sublayer (e.g., CSMA/CD)"
                       ]
                     },
                     {
@@ -18330,8 +20318,8 @@ export const courseData: CourseData = {
                       "title": "Transport and Application Layers",
                       "topics": [
                         "UDP Protocol",
-                        "TCP Protocol (Flow control, Congestion control)",
-                        "Application Layer Protocols (HTTP, DNS, FTP)"
+                        "TCP Protocol (Connection Management, Flow Control, Congestion Control)",
+                        "Application Layer Protocols (HTTP, DNS, SMTP)"
                       ]
                     }
                   ]
@@ -18339,40 +20327,41 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG2108",
                   "name": "Database Systems",
-                  "description": "Introduction to database design, relational models, SQL, and normalization. Covers both theoretical concepts and practical application.",
                   "credits": 4,
+                  "prerequisites": [],
                   "outcomes": [
-                    "Design a relational database schema using ER modeling.",
-                    "Write complex SQL queries to retrieve and manipulate data.",
-                    "Apply normalization principles to reduce data redundancy.",
-                    "Understand the role of a DBMS in managing data."
+                    "Design robust relational database schemas using Entity-Relationship (ER) diagrams and normalization.",
+                    "Write complex SQL queries to define, manipulate, and retrieve data from a database.",
+                    "Understand the fundamental principles of transaction management, including ACID properties, concurrency control, and recovery.",
+                    "Implement a simple database-backed application."
                   ],
                   "chapters": [
                     {
                       "id": "dbs_ch1",
-                      "title": "Introduction to Databases",
+                      "title": "Introduction to Database Systems",
                       "topics": [
-                        "Database Systems vs. File Systems",
-                        "Database Architecture",
+                        "Database vs. File Systems",
+                        "Database System Architecture",
                         "Data Models"
                       ]
                     },
                     {
                       "id": "dbs_ch2",
-                      "title": "Relational Model and ER Diagrams",
+                      "title": "Conceptual Data Modeling",
                       "topics": [
-                        "Relational Algebra",
-                        "Entity-Relationship (ER) Modeling",
-                        "Mapping ER Diagrams to Relational Schemas"
+                        "The Entity-Relationship (ER) Model",
+                        "Entities, Attributes, and Relationships",
+                        "Enhanced ER (EER) Modeling"
                       ]
                     },
                     {
                       "id": "dbs_ch3",
-                      "title": "Structured Query Language (SQL)",
+                      "title": "The Relational Model and SQL",
                       "topics": [
-                        "Data Definition Language (DDL)",
-                        "Data Manipulation Language (DML)",
-                        "Joins, Subqueries, and Aggregate Functions"
+                        "Relational Model Concepts",
+                        "SQL Data Definition Language (DDL)",
+                        "SQL Data Manipulation Language (DML) and Queries",
+                        "Joins, Aggregation, and Nested Queries"
                       ]
                     },
                     {
@@ -18381,7 +20370,16 @@ export const courseData: CourseData = {
                       "topics": [
                         "Functional Dependencies",
                         "Normalization Forms (1NF, 2NF, 3NF, BCNF)",
-                        "Introduction to Transaction Management"
+                        "Relational Schema Design"
+                      ]
+                    },
+                    {
+                      "id": "dbs_ch5",
+                      "title": "Transaction Management",
+                      "topics": [
+                        "ACID Properties",
+                        "Concurrency Control Techniques (Locking)",
+                        "Database Recovery Techniques"
                       ]
                     }
                   ]
@@ -18389,31 +20387,31 @@ export const courseData: CourseData = {
                 {
                   "code": "Stat2091",
                   "name": "Probability and Statistics",
-                  "description": "Statistical methods and probability theory with applications in software engineering, data analysis, and performance evaluation.",
                   "credits": 3,
+                  "prerequisites": [],
                   "outcomes": [
-                    "Apply probability theory to model uncertain events.",
-                    "Analyze data using descriptive and inferential statistics.",
-                    "Perform hypothesis testing to make data-driven decisions.",
-                    "Understand the fundamentals of linear regression."
+                    "Apply probability distributions to model real-world events and software system behavior.",
+                    "Perform statistical inference, including confidence intervals and hypothesis testing, to make data-driven decisions.",
+                    "Develop and evaluate simple linear regression models to analyze relationships between variables.",
+                    "Use statistical concepts to analyze system performance, reliability, and user data."
                   ],
                   "chapters": [
                     {
                       "id": "ps_ch1",
-                      "title": "Probability",
+                      "title": "Descriptive Statistics and Probability",
                       "topics": [
-                        "Sample Spaces, Events",
+                        "Data Summarization and Visualization",
                         "Axioms of Probability",
-                        "Conditional Probability and Bayes' Theorem"
+                        "Conditional Probability and Independence"
                       ]
                     },
                     {
                       "id": "ps_ch2",
                       "title": "Random Variables and Distributions",
                       "topics": [
-                        "Discrete and Continuous Random Variables",
-                        "Common Distributions (Binomial, Poisson, Normal, Exponential)",
-                        "Expected Value and Variance"
+                        "Discrete Distributions (Binomial, Poisson)",
+                        "Continuous Distributions (Uniform, Normal, Exponential)",
+                        "Expectation and Variance"
                       ]
                     },
                     {
@@ -18421,17 +20419,17 @@ export const courseData: CourseData = {
                       "title": "Statistical Inference",
                       "topics": [
                         "Sampling Distributions and the Central Limit Theorem",
-                        "Confidence Intervals",
-                        "Hypothesis Testing (t-tests, chi-squared tests)"
+                        "Point and Interval Estimation",
+                        "Hypothesis Testing for Means and Proportions"
                       ]
                     },
                     {
                       "id": "ps_ch4",
-                      "title": "Regression",
+                      "title": "Correlation and Regression",
                       "topics": [
+                        "Correlation Analysis",
                         "Simple Linear Regression",
-                        "Correlation Coefficient",
-                        "Goodness of Fit"
+                        "Model Fitting and Evaluation"
                       ]
                     }
                   ]
@@ -18443,53 +20441,54 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG3101",
                   "name": "Object Oriented Programming",
-                  "description": "In-depth study of OOP principles including inheritance, polymorphism, and design patterns using languages like Java or C++.",
-                  "credits": 4,
+                  "credits": 3,
                   "prerequisites": [
                     "SWEG2102"
                   ],
                   "outcomes": [
-                    "Effectively use inheritance and polymorphism to create flexible and reusable code.",
-                    "Design and implement solutions using abstract classes and interfaces.",
-                    "Apply fundamental design patterns to solve common software design problems.",
-                    "Develop robust applications with proper exception handling and generics."
+                    "Design software solutions using core object-oriented principles like encapsulation, inheritance, and polymorphism.",
+                    "Implement classes, objects, constructors, and destructors in a modern OOP language like Java or C++.",
+                    "Apply polymorphism through virtual functions and abstract classes to create flexible and extensible code.",
+                    "Understand and apply basic object-oriented design patterns."
                   ],
                   "chapters": [
                     {
                       "id": "oop_ch1",
-                      "title": "Core OOP Concepts",
+                      "title": "Introduction to the Object-Oriented Paradigm",
                       "topics": [
-                        "Review of Classes and Objects",
-                        "Inheritance and Method Overriding",
-                        "Polymorphism (Virtual Functions)",
-                        "Abstract Classes and Interfaces"
+                        "Limitations of Procedural Programming",
+                        "Core Principles: Encapsulation, Abstraction, Inheritance, Polymorphism",
+                        "Introduction to UML Class Diagrams"
                       ]
                     },
                     {
                       "id": "oop_ch2",
-                      "title": "Advanced Features",
+                      "title": "Classes and Objects",
                       "topics": [
-                        "Exception Handling",
-                        "Generics and Templates",
-                        "Collections Framework / Standard Template Library (STL)"
+                        "Defining Classes and Instantiating Objects",
+                        "Constructors, Destructors, and `this` pointer",
+                        "Access Specifiers (public, private, protected)",
+                        "Static members and methods"
                       ]
                     },
                     {
                       "id": "oop_ch3",
-                      "title": "Introduction to Design Patterns",
+                      "title": "Inheritance and Polymorphism",
                       "topics": [
-                        "Creational Patterns (Singleton, Factory)",
-                        "Structural Patterns (Adapter, Decorator)",
-                        "Behavioral Patterns (Observer, Strategy)"
+                        "Base and Derived Classes",
+                        "Method Overriding",
+                        "Virtual Functions and Dynamic Binding",
+                        "Abstract Classes and Interfaces"
                       ]
                     },
                     {
                       "id": "oop_ch4",
-                      "title": "Object-Oriented Design Principles",
+                      "title": "Advanced OOP Concepts",
                       "topics": [
-                        "SOLID Principles",
-                        "Coupling and Cohesion",
-                        "Object-Oriented Case Study"
+                        "Operator Overloading",
+                        "Templates and Generic Programming",
+                        "Exception Handling",
+                        "Introduction to Design Patterns (e.g., Singleton, Factory)"
                       ]
                     }
                   ]
@@ -18497,89 +20496,53 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG3103",
                   "name": "Data Structure and Algorithms",
-                  "description": "A fundamental course on the design, analysis, and implementation of data structures and algorithms. Topics include lists, stacks, queues, trees, graphs, sorting, and searching.",
                   "credits": 4,
-                  "duration": "16 weeks",
-                  "instructor": "Dr. A. Turing",
                   "prerequisites": [
                     "SWEG2102",
                     "SWEG2105"
                   ],
                   "outcomes": [
-                    "Analyze the asymptotic performance of algorithms.",
-                    "Implement and use major data structures including lists, stacks, queues, trees, and graphs.",
-                    "Apply appropriate algorithms to solve computational problems.",
-                    "Understand the trade-offs between different data structures and algorithms."
+                    "Analyze the time and space complexity of algorithms using Asymptotic notation (Big-O).",
+                    "Implement and use fundamental linear and non-linear data structures, including linked lists, stacks, queues, trees, and graphs.",
+                    "Implement various searching and sorting algorithms and understand their performance trade-offs.",
+                    "Select and justify the use of appropriate data structures and algorithms to solve complex computational problems."
                   ],
                   "chapters": [
                     {
                       "id": "dsa_ch1",
-                      "title": "Introduction and Analysis",
-                      "description": "Fundamentals of algorithm analysis and complexity.",
-                      "duration": 180,
+                      "title": "Algorithm Analysis and Basic Structures",
                       "topics": [
-                        "Asymptotic Notation (Big O, Omega, Theta)",
-                        "Time and Space Complexity",
-                        "Recursion Analysis"
+                        "Asymptotic Analysis (Big-O, Omega, Theta)",
+                        "Abstract Data Types (ADTs)",
+                        "Stacks, Queues, and Deques"
                       ]
                     },
                     {
                       "id": "dsa_ch2",
-                      "title": "Linear Data Structures",
-                      "description": "Exploring sequential data organization.",
-                      "duration": 240,
+                      "title": "Linked Lists and Recursion",
                       "topics": [
-                        "Arrays and Dynamic Arrays",
-                        "Linked Lists (Singly, Doubly)",
-                        "Stacks and their applications",
-                        "Queues (Linear, Circular)"
+                        "Singly, Doubly, and Circular Linked Lists",
+                        "Recursion and its applications",
+                        "Analyzing Recursive Algorithms"
                       ]
                     },
                     {
                       "id": "dsa_ch3",
-                      "title": "Non-Linear Data Structures: Trees",
-                      "description": "Hierarchical data structures.",
-                      "duration": 300,
+                      "title": "Trees and Hashing",
                       "topics": [
-                        "Binary Trees",
+                        "Binary Trees and Traversal",
                         "Binary Search Trees (BST)",
-                        "AVL Trees",
-                        "Heaps and Priority Queues"
+                        "Balanced Trees (AVL, Red-Black Trees)",
+                        "Hash Tables, Hash Functions, and Collision Resolution"
                       ]
                     },
                     {
                       "id": "dsa_ch4",
-                      "title": "Non-Linear Data Structures: Graphs",
-                      "description": "Representing and traversing networked data.",
-                      "duration": 300,
+                      "title": "Graphs and Sorting",
                       "topics": [
-                        "Graph Representation (Adjacency Matrix, Adjacency List)",
-                        "Breadth-First Search (BFS)",
-                        "Depth-First Search (DFS)",
-                        "Topological Sort"
-                      ]
-                    },
-                    {
-                      "id": "dsa_ch5",
-                      "title": "Sorting and Searching Algorithms",
-                      "description": "Core algorithms for ordering and finding data.",
-                      "duration": 240,
-                      "topics": [
-                        "Bubble Sort, Insertion Sort, Selection Sort",
-                        "Merge Sort, Quick Sort",
-                        "Heap Sort",
-                        "Linear Search, Binary Search"
-                      ]
-                    },
-                    {
-                      "id": "dsa_ch6",
-                      "title": "Hashing",
-                      "description": "Techniques for efficient data retrieval.",
-                      "duration": 180,
-                      "topics": [
-                        "Hash Functions",
-                        "Collision Resolution (Chaining, Open Addressing)",
-                        "Hash Tables"
+                        "Graph Representation and Traversal (BFS, DFS)",
+                        "Shortest Path Algorithms (Dijkstra's)",
+                        "Comparison-based Sorting (Merge Sort, Quick Sort, Heap Sort)"
                       ]
                     }
                   ]
@@ -18587,34 +20550,33 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG3105",
                   "name": "Computer Organization and Architecture",
-                  "description": "Study of computer hardware components, instruction set architecture, CPU datapath, control unit, memory hierarchy, and performance.",
-                  "credits": 3,
+                  "credits": 4,
                   "prerequisites": [
                     "EEng2004"
                   ],
                   "outcomes": [
-                    "Understand the relationship between hardware and software.",
-                    "Explain the fetch-decode-execute cycle and CPU pipelining.",
-                    "Analyze the performance impact of memory hierarchies (caches).",
-                    "Describe how I/O devices interact with the CPU and memory."
+                    "Describe the functional components of a computer, including the datapath and control unit.",
+                    "Analyze and compare different instruction set architectures (RISC vs. CISC).",
+                    "Explain the organization and operation of memory hierarchies, including caches and virtual memory.",
+                    "Understand the principles of instruction-level parallelism and pipelining."
                   ],
                   "chapters": [
                     {
                       "id": "coa_ch1",
-                      "title": "Instruction Set Architecture (ISA)",
+                      "title": "Introduction and Performance",
                       "topics": [
                         "Computer Abstractions and Technology",
-                        "MIPS/RISC-V Instruction Set",
-                        "Translating C/Java to Machine Language"
+                        "Measuring Performance",
+                        "MIPS Instruction Set Architecture"
                       ]
                     },
                     {
                       "id": "coa_ch2",
                       "title": "Processor Design",
                       "topics": [
-                        "Logic Design for Datapath",
-                        "Single-Cycle and Multi-Cycle Datapath",
-                        "Control Unit Design"
+                        "Logic Design Conventions",
+                        "Building a Datapath",
+                        "A Simple Implementation Scheme"
                       ]
                     },
                     {
@@ -18630,9 +20592,9 @@ export const courseData: CourseData = {
                       "id": "coa_ch4",
                       "title": "Memory Hierarchy",
                       "topics": [
-                        "Caches (Direct Mapped, Set Associative)",
-                        "Cache Performance",
-                        "Virtual Memory and Paging"
+                        "Cache Memory Principles and Performance",
+                        "Virtual Memory",
+                        "A Common Framework for Memory Hierarchies"
                       ]
                     }
                   ]
@@ -18640,50 +20602,53 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG3107",
                   "name": "Internet Programming I",
-                  "description": "Client-side web development using modern standards. Covers HTML5, CSS3 for styling and layout, and JavaScript for interactivity and dynamic content.",
                   "credits": 3,
+                  "prerequisites": [
+                    "SWEG2103"
+                  ],
                   "outcomes": [
                     "Create well-structured and semantic web pages using HTML5.",
-                    "Style web pages using CSS3, including responsive design with Flexbox and Grid.",
-                    "Manipulate the Document Object Model (DOM) with JavaScript.",
-                    "Use asynchronous JavaScript (AJAX/Fetch API) to communicate with servers."
+                    "Style web pages using modern CSS, including layouts with Flexbox and Grid for responsive design.",
+                    "Manipulate web page content and handle user events dynamically using JavaScript and the Document Object Model (DOM).",
+                    "Understand the client-server model, the HTTP protocol, and how to make asynchronous requests."
                   ],
                   "chapters": [
                     {
                       "id": "ip1_ch1",
-                      "title": "HTML5",
+                      "title": "Web Fundamentals",
                       "topics": [
-                        "Document Structure",
-                        "Semantic Tags",
-                        "Forms and Input Validation"
+                        "The Client-Server Model",
+                        "HTTP/HTTPS Protocols",
+                        "Developer Tools in Modern Browsers"
                       ]
                     },
                     {
                       "id": "ip1_ch2",
-                      "title": "CSS3",
+                      "title": "HTML: Structuring Web Content",
                       "topics": [
-                        "Selectors and the Cascade",
-                        "Box Model",
-                        "Layout with Flexbox and Grid",
-                        "Responsive Design and Media Queries"
+                        "HTML Elements and Document Structure",
+                        "Forms and Input Validation",
+                        "Semantic HTML5"
                       ]
                     },
                     {
                       "id": "ip1_ch3",
-                      "title": "Core JavaScript",
+                      "title": "CSS: Styling the Web",
                       "topics": [
-                        "Variables, Data Types, and Operators",
-                        "Functions and Scope",
-                        "ES6+ Features (Arrow Functions, let/const)"
+                        "Selectors, Specificity, and the Cascade",
+                        "The Box Model",
+                        "Layout Techniques: Flexbox and CSS Grid",
+                        "Responsive Web Design with Media Queries"
                       ]
                     },
                     {
                       "id": "ip1_ch4",
-                      "title": "JavaScript in the Browser",
+                      "title": "JavaScript and Client-Side Interactivity",
                       "topics": [
-                        "DOM Manipulation and Events",
-                        "Asynchronous JavaScript (Callbacks, Promises, Async/Await)",
-                        "Using the Fetch API for AJAX"
+                        "JavaScript Fundamentals",
+                        "The Document Object Model (DOM)",
+                        "Event Handling",
+                        "Asynchronous JavaScript (AJAX/Fetch API)"
                       ]
                     }
                   ]
@@ -18691,52 +20656,53 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG3109",
                   "name": "System Analysis and Modeling",
-                  "description": "Techniques for analyzing and modeling software systems using UML. Focuses on bridging the gap between requirements and design.",
-                  "credits": 3,
+                  "credits": 4,
                   "prerequisites": [
                     "SWEG2101"
                   ],
                   "outcomes": [
-                    "Analyze a system's functional requirements using use cases.",
-                    "Model the static structure of a system using Class Diagrams.",
-                    "Model the dynamic behavior of a system using Sequence and Activity Diagrams.",
-                    "Create a cohesive set of UML models to describe a software system."
+                    "Analyze a business problem and define system scope, objectives, and stakeholders.",
+                    "Model system requirements and behavior using the Unified Modeling Language (UML).",
+                    "Create Use Case, Class, Sequence, and Activity diagrams to represent different system views.",
+                    "Apply both structured and object-oriented analysis techniques to translate user needs into a detailed system specification."
                   ],
                   "chapters": [
                     {
                       "id": "sam_ch1",
-                      "title": "Introduction to System Modeling",
+                      "title": "Foundations of Systems Analysis",
                       "topics": [
-                        "The Role of Modeling in SE",
-                        "Introduction to UML",
-                        "The System Development Process"
+                        "The Systems Development Life Cycle (SDLC)",
+                        "The Role of the Systems Analyst",
+                        "Project Identification and Selection"
                       ]
                     },
                     {
                       "id": "sam_ch2",
-                      "title": "Functional Modeling",
+                      "title": "Information Gathering and Requirements Determination",
                       "topics": [
-                        "Use Case Diagrams",
-                        "Writing Effective Use Cases",
-                        "Activity Diagrams"
+                        "Interviewing, Questionnaires, and Observation",
+                        "Joint Application Design (JAD) and Prototyping",
+                        "Documenting Requirements"
                       ]
                     },
                     {
                       "id": "sam_ch3",
-                      "title": "Structural Modeling",
+                      "title": "Process and Behavioral Modeling with UML",
                       "topics": [
-                        "Class Diagrams (Classes, Attributes, Operations)",
-                        "Relationships (Association, Aggregation, Composition)",
-                        "Object Diagrams"
+                        "Use Case Diagrams and Scenarios",
+                        "Activity Diagrams",
+                        "Sequence and Communication Diagrams",
+                        "State Machine Diagrams"
                       ]
                     },
                     {
                       "id": "sam_ch4",
-                      "title": "Behavioral Modeling",
+                      "title": "Structural Modeling with UML",
                       "topics": [
-                        "Sequence Diagrams",
-                        "Communication Diagrams",
-                        "State Machine Diagrams"
+                        "Classes and Objects",
+                        "Relationships (Association, Aggregation, Composition)",
+                        "Class Diagrams",
+                        "Component and Deployment Diagrams"
                       ]
                     }
                   ]
@@ -18746,44 +20712,43 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG3102",
                   "name": "Internet Programming II",
-                  "description": "Server-side web development, focusing on backend frameworks, databases, and building RESTful APIs.",
                   "credits": 3,
                   "prerequisites": [
                     "SWEG3107",
                     "SWEG2108"
                   ],
                   "outcomes": [
-                    "Develop a server-side application using a modern framework (e.g., Node.js/Express).",
-                    "Design and implement RESTful APIs.",
-                    "Integrate a backend application with a database.",
-                    "Implement user authentication and session management."
+                    "Develop server-side applications using a modern framework (e.g., Node.js/Express, Django, Spring).",
+                    "Design and implement RESTful APIs to serve data to client applications.",
+                    "Connect web applications to a database to perform Create, Read, Update, and Delete (CRUD) operations.",
+                    "Implement user authentication, session management, and understand basic web security practices."
                   ],
                   "chapters": [
                     {
                       "id": "ip2_ch1",
-                      "title": "Server-Side Fundamentals",
+                      "title": "Server-Side Architecture",
                       "topics": [
-                        "Client-Server Architecture",
-                        "Introduction to Node.js and npm",
-                        "Building a server with Express.js"
+                        "Web Servers vs. Application Servers",
+                        "Model-View-Controller (MVC) Pattern",
+                        "Introduction to Node.js and Express"
                       ]
                     },
                     {
                       "id": "ip2_ch2",
-                      "title": "RESTful APIs",
+                      "title": "Building RESTful APIs",
                       "topics": [
-                        "Principles of REST",
-                        "Designing API Endpoints",
-                        "Handling HTTP Requests and Responses"
+                        "REST Principles",
+                        "Designing Endpoints and Handling HTTP Verbs (GET, POST, PUT, DELETE)",
+                        "Routing and Middleware"
                       ]
                     },
                     {
                       "id": "ip2_ch3",
                       "title": "Database Integration",
                       "topics": [
-                        "Connecting to a Database (SQL/NoSQL)",
-                        "Using an ORM/ODM (e.g., Sequelize/Mongoose)",
-                        "CRUD Operations"
+                        "Connecting to SQL and NoSQL Databases",
+                        "Object-Relational Mapping (ORM) / Object-Document Mapping (ODM)",
+                        "Performing CRUD Operations"
                       ]
                     },
                     {
@@ -18791,8 +20756,9 @@ export const courseData: CourseData = {
                       "title": "Authentication and Security",
                       "topics": [
                         "Session and Cookie Management",
-                        "Token-Based Authentication (JWT)",
-                        "Password Hashing"
+                        "Token-based Authentication (JWT)",
+                        "Password Hashing",
+                        "Common Web Vulnerabilities (XSS, SQL Injection)"
                       ]
                     }
                   ]
@@ -18800,52 +20766,51 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG3104",
                   "name": "Software Requirements Engineering",
-                  "description": "Methods for eliciting, analyzing, specifying, and managing software requirements, a critical phase of the software lifecycle.",
                   "credits": 3,
                   "prerequisites": [
                     "SWEG3109"
                   ],
                   "outcomes": [
-                    "Apply various techniques to elicit requirements from stakeholders.",
-                    "Analyze and negotiate conflicting requirements.",
-                    "Write a clear, complete, and verifiable Software Requirements Specification (SRS) document.",
-                    "Manage changing requirements throughout the project lifecycle."
+                    "Apply various elicitation techniques to effectively gather requirements from diverse stakeholders.",
+                    "Analyze and model requirements to identify ambiguities, inconsistencies, and conflicts.",
+                    "Write clear, concise, testable, and unambiguous requirements in a Software Requirements Specification (SRS) document.",
+                    "Manage requirements throughout the project lifecycle, including handling changes and ensuring traceability."
                   ],
                   "chapters": [
                     {
                       "id": "sre_ch1",
-                      "title": "Introduction to Requirements Engineering",
+                      "title": "Foundations of Requirements Engineering",
                       "topics": [
-                        "The Requirements Process",
-                        "Functional and Non-Functional Requirements",
-                        "Stakeholders"
+                        "The RE Process",
+                        "Stakeholders in the RE Process",
+                        "Functional vs. Non-functional Requirements"
                       ]
                     },
                     {
                       "id": "sre_ch2",
-                      "title": "Elicitation and Analysis",
+                      "title": "Requirements Elicitation and Analysis",
                       "topics": [
-                        "Interviewing and Workshops",
-                        "Prototyping",
-                        "Requirements Analysis and Negotiation"
+                        "Elicitation Techniques (Interviews, Workshops, Prototyping)",
+                        "Requirements Analysis and Negotiation",
+                        "Requirements Modeling"
                       ]
                     },
                     {
                       "id": "sre_ch3",
-                      "title": "Specification",
+                      "title": "Requirements Specification and Validation",
                       "topics": [
                         "The Software Requirements Specification (SRS) Document",
-                        "Natural Language vs. Formal Specifications",
-                        "Using Models for Specification"
+                        "Agile Approaches (User Stories)",
+                        "Requirements Validation Techniques (Reviews, Inspections)"
                       ]
                     },
                     {
                       "id": "sre_ch4",
-                      "title": "Validation and Management",
+                      "title": "Requirements Management",
                       "topics": [
-                        "Requirements Reviews and Inspections",
                         "Requirements Traceability",
-                        "Change Management"
+                        "Requirements Change Management",
+                        "Tool Support for RE"
                       ]
                     }
                   ]
@@ -18853,16 +20818,16 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG3106",
                   "name": "Operating Systems",
-                  "description": "Core concepts of operating systems, including process management, memory management, file systems, and concurrency.",
-                  "credits": 3,
+                  "credits": 4,
                   "prerequisites": [
-                    "SWEG3105"
+                    "SWEG3105",
+                    "SWEG3103"
                   ],
                   "outcomes": [
-                    "Explain how operating systems manage processes and threads.",
-                    "Analyze CPU scheduling algorithms.",
-                    "Solve concurrency problems using synchronization primitives.",
-                    "Describe how memory and file systems are managed."
+                    "Explain the objectives, functions, and structures of modern operating systems.",
+                    "Analyze various CPU scheduling algorithms and their performance implications.",
+                    "Describe solutions to process synchronization problems using mechanisms like semaphores and monitors.",
+                    "Understand memory management techniques including paging, segmentation, and virtual memory."
                   ],
                   "chapters": [
                     {
@@ -18871,7 +20836,7 @@ export const courseData: CourseData = {
                       "topics": [
                         "Operating System Services",
                         "System Calls",
-                        "OS Design and Implementation"
+                        "Kernel Architectures (Monolithic, Microkernel)"
                       ]
                     },
                     {
@@ -18880,25 +20845,26 @@ export const courseData: CourseData = {
                       "topics": [
                         "Processes and Threads",
                         "CPU Scheduling Algorithms (FCFS, SJF, Priority, Round Robin)",
-                        "Inter-process Communication"
+                        "Interprocess Communication (IPC)"
                       ]
                     },
                     {
                       "id": "os_ch3",
-                      "title": "Synchronization",
+                      "title": "Process Synchronization and Deadlocks",
                       "topics": [
                         "The Critical-Section Problem",
-                        "Mutex Locks and Semaphores",
-                        "Deadlocks"
+                        "Semaphores and Monitors",
+                        "Deadlock Characterization, Prevention, and Avoidance"
                       ]
                     },
                     {
                       "id": "os_ch4",
                       "title": "Memory and Storage Management",
                       "topics": [
-                        "Main Memory (Paging, Segmentation)",
-                        "Virtual Memory (Demand Paging)",
-                        "File Systems and Directory Structures"
+                        "Main Memory Management (Paging, Segmentation)",
+                        "Virtual Memory, Demand Paging, and Page Replacement Algorithms",
+                        "File System Interface and Implementation",
+                        "Disk Scheduling"
                       ]
                     }
                   ]
@@ -18906,54 +20872,51 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG3108",
                   "name": "Advanced Programming",
-                  "description": "Explores advanced programming paradigms and techniques, such as functional programming, concurrency, and metaprogramming, to write more expressive and efficient code.",
-                  "credits": 3,
+                  "credits": 4,
                   "prerequisites": [
                     "SWEG3101"
                   ],
                   "outcomes": [
-                    "Apply functional programming concepts in a multi-paradigm language.",
-                    "Write concurrent programs using threads and synchronization.",
-                    "Utilize reflection and metaprogramming techniques.",
-                    "Understand advanced type systems and their benefits."
+                    "Develop concurrent applications using threads and advanced synchronization primitives.",
+                    "Write network applications using sockets for client-server communication.",
+                    "Apply advanced language features such as reflection, generics, and lambda expressions.",
+                    "Understand and implement key software design patterns to solve recurring design problems."
                   ],
                   "chapters": [
                     {
                       "id": "ap_ch1",
-                      "title": "Functional Programming Paradigm",
+                      "title": "Concurrency and Parallelism",
                       "topics": [
-                        "First-Class Functions and Lambdas",
-                        "Immutability",
-                        "Map, Filter, Reduce",
-                        "Streams API (Java) / List Comprehensions (Python)"
+                        "Thread Creation and Management",
+                        "Synchronization Mechanisms (Mutexes, Semaphores, Monitors)",
+                        "Thread Pools and Concurrency Issues (Deadlock, Race Conditions)"
                       ]
                     },
                     {
                       "id": "ap_ch2",
-                      "title": "Concurrency and Parallelism",
+                      "title": "Network Programming",
                       "topics": [
-                        "Threads and the Runnable Interface",
-                        "Synchronization and Thread Safety",
-                        "Concurrent Collections",
-                        "Futures and Promises"
+                        "TCP/IP Sockets",
+                        "Designing and Implementing Client-Server Protocols",
+                        "Multithreaded Servers"
                       ]
                     },
                     {
                       "id": "ap_ch3",
-                      "title": "Metaprogramming and Reflection",
+                      "title": "Advanced Language Features",
                       "topics": [
-                        "Reflection APIs",
-                        "Dynamic Proxies",
-                        "Annotations and Annotation Processing"
+                        "Reflection and Metaprogramming",
+                        "Lambda Expressions and Functional Programming Constructs",
+                        "Advanced Generics/Templates"
                       ]
                     },
                     {
                       "id": "ap_ch4",
-                      "title": "Advanced Topics",
+                      "title": "Software Design Patterns",
                       "topics": [
-                        "Advanced Generics and Type Systems",
-                        "Design by Contract",
-                        "Performance Profiling"
+                        "Creational Patterns (Factory, Builder, Singleton)",
+                        "Structural Patterns (Adapter, Decorator, Facade)",
+                        "Behavioral Patterns (Observer, Strategy, Command)"
                       ]
                     }
                   ]
@@ -18961,53 +20924,56 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG3110",
                   "name": "Formal Language and Automata Theory",
-                  "description": "Study of formal grammars, automata, computability, and complexity, which form the theoretical foundation of computer science.",
                   "credits": 3,
                   "prerequisites": [
                     "SWEG2105"
                   ],
                   "outcomes": [
-                    "Design finite automata for regular languages.",
-                    "Design pushdown automata for context-free languages.",
-                    "Understand the capabilities and limitations of Turing machines.",
-                    "Classify problems into complexity classes like P and NP."
+                    "Design finite automata (DFA/NFA) and write regular expressions for regular languages.",
+                    "Design pushdown automata and write context-free grammars for context-free languages.",
+                    "Understand the operation of Turing machines as a formal model of computation.",
+                    "Classify languages in the Chomsky hierarchy and appreciate the relationship between formal languages and compiler design."
                   ],
                   "chapters": [
                     {
                       "id": "flat_ch1",
-                      "title": "Regular Languages",
+                      "title": "Regular Languages and Finite Automata",
                       "topics": [
-                        "Deterministic Finite Automata (DFA)",
-                        "Nondeterministic Finite Automata (NFA)",
                         "Regular Expressions",
+                        "Deterministic Finite Automata (DFAs)",
+                        "Nondeterministic Finite Automata (NFAs)",
+                        "Equivalence of REs, NFAs, and DFAs",
                         "The Pumping Lemma for Regular Languages"
                       ]
                     },
                     {
                       "id": "flat_ch2",
-                      "title": "Context-Free Languages",
+                      "title": "Context-Free Languages and Pushdown Automata",
                       "topics": [
-                        "Context-Free Grammars (CFG)",
-                        "Pushdown Automata (PDA)",
+                        "Context-Free Grammars (CFGs)",
+                        "Parse Trees and Ambiguity",
+                        "Pushdown Automata (PDAs)",
+                        "Equivalence of CFGs and PDAs",
                         "The Pumping Lemma for Context-Free Languages"
                       ]
                     },
                     {
                       "id": "flat_ch3",
-                      "title": "Computability Theory",
+                      "title": "Turing Machines and Computability",
                       "topics": [
-                        "Turing Machines",
-                        "The Church-Turing Thesis",
-                        "Decidability and Undecidability (The Halting Problem)"
+                        "The Turing Machine Model",
+                        "Variants of Turing Machines",
+                        "The Definition of Algorithm",
+                        "The Halting Problem"
                       ]
                     },
                     {
                       "id": "flat_ch4",
-                      "title": "Complexity Theory",
+                      "title": "Introduction to Complexity Theory",
                       "topics": [
-                        "Time Complexity",
-                        "The classes P and NP",
-                        "NP-Completeness"
+                        "The Chomsky Hierarchy",
+                        "Decidability and Undecidability",
+                        "Complexity Classes P and NP"
                       ]
                     }
                   ]
@@ -19018,216 +20984,310 @@ export const courseData: CourseData = {
               "Semester I": [
                 {
                   "code": "SWEG4101",
-                  "name": "Software Architecture and Design",
-                  "description": "Focuses on high-level software design, architectural patterns, quality attributes (like performance and security), and documenting architectural decisions.",
+                  "name": "Principles of Compiler Design",
                   "credits": 3,
                   "prerequisites": [
-                    "SWEG3101",
-                    "SWEG3104"
+                    "SWEG3110",
+                    "SWEG3105"
                   ],
                   "outcomes": [
-                    "Evaluate and select appropriate architectural styles for a given system.",
-                    "Design systems that meet specific quality attributes.",
-                    "Document a software architecture effectively.",
-                    "Understand the trade-offs involved in architectural decisions."
+                    "Understand the major phases of a compiler.",
+                    "Use tools like Lex and Yacc (or Flex/Bison) to build parts of a compiler.",
+                    "Perform lexical analysis, syntax analysis (parsing), and semantic analysis.",
+                    "Understand intermediate code generation and basic code optimization techniques."
                   ],
                   "chapters": [
                     {
-                      "id": "sad_ch1",
-                      "title": "Introduction to Software Architecture",
+                      "id": "pcd_ch1",
+                      "title": "Introduction to Compilers",
                       "topics": [
-                        "What is Software Architecture?",
-                        "Architectural Views and Viewpoints",
-                        "Quality Attributes"
+                        "The Phases of a Compiler",
+                        "Language Processing Systems",
+                        "Bootstrapping"
                       ]
                     },
                     {
-                      "id": "sad_ch2",
-                      "title": "Architectural Styles and Patterns",
-                      "topics": [
-                        "Layered Architecture, MVC",
-                        "Client-Server, Peer-to-Peer",
-                        "Service-Oriented Architecture (SOA)",
-                        "Microservices Architecture"
-                      ]
-                    },
-                    {
-                      "id": "sad_ch3",
-                      "title": "Designing for Quality Attributes",
-                      "topics": [
-                        "Designing for Performance",
-                        "Designing for Security",
-                        "Designing for Modifiability and Testability"
-                      ]
-                    },
-                    {
-                      "id": "sad_ch4",
-                      "title": "Architectural Documentation and Evaluation",
-                      "topics": [
-                        "Documenting Architectural Decisions",
-                        "Architecture Tradeoff Analysis Method (ATAM)",
-                        "Architecture in Agile Projects"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "SWEG4103",
-                  "name": "Software Testing and Quality Assurance",
-                  "description": "Comprehensive study of software testing techniques, levels, and strategies, along with the processes and standards for ensuring software quality.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "SWEG3101"
-                  ],
-                  "outcomes": [
-                    "Develop a comprehensive test plan for a software project.",
-                    "Apply various black-box and white-box testing techniques.",
-                    "Implement automated unit and integration tests.",
-                    "Understand the role of SQA processes in the development lifecycle."
-                  ],
-                  "chapters": [
-                    {
-                      "id": "stqa_ch1",
-                      "title": "Foundations of Software Testing",
-                      "topics": [
-                        "Testing Principles",
-                        "Testing Levels (Unit, Integration, System, Acceptance)",
-                        "The V-Model"
-                      ]
-                    },
-                    {
-                      "id": "stqa_ch2",
-                      "title": "Testing Techniques",
-                      "topics": [
-                        "Black-Box Testing (Equivalence Partitioning, Boundary Value Analysis)",
-                        "White-Box Testing (Statement, Branch, Path Coverage)",
-                        "Static vs. Dynamic Testing"
-                      ]
-                    },
-                    {
-                      "id": "stqa_ch3",
-                      "title": "Test Management and Automation",
-                      "topics": [
-                        "Test Planning and Documentation",
-                        "Test Automation Frameworks (e.g., JUnit, Selenium)",
-                        "Regression Testing"
-                      ]
-                    },
-                    {
-                      "id": "stqa_ch4",
-                      "title": "Software Quality Assurance (SQA)",
-                      "topics": [
-                        "SQA Processes and Activities",
-                        "Software Quality Metrics",
-                        "Standards (ISO 9000, CMMI)"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "SWEG4105",
-                  "name": "Compiler Design",
-                  "description": "Study of the theory and practice of compiler construction, from lexical analysis and parsing to code generation and optimization.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "SWEG3110"
-                  ],
-                  "outcomes": [
-                    "Design and implement a lexical analyzer for a simple language.",
-                    "Design and implement a parser (e.g., recursive descent) for a given grammar.",
-                    "Understand semantic analysis and intermediate code generation.",
-                    "Implement a simple compiler for a small programming language."
-                  ],
-                  "chapters": [
-                    {
-                      "id": "cd_ch1",
+                      "id": "pcd_ch2",
                       "title": "Lexical Analysis",
                       "topics": [
                         "The Role of the Lexical Analyzer",
-                        "Regular Expressions and Finite Automata",
-                        "Building a Lexical Analyzer (Lex/Flex)"
+                        "Regular Expressions",
+                        "Finite Automata (DFAs and NFAs)",
+                        "Scanner Generator Tools (e.g., Lex)"
                       ]
                     },
                     {
-                      "id": "cd_ch2",
-                      "title": "Syntax Analysis (Parsing)",
+                      "id": "pcd_ch3",
+                      "title": "Syntax Analysis",
                       "topics": [
-                        "The Role of the Parser",
                         "Context-Free Grammars",
-                        "Top-Down Parsing (Recursive Descent, LL)",
-                        "Bottom-Up Parsing (LR, Yacc/Bison)"
+                        "Top-Down Parsing (LL)",
+                        "Bottom-Up Parsing (LR, LALR)",
+                        "Parser Generator Tools (e.g., Yacc)"
                       ]
                     },
                     {
-                      "id": "cd_ch3",
-                      "title": "Semantic Analysis and Intermediate Code",
+                      "id": "pcd_ch4",
+                      "title": "Semantic Analysis and Code Generation",
                       "topics": [
+                        "Syntax-Directed Translation",
                         "Type Checking",
                         "Symbol Tables",
-                        "Three-Address Code"
-                      ]
-                    },
-                    {
-                      "id": "cd_ch4",
-                      "title": "Code Generation and Optimization",
-                      "topics": [
-                        "Issues in Code Generation",
-                        "A Simple Code Generator",
+                        "Intermediate Code Generation",
                         "Introduction to Code Optimization"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "SWEG4107",
-                  "name": "Mobile Application Development",
-                  "description": "Principles and practices of developing applications for mobile platforms like Android or iOS. Covers UI design, platform APIs, data storage, and performance considerations.",
+                  "code": "SWEG4103",
+                  "name": "Mobile Computing and Programming",
                   "credits": 3,
                   "prerequisites": [
-                    "SWEG3101"
+                    "SWEG3101",
+                    "SWEG3102"
                   ],
                   "outcomes": [
-                    "Design and build a functional mobile application.",
-                    "Implement user interfaces that conform to platform guidelines.",
-                    "Use platform-specific APIs for features like location and sensors.",
-                    "Manage the application lifecycle and handle data persistence."
+                    "Design and develop applications for a major mobile platform like Android.",
+                    "Understand the mobile application lifecycle and platform architecture.",
+                    "Implement user interfaces that adapt to different screen sizes and orientations.",
+                    "Integrate mobile applications with web services and handle data persistence."
                   ],
                   "chapters": [
                     {
-                      "id": "mad_ch1",
-                      "title": "Introduction to Mobile Development (Android/iOS)",
+                      "id": "mcp_ch1",
+                      "title": "Introduction to Mobile Computing",
                       "topics": [
-                        "Platform Architecture",
-                        "Development Environment Setup (Android Studio/Xcode)",
-                        "Project Structure"
+                        "Mobile Platforms (Android, iOS)",
+                        "Challenges in Mobile Computing",
+                        "Mobile Application Architecture"
                       ]
                     },
                     {
-                      "id": "mad_ch2",
-                      "title": "User Interface and Navigation",
+                      "id": "mcp_ch2",
+                      "title": "Mobile Application Development Environment",
                       "topics": [
-                        "UI Components and Layouts",
-                        "Handling User Input and Events",
-                        "Activity/ViewController Lifecycle",
-                        "Navigation between Screens"
+                        "Setting up Android Studio",
+                        "Project Structure",
+                        "The Build Process (Gradle)"
                       ]
                     },
                     {
-                      "id": "mad_ch3",
-                      "title": "Data and Networking",
+                      "id": "mcp_ch3",
+                      "title": "User Interface and User Experience",
                       "topics": [
-                        "Local Data Storage (Shared Preferences, SQLite, Core Data)",
-                        "Consuming REST APIs",
-                        "Background Tasks and Services"
+                        "UI Components (Views and ViewGroups)",
+                        "Layouts and Responsive Design",
+                        "Event Handling",
+                        "Activities and Fragments"
                       ]
                     },
                     {
-                      "id": "mad_ch4",
-                      "title": "Advanced Topics",
+                      "id": "mcp_ch4",
+                      "title": "Data Storage and Networking",
                       "topics": [
-                        "Using Device Hardware (Camera, GPS)",
-                        "Permissions",
-                        "Publishing to the App Store"
+                        "Local Data Storage (SharedPreferences, SQLite)",
+                        "Consuming RESTful APIs with Retrofit",
+                        "Handling Permissions"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "SWEG4105",
+                  "name": "Software Design and Architecture",
+                  "credits": 3,
+                  "prerequisites": [
+                    "SWEG3101",
+                    "SWEG3109"
+                  ],
+                  "outcomes": [
+                    "Describe and compare various architectural styles (e.g., Layered, Client-Server, Microservices).",
+                    "Apply common software design patterns to solve recurring design problems.",
+                    "Create architectural documentation using standard notations like UML.",
+                    "Evaluate software architectures based on quality attributes like performance, security, and modifiability."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "sda_ch1",
+                      "title": "Introduction to Software Architecture",
+                      "topics": [
+                        "The Role of the Architect",
+                        "Architectural Quality Attributes",
+                        "Architectural Views and Perspectives"
+                      ]
+                    },
+                    {
+                      "id": "sda_ch2",
+                      "title": "Architectural Styles and Patterns",
+                      "topics": [
+                        "Layered Architecture",
+                        "Client-Server and N-Tier Architecture",
+                        "Model-View-Controller (MVC)",
+                        "Microservices Architecture"
+                      ]
+                    },
+                    {
+                      "id": "sda_ch3",
+                      "title": "Software Design Principles",
+                      "topics": [
+                        "Coupling and Cohesion",
+                        "SOLID Principles",
+                        "Information Hiding"
+                      ]
+                    },
+                    {
+                      "id": "sda_ch4",
+                      "title": "Design Patterns",
+                      "topics": [
+                        "Creational Patterns (Factory, Singleton)",
+                        "Structural Patterns (Adapter, Decorator)",
+                        "Behavioral Patterns (Observer, Strategy)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "SWEG4117",
+                  "name": "Introduction to Artificial Intelligence",
+                  "credits": 3,
+                  "prerequisites": [
+                    "SWEG3103"
+                  ],
+                  "outcomes": [
+                    "Understand the core concepts, history, and applications of Artificial Intelligence.",
+                    "Apply various search algorithms (informed and uninformed) to solve problems.",
+                    "Represent knowledge using logic and perform logical inference.",
+                    "Describe the basic principles of machine learning, natural language processing, and robotics."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ai_ch1",
+                      "title": "Introduction to AI",
+                      "topics": [
+                        "History of AI",
+                        "Intelligent Agents",
+                        "Types of AI"
+                      ]
+                    },
+                    {
+                      "id": "ai_ch2",
+                      "title": "Problem Solving with Search",
+                      "topics": [
+                        "Uninformed Search Strategies (BFS, DFS, UCS)",
+                        "Informed Search Strategies (Greedy, A*)",
+                        "Adversarial Search (Minimax, Alpha-Beta Pruning)"
+                      ]
+                    },
+                    {
+                      "id": "ai_ch3",
+                      "title": "Knowledge Representation and Reasoning",
+                      "topics": [
+                        "Propositional Logic",
+                        "First-Order Logic",
+                        "Inference in First-Order Logic"
+                      ]
+                    },
+                    {
+                      "id": "ai_ch4",
+                      "title": "Uncertainty and Learning",
+                      "topics": [
+                        "Acting under Uncertainty",
+                        "Introduction to Machine Learning",
+                        "Introduction to Natural Language Processing (NLP)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "SWEG4109",
+                  "name": "Computer Graphics",
+                  "credits": 3,
+                  "prerequisites": [
+                    "SWEG3103"
+                  ],
+                  "outcomes": [
+                    "Understand the mathematics of 2D and 3D transformations (translation, rotation, scaling).",
+                    "Implement basic graphics rendering algorithms like line drawing and polygon filling.",
+                    "Describe the 3D viewing pipeline and perform viewing transformations.",
+                    "Apply lighting, shading, and texture mapping models to create realistic images."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "cg_ch1",
+                      "title": "Graphics Pipeline and Transformations",
+                      "topics": [
+                        "The Graphics Rendering Pipeline",
+                        "2D and 3D Geometric Transformations",
+                        "Homogeneous Coordinates"
+                      ]
+                    },
+                    {
+                      "id": "cg_ch2",
+                      "title": "Viewing and Projections",
+                      "topics": [
+                        "The 3D Viewing Pipeline",
+                        "Orthographic and Perspective Projections",
+                        "Clipping Algorithms"
+                      ]
+                    },
+                    {
+                      "id": "cg_ch3",
+                      "title": "Lighting and Shading",
+                      "topics": [
+                        "Light Sources and Material Properties",
+                        "The Phong Illumination Model",
+                        "Shading Models (Flat, Gouraud, Phong)"
+                      ]
+                    },
+                    {
+                      "id": "cg_ch4",
+                      "title": "Rasterization and Texturing",
+                      "topics": [
+                        "Line and Polygon Drawing Algorithms",
+                        "Visibility and Hidden Surface Removal",
+                        "Texture Mapping"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "IETP4115",
+                  "name": "Integrated Engineering team project",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "outcomes": [
+                    "Collaborate effectively within a diverse engineering team.",
+                    "Integrate knowledge from different engineering disciplines to create a holistic solution.",
+                    "Apply project management principles to meet deadlines and deliverables.",
+                    "Communicate complex technical solutions through professional reports and presentations."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ietp_ch1",
+                      "title": "Project Inception and Planning",
+                      "topics": [
+                        "Defining the Problem Statement and Requirements",
+                        "Team Formation and Role Assignment",
+                        "Project Planning and Scheduling"
+                      ]
+                    },
+                    {
+                      "id": "ietp_ch2",
+                      "title": "Conceptual Design and Feasibility",
+                      "topics": [
+                        "Brainstorming and Concept Generation",
+                        "System-level Architecture Design",
+                        "Interdisciplinary Feasibility Analysis"
+                      ]
+                    },
+                    {
+                      "id": "ietp_ch3",
+                      "title": "Detailed Design and Prototyping",
+                      "topics": [
+                        "Discipline-Specific Design Tasks",
+                        "Coordination and Interface Management",
+                        "Building and Testing Prototypes"
                       ]
                     }
                   ]
@@ -19236,225 +21296,318 @@ export const courseData: CourseData = {
               "Semester II": [
                 {
                   "code": "SWEG4102",
-                  "name": "Software Project Management",
-                  "description": "Covers the principles of managing software projects, including planning, estimation, scheduling, risk management, and tracking, with a focus on both traditional and agile approaches.",
+                  "name": "Embedded Systems",
                   "credits": 3,
                   "prerequisites": [
-                    "SWEG2101"
+                    "SWEG3105",
+                    "EEng2004"
                   ],
                   "outcomes": [
-                    "Develop a comprehensive software project plan.",
-                    "Estimate project cost and effort using techniques like COCOMO.",
-                    "Create and manage a project schedule using CPM.",
-                    "Apply agile project management practices like Scrum."
+                    "Understand the architecture of common microcontrollers and the constraints of embedded systems.",
+                    "Program microcontrollers in C/C++ for real-time control and data processing applications.",
+                    "Utilize microcontroller peripherals like timers, ADCs, and communication interfaces (SPI, I2C, UART).",
+                    "Design, build, and debug a complete embedded system for a specific task."
                   ],
                   "chapters": [
                     {
-                      "id": "spm_ch1",
-                      "title": "Project Planning",
+                      "id": "es_ch1",
+                      "title": "Introduction to Embedded Systems",
                       "topics": [
-                        "Software Project Lifecycle",
-                        "Work Breakdown Structure (WBS)",
-                        "Process Models"
+                        "Microcontroller Architecture",
+                        "Embedded System Design Constraints",
+                        "Development Toolchains"
                       ]
                     },
                     {
-                      "id": "spm_ch2",
-                      "title": "Estimation and Scheduling",
+                      "id": "es_ch2",
+                      "title": "Embedded Programming",
                       "topics": [
-                        "Effort Estimation Models (COCOMO)",
-                        "Critical Path Method (CPM)",
-                        "Gantt Charts"
+                        "C for Embedded Systems",
+                        "Bitwise Operations",
+                        "Interrupt Service Routines (ISRs)"
                       ]
                     },
                     {
-                      "id": "spm_ch3",
-                      "title": "Risk and Quality Management",
+                      "id": "es_ch3",
+                      "title": "Microcontroller Peripherals",
                       "topics": [
-                        "Risk Identification and Mitigation",
-                        "Software Quality Assurance",
-                        "Configuration Management"
+                        "General Purpose I/O (GPIO)",
+                        "Timers and Pulse Width Modulation (PWM)",
+                        "Analog-to-Digital Converters (ADC)"
                       ]
                     },
                     {
-                      "id": "spm_ch4",
-                      "title": "Agile Project Management",
+                      "id": "es_ch4",
+                      "title": "Communication and Real-Time Concepts",
                       "topics": [
-                        "Scrum Framework",
-                        "Kanban Method",
-                        "Agile Metrics (Velocity, Burndown Charts)"
+                        "Serial Communication (UART, SPI, I2C)",
+                        "Introduction to Real-Time Operating Systems (RTOS)",
+                        "System Design Case Studies"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "SWEG4104",
-                  "name": "Human-Computer Interaction (HCI)",
-                  "description": "Study of the design and evaluation of user interfaces. Covers principles of usability, user-centered design processes, prototyping, and evaluation methods.",
+                  "name": "Software Project Management",
                   "credits": 3,
+                  "prerequisites": [
+                    "SWEG2101"
+                  ],
                   "outcomes": [
-                    "Apply user-centered design principles to create usable interfaces.",
-                    "Conduct user research and create personas.",
-                    "Develop and evaluate prototypes of different fidelities.",
-                    "Perform usability testing and interpret the results."
+                    "Create a detailed software project plan, including scope, schedule, and budget.",
+                    "Apply various software estimation techniques like COCOMO and function point analysis.",
+                    "Use project management tools to track progress, manage resources, and report status.",
+                    "Identify, analyze, and develop mitigation strategies for project risks."
                   ],
                   "chapters": [
                     {
-                      "id": "hci_ch1",
-                      "title": "Foundations of HCI",
+                      "id": "spm_ch1",
+                      "title": "Introduction to Project Management",
                       "topics": [
-                        "The Human (Cognition, Perception)",
-                        "The Computer (Input/Output Devices)",
-                        "The Interaction",
-                        "Usability Goals and Principles"
+                        "The Project Management Body of Knowledge (PMBOK)",
+                        "Project Life Cycles vs. Development Life Cycles",
+                        "The Role of the Project Manager"
                       ]
                     },
                     {
-                      "id": "hci_ch2",
-                      "title": "Design Process",
+                      "id": "spm_ch2",
+                      "title": "Project Planning and Estimation",
                       "topics": [
-                        "User-Centered Design Lifecycle",
-                        "User Research (Interviews, Surveys)",
-                        "Personas and Scenarios"
+                        "Scope Management and Work Breakdown Structure (WBS)",
+                        "Software Estimation Techniques",
+                        "Effort and Cost Estimation Models"
                       ]
                     },
                     {
-                      "id": "hci_ch3",
-                      "title": "Design and Prototyping",
+                      "id": "spm_ch3",
+                      "title": "Scheduling and Tracking",
                       "topics": [
-                        "Interaction Design Principles (Affordance, Feedback)",
-                        "Prototyping (Low-fidelity and High-fidelity)",
-                        "Interface Design Guidelines"
+                        "Activity Sequencing (PERT/CPM)",
+                        "Gantt Charts",
+                        "Earned Value Management (EVM)"
                       ]
                     },
                     {
-                      "id": "hci_ch4",
-                      "title": "Evaluation",
+                      "id": "spm_ch4",
+                      "title": "Risk and People Management",
                       "topics": [
-                        "Heuristic Evaluation",
-                        "Cognitive Walkthrough",
-                        "User Testing (Planning and Conducting)"
+                        "Risk Identification, Analysis, and Management",
+                        "Team Organization and Structures",
+                        "Motivation and Leadership"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "SWEG4106",
-                  "name": "Computer Security",
-                  "description": "An introduction to the principles and practices of computer and network security. Covers cryptography, access control, network security protocols, and secure software development.",
+                  "name": "Software Quality Assurance and Testing",
                   "credits": 3,
                   "prerequisites": [
-                    "SWEG2106"
+                    "SWEG3104"
                   ],
                   "outcomes": [
-                    "Understand fundamental concepts of confidentiality, integrity, and availability.",
-                    "Apply basic cryptographic techniques.",
-                    "Identify common web and network security vulnerabilities.",
-                    "Incorporate security considerations into the software development process."
+                    "Develop a comprehensive test plan for a software project.",
+                    "Apply various testing techniques, including black-box and white-box methods.",
+                    "Differentiate between and execute various levels of testing (unit, integration, system, acceptance).",
+                    "Understand the role of quality assurance, reviews, inspections, and software quality metrics."
                   ],
                   "chapters": [
                     {
-                      "id": "cs_ch1",
-                      "title": "Security Fundamentals and Cryptography",
+                      "id": "sqat_ch1",
+                      "title": "Foundations of Software Quality",
                       "topics": [
-                        "Security Goals (CIA Triad)",
-                        "Symmetric and Asymmetric Cryptography",
-                        "Hash Functions and Digital Signatures"
+                        "Software Quality Concepts and Metrics",
+                        "Software Quality Assurance (SQA) Activities",
+                        "Quality Standards (ISO 9001)"
                       ]
                     },
                     {
-                      "id": "cs_ch2",
-                      "title": "Access Control and Authentication",
+                      "id": "sqat_ch2",
+                      "title": "Software Testing Techniques",
                       "topics": [
-                        "Authentication Methods",
-                        "Access Control Policies (MAC, DAC, RBAC)",
-                        "Malware (Viruses, Worms, Trojans)"
+                        "Black-Box Testing (Equivalence Partitioning, Boundary Value Analysis)",
+                        "White-Box Testing (Statement, Branch, Path Coverage)",
+                        "Static vs. Dynamic Testing"
                       ]
                     },
                     {
-                      "id": "cs_ch3",
-                      "title": "Network and Web Security",
+                      "id": "sqat_ch3",
+                      "title": "Test Levels and Management",
                       "topics": [
-                        "Firewalls and Intrusion Detection Systems",
-                        "SSL/TLS",
-                        "Common Web Vulnerabilities (SQL Injection, XSS, CSRF)"
+                        "Unit, Integration, System, and Acceptance Testing",
+                        "Regression Testing",
+                        "Test Planning, Execution, and Reporting"
                       ]
                     },
                     {
-                      "id": "cs_ch4",
-                      "title": "Secure Software Development",
+                      "id": "sqat_ch4",
+                      "title": "Quality Assurance and Automation",
                       "topics": [
-                        "Secure Design Principles",
-                        "Defensive Programming",
-                        "Security Testing"
+                        "Formal Technical Reviews and Inspections",
+                        "Defect Tracking and Management",
+                        "Introduction to Test Automation"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "SWEG4108",
-                  "name": "Artificial Intelligence",
-                  "description": "An introduction to the fundamental concepts and techniques of artificial intelligence, including problem solving, search, knowledge representation, and machine learning.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "SWEG3103"
-                  ],
+                  "name": "Research Methods in Software Engineering",
+                  "credits": 2,
+                  "prerequisites": [],
                   "outcomes": [
-                    "Apply various search algorithms to solve problems.",
-                    "Represent knowledge using logic and other formalisms.",
-                    "Understand the principles of game playing algorithms.",
-                    "Implement basic machine learning algorithms."
+                    "Formulate a research question and hypothesis relevant to software engineering.",
+                    "Design and conduct empirical studies like controlled experiments and case studies.",
+                    "Analyze qualitative and quantitative data using appropriate statistical methods.",
+                    "Write a research paper that adheres to academic standards."
                   ],
                   "chapters": [
                     {
-                      "id": "ai_ch1",
-                      "title": "Problem Solving and Search",
+                      "id": "rmse_ch1",
+                      "title": "Introduction to Research in Software Engineering",
                       "topics": [
-                        "Intelligent Agents",
-                        "Uninformed Search (BFS, DFS)",
-                        "Informed Search (Greedy, A*)"
+                        "The Research Process",
+                        "Types of Research (Exploratory, Confirmatory)",
+                        "Ethics in Research"
                       ]
                     },
                     {
-                      "id": "ai_ch2",
-                      "title": "Adversarial Search and Constraint Satisfaction",
+                      "id": "rmse_ch2",
+                      "title": "Research Design",
                       "topics": [
-                        "Game Theory",
-                        "Minimax Algorithm and Alpha-Beta Pruning",
-                        "Constraint Satisfaction Problems (CSP)"
+                        "Formulating Research Questions",
+                        "Conducting a Systematic Literature Review",
+                        "Threats to Validity"
                       ]
                     },
                     {
-                      "id": "ai_ch3",
-                      "title": "Knowledge Representation and Logic",
+                      "id": "rmse_ch3",
+                      "title": "Empirical Research Methods",
                       "topics": [
-                        "Propositional and First-Order Logic",
-                        "Inference in Logic",
-                        "Rule-Based Systems"
+                        "Controlled Experiments",
+                        "Case Studies",
+                        "Surveys"
                       ]
                     },
                     {
-                      "id": "ai_ch4",
-                      "title": "Introduction to Machine Learning",
+                      "id": "rmse_ch4",
+                      "title": "Data Analysis and Reporting",
                       "topics": [
-                        "Supervised Learning (Linear Regression, Decision Trees)",
-                        "Unsupervised Learning (k-Means Clustering)",
-                        "Introduction to Neural Networks"
+                        "Qualitative Data Analysis (Coding)",
+                        "Quantitative Data Analysis (Statistical Tests)",
+                        "Writing and Presenting Research"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "SWEG4110",
+                  "name": "Human Computer Interaction",
+                  "credits": 3,
+                  "prerequisites": [
+                    "SWEG3107"
+                  ],
+                  "outcomes": [
+                    "Apply user-centered design principles throughout the software development process.",
+                    "Design and prototype user interfaces that are effective, efficient, and satisfying.",
+                    "Conduct usability evaluations using methods like heuristic evaluation and user testing.",
+                    "Understand the cognitive and perceptual principles that underlie effective interaction design."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "hci_ch1",
+                      "title": "Foundations of HCI",
+                      "topics": [
+                        "The Human: Cognition and Perception",
+                        "The Computer: Interaction Devices",
+                        "Usability Goals and Principles"
+                      ]
+                    },
+                    {
+                      "id": "hci_ch2",
+                      "title": "The Design Process",
+                      "topics": [
+                        "User-Centered Design",
+                        "Task Analysis and Contextual Inquiry",
+                        "Prototyping (Low-fidelity and High-fidelity)"
+                      ]
+                    },
+                    {
+                      "id": "hci_ch3",
+                      "title": "Interaction Design Principles",
+                      "topics": [
+                        "Design Heuristics (Nielsen's Heuristics)",
+                        "Gestalt Principles of Visual Perception",
+                        "Information Architecture"
+                      ]
+                    },
+                    {
+                      "id": "hci_ch4",
+                      "title": "Evaluation Techniques",
+                      "topics": [
+                        "Heuristic Evaluation",
+                        "Cognitive Walkthrough",
+                        "User Testing and A/B Testing",
+                        "Analyzing Usability Data"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "SWEG4112",
-                  "name": "Internship",
-                  "description": "A supervised practical work experience in a software engineering-related organization. Students apply their academic knowledge in a real-world setting and submit a report on their experience.",
-                  "credits": 0,
-                  "outcomes": [
-                    "Gain practical experience in a professional software development environment.",
-                    "Develop professional skills like teamwork, communication, and problem-solving.",
-                    "Bridge the gap between academic theory and industry practice."
+                  "name": "Introduction to Machine learning",
+                  "credits": 3,
+                  "prerequisites": [
+                    "Stat2091",
+                    "SWEG3103"
                   ],
-                  "chapters": []
+                  "outcomes": [
+                    "Understand the core concepts of machine learning, including training, testing, and validation.",
+                    "Implement and evaluate supervised learning algorithms like linear/logistic regression and support vector machines.",
+                    "Implement and evaluate unsupervised learning algorithms like K-Means clustering.",
+                    "Apply machine learning libraries like Scikit-learn to solve practical problems."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ml_ch1",
+                      "title": "Introduction to Machine Learning",
+                      "topics": [
+                        "Types of Machine Learning (Supervised, Unsupervised, Reinforcement)",
+                        "The ML Workflow",
+                        "Model Evaluation Metrics (Accuracy, Precision, Recall)"
+                      ]
+                    },
+                    {
+                      "id": "ml_ch2",
+                      "title": "Supervised Learning",
+                      "topics": [
+                        "Linear and Logistic Regression",
+                        "Decision Trees and Random Forests",
+                        "Support Vector Machines (SVM)",
+                        "K-Nearest Neighbors (KNN)"
+                      ]
+                    },
+                    {
+                      "id": "ml_ch3",
+                      "title": "Unsupervised Learning",
+                      "topics": [
+                        "K-Means Clustering",
+                        "Hierarchical Clustering",
+                        "Dimensionality Reduction with Principal Component Analysis (PCA)"
+                      ]
+                    },
+                    {
+                      "id": "ml_ch4",
+                      "title": "Introduction to Neural Networks",
+                      "topics": [
+                        "The Perceptron",
+                        "Multilayer Perceptrons (MLPs)",
+                        "Backpropagation",
+                        "Introduction to Deep Learning Concepts"
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -19462,108 +21615,105 @@ export const courseData: CourseData = {
               "Semester I": [
                 {
                   "code": "SWEG5101",
-                  "name": "B.Sc. Thesis I",
-                  "description": "The first phase of the final year thesis project. Students work with a faculty advisor to identify a research or development topic, conduct a literature survey, define the scope and methodology, and prepare a detailed proposal.",
-                  "credits": 2,
-                  "outcomes": [
-                    "Identify a relevant software engineering problem.",
-                    "Conduct a comprehensive literature review.",
-                    "Develop a sound methodology for the project.",
-                    "Write and defend a formal project proposal."
-                  ],
-                  "chapters": []
-                },
-                {
-                  "code": "SWEG5103",
-                  "name": "Distributed Systems",
-                  "description": "Covers the principles of designing and building systems that are spread across multiple computers, focusing on communication, consistency, and fault tolerance.",
-                  "credits": 3,
+                  "name": "Senior Research Project Phase I",
+                  "credits": 0,
                   "prerequisites": [
-                    "SWEG3106",
-                    "SWEG2106"
+                    "SWEG4108"
                   ],
                   "outcomes": [
-                    "Understand the challenges and trade-offs in distributed systems.",
-                    "Analyze different inter-process communication mechanisms.",
-                    "Describe algorithms for achieving consistency and replication.",
-                    "Design a simple fault-tolerant distributed application."
+                    "Identify a relevant and researchable problem in software engineering.",
+                    "Conduct a comprehensive literature search and write a critical review of existing knowledge.",
+                    "Formulate a clear research proposal with well-defined objectives, scope, and methodology.",
+                    "Develop a realistic timeline and resource plan for the project."
                   ],
                   "chapters": [
                     {
-                      "id": "ds_ch1",
-                      "title": "Characterization of Distributed Systems",
+                      "id": "srp1_ch1",
+                      "title": "Topic Selection and Problem Formulation",
                       "topics": [
-                        "Goals and Challenges",
-                        "System Models (Architectural, Fundamental)",
-                        "Interprocess Communication (Sockets, RPC, RMI)"
+                        "Identifying Research Areas",
+                        "Defining a Research Question",
+                        "Initial Feasibility Study"
                       ]
                     },
                     {
-                      "id": "ds_ch2",
-                      "title": "Time and Coordination",
+                      "id": "srp1_ch2",
+                      "title": "Literature Review",
                       "topics": [
-                        "Logical Clocks (Lamport, Vector)",
-                        "Mutual Exclusion Algorithms",
-                        "Election Algorithms"
+                        "Searching Academic Databases",
+                        "Synthesizing and Critiquing Literature",
+                        "Identifying Research Gaps"
                       ]
                     },
                     {
-                      "id": "ds_ch3",
-                      "title": "Consistency and Replication",
+                      "id": "srp1_ch3",
+                      "title": "Methodology and Proposal Development",
                       "topics": [
-                        "Data-Centric and Client-Centric Consistency Models",
-                        "Replica Management",
-                        "Consistency Protocols"
+                        "Selecting a Research Methodology",
+                        "Writing the Research Proposal",
+                        "Creating a Project Timeline (Gantt Chart)"
                       ]
                     },
                     {
-                      "id": "ds_ch4",
-                      "title": "Fault Tolerance",
+                      "id": "srp1_ch4",
+                      "title": "Proposal Defense",
                       "topics": [
-                        "Failure Models",
-                        "Process Resilience",
-                        "Consensus and The Two-Phase Commit Protocol"
+                        "Preparing Presentation Materials",
+                        "Oral Presentation of the Proposal",
+                        "Addressing Feedback from Panel"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "SWEG5105",
-                  "name": "Professional Ethics and Practices",
-                  "description": "Exploration of the ethical, legal, and social issues in computing. Covers professional codes of conduct, intellectual property, privacy, and the impact of technology on society.",
-                  "credits": 2,
+                  "code": "SWEG5103",
+                  "name": "Software Configuration Management",
+                  "credits": 3,
+                  "prerequisites": [
+                    "SWEG2101",
+                    "SWEG4104"
+                  ],
                   "outcomes": [
-                    "Analyze ethical dilemmas in software engineering using established frameworks.",
-                    "Understand and apply professional codes of ethics (e.g., ACM/IEEE).",
-                    "Evaluate the social impact of technological solutions.",
-                    "Recognize legal issues related to software, such as copyright and licensing."
+                    "Implement and manage version control systems like Git for team-based projects.",
+                    "Automate the build process using tools like Maven or Gradle.",
+                    "Set up and manage a continuous integration/continuous delivery (CI/CD) pipeline.",
+                    "Understand change management, release engineering, and deployment strategies."
                   ],
                   "chapters": [
                     {
-                      "id": "pep_ch1",
-                      "title": "Introduction to Professional Ethics",
+                      "id": "scm_ch1",
+                      "title": "Introduction to SCM",
                       "topics": [
-                        "Ethical Theories",
-                        "Professionalism and Codes of Conduct",
-                        "Analyzing Ethical Scenarios"
+                        "The Role of SCM in Software Development",
+                        "Baselines and Configuration Items",
+                        "Change Control Processes"
                       ]
                     },
                     {
-                      "id": "pep_ch2",
-                      "title": "Intellectual Property and Privacy",
+                      "id": "scm_ch2",
+                      "title": "Version Control Systems",
                       "topics": [
-                        "Copyright, Patents, and Trade Secrets",
-                        "Software Licensing (Open Source, Proprietary)",
-                        "Privacy and Data Protection"
+                        "Centralized vs. Distributed VCS",
+                        "Branching and Merging Strategies (e.g., GitFlow)",
+                        "Collaborative Workflows"
                       ]
                     },
                     {
-                      "id": "pep_ch3",
-                      "title": "Social and Global Impact",
+                      "id": "scm_ch3",
+                      "title": "Build and Release Engineering",
                       "topics": [
-                        "The Digital Divide",
-                        "Social Networking and its Effects",
-                        "Automation, AI, and the Future of Work"
+                        "Build Automation Tools",
+                        "Dependency Management",
+                        "Release Planning and Versioning"
+                      ]
+                    },
+                    {
+                      "id": "scm_ch4",
+                      "title": "Continuous Integration and Delivery (CI/CD)",
+                      "topics": [
+                        "Principles of CI/CD",
+                        "CI/CD Pipeline Automation (e.g., Jenkins, GitLab CI)",
+                        "Introduction to DevOps Culture"
                       ]
                     }
                   ]
@@ -19571,143 +21721,868 @@ export const courseData: CourseData = {
                 {
                   "code": "SWEG52XX",
                   "name": "Elective I",
-                  "description": "Students select a specialized course from a list of approved electives, such as Machine Learning, Computer Graphics, or Natural Language Processing.",
                   "credits": 3,
+                  "prerequisites": [],
                   "outcomes": [
-                    "Gain in-depth knowledge in a chosen sub-discipline.",
-                    "Apply advanced concepts to solve complex problems.",
-                    "Explore current trends and technologies in a specialized field."
+                    "Gain in-depth knowledge in a specialized area of software engineering.",
+                    "Develop advanced skills or theoretical understanding beyond the core curriculum.",
+                    "Conduct focused research or creative work in a chosen area of interest."
                   ],
                   "chapters": []
+                },
+                {
+                  "code": "SWEG5105",
+                  "name": "Computer System Security",
+                  "credits": 3,
+                  "prerequisites": [
+                    "SWEG2106",
+                    "SWEG3106"
+                  ],
+                  "outcomes": [
+                    "Identify and analyze common security threats, vulnerabilities, and attacks.",
+                    "Apply fundamental cryptographic concepts to secure data.",
+                    "Understand network security protocols and mechanisms like firewalls and VPNs.",
+                    "Implement secure coding practices to prevent common software vulnerabilities."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "css_ch1",
+                      "title": "Security Principles",
+                      "topics": [
+                        "Confidentiality, Integrity, Availability (CIA Triad)",
+                        "Threat Modeling",
+                        "Access Control Mechanisms"
+                      ]
+                    },
+                    {
+                      "id": "css_ch2",
+                      "title": "Cryptography",
+                      "topics": [
+                        "Symmetric Key Cryptography (DES, AES)",
+                        "Public Key Cryptography (RSA)",
+                        "Cryptographic Hash Functions and Digital Signatures"
+                      ]
+                    },
+                    {
+                      "id": "css_ch3",
+                      "title": "Network Security",
+                      "topics": [
+                        "Firewalls and Intrusion Detection Systems (IDS)",
+                        "Network Protocols for Security (SSL/TLS, IPsec)",
+                        "Wireless Security"
+                      ]
+                    },
+                    {
+                      "id": "css_ch4",
+                      "title": "Software and System Security",
+                      "topics": [
+                        "Common Vulnerabilities (Buffer Overflows, SQL Injection, XSS)",
+                        "Secure Coding Practices",
+                        "Operating System Security"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "SWEG5107",
+                  "name": "Software Component Design",
+                  "credits": 3,
+                  "prerequisites": [
+                    "SWEG4105"
+                  ],
+                  "outcomes": [
+                    "Design reusable software components with well-defined interfaces.",
+                    "Understand component-based software engineering (CBSE) principles.",
+                    "Apply component technologies and frameworks (e.g., JavaBeans, OSGi).",
+                    "Develop systems by composing and integrating off-the-shelf and custom components."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "scd_ch1",
+                      "title": "Foundations of Component-Based Development",
+                      "topics": [
+                        "The Concept of a Software Component",
+                        "Component Models",
+                        "Component-Based Software Engineering (CBSE) Lifecycle"
+                      ]
+                    },
+                    {
+                      "id": "scd_ch2",
+                      "title": "Component Interface Design",
+                      "topics": [
+                        "Interface Definition Languages (IDLs)",
+                        "Designing for Reusability and Composability",
+                        "Contracts and Assertions"
+                      ]
+                    },
+                    {
+                      "id": "scd_ch3",
+                      "title": "Component Technologies",
+                      "topics": [
+                        "JavaBeans and Enterprise JavaBeans (EJB)",
+                        "COM and .NET Components",
+                        "OSGi Frameworks"
+                      ]
+                    },
+                    {
+                      "id": "scd_ch4",
+                      "title": "Service-Oriented and Microservice Architectures",
+                      "topics": [
+                        "Introduction to Service-Oriented Architecture (SOA)",
+                        "Web Services (SOAP, REST)",
+                        "Components vs. Microservices"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "SWEG5109",
+                  "name": "Open Source Software Paradigms",
+                  "credits": 3,
+                  "prerequisites": [
+                    "SWEG2101"
+                  ],
+                  "outcomes": [
+                    "Understand the history, philosophy, and economic impact of open-source software (OSS).",
+                    "Differentiate between various open-source licenses and their implications.",
+                    "Effectively use open-source development tools and participate in OSS communities.",
+                    "Analyze the development models and governance structures of successful open-source projects."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ossp_ch1",
+                      "title": "History and Philosophy of OSS",
+                      "topics": [
+                        "The Free Software Movement",
+                        "The Cathedral and the Bazaar",
+                        "Motivations for Contributing to OSS"
+                      ]
+                    },
+                    {
+                      "id": "ossp_ch2",
+                      "title": "OSS Licensing and Governance",
+                      "topics": [
+                        "Permissive Licenses (MIT, BSD, Apache)",
+                        "Copyleft Licenses (GPL, LGPL)",
+                        "Project Governance Models"
+                      ]
+                    },
+                    {
+                      "id": "ossp_ch3",
+                      "title": "Tools and Ecosystems",
+                      "topics": [
+                        "Distributed Version Control (Git, GitHub)",
+                        "Issue Tracking and Communication Tools",
+                        "Major OSS Foundations (Apache, Linux, Eclipse)"
+                      ]
+                    },
+                    {
+                      "id": "ossp_ch4",
+                      "title": "Participating in Open Source",
+                      "topics": [
+                        "Finding a Project",
+                        "Submitting Patches and Pull Requests",
+                        "Community Etiquette",
+                        "Starting an Open Source Project"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "SWEG5111",
+                  "name": "Distributed Systems",
+                  "credits": 4,
+                  "prerequisites": [
+                    "SWEG3106",
+                    "SWEG2106"
+                  ],
+                  "outcomes": [
+                    "Characterize distributed systems and understand their inherent challenges.",
+                    "Implement interprocess communication using mechanisms like RPCs and message queues.",
+                    "Analyze algorithms for achieving consistency, replication, and fault tolerance.",
+                    "Design and reason about simple distributed applications."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ds_ch1",
+                      "title": "Characterization of Distributed Systems",
+                      "topics": [
+                        "Architectural Models (Client-Server, Peer-to-Peer)",
+                        "Fundamental Challenges (Heterogeneity, Scalability, Failure Handling)"
+                      ]
+                    },
+                    {
+                      "id": "ds_ch2",
+                      "title": "Interprocess Communication",
+                      "topics": [
+                        "Sockets",
+                        "Remote Procedure Calls (RPC) / Remote Method Invocation (RMI)",
+                        "Message-Oriented Middleware"
+                      ]
+                    },
+                    {
+                      "id": "ds_ch3",
+                      "title": "Time and Coordination",
+                      "topics": [
+                        "Logical Clocks (Lamport, Vector)",
+                        "Distributed Mutual Exclusion",
+                        "Election Algorithms"
+                      ]
+                    },
+                    {
+                      "id": "ds_ch4",
+                      "title": "Consistency, Replication, and Fault Tolerance",
+                      "topics": [
+                        "Data-centric and Client-centric Consistency Models",
+                        "Replica Management",
+                        "Consensus and the Paxos/Raft Algorithms",
+                        "Process Resilience and Recovery"
+                      ]
+                    }
+                  ]
                 }
               ],
               "Semester II": [
                 {
                   "code": "SWEG5102",
-                  "name": "B.Sc. Thesis II",
-                  "description": "The second and final phase of the thesis project. Students execute their research or development plan, analyze the results, and write the final thesis document, culminating in a final oral defense.",
-                  "credits": 4,
+                  "name": "Senior Research Project II",
+                  "credits": 6,
                   "prerequisites": [
                     "SWEG5101"
                   ],
                   "outcomes": [
-                    "Successfully complete an independent research or development project.",
-                    "Analyze and interpret project results.",
-                    "Synthesize findings and draw valid conclusions.",
-                    "Produce a comprehensive thesis document and defend it orally."
+                    "Successfully execute an independent, in-depth software engineering project.",
+                    "Apply advanced software engineering principles to design, implement, and test a complex system.",
+                    "Analyze results critically and draw valid, evidence-based conclusions.",
+                    "Produce a comprehensive, professional-quality final report and defend the project to a technical audience."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "srp2_ch1",
+                      "title": "Project Implementation",
+                      "topics": [
+                        "Executing the research/design methodology",
+                        "Agile development and iterative progress",
+                        "Regular meetings with advisor"
+                      ]
+                    },
+                    {
+                      "id": "srp2_ch2",
+                      "title": "Testing and Evaluation",
+                      "topics": [
+                        "Developing a test plan",
+                        "Executing tests and collecting data",
+                        "Evaluating results against objectives"
+                      ]
+                    },
+                    {
+                      "id": "srp2_ch3",
+                      "title": "Final Report Writing",
+                      "topics": [
+                        "Structuring the thesis document",
+                        "Documenting design, implementation, and results",
+                        "Drawing conclusions and identifying future work"
+                      ]
+                    },
+                    {
+                      "id": "srp2_ch4",
+                      "title": "Project Defense",
+                      "topics": [
+                        "Preparing final presentation and demonstration",
+                        "Public defense of the project work",
+                        "Addressing questions from the examination panel"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "SWEG52XX",
+                  "name": "Elective II",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "outcomes": [
+                    "Gain deeper, specialized knowledge in an advanced area of software engineering.",
+                    "Apply advanced analytical and design skills to complex problems.",
+                    "Critically evaluate current literature and future trends in the chosen elective field."
                   ],
                   "chapters": []
                 },
                 {
-                  "code": "SWEG5104",
+                  "code": "SWEG5106",
                   "name": "Software Evolution and Maintenance",
-                  "description": "Study of the processes and techniques for managing software change after its initial release. Covers refactoring, reverse engineering, and managing legacy systems.",
                   "credits": 3,
                   "prerequisites": [
-                    "SWEG4101"
+                    "SWEG2101",
+                    "SWEG4105"
                   ],
                   "outcomes": [
-                    "Understand the different types of software maintenance.",
-                    "Apply refactoring techniques to improve code quality.",
-                    "Use reverse engineering to understand legacy systems.",
-                    "Analyze software metrics to assess maintainability."
+                    "Understand the different types of software maintenance and their associated costs.",
+                    "Apply re-engineering techniques to improve the structure and quality of legacy systems.",
+                    "Perform code refactoring to improve design and maintainability without changing external behavior.",
+                    "Analyze software systems to identify areas for improvement and plan evolution strategies."
                   ],
                   "chapters": [
                     {
                       "id": "sem_ch1",
                       "title": "Foundations of Software Maintenance",
                       "topics": [
-                        "Types of Maintenance (Corrective, Adaptive, Perfective)",
-                        "Lehman's Laws of Software Evolution",
-                        "Maintenance Process Models"
+                        "Types of Maintenance (Corrective, Adaptive, Perfective, Preventive)",
+                        "Maintenance Process Models",
+                        "Lehman's Laws of Software Evolution"
                       ]
                     },
                     {
                       "id": "sem_ch2",
-                      "title": "Code Improvement",
+                      "title": "Program Comprehension and Re-engineering",
                       "topics": [
-                        "Code Smells",
-                        "Refactoring Techniques",
-                        "Technical Debt"
+                        "Techniques for understanding code",
+                        "Reverse Engineering",
+                        "The Re-engineering Process"
                       ]
                     },
                     {
                       "id": "sem_ch3",
-                      "title": "Understanding and Changing Systems",
+                      "title": "Refactoring",
                       "topics": [
-                        "Program Comprehension",
-                        "Reverse Engineering",
-                        "Impact Analysis"
+                        "Code Smells",
+                        "Common Refactoring Patterns",
+                        "Tool Support for Refactoring"
                       ]
                     },
                     {
                       "id": "sem_ch4",
-                      "title": "Maintenance Management",
+                      "title": "Legacy Systems and Migration",
                       "topics": [
-                        "Software Metrics for Maintenance",
-                        "Managing Legacy Systems",
-                        "Tool Support for Maintenance"
+                        "Working with Legacy Systems",
+                        "Software Migration Strategies",
+                        "Impact Analysis"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "SWEG5108",
-                  "name": "Entrepreneurship for Engineers",
-                  "description": "Introduction to the principles of entrepreneurship, including opportunity recognition, business model development, funding, and intellectual property strategy, tailored for technology ventures.",
-                  "credits": 2,
+                  "name": "Software Defined Systems",
+                  "credits": 3,
+                  "prerequisites": [
+                    "SWEG2106",
+                    "SWEG3106"
+                  ],
                   "outcomes": [
-                    "Identify and evaluate business opportunities.",
-                    "Develop a business model for a technology startup.",
-                    "Understand the basics of startup financing.",
-                    "Create a concise business plan or pitch deck."
+                    "Understand the principles of virtualization for compute, storage, and networking.",
+                    "Explain the architecture and operation of Software-Defined Networking (SDN).",
+                    "Describe the concepts of Network Function Virtualization (NFV).",
+                    "Apply Infrastructure as Code (IaC) principles to automate the provisioning and management of systems."
                   ],
                   "chapters": [
                     {
-                      "id": "ent_ch1",
-                      "title": "The Entrepreneurial Mindset",
+                      "id": "sds_ch1",
+                      "title": "Virtualization and Cloud Computing",
                       "topics": [
-                        "Opportunity Recognition",
-                        "Innovation and Creativity",
-                        "The Lean Startup Methodology"
+                        "Hardware Virtualization (Hypervisors)",
+                        "Cloud Computing Models (IaaS, PaaS, SaaS)",
+                        "Containers (e.g., Docker)"
                       ]
                     },
                     {
-                      "id": "ent_ch2",
-                      "title": "Business Models and Strategy",
+                      "id": "sds_ch2",
+                      "title": "Software-Defined Networking (SDN)",
                       "topics": [
-                        "The Business Model Canvas",
-                        "Value Proposition Design",
-                        "Customer Discovery and Validation"
+                        "Decoupling of Control and Data Planes",
+                        "The OpenFlow Protocol",
+                        "SDN Controllers"
                       ]
                     },
                     {
-                      "id": "ent_ch3",
-                      "title": "Startup Funding and Finance",
+                      "id": "sds_ch3",
+                      "title": "Network Function Virtualization (NFV)",
                       "topics": [
-                        "Bootstrapping",
-                        "Angel Investors and Venture Capital",
-                        "Basic Financial Projections"
+                        "Virtualizing Network Functions (Firewalls, Load Balancers)",
+                        "NFV Architecture",
+                        "SDN and NFV Synergy"
+                      ]
+                    },
+                    {
+                      "id": "sds_ch4",
+                      "title": "Infrastructure as Code (IaC)",
+                      "topics": [
+                        "Declarative vs. Imperative Approaches",
+                        "Configuration Management Tools (Ansible, Puppet)",
+                        "Orchestration with Kubernetes"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "SWEG52XY",
-                  "name": "Elective II",
-                  "description": "Students select a second specialized course from a list of approved electives, such as Cloud Computing, Big Data Technologies, or Internet of Things (IoT).",
+                  "code": "SWEG5110",
+                  "name": "Selected Topics in Software Engineering",
                   "credits": 3,
+                  "prerequisites": [],
                   "outcomes": [
-                    "Gain further in-depth knowledge in a chosen sub-discipline.",
-                    "Apply advanced concepts to solve complex problems.",
-                    "Explore current trends and technologies in a specialized field."
+                    "Critically analyze current research papers in emerging areas of software engineering.",
+                    "Understand the key challenges and opportunities in advanced software engineering topics.",
+                    "Prepare and deliver presentations on state-of-the-art research.",
+                    "Engage in informed discussions on the future direction of the software engineering discipline."
                   ],
-                  "chapters": []
+                  "chapters": [
+                    {
+                      "id": "stse_ch1",
+                      "title": "Cloud-Native and Serverless Computing",
+                      "topics": []
+                    },
+                    {
+                      "id": "stse_ch2",
+                      "title": "DevOps and Site Reliability Engineering (SRE)",
+                      "topics": []
+                    },
+                    {
+                      "id": "stse_ch3",
+                      "title": "Software Engineering for AI/ML Systems",
+                      "topics": []
+                    },
+                    {
+                      "id": "stse_ch4",
+                      "title": "Blockchain and Smart Contracts Engineering",
+                      "topics": []
+                    }
+                  ]
                 }
               ]
             }
           }
         },
+        {
+          "name": "Fresh Man",
+          "abbreviation": "FRESH",
+          "coursesByYearSemester":{
+            "Year 1": {
+                "Semester I": [
+                  {
+                    "code": "LoCT1011",
+                    "name": "Logic and Critical Thinking",
+                    "credits": 3,
+                    "description": "Introduces the fundamental principles of logic and critical reasoning. Students learn to analyze arguments, identify fallacies, and develop skills for clear and effective thinking in academic and everyday contexts.",
+                    "outcomes": [
+                      "Analyze the structure of arguments by identifying premises and conclusions.",
+                      "Identify and explain common logical fallacies.",
+                      "Apply critical thinking skills to evaluate information from various sources.",
+                      "Construct sound and persuasive arguments in written and oral forms."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "lct_ch1",
+                        "title": "Introduction to Logic",
+                        "topics": ["Arguments, Premises, and Conclusions", "Deductive vs. Inductive Reasoning", "Validity and Soundness"]
+                      },
+                      {
+                        "id": "lct_ch2",
+                        "title": "Informal Fallacies",
+                        "topics": ["Fallacies of Relevance", "Fallacies of Weak Induction", "Fallacies of Presumption, Ambiguity, and Grammatical Analogy"]
+                      },
+                      {
+                        "id": "lct_ch3",
+                        "title": "Categorical Logic",
+                        "topics": ["Categorical Propositions and the Square of Opposition", "Venn Diagrams", "Syllogistic Reasoning"]
+                      },
+                      {
+                        "id": "lct_ch4",
+                        "title": "Propositional Logic",
+                        "topics": ["Logical Connectives and Truth Tables", "Formal Proofs of Validity", "Rules of Inference"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "Psch1011",
+                    "name": "General Psychology",
+                    "credits": 3,
+                    "description": "A survey of the major topics, theories, and research methods in psychology. The course explores behavior and mental processes, including learning, memory, personality, social behavior, and psychological disorders.",
+                    "outcomes": [
+                      "Describe major psychological theories and perspectives.",
+                      "Understand the scientific methods used in psychological research.",
+                      "Identify the biological and environmental factors that shape human behavior.",
+                      "Apply psychological principles to understand everyday life."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "psy_ch1",
+                        "title": "Introduction to Psychology and Research Methods",
+                        "topics": ["History of Psychology", "Major Perspectives", "Scientific Method", "Research Designs"]
+                      },
+                      {
+                        "id": "psy_ch2",
+                        "title": "Biological Foundations of Behavior",
+                        "topics": ["The Nervous System", "The Brain", "Sensation and Perception"]
+                      },
+                      {
+                        "id": "psy_ch3",
+                        "title": "Learning and Cognition",
+                        "topics": ["Classical and Operant Conditioning", "Memory", "Thinking and Intelligence"]
+                      },
+                      {
+                        "id": "psy_ch4",
+                        "title": "Developmental and Social Psychology",
+                        "topics": ["Lifespan Development", "Personality", "Social Influence", "Psychological Disorders"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "FLEn1011",
+                    "name": "Communicative English Language Skill – I",
+                    "credits": 3,
+                    "description": "A foundational course designed to improve students' English language proficiency in academic contexts. It focuses on developing reading, writing, listening, and speaking skills necessary for university-level study.",
+                    "outcomes": [
+                      "Employ effective reading strategies to comprehend academic texts.",
+                      "Write clear, coherent, and grammatically correct paragraphs and short essays.",
+                      "Participate effectively in academic discussions and presentations.",
+                      "Develop note-taking and summarizing skills."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "eng1_ch1",
+                        "title": "Foundations of Academic English",
+                        "topics": ["Reading for Main Ideas", "Vocabulary Building", "Grammar Review"]
+                      },
+                      {
+                        "id": "eng1_ch2",
+                        "title": "Academic Writing",
+                        "topics": ["Paragraph Structure", "The Writing Process", "Summarizing and Paraphrasing"]
+                      },
+                      {
+                        "id": "eng1_ch3",
+                        "title": "Listening and Speaking Skills",
+                        "topics": ["Active Listening Strategies", "Note-taking from Lectures", "Group Discussions"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "GeES1011",
+                    "name": "Geography of Ethiopia and The Horn",
+                    "credits": 3,
+                    "description": "This course provides a comprehensive overview of the physical and human geography of Ethiopia and the Horn of Africa. It covers topics such as climate, topography, resources, population, and socio-economic activities.",
+                    "outcomes": [
+                      "Describe the major physical geographic features and climate of the region.",
+                      "Analyze the distribution of population and settlement patterns.",
+                      "Identify the main economic activities and natural resources.",
+                      "Understand the opportunities and challenges for development in the region."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "geo_ch1",
+                        "title": "Physical Geography",
+                        "topics": ["Location and Topography", "Climate and Drainage Systems", "Natural Resources"]
+                      },
+                      {
+                        "id": "geo_ch2",
+                        "title": "Population and Demographics",
+                        "topics": ["Population Distribution and Density", "Urbanization", "Cultural and Linguistic Diversity"]
+                      },
+                      {
+                        "id": "geo_ch3",
+                        "title": "Economic Geography",
+                        "topics": ["Agriculture", "Industry and Manufacturing", "Infrastructure and Transportation"]
+                      },
+                      {
+                        "id": "geo_ch4",
+                        "title": "Environmental Issues and Development",
+                        "topics": ["Land Degradation", "Water Scarcity", "Cross-Cutting Development Issues"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "Math1011",
+                    "name": "Mathematics (For Natural Science)",
+                    "credits": 3,
+                    "description": "A foundational mathematics course for science and engineering students, covering topics in functions, limits, continuity, differentiation, and an introduction to integration.",
+                    "outcomes": [
+                      "Understand and apply the concepts of functions, limits, and continuity.",
+                      "Calculate derivatives of various functions using established rules.",
+                      "Apply differentiation to solve optimization and related rates problems.",
+                      "Understand the concept of the definite integral and the Fundamental Theorem of Calculus."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "math1_ch1",
+                        "title": "Functions, Limits, and Continuity",
+                        "topics": ["Properties of Functions", "The Limit of a Function", "Continuity"]
+                      },
+                      {
+                        "id": "math1_ch2",
+                        "title": "Differentiation",
+                        "topics": ["The Derivative as a Function", "Differentiation Rules (Product, Quotient, Chain)", "Implicit Differentiation"]
+                      },
+                      {
+                        "id": "math1_ch3",
+                        "title": "Applications of Differentiation",
+                        "topics": ["Related Rates", "Maxima and Minima", "Curve Sketching"]
+                      },
+                      {
+                        "id": "math1_ch4",
+                        "title": "Introduction to Integration",
+                        "topics": ["Antiderivatives", "The Definite Integral", "The Fundamental Theorem of Calculus"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "SpSc1011",
+                    "name": "Physical Fitness",
+                    "credits": 0,
+                    "description": "A practical course focused on developing and maintaining physical fitness. It covers the components of fitness, basic exercise principles, and various physical activities. This is a Pass/Fail course.",
+                    "outcomes": [
+                      "Understand the health-related components of physical fitness.",
+                      "Demonstrate proper technique in various exercises and physical activities.",
+                      "Develop a personal fitness plan.",
+                      "Appreciate the role of physical activity in overall well-being."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "Phys1011",
+                    "name": "General Physics",
+                    "credits": 3,
+                    "description": "An introduction to the fundamental principles of classical mechanics. Topics include kinematics, Newton's laws of motion, work and energy, momentum, and rotational motion.",
+                    "outcomes": [
+                      "Apply kinematic equations to analyze motion in one and two dimensions.",
+                      "Use Newton's laws to solve problems involving forces and motion.",
+                      "Apply the principles of conservation of energy and momentum.",
+                      "Analyze the rotational dynamics of rigid bodies."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "phy_ch1",
+                        "title": "Kinematics",
+                        "topics": ["Vectors", "Motion in One and Two Dimensions", "Projectile Motion"]
+                      },
+                      {
+                        "id": "phy_ch2",
+                        "title": "Newtonian Mechanics",
+                        "topics": ["Newton's Laws of Motion", "Friction", "Dynamics of Circular Motion"]
+                      },
+                      {
+                        "id": "phy_ch3",
+                        "title": "Work and Energy",
+                        "topics": ["Work and Kinetic Energy", "Potential Energy", "Conservation of Mechanical Energy"]
+                      },
+                      {
+                        "id": "phy_ch4",
+                        "title": "Momentum and Rotational Motion",
+                        "topics": ["Linear Momentum and Collisions", "Rotational Kinematics", "Torque and Rotational Dynamics"]
+                      }
+                    ]
+                  }
+                ],
+                "Semester II": [
+                  {
+                    "code": "EmTe1108",
+                    "name": "Emerging Technology for Engineers",
+                    "credits": 3,
+                    "description": "A survey of current and future technologies that are transforming engineering and society. Topics may include Artificial Intelligence, Internet of Things (IoT), blockchain, 3D printing, and biotechnology.",
+                    "outcomes": [
+                      "Identify and describe key emerging technologies.",
+                      "Understand the fundamental principles behind these technologies.",
+                      "Analyze the potential impact and ethical implications of new technologies.",
+                      "Relate emerging technologies to their specific field of engineering."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "et_ch1",
+                        "title": "Introduction to Emerging Technologies",
+                        "topics": ["The Fourth Industrial Revolution", "Data-driven Technologies"]
+                      },
+                      {
+                        "id": "et_ch2",
+                        "title": "Artificial Intelligence and IoT",
+                        "topics": ["Machine Learning Basics", "The Internet of Things (IoT) Architecture", "Applications in Engineering"]
+                      },
+                      {
+                        "id": "et_ch3",
+                        "title": "Distributed and Additive Technologies",
+                        "topics": ["Blockchain and Distributed Ledgers", "3D Printing (Additive Manufacturing)"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "Entr1106",
+                    "name": "Entrepreneurship for Engineers",
+                    "credits": 2,
+                    "description": "This course provides an introduction to the principles of entrepreneurship, focusing on identifying opportunities, developing business models, and launching new technology-based ventures.",
+                    "outcomes": [
+                      "Identify and evaluate business opportunities.",
+                      "Develop a viable business model canvas.",
+                      "Understand the basics of financing a new venture.",
+                      "Prepare and present a concise business pitch."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "ent_ch1",
+                        "title": "The Entrepreneurial Mindset",
+                        "topics": ["Creativity and Opportunity Recognition", "Risk and Reward"]
+                      },
+                      {
+                        "id": "ent_ch2",
+                        "title": "Developing the Business Model",
+                        "topics": ["Business Model Canvas", "Value Proposition", "Customer Segments"]
+                      },
+                      {
+                        "id": "ent_ch3",
+                        "title": "Marketing and Finance Basics",
+                        "topics": ["Marketing for Startups", "Financial Projections", "Sources of Funding"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "Anth1012",
+                    "name": "Social Anthropology",
+                    "credits": 2,
+                    "description": "An introduction to the field of social anthropology, exploring human cultures, social structures, and diversity. The course examines topics like kinship, religion, politics, and economic systems across different societies.",
+                    "outcomes": [
+                      "Understand the core concepts and methods of anthropology.",
+                      "Appreciate the diversity of human cultures and social organizations.",
+                      "Analyze social and cultural phenomena from a cross-cultural perspective.",
+                      "Critically reflect on one's own cultural assumptions."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "anth_ch1",
+                        "title": "Introduction to Anthropology",
+                        "topics": ["The Four Fields of Anthropology", "The Concept of Culture", "Fieldwork and Ethnography"]
+                      },
+                      {
+                        "id": "anth_ch2",
+                        "title": "Social Organization",
+                        "topics": ["Kinship, Marriage, and Family", "Political Systems", "Economic Anthropology"]
+                      },
+                      {
+                        "id": "anth_ch3",
+                        "title": "Systems of Meaning",
+                        "topics": ["Religion and Belief Systems", "Language and Culture", "Globalization and Cultural Change"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "FLEn1012",
+                    "name": "Communicative English Language Skill-II",
+                    "credits": 3,
+                    "description": "This course builds on the skills developed in the first semester, focusing on more advanced academic and professional communication. It emphasizes critical reading, argumentative writing, and formal presentation skills.",
+                    "outcomes": [
+                      "Critically analyze and evaluate academic articles.",
+                      "Construct well-researched and persuasive argumentative essays.",
+                      "Plan and deliver effective and engaging formal presentations.",
+                      "Improve proficiency in discipline-specific academic vocabulary."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "eng2_ch1",
+                        "title": "Critical Reading and Analysis",
+                        "topics": ["Identifying Arguments and Bias", "Evaluating Evidence", "Synthesizing Information from Multiple Sources"]
+                      },
+                      {
+                        "id": "eng2_ch2",
+                        "title": "Argumentative and Research Writing",
+                        "topics": ["Developing a Thesis Statement", "Conducting Library Research", "Writing a Research Paper", "Citation and Referencing"]
+                      },
+                      {
+                        "id": "eng2_ch3",
+                        "title": "Advanced Speaking and Presentation Skills",
+                        "topics": ["Structuring a Formal Presentation", "Public Speaking Techniques", "Handling Questions and Answers"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "Math1012",
+                    "name": "Applied Mathematics IB",
+                    "credits": 4,
+                    "description": "This course covers techniques of integration, applications of integration, sequences and series, and an introduction to multivariable calculus, providing essential mathematical tools for engineering.",
+                    "outcomes": [
+                      "Master various techniques of integration.",
+                      "Apply integration to find areas, volumes, and other physical quantities.",
+                      "Determine the convergence or divergence of infinite series.",
+                      "Perform partial differentiation and solve basic multiple integrals."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "math2_ch1",
+                        "title": "Techniques of Integration",
+                        "topics": ["Integration by Parts", "Trigonometric Integrals", "Partial Fractions", "Improper Integrals"]
+                      },
+                      {
+                        "id": "math2_ch2",
+                        "title": "Applications of Integration",
+                        "topics": ["Area Between Curves", "Volumes of Revolution", "Arc Length"]
+                      },
+                      {
+                        "id": "math2_ch3",
+                        "title": "Sequences and Series",
+                        "topics": ["Sequences", "Infinite Series and Convergence Tests", "Power Series", "Taylor and Maclaurin Series"]
+                      },
+                      {
+                        "id": "math2_ch4",
+                        "title": "Introduction to Multivariable Calculus",
+                        "topics": ["Functions of Several Variables", "Partial Derivatives", "Double Integrals"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "MCiE1012",
+                    "name": "Moral and Civic Education",
+                    "credits": 2,
+                    "description": "This course explores the fundamental principles of ethics, morality, and civic responsibility. It aims to develop students' understanding of their roles as ethical individuals and responsible citizens in a diverse society.",
+                    "outcomes": [
+                      "Understand major ethical theories and principles.",
+                      "Analyze contemporary moral and ethical dilemmas.",
+                      "Recognize the rights and responsibilities of citizens.",
+                      "Appreciate the importance of civic engagement and democratic values."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "mce_ch1",
+                        "title": "Understanding Civics and Ethics",
+                        "topics": ["Definitions and Concepts", "The Importance of Moral and Civic Education"]
+                      },
+                      {
+                        "id": "mce_ch2",
+                        "title": "Citizenship and Governance",
+                        "topics": ["The State and Government", "Constitution and Constitutionalism", "Democracy and Human Rights"]
+                      },
+                      {
+                        "id": "mce_ch3",
+                        "title": "Ethical Decision Making",
+                        "topics": ["Ethical Theories", "Professional Ethics", "Case Studies in Ethics"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "Incl1012",
+                    "name": "Inclusiveness",
+                    "credits": 2,
+                    "description": "This course introduces the concepts of diversity, equity, and inclusion. It explores the challenges faced by various groups and aims to foster an understanding and appreciation of inclusiveness in all aspects of life.",
+                    "outcomes": [
+                      "Define key concepts related to diversity, disability, and inclusion.",
+                      "Identify barriers to inclusion and participation.",
+                      "Appreciate the value of diversity in society and the workplace.",
+                      "Promote inclusive practices in personal and professional interactions."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "incl_ch1",
+                        "title": "Understanding Diversity and Inclusion",
+                        "topics": ["Dimensions of Diversity", "Models of Disability", "Principles of Inclusion"]
+                      },
+                      {
+                        "id": "incl_ch2",
+                        "title": "Identifying and Removing Barriers",
+                        "topics": ["Stereotypes, Prejudice, and Discrimination", "Physical and Attitudinal Barriers", "Inclusive Policies and Laws"]
+                      },
+                      {
+                        "id": "incl_ch3",
+                        "title": "Promoting an Inclusive Environment",
+                        "topics": ["Inclusive Communication", "Universal Design Principles", "Creating Inclusive Communities"]
+                      }
+                    ]
+                  }
+                ]
+              }
+          },
+        }
         // ... Other departments in Engineering ...
       ],
     },
@@ -19715,158 +22590,770 @@ export const courseData: CourseData = {
       name: 'College of Natural and Applied Sciences',
       departments: [
         {
+          "name": "Fresh Man",
+          "abbreviation": "FRESH",
+          "coursesByYearSemester":{
+            "Year 1": {
+                "Semester I": [
+                  {
+                    "code": "LoCT1011",
+                    "name": "Logic and Critical Thinking",
+                    "credits": 3,
+                    "description": "Introduces the fundamental principles of logic and critical reasoning. Students learn to analyze arguments, identify fallacies, and develop skills for clear and effective thinking in academic and everyday contexts.",
+                    "outcomes": [
+                      "Analyze the structure of arguments by identifying premises and conclusions.",
+                      "Identify and explain common logical fallacies.",
+                      "Apply critical thinking skills to evaluate information from various sources.",
+                      "Construct sound and persuasive arguments in written and oral forms."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "lct_ch1",
+                        "title": "Introduction to Logic",
+                        "topics": ["Arguments, Premises, and Conclusions", "Deductive vs. Inductive Reasoning", "Validity and Soundness"]
+                      },
+                      {
+                        "id": "lct_ch2",
+                        "title": "Informal Fallacies",
+                        "topics": ["Fallacies of Relevance", "Fallacies of Weak Induction", "Fallacies of Presumption, Ambiguity, and Grammatical Analogy"]
+                      },
+                      {
+                        "id": "lct_ch3",
+                        "title": "Categorical Logic",
+                        "topics": ["Categorical Propositions and the Square of Opposition", "Venn Diagrams", "Syllogistic Reasoning"]
+                      },
+                      {
+                        "id": "lct_ch4",
+                        "title": "Propositional Logic",
+                        "topics": ["Logical Connectives and Truth Tables", "Formal Proofs of Validity", "Rules of Inference"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "Psch1011",
+                    "name": "General Psychology",
+                    "credits": 3,
+                    "description": "A survey of the major topics, theories, and research methods in psychology. The course explores behavior and mental processes, including learning, memory, personality, social behavior, and psychological disorders.",
+                    "outcomes": [
+                      "Describe major psychological theories and perspectives.",
+                      "Understand the scientific methods used in psychological research.",
+                      "Identify the biological and environmental factors that shape human behavior.",
+                      "Apply psychological principles to understand everyday life."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "psy_ch1",
+                        "title": "Introduction to Psychology and Research Methods",
+                        "topics": ["History of Psychology", "Major Perspectives", "Scientific Method", "Research Designs"]
+                      },
+                      {
+                        "id": "psy_ch2",
+                        "title": "Biological Foundations of Behavior",
+                        "topics": ["The Nervous System", "The Brain", "Sensation and Perception"]
+                      },
+                      {
+                        "id": "psy_ch3",
+                        "title": "Learning and Cognition",
+                        "topics": ["Classical and Operant Conditioning", "Memory", "Thinking and Intelligence"]
+                      },
+                      {
+                        "id": "psy_ch4",
+                        "title": "Developmental and Social Psychology",
+                        "topics": ["Lifespan Development", "Personality", "Social Influence", "Psychological Disorders"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "FLEn1011",
+                    "name": "Communicative English Language Skill – I",
+                    "credits": 3,
+                    "description": "A foundational course designed to improve students' English language proficiency in academic contexts. It focuses on developing reading, writing, listening, and speaking skills necessary for university-level study.",
+                    "outcomes": [
+                      "Employ effective reading strategies to comprehend academic texts.",
+                      "Write clear, coherent, and grammatically correct paragraphs and short essays.",
+                      "Participate effectively in academic discussions and presentations.",
+                      "Develop note-taking and summarizing skills."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "eng1_ch1",
+                        "title": "Foundations of Academic English",
+                        "topics": ["Reading for Main Ideas", "Vocabulary Building", "Grammar Review"]
+                      },
+                      {
+                        "id": "eng1_ch2",
+                        "title": "Academic Writing",
+                        "topics": ["Paragraph Structure", "The Writing Process", "Summarizing and Paraphrasing"]
+                      },
+                      {
+                        "id": "eng1_ch3",
+                        "title": "Listening and Speaking Skills",
+                        "topics": ["Active Listening Strategies", "Note-taking from Lectures", "Group Discussions"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "GeES1011",
+                    "name": "Geography of Ethiopia and The Horn",
+                    "credits": 3,
+                    "description": "This course provides a comprehensive overview of the physical and human geography of Ethiopia and the Horn of Africa. It covers topics such as climate, topography, resources, population, and socio-economic activities.",
+                    "outcomes": [
+                      "Describe the major physical geographic features and climate of the region.",
+                      "Analyze the distribution of population and settlement patterns.",
+                      "Identify the main economic activities and natural resources.",
+                      "Understand the opportunities and challenges for development in the region."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "geo_ch1",
+                        "title": "Physical Geography",
+                        "topics": ["Location and Topography", "Climate and Drainage Systems", "Natural Resources"]
+                      },
+                      {
+                        "id": "geo_ch2",
+                        "title": "Population and Demographics",
+                        "topics": ["Population Distribution and Density", "Urbanization", "Cultural and Linguistic Diversity"]
+                      },
+                      {
+                        "id": "geo_ch3",
+                        "title": "Economic Geography",
+                        "topics": ["Agriculture", "Industry and Manufacturing", "Infrastructure and Transportation"]
+                      },
+                      {
+                        "id": "geo_ch4",
+                        "title": "Environmental Issues and Development",
+                        "topics": ["Land Degradation", "Water Scarcity", "Cross-Cutting Development Issues"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "Math1011",
+                    "name": "Mathematics (For Natural Science)",
+                    "credits": 3,
+                    "description": "A foundational mathematics course for science and engineering students, covering topics in functions, limits, continuity, differentiation, and an introduction to integration.",
+                    "outcomes": [
+                      "Understand and apply the concepts of functions, limits, and continuity.",
+                      "Calculate derivatives of various functions using established rules.",
+                      "Apply differentiation to solve optimization and related rates problems.",
+                      "Understand the concept of the definite integral and the Fundamental Theorem of Calculus."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "math1_ch1",
+                        "title": "Functions, Limits, and Continuity",
+                        "topics": ["Properties of Functions", "The Limit of a Function", "Continuity"]
+                      },
+                      {
+                        "id": "math1_ch2",
+                        "title": "Differentiation",
+                        "topics": ["The Derivative as a Function", "Differentiation Rules (Product, Quotient, Chain)", "Implicit Differentiation"]
+                      },
+                      {
+                        "id": "math1_ch3",
+                        "title": "Applications of Differentiation",
+                        "topics": ["Related Rates", "Maxima and Minima", "Curve Sketching"]
+                      },
+                      {
+                        "id": "math1_ch4",
+                        "title": "Introduction to Integration",
+                        "topics": ["Antiderivatives", "The Definite Integral", "The Fundamental Theorem of Calculus"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "SpSc1011",
+                    "name": "Physical Fitness",
+                    "credits": 0,
+                    "description": "A practical course focused on developing and maintaining physical fitness. It covers the components of fitness, basic exercise principles, and various physical activities. This is a Pass/Fail course.",
+                    "outcomes": [
+                      "Understand the health-related components of physical fitness.",
+                      "Demonstrate proper technique in various exercises and physical activities.",
+                      "Develop a personal fitness plan.",
+                      "Appreciate the role of physical activity in overall well-being."
+                    ],
+                    "chapters": []
+                  },
+                  {
+                    "code": "Phys1011",
+                    "name": "General Physics",
+                    "credits": 3,
+                    "description": "An introduction to the fundamental principles of classical mechanics. Topics include kinematics, Newton's laws of motion, work and energy, momentum, and rotational motion.",
+                    "outcomes": [
+                      "Apply kinematic equations to analyze motion in one and two dimensions.",
+                      "Use Newton's laws to solve problems involving forces and motion.",
+                      "Apply the principles of conservation of energy and momentum.",
+                      "Analyze the rotational dynamics of rigid bodies."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "phy_ch1",
+                        "title": "Kinematics",
+                        "topics": ["Vectors", "Motion in One and Two Dimensions", "Projectile Motion"]
+                      },
+                      {
+                        "id": "phy_ch2",
+                        "title": "Newtonian Mechanics",
+                        "topics": ["Newton's Laws of Motion", "Friction", "Dynamics of Circular Motion"]
+                      },
+                      {
+                        "id": "phy_ch3",
+                        "title": "Work and Energy",
+                        "topics": ["Work and Kinetic Energy", "Potential Energy", "Conservation of Mechanical Energy"]
+                      },
+                      {
+                        "id": "phy_ch4",
+                        "title": "Momentum and Rotational Motion",
+                        "topics": ["Linear Momentum and Collisions", "Rotational Kinematics", "Torque and Rotational Dynamics"]
+                      }
+                    ]
+                  }
+                ],
+                "Semester II": [
+                  {
+                    "code": "EmTe1108",
+                    "name": "Emerging Technology for Engineers",
+                    "credits": 3,
+                    "description": "A survey of current and future technologies that are transforming engineering and society. Topics may include Artificial Intelligence, Internet of Things (IoT), blockchain, 3D printing, and biotechnology.",
+                    "outcomes": [
+                      "Identify and describe key emerging technologies.",
+                      "Understand the fundamental principles behind these technologies.",
+                      "Analyze the potential impact and ethical implications of new technologies.",
+                      "Relate emerging technologies to their specific field of engineering."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "et_ch1",
+                        "title": "Introduction to Emerging Technologies",
+                        "topics": ["The Fourth Industrial Revolution", "Data-driven Technologies"]
+                      },
+                      {
+                        "id": "et_ch2",
+                        "title": "Artificial Intelligence and IoT",
+                        "topics": ["Machine Learning Basics", "The Internet of Things (IoT) Architecture", "Applications in Engineering"]
+                      },
+                      {
+                        "id": "et_ch3",
+                        "title": "Distributed and Additive Technologies",
+                        "topics": ["Blockchain and Distributed Ledgers", "3D Printing (Additive Manufacturing)"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "Entr1106",
+                    "name": "Entrepreneurship for Engineers",
+                    "credits": 2,
+                    "description": "This course provides an introduction to the principles of entrepreneurship, focusing on identifying opportunities, developing business models, and launching new technology-based ventures.",
+                    "outcomes": [
+                      "Identify and evaluate business opportunities.",
+                      "Develop a viable business model canvas.",
+                      "Understand the basics of financing a new venture.",
+                      "Prepare and present a concise business pitch."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "ent_ch1",
+                        "title": "The Entrepreneurial Mindset",
+                        "topics": ["Creativity and Opportunity Recognition", "Risk and Reward"]
+                      },
+                      {
+                        "id": "ent_ch2",
+                        "title": "Developing the Business Model",
+                        "topics": ["Business Model Canvas", "Value Proposition", "Customer Segments"]
+                      },
+                      {
+                        "id": "ent_ch3",
+                        "title": "Marketing and Finance Basics",
+                        "topics": ["Marketing for Startups", "Financial Projections", "Sources of Funding"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "Anth1012",
+                    "name": "Social Anthropology",
+                    "credits": 2,
+                    "description": "An introduction to the field of social anthropology, exploring human cultures, social structures, and diversity. The course examines topics like kinship, religion, politics, and economic systems across different societies.",
+                    "outcomes": [
+                      "Understand the core concepts and methods of anthropology.",
+                      "Appreciate the diversity of human cultures and social organizations.",
+                      "Analyze social and cultural phenomena from a cross-cultural perspective.",
+                      "Critically reflect on one's own cultural assumptions."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "anth_ch1",
+                        "title": "Introduction to Anthropology",
+                        "topics": ["The Four Fields of Anthropology", "The Concept of Culture", "Fieldwork and Ethnography"]
+                      },
+                      {
+                        "id": "anth_ch2",
+                        "title": "Social Organization",
+                        "topics": ["Kinship, Marriage, and Family", "Political Systems", "Economic Anthropology"]
+                      },
+                      {
+                        "id": "anth_ch3",
+                        "title": "Systems of Meaning",
+                        "topics": ["Religion and Belief Systems", "Language and Culture", "Globalization and Cultural Change"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "FLEn1012",
+                    "name": "Communicative English Language Skill-II",
+                    "credits": 3,
+                    "description": "This course builds on the skills developed in the first semester, focusing on more advanced academic and professional communication. It emphasizes critical reading, argumentative writing, and formal presentation skills.",
+                    "outcomes": [
+                      "Critically analyze and evaluate academic articles.",
+                      "Construct well-researched and persuasive argumentative essays.",
+                      "Plan and deliver effective and engaging formal presentations.",
+                      "Improve proficiency in discipline-specific academic vocabulary."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "eng2_ch1",
+                        "title": "Critical Reading and Analysis",
+                        "topics": ["Identifying Arguments and Bias", "Evaluating Evidence", "Synthesizing Information from Multiple Sources"]
+                      },
+                      {
+                        "id": "eng2_ch2",
+                        "title": "Argumentative and Research Writing",
+                        "topics": ["Developing a Thesis Statement", "Conducting Library Research", "Writing a Research Paper", "Citation and Referencing"]
+                      },
+                      {
+                        "id": "eng2_ch3",
+                        "title": "Advanced Speaking and Presentation Skills",
+                        "topics": ["Structuring a Formal Presentation", "Public Speaking Techniques", "Handling Questions and Answers"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "Math1012",
+                    "name": "Applied Mathematics IB",
+                    "credits": 4,
+                    "description": "This course covers techniques of integration, applications of integration, sequences and series, and an introduction to multivariable calculus, providing essential mathematical tools for engineering.",
+                    "outcomes": [
+                      "Master various techniques of integration.",
+                      "Apply integration to find areas, volumes, and other physical quantities.",
+                      "Determine the convergence or divergence of infinite series.",
+                      "Perform partial differentiation and solve basic multiple integrals."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "math2_ch1",
+                        "title": "Techniques of Integration",
+                        "topics": ["Integration by Parts", "Trigonometric Integrals", "Partial Fractions", "Improper Integrals"]
+                      },
+                      {
+                        "id": "math2_ch2",
+                        "title": "Applications of Integration",
+                        "topics": ["Area Between Curves", "Volumes of Revolution", "Arc Length"]
+                      },
+                      {
+                        "id": "math2_ch3",
+                        "title": "Sequences and Series",
+                        "topics": ["Sequences", "Infinite Series and Convergence Tests", "Power Series", "Taylor and Maclaurin Series"]
+                      },
+                      {
+                        "id": "math2_ch4",
+                        "title": "Introduction to Multivariable Calculus",
+                        "topics": ["Functions of Several Variables", "Partial Derivatives", "Double Integrals"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "MCiE1012",
+                    "name": "Moral and Civic Education",
+                    "credits": 2,
+                    "description": "This course explores the fundamental principles of ethics, morality, and civic responsibility. It aims to develop students' understanding of their roles as ethical individuals and responsible citizens in a diverse society.",
+                    "outcomes": [
+                      "Understand major ethical theories and principles.",
+                      "Analyze contemporary moral and ethical dilemmas.",
+                      "Recognize the rights and responsibilities of citizens.",
+                      "Appreciate the importance of civic engagement and democratic values."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "mce_ch1",
+                        "title": "Understanding Civics and Ethics",
+                        "topics": ["Definitions and Concepts", "The Importance of Moral and Civic Education"]
+                      },
+                      {
+                        "id": "mce_ch2",
+                        "title": "Citizenship and Governance",
+                        "topics": ["The State and Government", "Constitution and Constitutionalism", "Democracy and Human Rights"]
+                      },
+                      {
+                        "id": "mce_ch3",
+                        "title": "Ethical Decision Making",
+                        "topics": ["Ethical Theories", "Professional Ethics", "Case Studies in Ethics"]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "Incl1012",
+                    "name": "Inclusiveness",
+                    "credits": 2,
+                    "description": "This course introduces the concepts of diversity, equity, and inclusion. It explores the challenges faced by various groups and aims to foster an understanding and appreciation of inclusiveness in all aspects of life.",
+                    "outcomes": [
+                      "Define key concepts related to diversity, disability, and inclusion.",
+                      "Identify barriers to inclusion and participation.",
+                      "Appreciate the value of diversity in society and the workplace.",
+                      "Promote inclusive practices in personal and professional interactions."
+                    ],
+                    "chapters": [
+                      {
+                        "id": "incl_ch1",
+                        "title": "Understanding Diversity and Inclusion",
+                        "topics": ["Dimensions of Diversity", "Models of Disability", "Principles of Inclusion"]
+                      },
+                      {
+                        "id": "incl_ch2",
+                        "title": "Identifying and Removing Barriers",
+                        "topics": ["Stereotypes, Prejudice, and Discrimination", "Physical and Attitudinal Barriers", "Inclusive Policies and Laws"]
+                      },
+                      {
+                        "id": "incl_ch3",
+                        "title": "Promoting an Inclusive Environment",
+                        "topics": ["Inclusive Communication", "Universal Design Principles", "Creating Inclusive Communities"]
+                      }
+                    ]
+                  }
+                ]
+              }
+          },
+        },
+        {
           "name": "Food Sciences and Applied Nutrition",
           "abbreviation": "FSAN",
           "coursesByYearSemester": {
             "Year 2": {
               "Semester I": [
                 {
+                  "code": "Econ2009",
+                  "name": "Economics",
+                  "credits": 3,
+                  "description": "An introduction to microeconomic and macroeconomic principles, including supply and demand, market structures, national income, inflation, unemployment, and fiscal and monetary policy, with relevance to the food industry and consumer behavior.",
+                  "outcomes": [
+                    "Understand the basic principles of supply, demand, and market equilibrium in the context of food prices.",
+                    "Analyze different market structures within the food industry.",
+                    "Grasp key macroeconomic indicators that affect food security and policy.",
+                    "Apply economic principles to understand issues in the global food system."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "econ_ch1",
+                      "title": "Introduction to Economics",
+                      "topics": [
+                        "The Economic Problem of Scarcity",
+                        "Opportunity Cost",
+                        "Production Possibilities Frontier"
+                      ]
+                    },
+                    {
+                      "id": "econ_ch2",
+                      "title": "Microeconomics",
+                      "topics": [
+                        "Supply and Demand of Food Products",
+                        "Elasticity",
+                        "Theory of Production and Costs in Agriculture",
+                        "Market Structures"
+                      ]
+                    },
+                    {
+                      "id": "econ_ch3",
+                      "title": "Macroeconomics",
+                      "topics": [
+                        "Measuring National Income (GDP)",
+                        "Inflation and Food Prices",
+                        "Unemployment",
+                        "Monetary and Fiscal Policy"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "GLTr2001",
+                  "name": "Global Trend",
+                  "credits": 2,
+                  "description": "A course exploring major global trends, issues, and challenges in the 21st century, covering topics like globalization, international relations, global security, environmental challenges, and their impact on global food systems and nutrition.",
+                  "outcomes": [
+                    "Identify and analyze major trends shaping the contemporary world.",
+                    "Understand the interconnectedness of global political, economic, and social systems.",
+                    "Critically evaluate different perspectives on global issues such as food security, climate change, and international trade."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "gt_ch1",
+                      "title": "Understanding Globalization",
+                      "topics": [
+                        "Dimensions of Globalization",
+                        "Globalization and the Food System",
+                        "Theories of International Relations"
+                      ]
+                    },
+                    {
+                      "id": "gt_ch2",
+                      "title": "Global Security Issues",
+                      "topics": [
+                        "The Concept of Security including Food Security",
+                        "Conflict and its Impact on Nutrition",
+                        "Human Security"
+                      ]
+                    },
+                    {
+                      "id": "gt_ch3",
+                      "title": "Contemporary Global Challenges",
+                      "topics": [
+                        "Climate Change and Agriculture",
+                        "Global Poverty and Development Goals",
+                        "Foreign Policy and Food Aid"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Inch2205",
+                  "name": "Fundamentals of Analytical Chemistry",
+                  "credits": 3,
+                  "description": "A study of the principles of qualitative and quantitative chemical analysis. Covers statistical data treatment, classical wet chemical methods, and an introduction to modern instrumental techniques relevant to food science.",
+                  "outcomes": [
+                    "Apply statistical methods to evaluate analytical data and assess measurement quality.",
+                    "Understand the theory and practice of gravimetric and titrimetric analysis.",
+                    "Grasp the fundamental principles of spectroscopic and chromatographic methods.",
+                    "Select appropriate analytical techniques for specific chemical analyses of food components."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "fac_ch1",
+                      "title": "Introduction and Data Analysis",
+                      "topics": [
+                        "Steps in a Chemical Analysis",
+                        "Errors in Chemical Analysis",
+                        "Statistical Treatment of Data (Mean, Standard Deviation, Confidence Intervals, Q-test)"
+                      ]
+                    },
+                    {
+                      "id": "fac_ch2",
+                      "title": "Classical Methods of Analysis",
+                      "topics": [
+                        "Gravimetric Analysis",
+                        "Acid-Base Titrations",
+                        "Redox and Complexometric Titrations"
+                      ]
+                    },
+                    {
+                      "id": "fac_ch3",
+                      "title": "Introduction to Spectroscopic Methods",
+                      "topics": [
+                        "Interaction of Radiation with Matter",
+                        "UV-Visible Spectroscopy and Beer's Law",
+                        "Introduction to Atomic Absorption Spectroscopy (AAS)"
+                      ]
+                    },
+                    {
+                      "id": "fac_ch4",
+                      "title": "Introduction to Chromatographic Separations",
+                      "topics": [
+                        "Principles of Chromatography",
+                        "Gas Chromatography (GC)",
+                        "High-Performance Liquid Chromatography (HPLC)"
+                      ]
+                    }
+                  ]
+                },
+                {
                   "code": "FSAN2101",
                   "name": "Introduction to Food Science and Nutrition",
-                  "description": "A foundational course covering the interdisciplinary nature of food science and the fundamental principles of human nutrition, food composition, and the food system.",
                   "credits": 3,
+                  "description": "A foundational course covering the multidisciplinary nature of food science and human nutrition, exploring the journey of food from production to its impact on health and well-being.",
                   "outcomes": [
-                    "Describe the major disciplines within food science.",
-                    "Identify the key macronutrients and micronutrients and their functions.",
-                    "Understand the basic components of the food supply chain.",
-                    "Recognize the relationship between food, nutrition, and health."
+                    "Describe the major chemical components of food and their functions.",
+                    "Identify the major food groups and their contribution to a healthy diet.",
+                    "Explain the relationship between diet, health, and chronic diseases.",
+                    "Outline the scope of the food science and nutrition disciplines."
                   ],
                   "chapters": [
                     {
                       "id": "ifsan_ch1",
-                      "title": "Overview of Food Science",
+                      "title": "Scope of Food Science and Nutrition",
                       "topics": [
-                        "Introduction to Food Chemistry",
-                        "Introduction to Food Microbiology",
-                        "Introduction to Food Processing",
-                        "Introduction to Food Engineering"
+                        "Definitions and Interdisciplinary Nature",
+                        "Global Food and Nutrition Challenges",
+                        "Food Systems"
                       ]
                     },
                     {
                       "id": "ifsan_ch2",
-                      "title": "Fundamentals of Human Nutrition",
+                      "title": "Macronutrients and Energy",
                       "topics": [
-                        "Energy Metabolism",
-                        "Dietary Reference Intakes (DRIs)",
-                        "Digestion and Absorption"
+                        "Carbohydrates",
+                        "Proteins",
+                        "Lipids",
+                        "Energy Balance"
                       ]
                     },
                     {
                       "id": "ifsan_ch3",
-                      "title": "Macronutrients and Micronutrients",
+                      "title": "Micronutrients",
                       "topics": [
-                        "Carbohydrates, Lipids, and Proteins",
-                        "Vitamins (Fat-soluble, Water-soluble)",
-                        "Minerals (Major, Trace)"
+                        "Vitamins (Water-soluble and Fat-soluble)",
+                        "Minerals and Trace Elements"
                       ]
                     },
                     {
                       "id": "ifsan_ch4",
-                      "title": "The Food System",
+                      "title": "Food Groups and Dietary Guidelines",
                       "topics": [
-                        "From Farm to Fork: The Food Supply Chain",
-                        "Food Security and Sustainability",
-                        "Global Food Issues"
+                        "Classification of Foods",
+                        "Dietary Guidelines and Food Guides (e.g., Food Pyramid)",
+                        "Introduction to Diet Planning"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "Chem2101",
-                  "name": "General Chemistry",
-                  "description": "Covers fundamental principles of chemistry, including atomic structure, chemical bonding, stoichiometry, and solution chemistry, providing a basis for food chemistry.",
-                  "credits": 4,
+                  "code": "FSAN2103",
+                  "name": "Human Anatomy and Physiology",
+                  "credits": 3,
+                  "description": "A study of the structure (anatomy) and function (physiology) of the human body, with a special emphasis on the systems directly involved in the ingestion, digestion, absorption, and metabolism of nutrients.",
                   "outcomes": [
-                    "Solve stoichiometric problems.",
-                    "Understand atomic theory and chemical bonding.",
-                    "Calculate concentrations of solutions.",
-                    "Apply principles of chemical equilibrium."
+                    "Identify the major organ systems of the human body.",
+                    "Explain the physiological processes of digestion, absorption, and transport of nutrients.",
+                    "Describe the role of the endocrine system in regulating metabolism.",
+                    "Relate anatomical structures to their functions in nutritional science."
                   ],
                   "chapters": [
                     {
-                      "id": "gchem_ch1",
-                      "title": "Atomic Structure and Periodicity",
+                      "id": "hap_ch1",
+                      "title": "Introduction to the Human Body",
                       "topics": [
-                        "Atoms, Molecules, and Ions",
-                        "Quantum Theory",
-                        "Periodic Trends"
+                        "Levels of Organization",
+                        "Homeostasis",
+                        "Anatomical Terminology"
                       ]
                     },
                     {
-                      "id": "gchem_ch2",
-                      "title": "Chemical Bonding",
+                      "id": "hap_ch2",
+                      "title": "The Digestive System",
                       "topics": [
-                        "Ionic and Covalent Bonding",
-                        "Lewis Structures and VSEPR Theory",
-                        "Molecular Orbital Theory"
+                        "Anatomy of the GI Tract",
+                        "Mechanical and Chemical Digestion",
+                        "Absorption and Transport of Nutrients"
                       ]
                     },
                     {
-                      "id": "gchem_ch3",
-                      "title": "Stoichiometry and Reactions",
+                      "id": "hap_ch3",
+                      "title": "Cardiovascular and Urinary Systems",
                       "topics": [
-                        "Chemical Equations and Stoichiometry",
-                        "Reactions in Aqueous Solutions",
-                        "Redox Reactions"
+                        "Nutrient Transport in Blood",
+                        "Role of the Kidneys in Waste Excretion and Water Balance"
                       ]
                     },
                     {
-                      "id": "gchem_ch4",
-                      "title": "Gases and Solutions",
+                      "id": "hap_ch4",
+                      "title": "Endocrine and Nervous System",
                       "topics": [
-                        "The Ideal Gas Law",
-                        "Intermolecular Forces",
-                        "Solution Concentration"
+                        "Hormonal Regulation of Metabolism (Insulin, Glucagon)",
+                        "Nervous System Control of Digestion"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "Biol2103",
-                  "name": "General Biology and Physiology",
-                  "description": "An introduction to the principles of biology, including cell structure and function, genetics, and an overview of human physiology relevant to digestion and metabolism.",
-                  "credits": 4,
+                  "code": "FSAN2105",
+                  "name": "Food Chemistry",
+                  "credits": 3,
+                  "description": "A detailed study of the chemical composition of foods and the chemical and biochemical transformations that these components undergo during processing, storage, and utilization.",
                   "outcomes": [
-                    "Describe the structure and function of cells.",
-                    "Understand basic principles of genetics and inheritance.",
-                    "Explain the major functions of human organ systems.",
-                    "Describe the physiological processes of digestion and absorption."
+                    "Describe the chemical structures and functional properties of carbohydrates, proteins, and lipids in food systems.",
+                    "Analyze key chemical reactions in food, such as Maillard browning, caramelization, and lipid oxidation.",
+                    "Understand the role and chemistry of food additives, pigments, and flavors.",
+                    "Relate chemical changes in food to quality attributes like texture, color, and flavor."
                   ],
                   "chapters": [
                     {
-                      "id": "gbio_ch1",
-                      "title": "The Cell",
+                      "id": "fc_ch1",
+                      "title": "Water and Its Properties in Food",
                       "topics": [
-                        "Cellular Organelles",
-                        "Cell Membranes and Transport",
-                        "Cellular Respiration"
+                        "Structure of Water",
+                        "Water Activity and Food Stability",
+                        "Glass Transition"
                       ]
                     },
                     {
-                      "id": "gbio_ch2",
-                      "title": "Genetics and Molecular Biology",
+                      "id": "fc_ch2",
+                      "title": "Carbohydrates",
                       "topics": [
-                        "DNA Replication",
-                        "Transcription and Translation",
-                        "Mendelian Genetics"
+                        "Monosaccharides, Oligosaccharides, and Polysaccharides",
+                        "Starch and Cellulose",
+                        "Maillard Browning and Caramelization"
                       ]
                     },
                     {
-                      "id": "gbio_ch3",
-                      "title": "Human Physiology I: Digestion",
+                      "id": "fc_ch3",
+                      "title": "Lipids",
                       "topics": [
-                        "The Digestive System",
-                        "Enzymatic Breakdown of Food",
-                        "Nutrient Absorption"
+                        "Fatty Acids and Triglycerides",
+                        "Lipid Oxidation",
+                        "Emulsions and Foams"
                       ]
                     },
                     {
-                      "id": "gbio_ch4",
-                      "title": "Human Physiology II: Metabolism",
+                      "id": "fc_ch4",
+                      "title": "Proteins and Enzymes",
                       "topics": [
-                        "Hormonal Control of Metabolism",
-                        "The Circulatory System",
-                        "The Excretory System"
+                        "Amino Acids and Protein Structure",
+                        "Protein Denaturation and Functional Properties",
+                        "Enzymatic Browning and other Enzymatic Reactions in Food"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN2107",
+                  "name": "Principle of Food Processing and Preservation",
+                  "credits": 3,
+                  "description": "An overview of the fundamental principles and various methods used to process and preserve foods, aiming to extend shelf life, ensure safety, and maintain nutritional and sensory quality.",
+                  "outcomes": [
+                    "Explain the principal mechanisms of food spoilage (microbial, chemical, physical).",
+                    "Describe the scientific principles behind various food preservation techniques.",
+                    "Select appropriate processing and preservation methods for different food types.",
+                    "Analyze the impact of processing on the quality and nutrient content of foods."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "pfpp_ch1",
+                      "title": "Introduction to Food Spoilage and Preservation",
+                      "topics": [
+                        "Causes of Food Deterioration",
+                        "Goals of Food Preservation"
+                      ]
+                    },
+                    {
+                      "id": "pfpp_ch2",
+                      "title": "Thermal Processing",
+                      "topics": [
+                        "Blanching, Pasteurization, and Sterilization",
+                        "Canning and Retort Processing",
+                        "Aseptic Processing"
+                      ]
+                    },
+                    {
+                      "id": "pfpp_ch3",
+                      "title": "Low-Temperature Preservation",
+                      "topics": [
+                        "Refrigeration and Chilling",
+                        "Freezing and Frozen Storage",
+                        "Changes During Freezing"
+                      ]
+                    },
+                    {
+                      "id": "pfpp_ch4",
+                      "title": "Preservation by Water Removal and Other Methods",
+                      "topics": [
+                        "Dehydration and Drying",
+                        "Concentration and Evaporation",
+                        "Use of Chemical Preservatives and Fermentation",
+                        "Non-thermal Processing (Irradiation, High Pressure)"
                       ]
                     }
                   ]
@@ -19874,209 +23361,340 @@ export const courseData: CourseData = {
               ],
               "Semester II": [
                 {
-                  "code": "FSAN2102",
-                  "name": "Food Chemistry",
-                  "description": "A study of the chemical composition of foods and the chemical and biochemical reactions that occur during handling, processing, and storage.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "Chem2101"
-                  ],
+                  "code": "Hist2002",
+                  "name": "History of Ethiopia and the horn",
+                  "credits": 3,
+                  "description": "A survey of the history of Ethiopia and the Horn of Africa from ancient times to the modern era, focusing on social, political, economic, and cultural developments.",
                   "outcomes": [
-                    "Understand the role of water and its effect on food stability.",
-                    "Describe the structure and reactions of carbohydrates, lipids, and proteins in foods.",
-                    "Analyze the causes and effects of food browning reactions.",
-                    "Recognize the function of food additives."
+                    "Understand the major historical periods and developments in Ethiopia and the Horn.",
+                    "Analyze the interactions between different peoples and states in the region.",
+                    "Appreciate the historical roots of contemporary issues in the region."
                   ],
                   "chapters": [
                     {
-                      "id": "fchem_ch1",
-                      "title": "Water in Foods",
+                      "id": "hist_eth_ch1",
+                      "title": "Ancient and Medieval Periods",
                       "topics": [
-                        "Structure and Properties of Water",
-                        "Water Activity and Food Stability",
-                        "Sorption Isotherms"
+                        "The Aksumite Kingdom",
+                        "The Zagwe Dynasty",
+                        "The 'Restored' Solomonic Dynasty"
                       ]
                     },
                     {
-                      "id": "fchem_ch2",
-                      "title": "Carbohydrates",
+                      "id": "hist_eth_ch2",
+                      "title": "Early Modern and Modern Eras",
                       "topics": [
-                        "Monosaccharides and Disaccharides",
-                        "Polysaccharides (Starch, Pectin, Gums)",
-                        "Non-enzymatic Browning (Maillard Reaction, Caramelization)"
+                        "The Gondarine Period and 'Zemene Mesafint'",
+                        "Territorial Unification and Expansion (1855-1991)"
                       ]
                     },
                     {
-                      "id": "fchem_ch3",
-                      "title": "Lipids",
+                      "id": "hist_eth_ch3",
+                      "title": "Contemporary Ethiopia and the Horn",
                       "topics": [
-                        "Fatty Acids and Triglycerides",
-                        "Lipid Oxidation and Rancidity",
-                        "Emulsions and Emulsifiers"
+                        "Post-1991 Political and Social Developments",
+                        "Regional Relations and Conflicts"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Inch2503",
+                  "name": "Biochemistry",
+                  "credits": 3,
+                  "description": "A study of the chemistry of living systems, focusing on the structure and function of biomolecules and the major metabolic pathways for energy production and biosynthesis relevant to human nutrition.",
+                  "outcomes": [
+                    "Describe the structure and function of carbohydrates, lipids, proteins, and nucleic acids.",
+                    "Explain the major metabolic pathways, including glycolysis, the Krebs cycle, and beta-oxidation.",
+                    "Understand the principles of enzyme kinetics and metabolic regulation.",
+                    "Relate biochemical pathways to nutrient utilization and metabolic disorders."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "biochem_ch1",
+                      "title": "Structure and Function of Biomolecules",
+                      "topics": [
+                        "Amino Acids and Proteins",
+                        "Carbohydrates",
+                        "Lipids and Membranes",
+                        "Nucleic Acids"
                       ]
                     },
                     {
-                      "id": "fchem_ch4",
-                      "title": "Proteins, Enzymes, and Additives",
+                      "id": "biochem_ch2",
+                      "title": "Enzymes",
                       "topics": [
-                        "Protein Structure and Denaturation",
-                        "Enzymatic Reactions in Foods",
-                        "Food Additives (Preservatives, Colorants, Flavors)"
+                        "Enzyme Kinetics (Michaelis-Menten)",
+                        "Mechanisms of Enzyme Action",
+                        "Enzyme Regulation"
+                      ]
+                    },
+                    {
+                      "id": "biochem_ch3",
+                      "title": "Bioenergetics and Metabolism",
+                      "topics": [
+                        "Glycolysis and Gluconeogenesis",
+                        "The Citric Acid Cycle (Krebs Cycle)",
+                        "Oxidative Phosphorylation"
+                      ]
+                    },
+                    {
+                      "id": "biochem_ch4",
+                      "title": "Metabolism of Lipids and Nitrogen",
+                      "topics": [
+                        "Fatty Acid Oxidation and Synthesis",
+                        "Amino Acid Metabolism",
+                        "The Urea Cycle"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN2102",
+                  "name": "Food Microbiology",
+                  "credits": 3,
+                  "description": "A study of microorganisms relevant to food systems, including their role in food spoilage, foodborne illness, and food fermentation. Covers methods for enumeration, control, and utilization of microbes in food.",
+                  "outcomes": [
+                    "Identify important genera of bacteria, yeasts, and molds found in food.",
+                    "Understand the intrinsic and extrinsic factors that affect microbial growth in foods.",
+                    "Describe the epidemiology and control of common foodborne pathogens.",
+                    "Explain the microbiological principles behind the production of fermented foods like yogurt and bread."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "fm_ch1",
+                      "title": "Introduction to Microorganisms in Food",
+                      "topics": [
+                        "Classification of Microorganisms",
+                        "Sources of Contamination",
+                        "Microbial Growth Curve"
+                      ]
+                    },
+                    {
+                      "id": "fm_ch2",
+                      "title": "Factors Affecting Microbial Growth",
+                      "topics": [
+                        "Intrinsic Factors (pH, Water Activity, Nutrients)",
+                        "Extrinsic Factors (Temperature, Gaseous Atmosphere)",
+                        "The Hurdle Concept"
+                      ]
+                    },
+                    {
+                      "id": "fm_ch3",
+                      "title": "Foodborne Pathogens and Spoilage",
+                      "topics": [
+                        "Common Bacterial Pathogens (Salmonella, E. coli, Listeria)",
+                        "Foodborne Viruses and Parasites",
+                        "Microbial Spoilage of Different Food Groups"
+                      ]
+                    },
+                    {
+                      "id": "fm_ch4",
+                      "title": "Beneficial Microorganisms and Control",
+                      "topics": [
+                        "Fermented Foods (Dairy, Meats, Vegetables)",
+                        "Probiotics and Prebiotics",
+                        "Methods for Microbial Examination and Control"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "FSAN2104",
-                  "name": "Food Microbiology",
-                  "description": "Study of microorganisms important in foods, including spoilage organisms, pathogens, and beneficial microbes used in fermentations. Includes methods for enumeration and control.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "Biol2103"
-                  ],
+                  "name": "Food Toxicology",
+                  "credits": 3,
+                  "description": "An examination of toxic substances found in food, including naturally occurring toxins, microbial toxins, environmental contaminants, and processing-induced toxicants. Covers principles of toxicology, dose-response relationships, and risk assessment.",
                   "outcomes": [
-                    "Identify the major types of microorganisms found in food.",
-                    "Understand the intrinsic and extrinsic factors affecting microbial growth.",
-                    "Describe common foodborne pathogens and spoilage organisms.",
-                    "Apply principles of microbial control in food systems."
+                    "Understand basic principles of toxicology including dose-response, absorption, distribution, metabolism, and excretion (ADME).",
+                    "Identify major classes of food toxicants and their sources.",
+                    "Describe the mechanisms of toxicity for key food contaminants.",
+                    "Grasp the fundamentals of toxicological risk assessment."
                   ],
                   "chapters": [
                     {
-                      "id": "fm_ch1",
-                      "title": "Fundamentals of Food Microbiology",
+                      "id": "ftox_ch1",
+                      "title": "Principles of Toxicology",
                       "topics": [
-                        "Bacteria, Yeasts, Molds, and Viruses",
-                        "Microbial Growth and Enumeration",
-                        "Factors Affecting Microbial Growth"
+                        "Dose-Response Relationships",
+                        "Absorption, Distribution, Metabolism, and Excretion (ADME)",
+                        "Mechanisms of Toxicity"
                       ]
                     },
                     {
-                      "id": "fm_ch2",
-                      "title": "Beneficial Microorganisms",
+                      "id": "ftox_ch2",
+                      "title": "Naturally Occurring and Microbial Toxins",
                       "topics": [
-                        "Microorganisms in Food Fermentations (Dairy, Meat, Vegetables)",
-                        "Probiotics and Prebiotics"
+                        "Mycotoxins (e.g., Aflatoxins)",
+                        "Plant Toxins (e.g., Glycoalkaloids)",
+                        "Bacterial Toxins"
                       ]
                     },
                     {
-                      "id": "fm_ch3",
-                      "title": "Food Spoilage",
+                      "id": "ftox_ch3",
+                      "title": "Environmental Contaminants",
                       "topics": [
-                        "Spoilage of Different Food Groups",
-                        "Predictive Microbiology"
+                        "Pesticide Residues",
+                        "Heavy Metals (Lead, Mercury, Cadmium)",
+                        "Persistent Organic Pollutants (POPs)"
                       ]
                     },
                     {
-                      "id": "fm_ch4",
-                      "title": "Foodborne Pathogens and Control",
+                      "id": "ftox_ch4",
+                      "title": "Processing-Induced Toxicants and Risk Assessment",
                       "topics": [
-                        "Major Foodborne Pathogens (Salmonella, E. coli, Listeria)",
-                        "Foodborne Illness Outbreaks",
-                        "Principles of HACCP"
+                        "Acrylamide",
+                        "Polycyclic Aromatic Hydrocarbons (PAHs)",
+                        "Toxicological Risk Assessment Process"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "FSAN2106",
-                  "name": "Principles of Food Processing",
-                  "description": "An introduction to the unit operations used in the food industry to transform raw agricultural commodities into processed food products.",
+                  "name": "Food Analysis and Instrumentation",
                   "credits": 3,
-                  "prerequisites": [
-                    "FSAN2101"
-                  ],
+                  "description": "A course focusing on the theory, practice, and instrumentation of modern analytical techniques used for the quantitative and qualitative analysis of food composition and quality attributes.",
                   "outcomes": [
-                    "Describe the principles of heat transfer and fluid flow in food processing.",
-                    "Understand the theory behind major food processing operations.",
-                    "Draw a process flow diagram for a simple food product.",
-                    "Recognize the impact of processing on food quality."
+                    "Select and perform appropriate analytical methods for determining the composition of foods.",
+                    "Understand the operational principles of key analytical instruments like spectrophotometers, GC, and HPLC.",
+                    "Perform instrumental analysis of food components such as proteins, fats, vitamins, and additives.",
+                    "Critically interpret and report analytical data, including quality control.",
                   ],
                   "chapters": [
                     {
-                      "id": "pfp_ch1",
-                      "title": "Engineering Fundamentals",
+                      "id": "fai_ch1",
+                      "title": "Introduction and Classical Methods",
                       "topics": [
-                        "Units and Dimensions",
-                        "Material and Energy Balances",
-                        "Basic Fluid Flow"
+                        "Sampling and Sample Preparation",
+                        "Analysis of Moisture, Ash, Fat (Soxhlet), Protein (Kjeldahl), and Fiber"
                       ]
                     },
                     {
-                      "id": "pfp_ch2",
-                      "title": "Heat Transfer in Food Processing",
+                      "id": "fai_ch2",
+                      "title": "Spectroscopic Techniques",
                       "topics": [
-                        "Conduction, Convection, and Radiation",
-                        "Heat Exchangers",
-                        "Thermal Processing Calculations"
+                        "UV-Visible Spectroscopy",
+                        "Atomic Absorption/Emission Spectroscopy (AAS/AES)",
+                        "Infrared (IR) Spectroscopy"
                       ]
                     },
                     {
-                      "id": "pfp_ch3",
-                      "title": "Preservation Operations",
+                      "id": "fai_ch3",
+                      "title": "Chromatographic Techniques",
                       "topics": [
-                        "Thermal Processing (Pasteurization, Sterilization)",
-                        "Refrigeration and Freezing",
-                        "Dehydration"
+                        "Gas Chromatography (GC)",
+                        "High-Performance Liquid Chromatography (HPLC)",
+                        "Analysis of Sugars, Fatty Acids, and Vitamins"
                       ]
                     },
                     {
-                      "id": "pfp_ch4",
-                      "title": "Other Unit Operations",
+                      "id": "fai_ch4",
+                      "title": "Physical and Sensory Analysis",
                       "topics": [
-                        "Mixing and Emulsification",
-                        "Size Reduction (Grinding, Milling)",
-                        "Separation Processes (Filtration, Centrifugation)"
+                        "Texture Analysis",
+                        "Colorimetry",
+                        "Introduction to Sensory Evaluation"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "Stat2101",
-                  "name": "Statistics for Life Sciences",
-                  "description": "An introduction to statistical methods, experimental design, and data analysis relevant to biological, food, and nutritional sciences.",
+                  "code": "FSAN2108",
+                  "name": "Unit Operation in Food Processing",
                   "credits": 3,
+                  "description": "Applies engineering principles to the quantitative study of individual operations common in the food industry. Covers fluid flow, heat transfer, and mass transfer operations with a focus on food materials.",
                   "outcomes": [
-                    "Calculate and interpret descriptive statistics.",
-                    "Apply basic probability concepts.",
-                    "Perform hypothesis testing (t-tests, ANOVA).",
-                    "Conduct simple linear regression and correlation analysis."
+                    "Analyze fluid flow and pumping systems for Newtonian and non-Newtonian foods.",
+                    "Perform design calculations for food heat exchangers.",
+                    "Analyze the principles and equipment for evaporation and drying processes.",
+                    "Understand the fundamentals of mass transfer operations like extraction and membrane separation."
                   ],
                   "chapters": [
                     {
-                      "id": "statls_ch1",
-                      "title": "Descriptive Statistics",
+                      "id": "uofp_ch1",
+                      "title": "Fluid Flow",
                       "topics": [
-                        "Types of Data",
-                        "Measures of Central Tendency and Dispersion",
-                        "Graphical Data Representation"
+                        "Food Rheology",
+                        "Pumps and Piping Systems",
+                        "Mixing and Agitation"
                       ]
                     },
                     {
-                      "id": "statls_ch2",
-                      "title": "Probability and Distributions",
+                      "id": "uofp_ch2",
+                      "title": "Heat Transfer",
                       "topics": [
-                        "Basic Probability",
-                        "The Normal Distribution",
-                        "Sampling Distributions"
+                        "Modes of Heat Transfer",
+                        "Design of Heat Exchangers (Plate, Tubular)",
+                        "Thermal Process Calculations"
                       ]
                     },
                     {
-                      "id": "statls_ch3",
-                      "title": "Hypothesis Testing",
+                      "id": "uofp_ch3",
+                      "title": "Evaporation and Dehydration",
                       "topics": [
-                        "Confidence Intervals",
-                        "t-Tests (One-sample, Two-sample)",
-                        "Analysis of Variance (ANOVA)"
+                        "Single and Multiple-Effect Evaporators",
+                        "Psychrometrics and Drying Theory",
+                        "Design of Dryers"
                       ]
                     },
                     {
-                      "id": "statls_ch4",
-                      "title": "Regression and Correlation",
+                      "id": "uofp_ch4",
+                      "title": "Mass Transfer and Mechanical Separations",
                       "topics": [
-                        "Correlation",
-                        "Simple Linear Regression",
-                        "Chi-Square Test"
+                        "Extraction",
+                        "Membrane Separations (Ultrafiltration, Reverse Osmosis)",
+                        "Filtration and Centrifugation"
                       ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN2110",
+                  "name": "Indigenous food processing and Biotechnology",
+                  "credits": 2,
+                  "description": "Explores traditional and indigenous food processing techniques, particularly in the Ethiopian context, and examines the application of modern biotechnology to improve food production, quality, and safety.",
+                  "outcomes": [
+                    "Document and analyze traditional food processing methods for cereals, legumes, and dairy.",
+                    "Understand the microbiological and biochemical principles of indigenous fermented foods.",
+                    "Describe the applications of modern biotechnology in food production (e.g., GMOs, enzymes).",
+                    "Evaluate the potential of integrating indigenous knowledge with modern food biotechnology."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ifpb_ch1",
+                      "title": "Survey of Indigenous Food Processing",
+                      "topics": [
+                        "Traditional Cereal Processing (Injera)",
+                        "Indigenous Dairy Products (Ergo, Ayib)",
+                        "Processing of Legumes and Oilseeds"
+                      ]
+                    },
+                    {
+                      "id": "ifpb_ch2",
+                      "title": "Fermentation Technology",
+                      "topics": [
+                        "Microbiology of Fermented Foods",
+                        "Biochemical Changes during Fermentation",
+                        "Starter Cultures"
+                      ]
+                    },
+                    {
+                      "id": "ifpb_ch3",
+                      "title": "Principles of Food Biotechnology",
+                      "topics": [
+                        "Recombinant DNA Technology",
+                        "Genetically Modified (GM) Foods and Organisms",
+                        "Regulatory and Ethical Issues"
+                      ]
+                    },
+                    {
+                      "id": "ifpb_ch4",
+                      "title": "Enzyme Technology",
+                      "topics": [
+                        "Enzyme Production and Immobilization",
+                        "Applications of Enzymes in the Food Industry (Baking, Brewing, Dairy)"
+                      ]
+
                     }
                   ]
                 }
@@ -20085,162 +23703,302 @@ export const courseData: CourseData = {
             "Year 3": {
               "Semester I": [
                 {
-                  "code": "FSAN3101",
-                  "name": "Food Analysis",
-                  "description": "Principles and application of modern analytical techniques for the chemical and physical analysis of food components and properties.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "FSAN2102"
-                  ],
+                  "code": "FSAN3109",
+                  "name": "Biostatistics",
+                  "credits": 3,
+                  "description": "An introduction to the application of statistical methods in the biological, food, and nutritional sciences. This course covers experimental design, data collection, analysis, and interpretation of results.",
                   "outcomes": [
-                    "Apply principles of sampling and sample preparation.",
-                    "Perform classic wet chemistry methods for food analysis.",
-                    "Understand the principles of instrumental analysis techniques.",
-                    "Select appropriate analytical methods for specific food matrices."
+                    "Understand the principles of experimental design relevant to food science and nutrition research.",
+                    "Apply appropriate statistical tests (t-tests, ANOVA, chi-square) to analyze data.",
+                    "Perform and interpret linear regression and correlation analyses.",
+                    "Use statistical software to manage and analyze data sets."
                   ],
                   "chapters": [
                     {
-                      "id": "fa_ch1",
-                      "title": "Fundamentals of Food Analysis",
+                      "id": "biostat_ch1",
+                      "title": "Introduction and Descriptive Statistics",
                       "topics": [
-                        "Sampling and Sample Preparation",
-                        "Data Analysis and Quality Assurance",
-                        "Official Methods of Analysis (AOAC)"
+                        "Types of Data",
+                        "Measures of Central Tendency and Dispersion",
+                        "Data Visualization"
                       ]
                     },
                     {
-                      "id": "fa_ch2",
-                      "title": "Compositional Analysis",
+                      "id": "biostat_ch2",
+                      "title": "Probability and Distributions",
                       "topics": [
-                        "Moisture Analysis",
-                        "Ash and Mineral Analysis",
-                        "Lipid Analysis (Soxhlet)",
-                        "Protein Analysis (Kjeldahl)"
+                        "Basic Probability Concepts",
+                        "The Normal Distribution",
+                        "Sampling Distributions"
                       ]
                     },
                     {
-                      "id": "fa_ch3",
-                      "title": "Instrumental Analysis",
+                      "id": "biostat_ch3",
+                      "title": "Statistical Inference",
                       "topics": [
-                        "Spectroscopy (UV-Vis, AAS)",
-                        "Chromatography (HPLC, GC)",
-                        "Mass Spectrometry"
+                        "Confidence Intervals",
+                        "Hypothesis Testing (t-tests, ANOVA)",
+                        "Chi-Square Test"
                       ]
                     },
                     {
-                      "id": "fa_ch4",
-                      "title": "Physical Property Analysis",
+                      "id": "biostat_ch4",
+                      "title": "Correlation and Regression",
                       "topics": [
-                        "Rheology and Texture Analysis",
-                        "Color Measurement",
-                        "Thermal Analysis"
+                        "Correlation Analysis",
+                        "Simple Linear Regression",
+                        "Introduction to Multiple Regression"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "FSAN3103",
-                  "name": "Nutritional Biochemistry",
-                  "description": "A study of the metabolic pathways of macronutrients and the biochemical roles of micronutrients in maintaining human health.",
+                  "code": "FSAN3111",
+                  "name": "Community Nutrition",
                   "credits": 3,
-                  "prerequisites": [
-                    "FSAN2102"
-                  ],
+                  "description": "A study of nutritional issues and their determinants from a community and public health perspective. Covers needs assessment, program planning, implementation, and evaluation of nutrition interventions.",
                   "outcomes": [
-                    "Describe the major metabolic pathways for carbohydrates, lipids, and proteins.",
-                    "Understand the integration and hormonal regulation of metabolism.",
-                    "Explain the biochemical functions of vitamins and minerals.",
-                    "Relate nutrient metabolism to common metabolic diseases."
+                    "Assess the nutritional status and needs of a community.",
+                    "Plan culturally appropriate nutrition education and intervention programs.",
+                    "Understand the role of food and nutrition policy in public health.",
+                    "Evaluate the effectiveness of community-based nutrition programs."
                   ],
                   "chapters": [
                     {
-                      "id": "nbiochem_ch1",
-                      "title": "Metabolism of Carbohydrates",
+                      "id": "cn_ch1",
+                      "title": "Principles of Community Nutrition",
                       "topics": [
-                        "Glycolysis",
-                        "Gluconeogenesis",
-                        "Glycogen Metabolism",
-                        "Citric Acid Cycle"
+                        "Definition and Scope",
+                        "Determinants of Food Choice and Nutrition Status",
+                        "Public Health Nutrition"
                       ]
                     },
                     {
-                      "id": "nbiochem_ch2",
-                      "title": "Metabolism of Lipids",
+                      "id": "cn_ch2",
+                      "title": "Nutritional Assessment in Communities",
                       "topics": [
-                        "Fatty Acid Oxidation",
-                        "Fatty Acid Synthesis",
-                        "Cholesterol Metabolism"
+                        "Community Needs Assessment",
+                        "Use of Anthropometric, Biochemical, Clinical, and Dietary (ABCD) methods in populations"
                       ]
                     },
                     {
-                      "id": "nbiochem_ch3",
-                      "title": "Metabolism of Proteins and Amino Acids",
+                      "id": "cn_ch3",
+                      "title": "Nutrition Program Planning and Management",
                       "topics": [
-                        "Amino Acid Catabolism",
-                        "The Urea Cycle",
-                        "Protein Synthesis"
+                        "Setting Goals and Objectives",
+                        "Developing Intervention Strategies",
+                        "Budgeting and Resource Management"
                       ]
                     },
                     {
-                      "id": "nbiochem_ch4",
-                      "title": "Integration and Regulation",
+                      "id": "cn_ch4",
+                      "title": "Food and Nutrition Policy",
                       "topics": [
-                        "Hormonal Regulation (Insulin, Glucagon)",
-                        "Metabolism in the Fed and Fasted States",
-                        "Biochemical Role of Vitamins and Minerals"
+                        "National and International Food Policies",
+                        "Food Security and Sovereignty",
+                        "Nutrition Surveillance"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "FSAN3105",
-                  "name": "Food Engineering Principles",
-                  "description": "Application of engineering principles, including fluid mechanics and heat transfer, to the design and analysis of food processing operations.",
+                  "code": "FSAN3113",
+                  "name": "Fruit and Vegetable Science and Technology",
                   "credits": 3,
-                  "prerequisites": [
-                    "FSAN2106"
-                  ],
+                  "description": "Covers the biological and chemical properties of fruits and vegetables, their post-harvest physiology, and the technologies used for their processing and preservation.",
                   "outcomes": [
-                    "Analyze fluid flow behavior in food processing systems.",
-                    "Design and analyze heat exchangers for food applications.",
-                    "Understand the principles of mass transfer in food systems.",
-                    "Apply thermodynamic principles to food processing."
+                    "Understand the key physiological processes in fruits and vegetables after harvest, such as respiration and ripening.",
+                    "Describe various processing technologies including canning, freezing, drying, and juice production.",
+                    "Analyze the effects of processing on the nutritional and sensory quality of fruit and vegetable products.",
+                    "Apply quality control measures in the fruit and vegetable industry."
                   ],
                   "chapters": [
                     {
-                      "id": "fep_ch1",
-                      "title": "Fluid Mechanics in Food Processing",
+                      "id": "fvst_ch1",
+                      "title": "Post-harvest Physiology and Handling",
                       "topics": [
-                        "Rheology of Food Materials",
-                        "Flow of Newtonian and Non-Newtonian Fluids in Pipes",
-                        "Pump Selection"
+                        "Structure and Composition",
+                        "Respiration and Ethylene Biosynthesis",
+                        "Harvesting, Cooling, and Storage"
                       ]
                     },
                     {
-                      "id": "fep_ch2",
-                      "title": "Heat Transfer in Food Processing",
+                      "id": "fvst_ch2",
+                      "title": "Thermal Processing",
                       "topics": [
-                        "Steady-State and Unsteady-State Heat Transfer",
-                        "Design of Heat Exchangers",
-                        "Thermal Process Calculations"
+                        "Canning of Fruits and Vegetables",
+                        "Juice and Concentrate Production",
+                        "Jam, Jelly, and Marmalade Manufacturing"
                       ]
                     },
                     {
-                      "id": "fep_ch3",
-                      "title": "Mass Transfer in Food Processing",
+                      "id": "fvst_ch3",
+                      "title": "Dehydration and Freezing",
                       "topics": [
-                        "Molecular Diffusion",
-                        "Convective Mass Transfer",
-                        "Application in Drying and Extraction"
+                        "Principles of Drying",
+                        "Drying Methods and Equipment",
+                        "Principles of Freezing and Thawing"
                       ]
                     },
                     {
-                      "id": "fep_ch4",
-                      "title": "Thermodynamics in Food Processing",
+                      "id": "fvst_ch4",
+                      "title": "Minimal and Non-thermal Processing",
                       "topics": [
-                        "Psychrometrics and Humidification",
-                        "Refrigeration Cycles",
-                        "Energy Use in Food Plants"
+                        "Modified Atmosphere Packaging (MAP)",
+                        "Fresh-cut Produce Technology",
+                        "High-Pressure Processing (HPP)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN3115",
+                  "name": "Dairy Science and Technology",
+                  "credits": 3,
+                  "description": "Focuses on the chemistry, microbiology, and processing technology of milk and its transformation into various dairy products like cheese, yogurt, butter, and ice cream.",
+                  "outcomes": [
+                    "Understand the chemical composition and physicochemical properties of milk.",
+                    "Describe the unit operations involved in fluid milk processing, such as pasteurization and homogenization.",
+                    "Explain the scientific principles of manufacturing major fermented and non-fermented dairy products.",
+                    "Apply quality control and safety systems in a dairy processing environment."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "dst_ch1",
+                      "title": "Milk Composition and Chemistry",
+                      "topics": [
+                        "Milk Proteins (Caseins, Whey)",
+                        "Milk Fat",
+                        "Lactose",
+                        "Milk Microbiology"
+                      ]
+                    },
+                    {
+                      "id": "dst_ch2",
+                      "title": "Fluid Milk Processing",
+                      "topics": [
+                        "Receiving and Quality Control",
+                        "Separation and Standardization",
+                        "Pasteurization and Homogenization"
+                      ]
+                    },
+                    {
+                      "id": "dst_ch3",
+                      "title": "Fermented Dairy Products",
+                      "topics": [
+                        "Yogurt and Cultured Milks",
+                        "Cheese Making Principles (Coagulation, Ripening)",
+                        "Starter Cultures"
+                      ]
+                    },
+                    {
+                      "id": "dst_ch4",
+                      "title": "Fat-Rich Dairy Products and By-products",
+                      "topics": [
+                        "Cream and Butter Manufacturing",
+                        "Ice Cream Production",
+                        "Whey Processing"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN3117",
+                  "name": "Cereal and Pulse Science and Technology",
+                  "credits": 3,
+                  "description": "A study of the chemistry, structure, and processing technologies of major cereal grains (wheat, maize, teff, sorghum) and pulses (beans, lentils, chickpeas). Covers milling, baking, extrusion, and traditional processing methods.",
+                  "outcomes": [
+                    "Understand the structure and chemical composition of cereal grains and pulses.",
+                    "Describe the principles of dry and wet milling of cereals.",
+                    "Analyze the science of baking, including the roles of gluten and starch.",
+                    "Explain the technology of extrusion cooking and traditional pulse processing techniques."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "cpst_ch1",
+                      "title": "Structure and Chemistry of Cereal Grains and Pulses",
+                      "topics": [
+                        "Kernel Structure",
+                        "Starch and Protein Chemistry",
+                        "Anti-nutritional Factors in Pulses"
+                      ]
+                    },
+                    {
+                      "id": "cpst_ch2",
+                      "title": "Cereal Milling and Processing",
+                      "topics": [
+                        "Wheat Milling and Flour Technology",
+                        "Corn Wet and Dry Milling",
+                        "Rice Milling",
+                        "Teff and Sorghum Processing"
+                      ]
+                    },
+                    {
+                      "id": "cpst_ch3",
+                      "title": "Baking and Extrusion Technology",
+                      "topics": [
+                        "The Science of Bread Making",
+                        "Cookie and Cracker Production",
+                        "Breakfast Cereals and Snack Food Extrusion"
+                      ]
+                    },
+                    {
+                      "id": "cpst_ch4",
+                      "title": "Pulse Processing Technology",
+                      "topics": [
+                        "Dehulling and Splitting",
+                        "Cooking and Canning of Pulses",
+                        "Pulse Flours and Protein Concentrates"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN3119",
+                  "name": "Coffee, Tea, Spice and herbs Science and Technology",
+                  "credits": 3,
+                  "description": "Covers the botany, chemistry, processing, and quality evaluation of coffee, tea, spices, and herbs, with a focus on flavor development, extraction of active compounds, and value-added products.",
+                  "outcomes": [
+                    "Describe the processing methods for coffee (wet and dry) and different types of tea (green, black, oolong).",
+                    "Understand the chemistry of key flavor, aroma, and bioactive compounds.",
+                    "Explain the technologies for drying, grinding, and extracting active components from spices and herbs.",
+                    "Apply quality control and sensory evaluation techniques to these products."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ctsh_ch1",
+                      "title": "Coffee Science and Technology",
+                      "topics": [
+                        "From Cherry to Green Bean (Processing)",
+                        "Roasting Chemistry and Flavor Development",
+                        "Brewing and Extraction"
+                      ]
+                    },
+                    {
+                      "id": "ctsh_ch2",
+                      "title": "Tea Science and Technology",
+                      "topics": [
+                        "Tea Leaf Chemistry",
+                        "Processing of Green, Black, and Oolong Tea",
+                        "Tea Quality and Health Benefits"
+                      ]
+                    },
+                    {
+                      "id": "ctsh_ch3",
+                      "title": "Spice and Herb Processing",
+                      "topics": [
+                        "Drying and Grinding Technologies",
+                        "Extraction of Essential Oils and Oleoresins",
+                        "Encapsulation"
+                      ]
+                    },
+                    {
+                      "id": "ctsh_ch4",
+                      "title": "Quality and Sensory Evaluation",
+                      "topics": [
+                        "Coffee Cupping and Tea Tasting",
+                        "Chemical Analysis of Active Compounds",
+                        "Quality Standards"
                       ]
                     }
                   ]
@@ -20248,160 +24006,342 @@ export const courseData: CourseData = {
               ],
               "Semester II": [
                 {
-                  "code": "FSAN3102",
-                  "name": "Sensory Evaluation of Foods",
-                  "description": "Principles and methods for the sensory evaluation of food products, including analytical and affective testing, panelist training, and data analysis.",
+                  "code": "ISTP3116",
+                  "name": "Integrated Science Team Project",
                   "credits": 3,
-                  "prerequisites": [
-                    "Stat2101"
-                  ],
+                  "description": "A multidisciplinary project where teams of students collaborate to solve a real-world problem or develop a new product related to food science and nutrition, from concept to prototype.",
                   "outcomes": [
-                    "Design appropriate sensory tests to answer specific research questions.",
-                    "Set up and conduct sensory evaluation sessions.",
-                    "Statistically analyze and interpret sensory data.",
-                    "Understand the physiological and psychological basis of sensory perception."
+                    "Apply the principles of product development from idea generation to bench-top formulation.",
+                    "Collaborate effectively within a diverse team environment.",
+                    "Apply project management principles to meet deadlines and deliverables.",
+                    "Communicate technical solutions through written reports and oral presentations."
                   ],
                   "chapters": [
                     {
-                      "id": "se_ch1",
-                      "title": "Principles of Sensory Science",
+                      "id": "istp_ch1",
+                      "title": "Project Inception and Planning",
                       "topics": [
-                        "The Senses: Taste, Smell, Touch, Sight, Hearing",
-                        "Factors Influencing Sensory Perception",
-                        "Sensory Laboratory Setup"
+                        "Idea Generation and Screening",
+                        "Market Analysis",
+                        "Project Planning and Task Assignment"
                       ]
                     },
                     {
-                      "id": "se_ch2",
-                      "title": "Analytical Sensory Tests",
+                      "id": "istp_ch2",
+                      "title": "Research and Development",
                       "topics": [
-                        "Discrimination Tests (Triangle, Duo-Trio)",
-                        "Descriptive Analysis",
-                        "Panelist Screening and Training"
+                        "Literature Review and Ingredient Sourcing",
+                        "Bench-top Formulation and Experimentation"
                       ]
                     },
                     {
-                      "id": "se_ch3",
-                      "title": "Affective (Consumer) Tests",
+                      "id": "istp_ch3",
+                      "title": "Prototyping and Evaluation",
                       "topics": [
-                        "Preference and Acceptance Tests",
-                        "Hedonic Scaling",
-                        "Consumer Test Design"
+                        "Prototype Development",
+                        "Preliminary Sensory and Shelf-life Testing",
+                        "Cost Analysis"
                       ]
                     },
                     {
-                      "id": "se_ch4",
-                      "title": "Data Analysis and Interpretation",
+                      "id": "istp_ch4",
+                      "title": "Final Reporting and Presentation",
                       "topics": [
-                        "Statistical Analysis of Sensory Data (ANOVA, t-tests)",
-                        "Relating Sensory and Instrumental Data",
-                        "Reporting Sensory Results"
+                        "Compilation of a Comprehensive Project Report",
+                        "Preparation of Presentation Materials",
+                        "Final Project Demonstration"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "FSAN3104",
-                  "name": "Community Nutrition",
-                  "description": "An examination of nutrition issues from a community and public health perspective, including nutritional assessment of populations and the design of community-based nutrition interventions.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "FSAN2101"
-                  ],
+                  "code": "FSAN3112",
+                  "name": "Sport and Exercise Nutrition",
+                  "credits": 2,
+                  "description": "A study of the relationship between nutrition and physical performance. Covers energy metabolism during exercise, macronutrient and micronutrient requirements for athletes, hydration strategies, and the science behind ergogenic aids.",
                   "outcomes": [
-                    "Conduct a community needs assessment.",
-                    "Identify major nutritional problems in different population groups.",
-                    "Design and evaluate a community nutrition program.",
-                    "Understand the role of public policy in nutrition."
+                    "Explain the major energy systems used during different types of physical activity.",
+                    "Assess the specific nutritional and fluid needs of athletes for training, competition, and recovery.",
+                    "Develop evidence-based dietary plans and hydration strategies for athletes.",
+                    "Critically evaluate the claims and safety of various ergogenic aids and sports supplements."
                   ],
                   "chapters": [
                     {
-                      "id": "cnut_ch1",
-                      "title": "Principles of Community Nutrition",
+                      "id": "sen_ch1",
+                      "title": "Energy Metabolism and Exercise",
                       "topics": [
-                        "Community Needs Assessment",
-                        "Health Behavior Theories",
-                        "Program Planning and Evaluation"
+                        "ATP-PC, Glycolytic, and Oxidative Systems",
+                        "Energy Expenditure during Exercise",
+                        "Fuel Utilization"
                       ]
                     },
                     {
-                      "id": "cnut_ch2",
-                      "title": "Nutrition Across the Lifespan",
+                      "id": "sen_ch2",
+                      "title": "Macronutrient and Fluid Needs for Athletes",
                       "topics": [
-                        "Maternal and Infant Nutrition",
-                        "Childhood and Adolescent Nutrition",
-                        "Nutrition for Older Adults"
+                        "Carbohydrate Needs and Glycogen Loading",
+                        "Protein Requirements for Muscle Repair and Growth",
+                        "Fat as a Fuel Source",
+                        "Hydration, Dehydration, and Fluid Replacement"
                       ]
                     },
                     {
-                      "id": "cnut_ch3",
-                      "title": "Food and Nutrition Policy",
+                      "id": "sen_ch3",
+                      "title": "Micronutrients and Ergogenic Aids",
                       "topics": [
-                        "National Nutrition Monitoring",
-                        "Food Assistance Programs",
-                        "Dietary Guidelines"
-                      ]
-                    },
-                    {
-                      "id": "cnut_ch4",
-                      "title": "Global Nutrition Issues",
-                      "topics": [
-                        "Malnutrition (Undernutrition, Overnutrition)",
-                        "Food Security",
-                        "International Nutrition Programs"
+                        "Key Vitamins and Minerals for Athletes",
+                        "Ergogenic Aids: Efficacy and Safety (e.g., Creatine, Caffeine, Bicarbonate)",
+                        "Dietary Supplements"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "FSAN3106",
-                  "name": "Food Safety and Quality Management",
-                  "description": "Principles of food safety management systems, including HACCP, and quality management systems like ISO 9000, as applied to the food industry.",
+                  "code": "FSAN3114",
+                  "name": "Beverage Science and Technology",
                   "credits": 3,
-                  "prerequisites": [
-                    "FSAN2104"
-                  ],
+                  "description": "Covers the science and technology of producing various beverages, both alcoholic and non-alcoholic. Includes topics like water treatment for beverages, carbonation, fruit juice technology, soft drinks, tea, coffee, and principles of brewing and wine making.",
                   "outcomes": [
-                    "Identify and control major food safety hazards.",
-                    "Develop a Hazard Analysis and Critical Control Point (HACCP) plan.",
-                    "Understand the principles of quality assurance and quality control.",
-                    "Apply statistical process control (SPC) to food manufacturing."
+                    "Understand the critical role of water quality and treatment in beverage production.",
+                    "Describe the formulation and production technology for carbonated and non-carbonated soft drinks and juices.",
+                    "Explain the fundamental biochemical and microbiological principles of alcoholic fermentation.",
+                    "Apply quality control procedures specific to the beverage industry."
                   ],
                   "chapters": [
                     {
-                      "id": "fsqm_ch1",
-                      "title": "Food Safety Hazards",
+                      "id": "bst_ch1",
+                      "title": "Water Treatment and Beverage Ingredients",
                       "topics": [
-                        "Biological, Chemical, and Physical Hazards",
-                        "Allergens",
-                        "Prerequisite Programs (GMPs, SSOPs)"
+                        "Water Hardness and Treatment Methods",
+                        "Sweeteners, Acids, and Flavorings",
+                        "Carbonation"
                       ]
                     },
                     {
-                      "id": "fsqm_ch2",
-                      "title": "HACCP System",
+                      "id": "bst_ch2",
+                      "title": "Non-alcoholic Beverages",
                       "topics": [
-                        "The 7 Principles of HACCP",
-                        "Conducting a Hazard Analysis",
-                        "Establishing Critical Limits, Monitoring, and Corrective Actions"
+                        "Carbonated Soft Drinks",
+                        "Fruit Juice and Nectar Technology",
+                        "Ready-to-Drink Tea and Coffee"
                       ]
                     },
                     {
-                      "id": "fsqm_ch3",
-                      "title": "Quality Management",
+                      "id": "bst_ch3",
+                      "title": "Brewing Science and Technology",
                       "topics": [
-                        "Quality Control vs. Quality Assurance",
-                        "Total Quality Management (TQM)",
-                        "ISO 9000 Series"
+                        "Malting, Mashing, and Wort Boiling",
+                        "Yeast and Fermentation",
+                        "Beer Finishing and Packaging"
                       ]
                     },
                     {
-                      "id": "fsqm_ch4",
-                      "title": "Quality Tools",
+                      "id": "bst_ch4",
+                      "title": "Wine Making and Quality Control",
                       "topics": [
-                        "Statistical Process Control (SPC)",
-                        "Six Sigma",
-                        "Supplier Quality Assurance"
+                        "Introduction to Viticulture and Enology",
+                        "Wine Fermentation and Aging",
+                        "Quality Control and Spoilage in Beverages"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN3118",
+                  "name": "Food Fortification and Functional Foods",
+                  "credits": 3,
+                  "description": "A study of strategies to improve the nutritional value of foods through the addition of micronutrients (fortification) and the science of foods and food components that provide health benefits beyond basic nutrition (functional foods).",
+                  "outcomes": [
+                    "Explain the principles and rationale for food fortification programs to combat micronutrient deficiencies.",
+                    "Select appropriate fortificants and technologies for various food vehicles.",
+                    "Identify major classes of functional foods and their bioactive components (e.g., probiotics, prebiotics, polyphenols).",
+                    "Understand the regulatory environment surrounding health claims for functional foods."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ffff_ch1",
+                      "title": "Principles of Food Fortification",
+                      "topics": [
+                        "Public Health Rationale",
+                        "Selection of Food Vehicles and Nutrients",
+                        "Stability of Fortificants"
+                      ]
+                    },
+                    {
+                      "id": "ffff_ch2",
+                      "title": "Fortification Technologies",
+                      "topics": [
+                        "Fortification of Staples (Flour, Salt, Oil)",
+                        "Biofortification",
+                        "Monitoring and Evaluation of Programs"
+                      ]
+                    },
+                    {
+                      "id": "ffff_ch3",
+                      "title": "Functional Foods and Bioactive Components",
+                      "topics": [
+                        "Dietary Fiber and Prebiotics",
+                        "Probiotics and Gut Health",
+                        "Phytochemicals (Polyphenols, Carotenoids)"
+                      ]
+                    },
+                    {
+                      "id": "ffff_ch4",
+                      "title": "Nutraceuticals and Health Claims",
+                      "topics": [
+                        "From Food to Nutraceutical",
+                        "Scientific Substantiation of Health Claims",
+                        "Regulatory Frameworks (e.g., FDA, EFSA)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN3120",
+                  "name": "Research Method in Food Science and Nutrition",
+                  "credits": 3,
+                  "description": "Introduces the methodologies of scientific research, experimental design, and data analysis specifically tailored for food science and nutrition studies, preparing students for their final year project.",
+                  "outcomes": [
+                    "Formulate clear research questions, hypotheses, and objectives.",
+                    "Design robust experimental studies (e.g., clinical trials, laboratory experiments).",
+                    "Understand the principles of various data collection methods, from surveys to instrumental analysis.",
+                    "Develop skills in scientific writing for research proposals, theses, and reports."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "rmfsn_ch1",
+                      "title": "Introduction to Research",
+                      "topics": [
+                        "The Scientific Method",
+                        "Types of Research (Quantitative, Qualitative)",
+                        "Research Ethics and Integrity"
+                      ]
+                    },
+                    {
+                      "id": "rmfsn_ch2",
+                      "title": "Research Design",
+                      "topics": [
+                        "Observational vs. Experimental Studies",
+                        "Randomized Controlled Trials (RCTs) in Nutrition",
+                        "Sampling Techniques"
+                      ]
+                    },
+                    {
+                      "id": "rmfsn_ch3",
+                      "title": "Data Collection and Analysis",
+                      "topics": [
+                        "Survey and Questionnaire Design",
+                        "Laboratory Data Collection",
+                        "Choosing Appropriate Statistical Tests"
+                      ]
+                    },
+                    {
+                      "id": "rmfsn_ch4",
+                      "title": "Scientific Writing and Communication",
+                      "topics": [
+                        "Writing a Literature Review",
+                        "Structuring a Research Proposal",
+                        "Writing a Scientific Paper (IMRaD format)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN3122",
+                  "name": "Nutrition Assessment",
+                  "credits": 2,
+                  "description": "A comprehensive study of the methods used to assess the nutritional status of individuals and populations, covering anthropometric, biochemical, clinical, and dietary (ABCD) assessment methods and their interpretation.",
+                  "outcomes": [
+                    "Accurately perform and interpret anthropometric measurements (height, weight, body composition).",
+                    "Select and interpret appropriate biochemical markers of nutritional status.",
+                    "Recognize clinical signs and symptoms of nutrient deficiencies and excesses.",
+                    "Administer and analyze various dietary assessment tools (e.g., 24-hour recall, food frequency questionnaire)."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "na_ch1",
+                      "title": "Introduction to Nutritional Assessment",
+                      "topics": [
+                        "Purpose and Scope",
+                        "The ABCD Model of Assessment"
+                      ]
+                    },
+                    {
+                      "id": "na_ch2",
+                      "title": "Anthropometric Assessment",
+                      "topics": [
+                        "Measurement Techniques",
+                        "Growth Charts and Reference Standards",
+                        "Body Composition Analysis"
+                      ]
+                    },
+                    {
+                      "id": "na_ch3",
+                      "title": "Biochemical and Clinical Assessment",
+                      "topics": [
+                        "Biochemical Markers for Protein, Vitamin, and Mineral Status",
+                        "Physical Examination for Nutritional Deficiencies"
+                      ]
+                    },
+                    {
+                      "id": "na_ch4",
+                      "title": "Dietary Assessment",
+                      "topics": [
+                        "24-Hour Recall and Food Records",
+                        "Food Frequency Questionnaires (FFQ)",
+                        "Diet History",
+                        "Analysis of Dietary Data using Food Composition Tables"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN3124",
+                  "name": "Meat, Poultry and Fish Science and Technology",
+                  "credits": 3,
+                  "description": "Covers the science of muscle foods, from animal physiology and post-mortem biochemical changes to the processing, preservation, and quality evaluation of meat, poultry, and fish products.",
+                  "outcomes": [
+                    "Explain the biochemical conversion of muscle to meat and its impact on quality (e.g., tenderness, color).",
+                    "Describe the major processing technologies for meat products, including curing, smoking, and sausage-making.",
+                    "Understand the specific challenges of spoilage and preservation for fish and seafood.",
+                    "Apply quality control and safety assurance systems (e.g., HACCP) in a muscle food processing plant."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "mpfst_ch1",
+                      "title": "Muscle Biology and Post-mortem Biochemistry",
+                      "topics": [
+                        "Structure of Muscle Tissue",
+                        "Conversion of Muscle to Meat (Rigor Mortis)",
+                        "Factors Affecting Meat Quality"
+                      ]
+                    },
+                    {
+                      "id": "mpfst_ch2",
+                      "title": "Meat and Poultry Processing",
+                      "topics": [
+                        "Slaughter and Carcass Handling",
+                        "Curing, Smoking, and Drying",
+                        "Sausage and Emulsified Meat Products"
+                      ]
+                    },
+                    {
+                      "id": "mpfst_ch3",
+                      "title": "Fish and Seafood Science and Technology",
+                      "topics": [
+                        "Composition of Fish",
+                        "Handling and Chilling of Fresh Fish",
+                        "Fish Spoilage",
+                        "Processing (Canning, Smoking, Freezing)"
+                      ]
+                    },
+                    {
+                      "id": "mpfst_ch4",
+                      "title": "Quality and Safety of Muscle Foods",
+                      "topics": [
+                        "Meat Color and Tenderness",
+                        "Microbial Safety",
+                        "HACCP in Muscle Food Processing"
                       ]
                     }
                   ]
@@ -20411,306 +24351,589 @@ export const courseData: CourseData = {
             "Year 4": {
               "Semester I": [
                 {
-                  "code": "FSAN4101",
-                  "name": "Food Product Development",
-                  "description": "A capstone, project-based course integrating food science principles in the development of a new food product from concept generation to bench-top prototype.",
+                  "code": "FSAN4121",
+                  "name": "Food Economics, Marketing and Distribution",
                   "credits": 3,
-                  "prerequisites": [
-                    "FSAN3102",
-                    "FSAN3106"
-                  ],
+                  "description": "An analysis of the economic principles governing the food industry, including marketing strategies, consumer behavior, and the logistics of food distribution from producer to consumer.",
                   "outcomes": [
-                    "Generate and screen new food product ideas.",
-                    "Develop a product formulation and process.",
-                    "Understand the role of packaging and shelf-life testing.",
-                    "Work effectively in a team to manage a product development project."
+                    "Apply microeconomic principles to analyze food markets and pricing.",
+                    "Develop a basic food marketing plan considering product, price, place, and promotion.",
+                    "Understand the structure and challenges of food supply chains and distribution networks.",
+                    "Analyze consumer trends and their impact on the food industry."
                   ],
                   "chapters": [
                     {
-                      "id": "fpd_ch1",
-                      "title": "Concept Development",
+                      "id": "femd_ch1",
+                      "title": "Principles of Food Economics",
                       "topics": [
-                        "The Product Development Process",
-                        "Market Research and Ideation",
-                        "Concept Screening"
+                        "Supply and Demand in Food Markets",
+                        "Market Structures in the Food Industry",
+                        "Government Intervention and Agricultural Policy"
                       ]
                     },
                     {
-                      "id": "fpd_ch2",
-                      "title": "Formulation and Ingredient Technology",
+                      "id": "femd_ch2",
+                      "title": "Food Marketing",
                       "topics": [
-                        "Ingredient Functionality",
-                        "Bench-top Formulation",
-                        "Costing and Sourcing"
+                        "The Marketing Mix (4 Ps)",
+                        "Market Segmentation, Targeting, and Positioning",
+                        "Food Branding and Promotion"
                       ]
                     },
                     {
-                      "id": "fpd_ch3",
-                      "title": "Prototyping and Evaluation",
+                      "id": "femd_ch3",
+                      "title": "Food Distribution and Supply Chain Management",
                       "topics": [
-                        "Lab-scale and Pilot Plant Production",
-                        "Sensory and Consumer Testing",
-                        "Shelf-life Evaluation"
-                      ]
-                    },
-                    {
-                      "id": "fpd_ch4",
-                      "title": "Commercialization Considerations",
-                      "topics": [
-                        "Process Scale-up",
-                        "Packaging Design",
-                        "Regulatory Compliance"
+                        "Food Retailing and Wholesaling",
+                        "Logistics and Transportation",
+                        "Supply Chain Efficiency and Traceability"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "FSAN4103",
-                  "name": "Advanced Human Nutrition",
-                  "description": "An in-depth study of the role of nutrition in the prevention and management of chronic diseases, such as cardiovascular disease, diabetes, and cancer.",
+                  "code": "FSAN4123",
+                  "name": "Honey, sugar and confectionery Science and Technology",
                   "credits": 3,
-                  "prerequisites": [
-                    "FSAN3103"
-                  ],
+                  "description": "A study of the science and technology involved in the production of sweeteners and confectionery products. Covers the chemistry of sugars, honey processing, and the manufacturing of chocolate and sugar-based confections.",
                   "outcomes": [
-                    "Understand the pathophysiology of major chronic diseases.",
-                    "Critically evaluate scientific literature on diet-disease relationships.",
-                    "Describe evidence-based dietary strategies for disease prevention.",
-                    "Understand the role of functional foods and nutraceuticals."
+                    "Understand the chemical and physical properties of different sugars and sweeteners.",
+                    "Describe the processing of raw honey and sugar from its source.",
+                    "Explain the technology of chocolate manufacturing from bean to bar.",
+                    "Analyze the principles of sugar crystallization and its application in candy making."
                   ],
                   "chapters": [
                     {
-                      "id": "ahn_ch1",
-                      "title": "Nutrition and Cardiovascular Disease",
+                      "id": "hsct_ch1",
+                      "title": "Sugar and Honey Science",
                       "topics": [
-                        "Atherosclerosis",
-                        "Dietary Lipids and Cholesterol",
-                        "Hypertension and Dietary Sodium"
+                        "Chemistry of Sucrose and other Sweeteners",
+                        "Crystallization of Sugar",
+                        "Honey Composition, Processing, and Quality"
                       ]
                     },
                     {
-                      "id": "ahn_ch2",
-                      "title": "Nutrition and Metabolic Diseases",
+                      "id": "hsct_ch2",
+                      "title": "Chocolate Technology",
                       "topics": [
-                        "Diabetes Mellitus (Type 1 and Type 2)",
-                        "Obesity and Weight Management",
-                        "Metabolic Syndrome"
+                        "Cocoa Bean Processing",
+                        "Chocolate Formulation and Manufacturing",
+                        "Tempering and Fat Bloom"
                       ]
                     },
                     {
-                      "id": "ahn_ch3",
-                      "title": "Nutrition and Cancer",
+                      "id": "hsct_ch3",
+                      "title": "Sugar Confectionery",
                       "topics": [
-                        "Dietary Carcinogens and Anticarcinogens",
-                        "Role of Antioxidants",
-                        "Nutrition during Cancer Treatment"
-                      ]
-                    },
-                    {
-                      "id": "ahn_ch4",
-                      "title": "Other Diet-Disease Relationships",
-                      "topics": [
-                        "Osteoporosis and Bone Health",
-                        "Nutrition and Immunity",
-                        "Nutrigenomics"
+                        "Crystalline Candies (Fudge, Fondant)",
+                        "Amorphous Candies (Hard Candies, Toffee)",
+                        "Gums and Jellies"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "FSAN4105",
-                  "name": "Food Laws and Regulations",
-                  "description": "An overview of national and international food laws, regulations, and governing bodies responsible for ensuring a safe and honestly represented food supply.",
+                  "code": "FSAN4125",
+                  "name": "Fat and oil Science and Technology",
+                  "credits": 3,
+                  "description": "An in-depth study of the chemistry, processing, and application of edible fats and oils. Covers extraction, refining, modification processes like hydrogenation, and quality assessment.",
+                  "outcomes": [
+                    "Describe the chemistry of fatty acids, triglycerides, and phospholipids.",
+                    "Explain the major processes for extracting and refining fats and oils.",
+                    "Analyze the principles and effects of fat modification technologies (hydrogenation, interesterification).",
+                    "Understand the mechanisms of lipid oxidation and methods for its prevention."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "fost_ch1",
+                      "title": "Chemistry of Food Lipids",
+                      "topics": [
+                        "Structure and Classification of Lipids",
+                        "Physical Properties (Polymorphism, Melting Point)",
+                        "Lipid Oxidation and Rancidity"
+                      ]
+                    },
+                    {
+                      "id": "fost_ch2",
+                      "title": "Extraction and Refining",
+                      "topics": [
+                        "Rendering and Pressing",
+                        "Solvent Extraction",
+                        "Refining Steps (Degumming, Neutralization, Bleaching, Deodorization)"
+                      ]
+                    },
+                    {
+                      "id": "fost_ch3",
+                      "title": "Fat Modification and Products",
+                      "topics": [
+                        "Hydrogenation",
+                        "Interesterification",
+                        "Fractionation",
+                        "Margarine and Shortening Technology"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN4127",
+                  "name": "Food Product Development and Sensory Evaluation",
+                  "credits": 3,
+                  "description": "Covers the process of developing a new food product from concept to launch, with a strong emphasis on the theory and application of sensory evaluation techniques to guide development and ensure consumer acceptance.",
+                  "outcomes": [
+                    "Outline the stages of the food product development cycle.",
+                    "Design and conduct various types of sensory tests (discrimination, descriptive, affective).",
+                    "Analyze and interpret sensory data using appropriate statistical methods.",
+                    "Develop a product concept into a bench-top prototype."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "fpdse_ch1",
+                      "title": "The Product Development Process",
+                      "topics": [
+                        "Idea Generation and Concept Screening",
+                        "Market Analysis",
+                        "Scale-up and Commercialization"
+                      ]
+                    },
+                    {
+                      "id": "fpdse_ch2",
+                      "title": "Introduction to Sensory Science",
+                      "topics": [
+                        "The Human Senses",
+                        "Controlling Test Conditions"
+                      ]
+                    },
+                    {
+                      "id": "fpdse_ch3",
+                      "title": "Sensory Test Methods",
+                      "topics": [
+                        "Discrimination Tests (Triangle, Duo-Trio)",
+                        "Descriptive Analysis",
+                        "Affective/Consumer Tests (Preference, Acceptance)"
+                      ]
+                    },
+                    {
+                      "id": "fpdse_ch4",
+                      "title": "Application and Data Analysis",
+                      "topics": [
+                        "Sensory Evaluation in Quality Control",
+                        "Statistical Analysis of Sensory Data"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN4129",
+                  "name": "Food and Nutrition Policy and program",
+                  "credits": 3,
+                  "description": "An examination of the processes involved in creating, implementing, and evaluating food and nutrition policies and programs at local, national, and international levels.",
+                  "outcomes": [
+                    "Analyze the policy-making cycle as it applies to food and nutrition.",
+                    "Evaluate the impact of agricultural, health, and economic policies on nutritional outcomes.",
+                    "Understand the role of various stakeholders (government, NGOs, industry) in shaping policy.",
+                    "Critically assess major food and nutrition programs and interventions."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "fnpp_ch1",
+                      "title": "Introduction to Policy and Program Planning",
+                      "topics": [
+                        "The Policy Cycle",
+                        "Problem Definition and Agenda Setting",
+                        "Program Planning Models"
+                      ]
+                    },
+                    {
+                      "id": "fnpp_ch2",
+                      "title": "Food Policy",
+                      "topics": [
+                        "Food Security Policies",
+                        "Agricultural and Trade Policies",
+                        "Food Safety and Labeling Policies"
+                      ]
+                    },
+                    {
+                      "id": "fnpp_ch3",
+                      "title": "Nutrition Policy",
+                      "topics": [
+                        "Policies to Combat Micronutrient Deficiencies",
+                        "Policies Addressing Diet-Related Chronic Diseases",
+                        "Maternal and Child Nutrition Policies"
+                      ]
+                    },
+                    {
+                      "id": "fnpp_ch4",
+                      "title": "Program Implementation and Evaluation",
+                      "topics": [
+                        "Monitoring and Evaluation Frameworks",
+                        "Case Studies of National Nutrition Programs"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN4131",
+                  "name": "Nutrition Throughout the life cycle",
+                  "credits": 3,
+                  "description": "A study of the specific nutritional requirements and health considerations during different stages of the human life cycle, from preconception through to old age.",
+                  "outcomes": [
+                    "Describe the unique physiological changes and nutritional needs for each major life stage.",
+                    "Identify common nutrition-related health issues for each group (e.g., infant feeding problems, adolescent eating disorders, osteoporosis in the elderly).",
+                    "Develop appropriate dietary guidance for individuals at different stages of life.",
+                    "Analyze the impact of early life nutrition on long-term health."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ntlc_ch1",
+                      "title": "Nutrition during Pregnancy and Lactation",
+                      "topics": [
+                        "Maternal Physiological Changes",
+                        "Nutrient Needs for Pregnancy",
+                        "Nutritional Support for Breastfeeding"
+                      ]
+                    },
+                    {
+                      "id": "ntlc_ch2",
+                      "title": "Nutrition in Infancy, Childhood, and Adolescence",
+                      "topics": [
+                        "Breastfeeding and Infant Formula",
+                        "Introduction of Solid Foods",
+                        "Nutritional Needs for Growth and Development",
+                        "Childhood Obesity"
+                      ]
+                    },
+                    {
+                      "id": "ntlc_ch3",
+                      "title": "Nutrition in Adulthood",
+                      "topics": [
+                        "Maintaining Health and Preventing Chronic Disease",
+                        "Nutritional Considerations for Men and Women"
+                      ]
+                    },
+                    {
+                      "id": "ntlc_ch4",
+                      "title": "Nutrition in Older Adults",
+                      "topics": [
+                        "Physiological Changes of Aging",
+                        "Nutrient Needs of the Elderly",
+                        "Dietary Strategies to Promote Healthy Aging"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN4133",
+                  "name": "Senior Seminar",
+                  "credits": 1,
+                  "description": "A forum for final-year students to research, prepare, and deliver presentations on current and emerging topics in food science and nutrition, honing their communication and critical analysis skills.",
+                  "outcomes": [
+                    "Critically review and synthesize scientific literature on a chosen topic.",
+                    "Prepare a professional-quality seminar presentation.",
+                    "Lead a technical discussion and effectively answer questions from peers and faculty.",
+                    "Communicate complex scientific topics clearly and concisely."
+                  ],
+                  "chapters": []
+                },
+                {
+                  "code": "FSAN4135",
+                  "name": "Final Year Project I",
                   "credits": 2,
+                  "description": "The first phase of the capstone project. Students work with a faculty advisor to identify a research or product development problem, conduct a thorough literature review, and write a detailed project proposal.",
                   "outcomes": [
-                    "Identify the major food regulatory agencies and their jurisdictions.",
-                    "Understand the legal requirements for food labeling.",
-                    "Describe regulations related to food additives and contaminants.",
-                    "Recognize the importance of food standards and trade."
+                    "Formulate a clear and feasible project proposal with defined objectives and scope.",
+                    "Conduct a comprehensive literature review to establish the background and rationale for the project.",
+                    "Develop a detailed methodology and work plan for project execution.",
+                    "Prepare and defend the project proposal in a formal setting."
                   ],
-                  "chapters": [
-                    {
-                      "id": "flr_ch1",
-                      "title": "National Food Regulatory Framework",
-                      "topics": [
-                        "History of Food Law",
-                        "Authority and Role of National Food Agencies",
-                        "Food Adulteration and Misbranding"
-                      ]
-                    },
-                    {
-                      "id": "flr_ch2",
-                      "title": "Food Labeling and Claims",
-                      "topics": [
-                        "Mandatory Labeling Requirements",
-                        "Nutritional Labeling",
-                        "Health and Nutrient Content Claims"
-                      ]
-                    },
-                    {
-                      "id": "flr_ch3",
-                      "title": "Regulations for Food Safety",
-                      "topics": [
-                        "Food Additive Regulations",
-                        "Contaminant and Residue Limits",
-                        "Allergen Labeling"
-                      ]
-                    },
-                    {
-                      "id": "flr_ch4",
-                      "title": "International Food Law",
-                      "topics": [
-                        "Codex Alimentarius",
-                        "World Trade Organization (WTO) and SPS/TBT Agreements",
-                        "Import and Export Regulations"
-                      ]
-                    }
-                  ]
+                  "chapters": []
                 }
               ],
               "Semester II": [
                 {
-                  "code": "FSAN4102",
-                  "name": "B.Sc. Thesis/Project",
-                  "description": "An independent research or development project supervised by a faculty member, integrating knowledge and skills acquired throughout the program, and culminating in a formal thesis and oral defense.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "FSAN4101"
-                  ],
+                  "code": "FSAN4128",
+                  "name": "Food and Nutrition Security",
+                  "credits": 2,
+                  "description": "Examines the multifaceted concept of food and nutrition security, covering its four pillars (availability, access, utilization, stability), methods for assessment, and strategies for improvement at local, national, and global levels.",
                   "outcomes": [
-                    "Formulate a research question or project objective.",
-                    "Design and conduct experiments or a development project.",
-                    "Analyze and interpret results.",
-                    "Communicate findings effectively in written and oral formats."
+                    "Define the dimensions of food and nutrition security.",
+                    "Analyze the complex causes of food insecurity, including social, economic, and environmental factors.",
+                    "Assess food security situations using standard indicators and methods.",
+                    "Evaluate various interventions and policies aimed at improving food security."
                   ],
                   "chapters": [
                     {
-                      "id": "thesis_ch1",
-                      "title": "Proposal Development and Literature Review",
+                      "id": "fns_ch1",
+                      "title": "Concepts and Dimensions of Food Security",
                       "topics": [
-                        "Identifying a Research Topic",
-                        "Writing a Research Proposal",
-                        "Conducting a Literature Search"
+                        "Definitions and Four Pillars",
+                        "The Link between Food Security and Nutrition Security"
                       ]
                     },
                     {
-                      "id": "thesis_ch2",
-                      "title": "Methodology and Experimentation",
+                      "id": "fns_ch2",
+                      "title": "Measuring Food Insecurity",
                       "topics": [
-                        "Experimental Design",
-                        "Data Collection",
-                        "Laboratory Work/Project Execution"
+                        "Household Food Insecurity Access Scale (HFIAS)",
+                        "Coping Strategies Index (CSI)",
+                        "Dietary Diversity Scores"
                       ]
                     },
                     {
-                      "id": "thesis_ch3",
+                      "id": "fns_ch3",
+                      "title": "Strategies for Improving Food Security",
+                      "topics": [
+                        "Sustainable Agriculture and Livelihoods",
+                        "Social Protection Programs",
+                        "Emergency Food Aid and Resilience Building"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN4130",
+                  "name": "Nutrition Education and Counseling",
+                  "credits": 2,
+                  "description": "Focuses on the theories and practical skills needed for effective nutrition education for groups and one-on-one counseling for individuals, with the goal of promoting positive and lasting behavior change.",
+                  "outcomes": [
+                    "Apply major learning and behavior change theories (e.g., Social Cognitive Theory, Health Belief Model) to nutrition education.",
+                    "Develop culturally appropriate and effective nutrition education materials.",
+                    "Demonstrate key nutrition counseling skills, including active listening, motivational interviewing, and goal setting.",
+                    "Plan and evaluate a nutrition education session or program."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "nec_ch1",
+                      "title": "Theories of Learning and Behavior Change",
+                      "topics": [
+                        "Health Belief Model",
+                        "Social Cognitive Theory",
+                        "Transtheoretical Model"
+                      ]
+                    },
+                    {
+                      "id": "nec_ch2",
+                      "title": "Nutrition Education Strategies",
+                      "topics": [
+                        "Needs Assessment for Target Audiences",
+                        "Developing Educational Materials",
+                        "Group Education Techniques"
+                      ]
+                    },
+                    {
+                      "id": "nec_ch3",
+                      "title": "Nutrition Counseling Skills",
+                      "topics": [
+                        "Building Rapport",
+                        "Motivational Interviewing",
+                        "Setting SMART Goals",
+                        "Documentation and Follow-up"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN4132",
+                  "name": "Nutritional Epidemiology",
+                  "credits": 3,
+                  "description": "An introduction to the research methods used to study the relationship between diet, nutrition, and the distribution and determinants of health and disease in human populations.",
+                  "outcomes": [
+                    "Differentiate between various epidemiological study designs (e.g., cross-sectional, case-control, cohort, RCTs).",
+                    "Critically evaluate the strengths and limitations of different dietary assessment methods used in epidemiology.",
+                    "Calculate and interpret key measures of disease frequency and association.",
+                    "Critically appraise research articles from the nutritional epidemiology literature."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "nutriepi_ch1",
+                      "title": "Introduction to Epidemiology",
+                      "topics": [
+                        "Measures of Disease Frequency (Incidence, Prevalence)",
+                        "Causation in Epidemiology"
+                      ]
+                    },
+                    {
+                      "id": "nutriepi_ch2",
+                      "title": "Epidemiological Study Designs",
+                      "topics": [
+                        "Observational Studies (Cohort, Case-Control)",
+                        "Experimental Studies (Randomized Controlled Trials)"
+                      ]
+                    },
+                    {
+                      "id": "nutriepi_ch3",
+                      "title": "Dietary Assessment in Epidemiology",
+                      "topics": [
+                        "Food Frequency Questionnaires (FFQ)",
+                        "24-Hour Recalls and Food Records",
+                        "Biomarkers of Intake"
+                      ]
+                    },
+                    {
+                      "id": "nutriepi_ch4",
                       "title": "Data Analysis and Interpretation",
                       "topics": [
-                        "Statistical Analysis",
-                        "Drawing Conclusions",
-                        "Discussing Limitations and Future Work"
-                      ]
-                    },
-                    {
-                      "id": "thesis_ch4",
-                      "title": "Thesis Writing and Defense",
-                      "topics": [
-                        "Structuring the Thesis Document",
-                        "Scientific Writing",
-                        "Preparing for Oral Defense"
+                        "Measures of Association (Relative Risk, Odds Ratio)",
+                        "Bias and Confounding",
+                        "Interpreting Epidemiological Evidence"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "FSAN4104",
-                  "name": "Food Packaging",
-                  "description": "A study of packaging materials, their properties, and their interaction with food products to enhance shelf life, safety, and marketability.",
+                  "code": "FSAN4134",
+                  "name": "Diet Therapy",
                   "credits": 2,
+                  "description": "Also known as Medical Nutrition Therapy (MNT), this course covers the principles of modifying diets to manage various diseases and conditions. It integrates pathophysiology with nutrition science to develop therapeutic dietary interventions.",
                   "outcomes": [
-                    "Identify and describe common food packaging materials.",
-                    "Understand the role of packaging in food preservation.",
-                    "Select appropriate packaging for different food systems.",
-                    "Recognize trends in active, intelligent, and sustainable packaging."
+                    "Understand the pathophysiology of major diet-related diseases (e.g., diabetes, cardiovascular disease, renal disease).",
+                    "Apply the Nutrition Care Process (NCP) for individual patient care.",
+                    "Design therapeutic diets tailored to specific medical conditions.",
+                    "Understand the principles of nutritional support, including enteral and parenteral nutrition."
                   ],
                   "chapters": [
                     {
-                      "id": "fpkg_ch1",
-                      "title": "Introduction to Food Packaging",
+                      "id": "dt_ch1",
+                      "title": "The Nutrition Care Process",
                       "topics": [
-                        "Functions of Packaging",
-                        "Packaging Materials: Glass, Metal, Paper, Plastics"
+                        "Assessment, Diagnosis, Intervention, Monitoring & Evaluation (ADIME)"
                       ]
                     },
                     {
-                      "id": "fpkg_ch2",
-                      "title": "Packaging and Shelf Life",
+                      "id": "dt_ch2",
+                      "title": "MNT for Metabolic Disorders",
                       "topics": [
-                        "Permeability and Mass Transfer",
-                        "Food-Package Interactions",
-                        "Shelf-life Modeling"
+                        "Diabetes Mellitus",
+                        "Obesity and Weight Management"
                       ]
                     },
                     {
-                      "id": "fpkg_ch3",
-                      "title": "Advanced Packaging Technologies",
+                      "id": "dt_ch3",
+                      "title": "MNT for Cardiovascular and Renal Disease",
                       "topics": [
+                        "Hypertension and Dyslipidemia",
+                        "Chronic Kidney Disease"
+                      ]
+                    },
+                    {
+                      "id": "dt_ch4",
+                      "title": "MNT for Gastrointestinal and Other Conditions",
+                      "topics": [
+                        "Celiac Disease, IBD",
+                        "Nutritional Support in Critical Care"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN4136",
+                  "name": "Food Safety, Quality Assurance and Legislation",
+                  "credits": 3,
+                  "description": "A comprehensive course on ensuring the safety and quality of food. It covers major food safety hazards, the development and implementation of quality management systems like HACCP, and the legal framework governing food production and trade.",
+                  "outcomes": [
+                    "Identify and describe biological, chemical, and physical food safety hazards.",
+                    "Develop and implement a Hazard Analysis and Critical Control Point (HACCP) plan.",
+                    "Understand the principles of quality assurance and quality control systems (e.g., ISO 22000).",
+                    "Interpret key national and international food laws and regulations."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "fsqal_ch1",
+                      "title": "Food Safety Hazards",
+                      "topics": [
+                        "Foodborne Pathogens",
+                        "Chemical Contaminants (Mycotoxins, Heavy Metals)",
+                        "Physical Hazards and Allergens"
+                      ]
+                    },
+                    {
+                      "id": "fsqal_ch2",
+                      "title": "HACCP System",
+                      "topics": [
+                        "The 7 Principles of HACCP",
+                        "Developing a HACCP Plan",
+                        "Prerequisite Programs (GMPs, SSOPs)"
+                      ]
+                    },
+                    {
+                      "id": "fsqal_ch3",
+                      "title": "Quality Management Systems",
+                      "topics": [
+                        "Quality Assurance vs. Quality Control",
+                        "Statistical Process Control (SPC)",
+                        "Introduction to ISO 9001 and ISO 22000"
+                      ]
+                    },
+                    {
+                      "id": "fsqal_ch4",
+                      "title": "Food Laws and Regulations",
+                      "topics": [
+                        "National Food Legislation",
+                        "Codex Alimentarius",
+                        "Regulations on Labeling and Additives"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "FSAN4138",
+                  "name": "Food Packaging Technology",
+                  "credits": 3,
+                  "description": "A study of the materials, systems, and technologies used for food packaging, with a focus on the role of packaging in preservation, protection, consumer convenience, and marketing.",
+                  "outcomes": [
+                    "Select appropriate packaging materials (glass, metal, paper, plastics) based on food properties and end-use.",
+                    "Understand various packaging systems and technologies, including aseptic packaging and modified atmosphere packaging.",
+                    "Analyze interactions between food and packaging materials.",
+                    "Evaluate the environmental impact and sustainability of different packaging options."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "fpt_ch1",
+                      "title": "Introduction and Packaging Functions",
+                      "topics": [
+                        "Functions of Packaging (Containment, Protection, Communication)",
+                        "Packaging Materials Overview"
+                      ]
+                    },
+                    {
+                      "id": "fpt_ch2",
+                      "title": "Packaging Materials",
+                      "topics": [
+                        "Glass, Metal, and Paper/Paperboard Packaging",
+                        "Plastic Polymers and Flexible Packaging"
+                      ]
+                    },
+                    {
+                      "id": "fpt_ch3",
+                      "title": "Packaging Systems and Technologies",
+                      "topics": [
+                        "Aseptic Packaging",
                         "Modified Atmosphere Packaging (MAP)",
-                        "Active Packaging",
-                        "Intelligent Packaging"
+                        "Vacuum Packaging"
                       ]
                     },
                     {
-                      "id": "fpkg_ch4",
-                      "title": "Packaging Sustainability and Safety",
+                      "id": "fpt_ch4",
+                      "title": "Advanced Topics",
                       "topics": [
-                        "Sustainable Packaging",
-                        "Recycling and Biodegradability",
-                        "Packaging Safety and Migration"
+                        "Active and Intelligent Packaging",
+                        "Packaging and the Environment",
+                        "Packaging Machinery"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "FSAN4112",
-                  "name": "Internship/Professional Practice",
-                  "description": "Supervised practical work experience in the food industry, a public health organization, or a research institution, applying academic knowledge in a real-world setting.",
-                  "credits": 2,
+                  "code": "FSAN4140",
+                  "name": "Final Year Project II",
+                  "credits": 4,
+                  "description": "The execution phase of the capstone project. Students implement their approved proposal, carrying out laboratory experiments, surveys, or product development work. The course culminates in the submission of a final thesis and an oral defense.",
                   "outcomes": [
-                    "Gain practical experience in a professional environment.",
-                    "Develop professional skills like teamwork and communication.",
-                    "Apply theoretical knowledge to solve real-world problems.",
-                    "Enhance career awareness and professional networking."
+                    "Successfully execute an independent, in-depth project in food science or nutrition.",
+                    "Collect, analyze, and interpret experimental or survey data.",
+                    "Produce a comprehensive, well-written thesis document of professional quality.",
+                    "Effectively communicate and defend the project's methodology, results, and significance."
                   ],
-                  "chapters": [
-                    {
-                      "id": "intern_ch1",
-                      "title": "Professional Development",
-                      "topics": [
-                        "Resume Writing and Interview Skills",
-                        "Workplace Ethics",
-                        "Professional Communication"
-                      ]
-                    },
-                    {
-                      "id": "intern_ch2",
-                      "title": "Practical Application",
-                      "topics": [
-                        "On-the-Job Training",
-                        "Project Work",
-                        "Applying Classroom Knowledge"
-                      ]
-                    },
-                    {
-                      "id": "intern_ch3",
-                      "title": "Reflection and Reporting",
-                      "topics": [
-                        "Documenting Work Experience",
-                        "Preparing Internship Report",
-                        "Final Presentation"
-                      ]
-                    }
-                  ]
+                  "chapters": []
                 }
               ]
             }
@@ -20724,366 +24947,697 @@ export const courseData: CourseData = {
               "Semester I": [
                 {
                   "code": "Geol2101",
-                  "name": "Physical Geology",
-                  "description": "An introduction to the Earth's materials, the processes that shape its surface and interior, and the concept of geologic time. This course provides a foundation for all other geology disciplines.",
+                  "name": "General Geology",
                   "credits": 4,
+                  "prerequisites": [],
+                  "description": "An introductory course covering the fundamental principles of physical and historical geology. It explores Earth's materials, internal and external processes that shape the planet, and the methods used to interpret geological time.",
                   "outcomes": [
-                    "Identify common minerals and rocks.",
-                    "Understand the theory of plate tectonics and its role in shaping the Earth.",
-                    "Describe the processes of volcanism, earthquakes, weathering, and erosion.",
-                    "Interpret basic geological maps and cross-sections."
+                    "Understand the rock cycle and the theory of plate tectonics.",
+                    "Identify common rocks and minerals.",
+                    "Describe major geological processes such as volcanism, weathering, and glaciation.",
+                    "Interpret the basics of geological maps and the geological time scale."
                   ],
                   "chapters": [
                     {
-                      "id": "pg_ch1",
+                      "id": "gg_ch1",
                       "title": "Introduction to Earth Systems",
                       "topics": [
-                        "The Geologic Time Scale",
-                        "Earth's Structure and Composition",
-                        "The Theory of Plate Tectonics",
-                        "Continental Drift and Seafloor Spreading"
+                        "The Earth System",
+                        "Plate Tectonics",
+                        "Geologic Time"
                       ]
                     },
                     {
-                      "id": "pg_ch2",
+                      "id": "gg_ch2",
                       "title": "Earth Materials",
                       "topics": [
-                        "Matter and Minerals",
-                        "Igneous Rocks and Volcanic Activity",
-                        "Sedimentary Rocks and Processes",
+                        "Minerals and their Properties",
+                        "Igneous Rocks",
+                        "Sedimentary Rocks",
                         "Metamorphic Rocks"
                       ]
                     },
                     {
-                      "id": "pg_ch3",
-                      "title": "Internal Processes",
+                      "id": "gg_ch3",
+                      "title": "Internal and External Processes",
                       "topics": [
-                        "Earthquakes and Seismology",
-                        "Mountain Building and Crustal Deformation",
-                        "Geologic Structures (Folds, Faults)"
+                        "Volcanism and Intrusive Activity",
+                        "Earthquakes and Earth's Interior",
+                        "Weathering and Soil Formation",
+                        "Streams, Groundwater, and Glaciers"
                       ]
                     },
                     {
-                      "id": "pg_ch4",
-                      "title": "Surface Processes",
+                      "id": "gg_ch4",
+                      "title": "Geologic Structures and Maps",
                       "topics": [
-                        "Weathering and Soil Formation",
-                        "Mass Wasting",
-                        "Running Water (Streams and Rivers)",
-                        "Groundwater, Glaciers, and Deserts"
+                        "Folds and Faults",
+                        "Interpreting Geologic Maps"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "Geol2103",
-                  "name": "Historical Geology",
-                  "description": "A study of the Earth's 4.6-billion-year history, focusing on the evolution of continents, oceans, atmosphere, and life as recorded in the rock and fossil records.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "Geol2101"
-                  ],
+                  "name": "Paleontology",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "description": "A study of ancient life as recorded by the fossil record. This course covers the principles of fossilization (taphonomy), the morphology and classification of major fossil groups, and their application in biostratigraphy and paleoecology.",
                   "outcomes": [
-                    "Apply principles of stratigraphy to interpret Earth history.",
-                    "Understand methods of relative and absolute dating.",
-                    "Describe the major events in the history of life, including mass extinctions.",
-                    "Relate tectonic events to the geologic history of major continents."
+                    "Understand the processes of fossilization and the biases of the fossil record.",
+                    "Identify major groups of invertebrate and vertebrate fossils.",
+                    "Use fossils for relative dating and correlation of rock units.",
+                    "Interpret ancient environments based on fossil assemblages."
                   ],
                   "chapters": [
                     {
-                      "id": "hg_ch1",
-                      "title": "Principles of Interpreting Earth History",
+                      "id": "paleo_ch1",
+                      "title": "Principles of Paleontology",
                       "topics": [
-                        "Relative Dating Principles (Superposition, Cross-Cutting)",
-                        "Stratigraphy and Correlation",
-                        "Geologic Time and Absolute Dating (Radiometric Methods)"
+                        "Taphonomy and Fossilization",
+                        "Classification and Taxonomy",
+                        "Evolution and the Fossil Record"
                       ]
                     },
                     {
-                      "id": "hg_ch2",
-                      "title": "Precambrian Earth and the Origin of Life",
+                      "id": "paleo_ch2",
+                      "title": "Major Invertebrate Phyla",
                       "topics": [
-                        "Hadean and Archean Eons",
-                        "Proterozoic Eon and the Rise of Eukaryotes",
-                        "Precambrian Tectonics and Supercontinents"
+                        "Protozoa, Porifera, Cnidaria",
+                        "Brachiopoda and Bryozoa",
+                        "Mollusca (Bivalves, Gastropods, Cephalopods)",
+                        "Arthropoda (Trilobites)",
+                        "Echinodermata"
                       ]
                     },
                     {
-                      "id": "hg_ch3",
-                      "title": "The Paleozoic Era",
+                      "id": "paleo_ch3",
+                      "title": "Vertebrate and Plant Paleontology",
                       "topics": [
-                        "The Cambrian Explosion",
-                        "Paleozoic Life (Invertebrates, Fish, Amphibians)",
-                        "Paleozoic Tectonics and Climate"
+                        "Introduction to Vertebrate Fossils",
+                        "Introduction to Paleobotany"
                       ]
                     },
                     {
-                      "id": "hg_ch4",
-                      "title": "The Mesozoic and Cenozoic Eras",
+                      "id": "paleo_ch4",
+                      "title": "Applications of Paleontology",
                       "topics": [
-                        "The Age of Reptiles (Dinosaurs)",
-                        "The Breakup of Pangea",
-                        "The Age of Mammals and Human Evolution",
-                        "Cenozoic Climate Change and Ice Ages"
+                        "Biostratigraphy and Index Fossils",
+                        "Paleoecology and Paleoenvironmental Reconstruction"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "Chem2101",
-                  "name": "General Chemistry I",
-                  "description": "Covers fundamental principles of chemistry, including atomic structure, chemical bonding, stoichiometry, and solution chemistry, providing a basis for geochemistry and mineralogy.",
-                  "credits": 4,
-                  "chapters": []
-                }
-              ],
-              "Semester II": [
-                {
-                  "code": "Geol2102",
-                  "name": "Mineralogy",
-                  "description": "Principles of crystallography, crystal chemistry, and systematic identification of minerals using physical properties and optical microscopy.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "Geol2101",
-                    "Chem2101"
-                  ],
+                  "code": "Geol2105",
+                  "name": "Crystallography and Mineral Optics",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "description": "A detailed study of the external form (crystallography) and internal optical properties of minerals. The course focuses on crystal symmetry and the use of the petrographic microscope to identify minerals in thin section.",
                   "outcomes": [
-                    "Identify over 100 common rock-forming and ore minerals in hand samples.",
-                    "Understand the principles of crystallography and crystal systems.",
-                    "Use a petrographic microscope to identify minerals in thin section.",
-                    "Relate mineral chemistry and structure to physical properties."
+                    "Describe the 32 crystal classes and 6 crystal systems.",
+                    "Understand the principles of light interaction with anisotropic minerals.",
+                    "Identify common rock-forming minerals using their optical properties under the microscope.",
+                    "Master the use of the polarizing light microscope."
                   ],
                   "chapters": [
                     {
-                      "id": "min_ch1",
-                      "title": "Crystallography and Crystal Chemistry",
+                      "id": "cryst_ch1",
+                      "title": "Crystallography",
                       "topics": [
-                        "Symmetry Operations and Point Groups",
-                        "Crystal Systems and Lattices",
-                        "Chemical Bonding in Minerals",
-                        "Isomorphism and Polymorphism"
+                        "Crystal Lattices and Unit Cells",
+                        "Elements of Symmetry",
+                        "The 32 Point Groups and Crystal Systems"
                       ]
                     },
                     {
-                      "id": "min_ch2",
-                      "title": "Optical Mineralogy",
+                      "id": "cryst_ch2",
+                      "title": "Principles of Mineral Optics",
                       "topics": [
-                        "The Petrographic Microscope",
-                        "Properties of Light in Crystals",
-                        "Identification of Isotropic and Anisotropic Minerals",
+                        "The Nature of Light",
+                        "Refraction, Reflection, and Isotropism",
+                        "The Polarizing Light Microscope"
+                      ]
+                    },
+                    {
+                      "id": "cryst_ch3",
+                      "title": "Optical Properties of Uniaxial Minerals",
+                      "topics": [
+                        "Double Refraction",
+                        "The Uniaxial Indicatrix",
                         "Interference Figures"
                       ]
                     },
                     {
-                      "id": "min_ch3",
-                      "title": "Systematic Mineralogy: Silicates",
+                      "id": "cryst_ch4",
+                      "title": "Optical Properties of Biaxial Minerals",
                       "topics": [
-                        "Nesosilicates, Sorosilicates, Cyclosilicates",
-                        "Inosilicates (Pyroxenes, Amphiboles)",
-                        "Phyllosilicates (Micas, Clays)",
-                        "Tectosilicates (Quartz, Feldspars)"
+                        "The Biaxial Indicatrix",
+                        "Extinction Angles",
+                        "Identification of Biaxial Minerals"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "GLTr2001",
+                  "name": "Global Trend",
+                  "credits": 2,
+                  "prerequisites": [],
+                  "description": "A course exploring major global trends, issues, and challenges in the 21st century, covering topics like globalization, international relations, global security, environmental challenges, and development.",
+                  "outcomes": [
+                    "Identify and analyze major trends shaping the contemporary world.",
+                    "Understand the interconnectedness of global political, economic, and social systems.",
+                    "Critically evaluate different perspectives on global issues such as security, climate change, and migration."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "gt_ch1",
+                      "title": "Understanding Globalization",
+                      "topics": [
+                        "Dimensions of Globalization",
+                        "Debates on Globalization"
                       ]
                     },
                     {
-                      "id": "min_ch4",
-                      "title": "Systematic Mineralogy: Non-silicates",
+                      "id": "gt_ch2",
+                      "title": "International Relations and Security",
                       "topics": [
-                        "Native Elements",
-                        "Sulfides and Sulfates",
-                        "Oxides and Hydroxides",
-                        "Carbonates and Halides"
+                        "Theories of International Relations",
+                        "The Concept of Security",
+                        "Conflict and Terrorism"
+                      ]
+                    },
+                    {
+                      "id": "gt_ch3",
+                      "title": "Contemporary Global Challenges",
+                      "topics": [
+                        "Environmental Change",
+                        "Global Poverty and Development",
+                        "Foreign Policy and Diplomacy"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Phys2003",
+                  "name": "General Physics",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "description": "Foundational physics principles including mechanics, waves, thermodynamics, and electromagnetism, with applications and examples relevant to geophysics and geological processes.",
+                  "outcomes": [
+                    "Apply principles of mechanics to geological structures.",
+                    "Understand wave propagation in the context of seismic waves.",
+                    "Grasp thermodynamic principles governing mineral formation and geothermal systems.",
+                    "Understand the basics of gravity and magnetic fields as applied in geophysics."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "phys_ch1",
+                      "title": "Mechanics and Waves",
+                      "topics": [
+                        "Newtonian Mechanics Review",
+                        "Wave Motion and Properties",
+                        "Introduction to Seismic Waves (P and S waves)"
+                      ]
+                    },
+                    {
+                      "id": "phys_ch2",
+                      "title": "Thermodynamics",
+                      "topics": [
+                        "Laws of Thermodynamics",
+                        "Heat Transfer Mechanisms (Conduction, Convection, Radiation)",
+                        "Applications to Earth's Heat Flow"
+                      ]
+                    },
+                    {
+                      "id": "phys_ch3",
+                      "title": "Electricity and Magnetism",
+                      "topics": [
+                        "Electric and Magnetic Fields",
+                        "Earth's Magnetic Field",
+                        "Introduction to Geophysical Survey Methods"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Econ2009",
+                  "name": "Economics",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "description": "An introduction to microeconomic and macroeconomic principles, including supply and demand, market structures, national income, and fiscal and monetary policy, with relevance to the mineral and energy resource industries.",
+                  "outcomes": [
+                    "Understand the principles of supply, demand, and market equilibrium for commodities.",
+                    "Analyze market structures in the resource sector.",
+                    "Grasp key macroeconomic indicators that affect resource exploration and extraction.",
+                    "Apply economic principles to understand issues of resource management."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "econ_ch1",
+                      "title": "Introduction to Economics",
+                      "topics": [
+                        "The Economic Problem of Scarcity",
+                        "Opportunity Cost"
+                      ]
+                    },
+                    {
+                      "id": "econ_ch2",
+                      "title": "Microeconomics",
+                      "topics": [
+                        "Supply and Demand",
+                        "Elasticity",
+                        "Theory of the Firm"
+                      ]
+                    },
+                    {
+                      "id": "econ_ch3",
+                      "title": "Macroeconomics",
+                      "topics": [
+                        "Measuring National Income (GDP)",
+                        "Inflation and Unemployment",
+                        "Monetary and Fiscal Policy"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "Semester II": [
+                {
+                  "code": "InCh2004",
+                  "name": "Physical Chemistry",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "description": "A study of the fundamental principles of physical chemistry, including thermodynamics, kinetics, and electrochemistry, with a strong emphasis on applications to geochemistry, mineral stability, and aqueous systems.",
+                  "outcomes": [
+                    "Apply thermodynamic principles (Gibbs free energy, enthalpy) to predict the stability of minerals.",
+                    "Understand the kinetics of geological reactions.",
+                    "Analyze the chemistry of aqueous solutions, including pH and redox potential (Eh).",
+                    "Interpret phase diagrams for geochemical systems."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "pchem_ch1",
+                      "title": "Chemical Thermodynamics",
+                      "topics": [
+                        "Laws of Thermodynamics",
+                        "Gibbs Free Energy and Chemical Potential",
+                        "Phase Equilibria and Phase Diagrams"
+                      ]
+                    },
+                    {
+                      "id": "pchem_ch2",
+                      "title": "Chemical Kinetics",
+                      "topics": [
+                        "Reaction Rates and Orders",
+                        "Activation Energy",
+                        "Kinetics of Geological Processes"
+                      ]
+                    },
+                    {
+                      "id": "pchem_ch3",
+                      "title": "Aqueous Geochemistry",
+                      "topics": [
+                        "Properties of Water",
+                        "Acids, Bases, and pH",
+                        "Redox Reactions and Eh-pH diagrams"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Hist2002",
+                  "name": "History of Ethiopia and the horn",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "description": "A survey of the history of Ethiopia and the Horn of Africa from ancient times to the modern era, focusing on social, political, economic, and cultural developments.",
+                  "outcomes": [
+                    "Understand the major historical periods and developments in Ethiopia and the Horn.",
+                    "Analyze the interactions between different peoples and states in the region.",
+                    "Appreciate the historical roots of contemporary issues in the region."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "hist_eth_ch1",
+                      "title": "Ancient and Medieval Periods",
+                      "topics": [
+                        "The Aksumite Kingdom",
+                        "The Zagwe Dynasty",
+                        "The 'Restored' Solomonic Dynasty"
+                      ]
+                    },
+                    {
+                      "id": "hist_eth_ch2",
+                      "title": "Early Modern and Modern Eras",
+                      "topics": [
+                        "The Gondarine Period and 'Zemene Mesafint'",
+                        "Territorial Unification and Expansion (1855-1991)"
+                      ]
+                    },
+                    {
+                      "id": "hist_eth_ch3",
+                      "title": "Contemporary Ethiopia and the Horn",
+                      "topics": [
+                        "Post-1991 Political and Social Developments",
+                        "Regional Relations and Conflicts"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Stat2006",
+                  "name": "Introduction to Statistics",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "description": "An introduction to statistical methods for analyzing and interpreting scientific data, with examples from geology. The course covers descriptive statistics, probability distributions, hypothesis testing, and regression analysis.",
+                  "outcomes": [
+                    "Calculate and interpret descriptive statistics for geological data sets.",
+                    "Apply common probability distributions to geological phenomena.",
+                    "Perform hypothesis tests to compare geological samples or data.",
+                    "Conduct and interpret correlation and simple linear regression analyses."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "stat_ch1",
+                      "title": "Descriptive Statistics",
+                      "topics": [
+                        "Data Types",
+                        "Measures of Central Tendency and Dispersion",
+                        "Graphical Data Representation (Histograms, Box plots)"
+                      ]
+                    },
+                    {
+                      "id": "stat_ch2",
+                      "title": "Probability and Distributions",
+                      "topics": [
+                        "Basic Probability",
+                        "Common Distributions (Normal, Lognormal, Binomial)"
+                      ]
+                    },
+                    {
+                      "id": "stat_ch3",
+                      "title": "Statistical Inference",
+                      "topics": [
+                        "Confidence Intervals",
+                        "Hypothesis Testing (t-tests, ANOVA, Chi-square)"
+                      ]
+                    },
+                    {
+                      "id": "stat_ch4",
+                      "title": "Correlation and Regression",
+                      "topics": [
+                        "Correlation Analysis",
+                        "Simple Linear Regression"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol2102",
+                  "name": "Stratigraphy and Earth History",
+                  "credits": 3,
+                  "prerequisites": [
+                    "Geol2101"
+                  ],
+                  "description": "A study of the principles used to interpret layered rocks (strata) and reconstruct Earth's history. This course covers methods of correlation, the interpretation of depositional environments, and major events in the planet's geologic past.",
+                  "outcomes": [
+                    "Apply Steno's laws and other stratigraphic principles to interpret geological sequences.",
+                    "Correlate rock units using lithostratigraphic and biostratigraphic methods.",
+                    "Interpret ancient depositional environments from sedimentary facies.",
+                    "Describe the major geological and biological events of the Phanerozoic Eon."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "strat_ch1",
+                      "title": "Principles of Stratigraphy",
+                      "topics": [
+                        "Steno's Laws",
+                        "Unconformities",
+                        "The Geologic Time Scale"
+                      ]
+                    },
+                    {
+                      "id": "strat_ch2",
+                      "title": "Stratigraphic Methods",
+                      "topics": [
+                        "Lithostratigraphy (Formations, Groups)",
+                        "Biostratigraphy (Index Fossils, Biozones)",
+                        "Introduction to Sequence Stratigraphy"
+                      ]
+                    },
+                    {
+                      "id": "strat_ch3",
+                      "title": "Facies Analysis and Depositional Environments",
+                      "topics": [
+                        "Walther's Law",
+                        "Interpreting Marine, Transitional, and Terrestrial Environments"
+                      ]
+                    },
+                    {
+                      "id": "strat_ch4",
+                      "title": "Major Events in Earth History",
+                      "topics": [
+                        "The Precambrian",
+                        "The Paleozoic Era",
+                        "The Mesozoic Era",
+                        "The Cenozoic Era"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "Geol2104",
-                  "name": "Geology Field Methods",
-                  "description": "Introduction to geological fieldwork techniques, including the use of a Brunton compass, topographic map reading, description of rocks in outcrops, and the construction of geologic maps and cross-sections.",
-                  "credits": 3,
+                  "name": "Plate Tectonics",
+                  "credits": 2,
                   "prerequisites": [
                     "Geol2101"
                   ],
+                  "description": "An in-depth study of the theory of plate tectonics, the unifying theory of geology. Covers plate boundaries, driving mechanisms, and the relationship between tectonics and global phenomena like earthquakes, volcanism, mountain building, and basin formation.",
                   "outcomes": [
-                    "Accurately measure the orientation of planar and linear geologic features.",
-                    "Navigate and locate positions using topographic maps and GPS.",
-                    "Create a detailed geologic map of a field area.",
-                    "Construct geologically reasonable cross-sections from map data."
+                    "Describe the types of plate boundaries and their associated geological features.",
+                    "Explain the lines of evidence that support the theory of plate tectonics.",
+                    "Relate specific tectonic settings to the formation of different rock types and mineral deposits.",
+                    "Understand the mechanisms that drive plate motion."
                   ],
                   "chapters": [
                     {
-                      "id": "gfm_ch1",
-                      "title": "Navigation and Measurement",
+                      "id": "pt_ch1",
+                      "title": "Development of a Theory",
                       "topics": [
-                        "Topographic Map Interpretation",
-                        "Use of GPS and Altimeter",
-                        "Use of the Brunton Compass",
-                        "Measuring Strike and Dip"
+                        "Continental Drift",
+                        "Seafloor Spreading",
+                        "Paleomagnetism"
                       ]
                     },
                     {
-                      "id": "gfm_ch2",
-                      "title": "Field Data Collection",
+                      "id": "pt_ch2",
+                      "title": "Plate Boundaries",
                       "topics": [
-                        "Keeping a Field Notebook",
-                        "Describing Rocks in Outcrop",
-                        "Identifying Geologic Contacts"
+                        "Divergent Boundaries (Rifts, Mid-Ocean Ridges)",
+                        "Convergent Boundaries (Subduction Zones, Collisional Belts)",
+                        "Transform Boundaries"
                       ]
                     },
                     {
-                      "id": "gfm_ch3",
-                      "title": "Geologic Mapping",
+                      "id": "pt_ch3",
+                      "title": "Driving Mechanisms and the Mantle",
                       "topics": [
-                        "Mapping on a Base Map",
-                        "Mapping Geologic Units and Contacts",
-                        "Mapping Structural Features"
+                        "Slab Pull and Ridge Push",
+                        "Mantle Convection",
+                        "Hotspots and Mantle Plumes"
                       ]
                     },
                     {
-                      "id": "gfm_ch4",
-                      "title": "Data Synthesis",
+                      "id": "pt_ch4",
+                      "title": "Tectonics and Earth Systems",
                       "topics": [
-                        "Constructing Geologic Cross-Sections",
-                        "Creating a Stratigraphic Column",
-                        "Writing a Geologic Report"
+                        "Tectonics and Mountain Building",
+                        "Tectonics and Climate",
+                        "The Wilson Cycle"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "Phys2101",
-                  "name": "General Physics I (Mechanics)",
-                  "description": "Covers classical mechanics, including kinematics, Newton's laws, work, energy, and momentum, providing a basis for geophysics and structural geology.",
-                  "credits": 4,
-                  "chapters": []
+                  "code": "Geol2106",
+                  "name": "Sedimentary Petrology",
+                  "credits": 3,
+                  "prerequisites": [
+                    "Geol2101"
+                  ],
+                  "description": "A detailed study of the origin, composition, texture, and classification of sedimentary rocks. Includes laboratory analysis of hand specimens and thin sections to interpret source areas (provenance), depositional environments, and post-depositional changes (diagenesis).",
+                  "outcomes": [
+                    "Identify and classify major sedimentary rock types (siliciclastic and carbonate).",
+                    "Analyze textures and sedimentary structures to infer transport and depositional processes.",
+                    "Interpret depositional environments from rock characteristics.",
+                    "Understand the processes of diagenesis and their effect on rock properties."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "sedpet_ch1",
+                      "title": "Siliciclastic Sediments and Rocks",
+                      "topics": [
+                        "Weathering and Sediment Production",
+                        "Sediment Transport and Structures",
+                        "Classification of Sandstones and Mudrocks",
+                        "Provenance Analysis"
+                      ]
+                    },
+                    {
+                      "id": "sedpet_ch2",
+                      "title": "Carbonate Sediments and Rocks",
+                      "topics": [
+                        "Carbonate Minerals and Grains",
+                        "Classification of Limestones (Dunham, Folk)",
+                        "Carbonate Depositional Environments"
+                      ]
+                    },
+                    {
+                      "id": "sedpet_ch3",
+                      "title": "Other Sedimentary Rocks",
+                      "topics": [
+                        "Evaporites",
+                        "Cherts",
+                        "Iron Formations"
+                      ]
+                    },
+                    {
+                      "id": "sedpet_ch4",
+                      "title": "Diagenesis",
+                      "topics": [
+                        "Compaction and Cementation",
+                        "Diagenetic Environments",
+                        "Porosity Evolution"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol2108",
+                  "name": "Mineralogy",
+                  "credits": 3,
+                  "prerequisites": [
+                    "Geol2105"
+                  ],
+                  "description": "A systematic study of the major rock-forming and economic minerals. This course focuses on their crystal chemistry, physical properties, geological occurrence, and identification in hand specimen.",
+                  "outcomes": [
+                    "Understand the principles of crystal chemistry that control mineral structures and properties.",
+                    "Identify approximately 50-100 common minerals based on their physical properties.",
+                    "Relate mineral assemblages to specific rock types and geological environments.",
+                    "Recognize important ore minerals and their associations."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "min_ch1",
+                      "title": "Principles of Crystal Chemistry",
+                      "topics": [
+                        "Chemical Bonding in Minerals",
+                        "Coordination and Pauling's Rules",
+                        "Isomorphism and Polymorphism"
+                      ]
+                    },
+                    {
+                      "id": "min_ch2",
+                      "title": "Silicate Minerals",
+                      "topics": [
+                        "Silicate Structural Classification",
+                        "Nesosilicates (Olivine, Garnet)",
+                        "Inosilicates (Pyroxenes, Amphiboles)",
+                        "Phyllosilicates (Micas, Clays)",
+                        "Tectosilicates (Quartz, Feldspars, Feldspathoids)"
+                      ]
+                    },
+                    {
+                      "id": "min_ch3",
+                      "title": "Non-Silicate Minerals",
+                      "topics": [
+                        "Native Elements",
+                        "Sulfides and Sulfates",
+                        "Oxides and Hydroxides",
+                        "Carbonates and Halides"
+                      ]
+                    },
+                    {
+                      "id": "min_ch4",
+                      "title": "Mineral Associations",
+                      "topics": [
+                        "Minerals in Igneous Rocks",
+                        "Minerals in Sedimentary Rocks",
+                        "Minerals in Metamorphic Rocks",
+                        "Ore Mineral Assemblages"
+                      ]
+                    }
+                  ]
                 }
               ]
             },
             "Year 3": {
               "Semester I": [
                 {
+                  "code": "Comp3003",
+                  "name": "Fundamentals of Programming",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "description": "An introduction to computer programming for geoscientists using a high-level language like Python or MATLAB. Focuses on data analysis, visualization, and solving geological problems computationally.",
+                  "outcomes": [
+                    "Write simple scripts to import, manipulate, and analyze geological data.",
+                    "Create professional plots and maps from data sets.",
+                    "Understand basic programming concepts such as loops, conditionals, and functions.",
+                    "Automate repetitive data processing tasks."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "prog_ch1",
+                      "title": "Programming Fundamentals",
+                      "topics": [
+                        "Variables and Data Types",
+                        "Control Flow (Loops and Conditionals)",
+                        "Functions"
+                      ]
+                    },
+                    {
+                      "id": "prog_ch2",
+                      "title": "Data Structures and File I/O",
+                      "topics": [
+                        "Arrays and Matrices",
+                        "Reading and Writing Text Files (e.g., CSV)",
+                        "Basic Data Manipulation"
+                      ]
+                    },
+                    {
+                      "id": "prog_ch3",
+                      "title": "Data Visualization",
+                      "topics": [
+                        "Creating 2D Plots (X-Y, Scatter)",
+                        "Histograms and Statistical Plots",
+                        "Introduction to Contouring and Mapping"
+                      ]
+                    },
+                    {
+                      "id": "prog_ch4",
+                      "title": "Geological Applications",
+                      "topics": [
+                        "Analyzing Well Log Data",
+                        "Plotting Stereonets",
+                        "Simple Geological Modeling"
+                      ]
+                    }
+                  ]
+                },
+                {
                   "code": "Geol3101",
-                  "name": "Igneous and Metamorphic Petrology",
-                  "description": "Study of the origin, composition, and classification of igneous and metamorphic rocks, using hand samples, thin sections, and geochemistry to interpret petrogenesis.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "Geol2102"
-                  ],
-                  "outcomes": [
-                    "Classify igneous and metamorphic rocks based on texture and mineralogy.",
-                    "Interpret phase diagrams to understand magma evolution and metamorphic reactions.",
-                    "Use geochemical data to determine tectonic settings of rock suites.",
-                    "Identify key rock types and textures in thin section."
-                  ],
-                  "chapters": [
-                    {
-                      "id": "petro_ch1",
-                      "title": "Igneous Petrology",
-                      "topics": [
-                        "Magma Generation and Properties",
-                        "Classification of Igneous Rocks",
-                        "Magmatic Differentiation Processes",
-                        "Igneous Rocks and Tectonic Settings"
-                      ]
-                    },
-                    {
-                      "id": "petro_ch2",
-                      "title": "Thermodynamics and Phase Equilibria",
-                      "topics": [
-                        "Gibbs Phase Rule",
-                        "Binary and Ternary Phase Diagrams",
-                        "Geothermometry and Geobarometry"
-                      ]
-                    },
-                    {
-                      "id": "petro_ch3",
-                      "title": "Metamorphic Petrology",
-                      "topics": [
-                        "Agents of Metamorphism",
-                        "Types of Metamorphism (Contact, Regional)",
-                        "Classification of Metamorphic Rocks"
-                      ]
-                    },
-                    {
-                      "id":'petro_ch4',
-                      "title": "Metamorphic Facies and Reactions",
-                      "topics": [
-                        "The Metamorphic Facies Concept",
-                        "Graphical Representation of Mineral Assemblages",
-                        "Pressure-Temperature-Time Paths"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "Geol3103",
-                  "name": "Sedimentology and Stratigraphy",
-                  "description": "A study of the processes of sedimentation and the interpretation of sedimentary rocks and their arrangements in the stratigraphic record to reconstruct past environments.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "Geol2102"
-                  ],
-                  "outcomes": [
-                    "Identify sedimentary structures and use them to interpret depositional processes.",
-                    "Describe major depositional environments (e.g., fluvial, deltaic, marine).",
-                    "Apply principles of stratigraphy to correlate rock units.",
-                    "Understand the fundamentals of sequence and seismic stratigraphy."
-                  ],
-                  "chapters": [
-                    {
-                      "id": "sedstrat_ch1",
-                      "title": "Sedimentology",
-                      "topics": [
-                        "Sediment Transport by Water and Wind",
-                        "Physical Sedimentary Structures",
-                        "Diagenesis",
-                        "Classification of Sedimentary Rocks"
-                      ]
-                    },
-                    {
-                      "id": "sedstrat_ch2",
-                      "title": "Depositional Environments",
-                      "topics": [
-                        "Terrestrial Environments (Fluvial, Eolian, Glacial)",
-                        "Coastal and Shallow Marine Environments (Deltas, Beaches, Reefs)",
-                        "Deep Marine Environments"
-                      ]
-                    },
-                    {
-                      "id": "sedstrat_ch3",
-                      "title": "Stratigraphy",
-                      "topics": [
-                        "Lithostratigraphy",
-                        "Biostratigraphy",
-                        "Chronostratigraphy",
-                        "Correlation Techniques"
-                      ]
-                    },
-                    {
-                      "id": "sedstrat_ch4",
-                      "title": "Modern Stratigraphic Concepts",
-                      "topics": [
-                        "Sequence Stratigraphy",
-                        "Seismic Stratigraphy",
-                        "Basin Analysis"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "Geol3105",
                   "name": "Structural Geology",
-                  "description": "Analysis of deformed rocks to understand the geometry, kinematics, and dynamics of rock deformation from the microscopic to the plate-tectonic scale.",
                   "credits": 4,
                   "prerequisites": [
-                    "Geol2101",
-                    "Phys2101"
+                    "Geol2101"
                   ],
+                  "description": "A detailed study of the deformation of Earth's crust. This course covers the description, analysis, and interpretation of geological structures like folds, faults, and foliations, and the principles of stress and strain.",
                   "outcomes": [
-                    "Identify and measure geologic structures in the field and on maps.",
-                    "Use stereographic projections to solve geometric problems.",
-                    "Understand the relationship between stress, strain, and rock rheology.",
-                    "Relate structural styles to different tectonic settings."
+                    "Analyze stress and strain in rocks.",
+                    "Describe and classify folds, faults, and other geological structures.",
+                    "Use stereographic projections to solve structural problems.",
+                    "Interpret the tectonic history of a region from its structural features."
                   ],
                   "chapters": [
                     {
@@ -21091,7 +25645,7 @@ export const courseData: CourseData = {
                       "title": "Stress and Strain",
                       "topics": [
                         "Concept of Stress and the Stress Tensor",
-                        "Strain Analysis",
+                        "Strain and its Measurement",
                         "Rheology and Rock Deformation Mechanisms"
                       ]
                     },
@@ -21100,8 +25654,8 @@ export const courseData: CourseData = {
                       "title": "Brittle Structures",
                       "topics": [
                         "Joints and Veins",
-                        "Fault Classification and Geometry",
-                        "Fault Rock Analysis"
+                        "Fault Classification and Mechanics",
+                        "Fault-related Folds"
                       ]
                     },
                     {
@@ -21109,17 +25663,220 @@ export const courseData: CourseData = {
                       "title": "Ductile Structures",
                       "topics": [
                         "Fold Geometry and Classification",
-                        "Foliations and Lineations",
-                        "Shear Zones and Mylonites"
+                        "Foliation and Lineation",
+                        "Shear Zones"
                       ]
                     },
                     {
                       "id": "sg_ch4",
-                      "title": "Geologic Maps and Tectonics",
+                      "title": "Stereographic Projections and Tectonic Analysis",
                       "topics": [
-                        "Advanced Map Interpretation",
-                        "Stereographic Projections",
-                        "Introduction to Tectonics"
+                        "Plotting Planes and Lines",
+                        "Solving Structural Problems",
+                        "Introduction to Tectonics and Regional Geology"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol3103",
+                  "name": "Geological mapping and Report Writing",
+                  "credits": 2,
+                  "prerequisites": [
+                    "Geol2101"
+                  ],
+                  "description": "A field- and lab-based course focused on the fundamental techniques of geological mapping and the preparation of professional geological reports and maps.",
+                  "outcomes": [
+                    "Navigate in the field using maps, compasses, and GPS.",
+                    "Systematically collect and record geological data in a field notebook.",
+                    "Construct a geological map and cross-section from field data.",
+                    "Write a clear, concise, and properly structured geological report."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "gmrw_ch1",
+                      "title": "Field Mapping Techniques",
+                      "topics": [
+                        "Use of Topographic Base Maps and Air Photos",
+                        "Pace and Compass Traversing",
+                        "Measuring Strike and Dip"
+                      ]
+                    },
+                    {
+                      "id": "gmrw_ch2",
+                      "title": "Data Collection and Recording",
+                      "topics": [
+                        "Field Descriptions of Rocks",
+                        "Systematic Note-Taking",
+                        "Field Sketching"
+                      ]
+                    },
+                    {
+                      "id": "gmrw_ch3",
+                      "title": "Map Construction",
+                      "topics": [
+                        "Plotting Data",
+                        "Drawing Contacts and Faults",
+                        "Constructing Geologic Cross-Sections",
+                        "Creating a Stratigraphic Column"
+                      ]
+                    },
+                    {
+                      "id": "gmrw_ch4",
+                      "title": "Geological Report Writing",
+                      "topics": [
+                        "Structure of a Geological Report",
+                        "Creating Legends and Explanations",
+                        "Final Map and Report Preparation"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol3105",
+                  "name": "Remote Sensing and GIS",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "description": "Introduction to the principles and applications of Remote Sensing and Geographic Information Systems (GIS) for analyzing the Earth's surface and solving geological problems.",
+                  "outcomes": [
+                    "Understand the physical principles of remote sensing and different satellite systems.",
+                    "Perform basic digital image processing and interpretation of satellite imagery.",
+                    "Use GIS software to create, manage, and analyze spatial data.",
+                    "Apply GIS and remote sensing techniques to geological mapping, resource exploration, and hazard assessment."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "rsgis_ch1",
+                      "title": "Fundamentals of Remote Sensing",
+                      "topics": [
+                        "Electromagnetic Spectrum",
+                        "Satellite Platforms and Sensors (e.g., Landsat, Sentinel)",
+                        "Image Characteristics"
+                      ]
+                    },
+                    {
+                      "id": "rsgis_ch2",
+                      "title": "Digital Image Processing",
+                      "topics": [
+                        "Image Enhancement",
+                        "Image Classification (Supervised and Unsupervised)",
+                        "Geological Interpretation of Imagery"
+                      ]
+                    },
+                    {
+                      "id": "rsgis_ch3",
+                      "title": "Fundamentals of GIS",
+                      "topics": [
+                        "Vector and Raster Data Models",
+                        "Map Projections and Coordinate Systems",
+                        "Data Input and Management"
+                      ]
+                    },
+                    {
+                      "id": "rsgis_ch4",
+                      "title": "Spatial Analysis for Geology",
+                      "topics": [
+                        "Query and Overlay Analysis",
+                        "Digital Elevation Models (DEMs) and Terrain Analysis",
+                        "Applications in Geology"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol3107",
+                  "name": "Mapping Sedimentary Terrain",
+                  "credits": 3,
+                  "prerequisites": [
+                    "Geol2106",
+                    "Geol3103"
+                  ],
+                  "description": "A field-intensive course focused on the specific techniques required for mapping and interpreting sedimentary rock successions. Emphasizes facies analysis, stratigraphic measurement, and paleoenvironmental reconstruction.",
+                  "outcomes": [
+                    "Measure and describe detailed stratigraphic sections.",
+                    "Identify sedimentary facies and interpret depositional processes.",
+                    "Map the distribution of facies to reconstruct ancient environments.",
+                    "Produce a high-quality geological map and report of a sedimentary terrain."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "mst_ch1",
+                      "title": "Techniques for Sedimentary Logging",
+                      "topics": [
+                        "Measuring Stratigraphic Sections",
+                        "Describing Lithology, Textures, and Structures",
+                        "Graphic Logging"
+                      ]
+                    },
+                    {
+                      "id": "mst_ch2",
+                      "title": "Facies Analysis",
+                      "topics": [
+                        "Concept of Sedimentary Facies",
+                        "Identifying Facies Associations",
+                        "Application of Walther's Law"
+                      ]
+                    },
+                    {
+                      "id": "mst_ch3",
+                      "title": "Mapping in Sedimentary Terrains",
+                      "topics": [
+                        "Tracing Marker Beds",
+                        "Mapping from Measured Sections",
+                        "Constructing Fence Diagrams"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol3109",
+                  "name": "Igneous Petrology",
+                  "credits": 3,
+                  "prerequisites": [
+                    "Geol2108"
+                  ],
+                  "description": "The study of the origin, composition, classification, and evolution of igneous rocks. This course covers the physical and chemical processes of magma generation, differentiation, and emplacement in various tectonic settings.",
+                  "outcomes": [
+                    "Classify igneous rocks using mineralogical and chemical classification schemes.",
+                    "Interpret igneous textures to infer cooling and crystallization history.",
+                    "Use phase diagrams to understand magma crystallization processes.",
+                    "Relate different igneous rock associations to specific tectonic environments."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ipet_ch1",
+                      "title": "Properties and Generation of Magma",
+                      "topics": [
+                        "Physical Properties of Magma",
+                        "Magma Generation in the Mantle and Crust",
+                        "Melt Migration"
+                      ]
+                    },
+                    {
+                      "id": "ipet_ch2",
+                      "title": "Igneous Textures and Classification",
+                      "topics": [
+                        "Crystallization and Textural Development",
+                        "IUGS Classification of Igneous Rocks",
+                        "Chemical Classification Schemes"
+                      ]
+                    },
+                    {
+                      "id": "ipet_ch3",
+                      "title": "Magmatic Differentiation",
+                      "topics": [
+                        "Binary and Ternary Phase Diagrams",
+                        "Fractional Crystallization",
+                        "Assimilation and Magma Mixing"
+                      ]
+                    },
+                    {
+                      "id": "ipet_ch4",
+                      "title": "Igneous Petrogenesis and Tectonics",
+                      "topics": [
+                        "Mid-Ocean Ridge Basalts (MORB)",
+                        "Igneous Rocks of Convergent Margins",
+                        "Intraplate Volcanism"
                       ]
                     }
                   ]
@@ -21128,79 +25885,286 @@ export const courseData: CourseData = {
               "Semester II": [
                 {
                   "code": "Geol3102",
-                  "name": "Invertebrate Paleontology",
-                  "description": "A survey of the major invertebrate fossil groups, focusing on their morphology, evolution, and application in biostratigraphy and paleoecology.",
+                  "name": "Mapping Igneous Terrain",
                   "credits": 3,
                   "prerequisites": [
-                    "Geol2103"
+                    "Geol3109",
+                    "Geol3103"
                   ],
+                  "description": "A field-intensive course focused on the specific techniques for mapping and interpreting igneous rocks, including both volcanic and plutonic successions. Emphasizes identifying rock units, understanding emplacement relationships, and interpreting petrogenetic history.",
                   "outcomes": [
-                    "Identify major invertebrate phyla from fossil specimens.",
-                    "Understand the principles of fossil preservation.",
-                    "Use fossils for biostratigraphic correlation.",
-                    "Reconstruct ancient environments using fossil assemblages."
+                    "Distinguish and map different volcanic and plutonic rock units in the field.",
+                    "Interpret contact relationships (e.g., intrusive, extrusive) between different igneous bodies.",
+                    "Systematically sample igneous rocks for petrographic and geochemical analysis.",
+                    "Produce a high-quality geological map and report of an igneous terrain."
                   ],
                   "chapters": [
                     {
-                      "id": "paleo_ch1",
-                      "title": "Principles of Paleontology",
+                      "id": "mit_ch1",
+                      "title": "Mapping Volcanic Terrains",
                       "topics": [
-                        "Taphonomy (Fossilization)",
-                        "Evolution and Extinction",
-                        "Classification and Systematics"
+                        "Identifying Lava Flows and Pyroclastic Deposits",
+                        "Mapping Volcanic Stratigraphy",
+                        "Reconstructing Volcanic Edifices"
                       ]
                     },
                     {
-                      "id": "paleo_ch2",
-                      "title": "Major Fossil Groups I",
+                      "id": "mit_ch2",
+                      "title": "Mapping Plutonic Terrains",
                       "topics": [
-                        "Foraminifera and Radiolaria",
-                        "Porifera (Sponges) and Cnidaria (Corals)",
-                        "Brachiopods and Bryozoans"
+                        "Identifying Different Plutonic Rock Types",
+                        "Mapping Intrusive Contacts and Internal Structures",
+                        "Relative Timing of Intrusions"
                       ]
                     },
                     {
-                      "id": "paleo_ch3",
-                      "title": "Major Fossil Groups II",
+                      "id": "mit_ch3",
+                      "title": "Field Data and Interpretation",
                       "topics": [
-                        "Mollusca (Bivalves, Gastropods, Cephalopods)",
-                        "Arthropoda (Trilobites)",
-                        "Echinodermata (Crinoids, Echinoids)"
-                      ]
-                    },
-                    {
-                      "id": "paleo_ch4",
-                      "title": "Applications of Paleontology",
-                      "topics": [
-                        "Biostratigraphy",
-                        "Paleoecology and Paleoclimatology",
-                        "Evolutionary Faunas"
+                        "Structural Measurements in Igneous Rocks",
+                        "Sampling Strategies",
+                        "Integrating Field and Lab Data"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "Geol3104",
-                  "name": "Geochemistry",
-                  "description": "Application of chemical principles to understand geological processes, including element distribution, isotope geochemistry, and aqueous geochemistry.",
+                  "name": "Geophysics",
+                  "credits": 4,
+                  "prerequisites": [
+                    "Phys2003"
+                  ],
+                  "description": "An introduction to the application of physical principles to study the Earth's subsurface. The course covers the theory and application of major geophysical methods, including gravity, magnetic, electrical, and seismic techniques.",
+                  "outcomes": [
+                    "Understand the physical principles underlying each major geophysical method.",
+                    "Describe the field procedures for acquiring geophysical data.",
+                    "Perform basic processing and interpretation of geophysical data.",
+                    "Select appropriate geophysical methods for different geological targets (e.g., mineral exploration, hydrogeology)."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "geophys_ch1",
+                      "title": "Gravity and Magnetic Methods",
+                      "topics": [
+                        "Earth's Gravity and Magnetic Fields",
+                        "Data Acquisition and Corrections",
+                        "Interpretation of Gravity and Magnetic Anomalies"
+                      ]
+                    },
+                    {
+                      "id": "geophys_ch2",
+                      "title": "Electrical and Electromagnetic Methods",
+                      "topics": [
+                        "Resistivity Methods",
+                        "Self-Potential (SP) and Induced Polarization (IP)",
+                        "Introduction to EM Methods"
+                      ]
+                    },
+                    {
+                      "id": "geophys_ch3",
+                      "title": "Seismic Methods",
+                      "topics": [
+                        "Seismic Wave Propagation",
+                        "Seismic Refraction Method",
+                        "Seismic Reflection Method"
+                      ]
+                    },
+                    {
+                      "id": "geophys_ch4",
+                      "title": "Integrated Interpretation",
+                      "topics": [
+                        "Combining Different Geophysical Data Sets",
+                        "Geophysical Well Logging",
+                        "Case Studies"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol3106",
+                  "name": "Fundamentals of Soil and Rock Mechanics",
                   "credits": 3,
                   "prerequisites": [
-                    "Geol2102"
+                    "Geol2101"
                   ],
+                  "description": "An introduction to the engineering properties and mechanical behavior of soil and rock. This course provides the foundational principles for engineering geology and geotechnical engineering.",
                   "outcomes": [
-                    "Apply thermodynamic principles to geological systems.",
-                    "Understand the principles of stable and radiogenic isotope geochemistry.",
-                    "Analyze the chemistry of natural waters.",
-                    "Use geochemical data to model geological processes."
+                    "Characterize soils using index properties and standard classification systems.",
+                    "Understand the concepts of effective stress, permeability, and shear strength in soils.",
+                    "Determine the key mechanical properties of intact rock.",
+                    "Assess the influence of discontinuities on the behavior of a rock mass."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "srm_ch1",
+                      "title": "Soil Mechanics",
+                      "topics": [
+                        "Soil Composition and Phase Relationships",
+                        "Soil Classification (USCS)",
+                        "Permeability and Seepage",
+                        "Effective Stress and Consolidation"
+                      ]
+                    },
+                    {
+                      "id": "srm_ch2",
+                      "title": "Shear Strength of Soil",
+                      "topics": [
+                        "Mohr-Coulomb Failure Criterion",
+                        "Laboratory Shear Tests",
+                        "Introduction to Slope Stability"
+                      ]
+                    },
+                    {
+                      "id": "srm_ch3",
+                      "title": "Rock Mechanics",
+                      "topics": [
+                        "Physical and Mechanical Properties of Intact Rock",
+                        "Stress and Strain in Rock",
+                        "Rock Failure Criteria"
+                      ]
+                    },
+                    {
+                      "id": "srm_ch4",
+                      "title": "Rock Mass Properties",
+                      "topics": [
+                        "Characterization of Discontinuities",
+                        "Rock Mass Classification (RMR, Q-system)",
+                        "Effect of Discontinuities on Strength and Deformability"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol3108",
+                  "name": "Principles of Hydrogeology",
+                  "credits": 3,
+                  "prerequisites": [
+                    "Geol2101",
+                    "Math2007"
+                  ],
+                  "description": "A quantitative study of the occurrence, movement, and management of groundwater. The course covers the physical properties of aquifers, the mathematics of groundwater flow, well hydraulics, and basic groundwater chemistry.",
+                  "outcomes": [
+                    "Characterize different types of aquifers and confining units.",
+                    "Apply Darcy's Law and the groundwater flow equation to solve hydrogeological problems.",
+                    "Analyze drawdown data from pumping tests to determine aquifer properties.",
+                    "Understand the fundamentals of groundwater quality and contaminant transport."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "hydrogeo_ch1",
+                      "title": "Fundamentals and Aquifer Properties",
+                      "topics": [
+                        "The Hydrologic Cycle",
+                        "Aquifer Types",
+                        "Porosity, Permeability, Transmissivity, and Storativity"
+                      ]
+                    },
+                    {
+                      "id": "hydrogeo_ch2",
+                      "title": "Principles of Groundwater Flow",
+                      "topics": [
+                        "Darcy's Law",
+                        "Hydraulic Head and Gradients",
+                        "The Groundwater Flow Equation"
+                      ]
+                    },
+                    {
+                      "id": "hydrogeo_ch3",
+                      "title": "Well Hydraulics",
+                      "topics": [
+                        "Flow to Wells in Confined and Unconfined Aquifers",
+                        "The Theis and Cooper-Jacob Methods",
+                        "Well Design and Pumping Tests"
+                      ]
+                    },
+                    {
+                      "id": "hydrogeo_ch4",
+                      "title": "Groundwater Chemistry and Contamination",
+                      "topics": [
+                        "Major Ions in Groundwater",
+                        "Introduction to Contaminant Transport (Advection, Dispersion)",
+                        "Groundwater Vulnerability"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol3110",
+                  "name": "Metamorphic Petrology",
+                  "credits": 3,
+                  "prerequisites": [
+                    "Geol2108",
+                    "Geol3109"
+                  ],
+                  "description": "The study of rocks that have been transformed by heat, pressure, and chemically active fluids. This course covers metamorphic textures and minerals, the concept of metamorphic facies and zones, and the interpretation of pressure-temperature-time (P-T-t) paths.",
+                  "outcomes": [
+                    "Identify common metamorphic rocks and interpret their textures.",
+                    "Understand the concept of metamorphic grade, facies, and isograds.",
+                    "Use mineral assemblages to estimate the pressure and temperature conditions of metamorphism.",
+                    "Relate different types of metamorphism to specific tectonic settings."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "mpet_ch1",
+                      "title": "Metamorphic Processes and Textures",
+                      "topics": [
+                        "Agents of Metamorphism",
+                        "Types of Metamorphism",
+                        "Metamorphic Textures (Foliation, Lineation)"
+                      ]
+                    },
+                    {
+                      "id": "mpet_ch2",
+                      "title": "Classification and Metamorphic Facies",
+                      "topics": [
+                        "Classification of Metamorphic Rocks",
+                        "The Metamorphic Facies Concept",
+                        "Graphical Representation of Mineral Assemblages"
+                      ]
+                    },
+                    {
+                      "id": "mpet_ch3",
+                      "title": "Metamorphism of Different Protoliths",
+                      "topics": [
+                        "Metamorphism of Pelitic Rocks",
+                        "Metamorphism of Mafic Rocks",
+                        "Metamorphism of Carbonate Rocks"
+                      ]
+                    },
+                    {
+                      "id": "mpet_ch4",
+                      "title": "Thermobarometry and Tectonics",
+                      "topics": [
+                        "Introduction to Geothermobarometry",
+                        "Pressure-Temperature-time (P-T-t) Paths",
+                        "Metamorphism and Plate Tectonics"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol3112",
+                  "name": "Geochemistry",
+                  "credits": 3,
+                  "prerequisites": [
+                    "InCh2004"
+                  ],
+                  "description": "An exploration of the chemical principles governing the distribution and migration of elements in geological systems. The course covers chemical thermodynamics, isotope geochemistry, aqueous geochemistry, and high-temperature geochemical processes.",
+                  "outcomes": [
+                    "Apply thermodynamic principles to predict mineral stability and chemical reactions.",
+                    "Use stable and radiogenic isotopes to understand geological processes and determine ages.",
+                    "Interpret the chemistry of natural waters.",
+                    "Understand the chemical differentiation of the Earth and the behavior of elements during magmatic processes."
                   ],
                   "chapters": [
                     {
                       "id": "geochem_ch1",
                       "title": "Chemical Thermodynamics in Geology",
                       "topics": [
-                        "Gibbs Free Energy and Chemical Equilibrium",
-                        "Mineral Stability Diagrams",
-                        "Aqueous Solutions and Activities"
+                        "Gibbs Free Energy and Equilibrium",
+                        "Activity-Composition Relations",
+                        "Phase Diagrams"
                       ]
                     },
                     {
@@ -21208,71 +26172,25 @@ export const courseData: CourseData = {
                       "title": "Isotope Geochemistry",
                       "topics": [
                         "Stable Isotopes (O, H, C, S)",
-                        "Radiogenic Isotopes and Geochronology (U-Pb, Rb-Sr)",
-                        "Isotopes as Tracers"
+                        "Radiogenic Isotopes and Geochronology (U-Pb, Rb-Sr, K-Ar)"
                       ]
                     },
                     {
                       "id": "geochem_ch3",
                       "title": "Aqueous Geochemistry",
                       "topics": [
-                        "Water-Rock Interactions",
-                        "Redox Reactions in Natural Waters",
-                        "Mineral Dissolution and Precipitation"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "Geol3106",
-                  "name": "Geophysics",
-                  "description": "Introduction to geophysical methods used to study the Earth's subsurface, including seismic, gravity, magnetic, and electrical techniques.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "Geol2101",
-                    "Phys2101"
-                  ],
-                  "outcomes": [
-                    "Understand the physical principles behind major geophysical methods.",
-                    "Interpret basic seismic reflection and refraction data.",
-                    "Analyze gravity and magnetic anomalies.",
-                    "Select appropriate geophysical methods for specific geological problems."
-                  ],
-                  "chapters": [
-                    {
-                      "id": "geophys_ch1",
-                      "title": "Seismology and Seismic Methods",
-                      "topics": [
-                        "Stress, Strain, and Elastic Waves",
-                        "Seismic Reflection Method",
-                        "Seismic Refraction Method"
+                        "Dissolution and Precipitation",
+                        "Redox Chemistry and Eh-pH diagrams",
+                        "Mineral-Water Interaction"
                       ]
                     },
                     {
-                      "id": "geophys_ch2",
-                      "title": "Gravity Methods",
+                      "id": "geochem_ch4",
+                      "title": "High-Temperature Geochemistry",
                       "topics": [
-                        "Earth's Gravity Field",
-                        "Gravity Anomalies",
-                        "Data Acquisition and Interpretation"
-                      ]
-                    },
-                    {
-                      "id": "geophys_ch3",
-                      "title": "Magnetic Methods",
-                      "topics": [
-                        "Earth's Magnetic Field",
-                        "Magnetic Anomalies",
-                        "Paleomagnetism"
-                      ]
-                    },
-                    {
-                      "id": "geophys_ch4",
-                      "title": "Electrical and Electromagnetic Methods",
-                      "topics": [
-                        "Resistivity Methods",
-                        "Self-Potential and Induced Polarization",
-                        "Ground-Penetrating Radar (GPR)"
+                        "Geochemical Classification of Elements",
+                        "Trace Element Behavior during Melting and Crystallization",
+                        "Geochemistry of Igneous and Metamorphic Rocks"
                       ]
                     }
                   ]
@@ -21280,50 +26198,18 @@ export const courseData: CourseData = {
               ],
               "Summer": [
                 {
-                  "code": "Geol3110",
-                  "name": "Geology Field Camp",
-                  "description": "An intensive, multi-week capstone field course where students apply their geological knowledge to map and interpret complex geologic terrains.",
-                  "credits": 6,
-                  "prerequisites": [
-                    "Geol3101",
-                    "Geol3103",
-                    "Geol3105"
-                  ],
+                  "code": "Geol4113",
+                  "name": "Internship",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "description": "A supervised, practical work experience program in a geology-related organization, such as a mining company, environmental consultancy, or government geological survey. Students apply their academic knowledge to real-world problems, develop professional skills, and gain exposure to industry practices.",
                   "outcomes": [
-                    "Independently produce professional-quality geologic maps and reports.",
-                    "Synthesize diverse geological data (structural, stratigraphic, petrologic) into a coherent regional history.",
-                    "Work effectively in a team under challenging field conditions.",
-                    "Develop advanced skills in 3D visualization and problem-solving."
+                    "Apply geological knowledge and skills to solve practical problems in an industrial or government setting.",
+                    "Develop professional communication, teamwork, and problem-solving skills.",
+                    "Gain an understanding of the operational, economic, and regulatory context of the geology profession.",
+                    "Produce a comprehensive technical report and presentation detailing the internship experience and project work."
                   ],
-                  "chapters": [
-                    {
-                      "id": "fc_ch1",
-                      "title": "Project 1: Mapping Sedimentary and Volcanic Terrains",
-                      "topics": [
-                        "Measuring Stratigraphic Sections",
-                        "Mapping Volcanic Flows and Tuffs",
-                        "Constructing a Tectono-stratigraphic History"
-                      ]
-                    },
-                    {
-                      "id": "fc_ch2",
-                      "title": "Project 2: Mapping Deformed Metamorphic and Igneous Terrains",
-                      "topics": [
-                        "Mapping in Structurally Complex Areas",
-                        "Analyzing Fold and Fault Systems",
-                        "Interpreting Plutonic and Metamorphic Relationships"
-                      ]
-                    },
-                    {
-                      "id": "fc_ch3",
-                      "title": "Project 3: Regional Synthesis and Tectonics",
-                      "topics": [
-                        "Integrating Multiple Map Areas",
-                        "Developing a Regional Tectonic Model",
-                        "Final Report Preparation and Presentation"
-                      ]
-                    }
-                  ]
+                  "chapters": []
                 }
               ]
             },
@@ -21331,263 +26217,581 @@ export const courseData: CourseData = {
               "Semester I": [
                 {
                   "code": "Geol4101",
-                  "name": "Hydrogeology",
-                  "description": "Study of the occurrence, movement, and chemistry of groundwater, and its role as a resource and in geological processes.",
+                  "name": "Groundwater Exploration and Development",
                   "credits": 3,
                   "prerequisites": [
-                    "Geol2101"
+                    "Geol3108"
                   ],
+                  "description": "A course on the practical methods for exploring, evaluating, and developing groundwater resources. It covers geophysical exploration techniques, well design, pumping test analysis, and sustainable resource management.",
                   "outcomes": [
-                    "Apply Darcy's Law to solve groundwater flow problems.",
-                    "Analyze aquifer tests to determine hydraulic properties.",
-                    "Understand basic groundwater contamination and transport.",
-                    "Delineate wellhead protection areas."
+                    "Design a groundwater exploration program using appropriate geological and geophysical methods.",
+                    "Analyze pumping test data to determine aquifer hydraulic properties.",
+                    "Understand the principles of water well design and construction.",
+                    "Evaluate the sustainability and potential environmental impacts of groundwater abstraction."
                   ],
                   "chapters": [
                     {
-                      "id": "hydro_ch1",
-                      "title": "Principles of Groundwater Flow",
+                      "id": "gwed_ch1",
+                      "title": "Geophysical Exploration for Groundwater",
                       "topics": [
-                        "The Hydrologic Cycle",
-                        "Aquifers and Aquitards",
-                        "Darcy's Law and Hydraulic Conductivity",
-                        "Groundwater Flow Equations"
+                        "Electrical Resistivity Methods",
+                        "Seismic Refraction",
+                        "Electromagnetic Methods",
+                        "Interpretation of Geophysical Data"
                       ]
                     },
                     {
-                      "id": "hydro_ch2",
-                      "title": "Well Hydraulics and Aquifer Testing",
+                      "id": "gwed_ch2",
+                      "title": "Water Well Design and Construction",
                       "topics": [
-                        "Steady-State and Transient Flow to Wells",
-                        "The Theis and Cooper-Jacob Methods",
-                        "Pumping Test Design and Analysis"
+                        "Drilling Methods",
+                        "Well Casing and Screen Design",
+                        "Well Development and Testing"
                       ]
                     },
                     {
-                      "id": "hydro_ch3",
-                      "title": "Groundwater Chemistry",
+                      "id": "gwed_ch3",
+                      "title": "Aquifer Test Analysis",
                       "topics": [
-                        "Chemistry of Natural Waters",
-                        "Water-Rock Interactions",
-                        "Introduction to Contaminant Hydrogeology"
+                        "Pumping Tests and Observation Wells",
+                        "Analysis of Steady-State and Transient Flow",
+                        "Slug Tests"
                       ]
                     },
                     {
-                      "id": "hydro_ch4",
+                      "id": "gwed_ch4",
                       "title": "Groundwater Management",
                       "topics": [
-                        "Groundwater Modeling",
-                        "Groundwater Management and Sustainability",
-                        "Wellhead Protection"
+                        "Safe Yield and Sustainable Yield",
+                        "Wellhead Protection",
+                        "Managed Aquifer Recharge (MAR)"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "Geol4103",
-                  "name": "Economic Geology",
-                  "description": "Study of the geologic processes that form mineral and energy deposits, and the methods used to explore for and evaluate these resources.",
+                  "name": "Mapping Metamorphic Terrain",
                   "credits": 3,
                   "prerequisites": [
-                    "Geol3101",
-                    "Geol3104"
+                    "Geol3110",
+                    "Geol3103"
                   ],
+                  "description": "A field-intensive course focused on the specific techniques for mapping complexly deformed metamorphic rocks. Emphasizes recognizing metamorphic zones, interpreting structural fabrics, and reconstructing the tectonic history of a region.",
                   "outcomes": [
-                    "Describe the major types of ore-forming systems.",
-                    "Relate mineral deposit types to specific tectonic settings.",
-                    "Understand the geology of fossil fuel and geothermal resources.",
-                    "Apply exploration techniques to find mineral deposits."
+                    "Identify metamorphic minerals, rocks, and textures in the field.",
+                    "Map structural elements like foliations, lineations, and folds.",
+                    "Delineate metamorphic isograds and zones.",
+                    "Produce a high-quality geological map and report of a metamorphic terrain."
                   ],
                   "chapters": [
                     {
-                      "id": "eg_ch1",
-                      "title": "Ore-Forming Processes",
+                      "id": "mmt_ch1",
+                      "title": "Field Recognition of Metamorphic Rocks",
                       "topics": [
-                        "Magmatic Ore Deposits",
-                        "Hydrothermal Systems and Deposits",
-                        "Sedimentary and Surficial Ore Deposits"
+                        "Identifying Metamorphic Textures",
+                        "Mapping Protolith Variations",
+                        "Recognizing Key Index Minerals"
                       ]
                     },
                     {
-                      "id": "eg_ch2",
-                      "title": "Mineral Deposit Models",
+                      "id": "mmt_ch2",
+                      "title": "Structural Mapping in Deformed Rocks",
                       "topics": [
-                        "Porphyry and Epithermal Deposits",
-                        "Volcanogenic Massive Sulfide (VMS) Deposits",
-                        "Sediment-Hosted Deposits"
+                        "Measuring and Plotting Foliations and Lineations",
+                        "Analyzing Fold Geometries",
+                        "Mapping Shear Zones"
                       ]
                     },
                     {
-                      "id": "eg_ch3",
-                      "title": "Energy Resources",
+                      "id": "mmt_ch3",
+                      "title": "Integrating Metamorphism and Deformation",
                       "topics": [
-                        "Petroleum Geology",
-                        "Coal Geology",
-                        "Geothermal Energy",
-                        "Uranium Deposits"
-                      ]
-                    },
-                    {
-                      "id": "eg_ch4",
-                      "title": "Exploration and Evaluation",
-                      "topics": [
-                        "Geochemical and Geophysical Exploration",
-                        "Drilling and Sampling",
-                        "Resource and Reserve Estimation"
+                        "Timing Relationships between Metamorphism and Deformation",
+                        "Constructing P-T-D Paths",
+                        "Tectonic Interpretation"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "Geol4105",
-                  "name": "B.Sc. Thesis I / Research Methods",
-                  "description": "The first phase of the final year thesis. Students select a research topic, conduct a comprehensive literature review, formulate a hypothesis, and write a detailed research proposal.",
-                  "credits": 2,
+                  "name": "Economic Geology",
+                  "credits": 3,
+                  "prerequisites": [
+                    "Geol2108",
+                    "Geol3109"
+                  ],
+                  "description": "A study of the origin, occurrence, and characteristics of metallic and non-metallic mineral deposits. The course examines the geological processes that concentrate valuable minerals into economically viable deposits.",
+                  "outcomes": [
+                    "Classify mineral deposits based on their commodity and genesis.",
+                    "Describe the geological processes responsible for forming different types of ore deposits.",
+                    "Relate specific deposit types to particular tectonic settings.",
+                    "Understand the concept of an ore deposit model and its use in exploration."
+                  ],
                   "chapters": [
                     {
-                      "id": "thesis1_ch1",
-                      "title": "Topic Selection and Literature Review",
+                      "id": "ecogeo_ch1",
+                      "title": "Principles and Ore-forming Processes",
                       "topics": [
-                        "Identifying a Research Problem",
-                        "Using Scientific Databases",
-                        "Critically Evaluating Scientific Literature"
+                        "Ore Minerals and Gangue",
+                        "Source, Transport, and Deposition of Metals",
+                        "Wall-rock Alteration"
                       ]
                     },
                     {
-                      "id": "thesis1_ch2",
-                      "title": "Proposal Development",
+                      "id": "ecogeo_ch2",
+                      "title": "Magmatic and Hydrothermal Ore Deposits",
                       "topics": [
-                        "Formulating Hypotheses and Objectives",
-                        "Developing a Methodology",
-                        "Writing the Research Proposal"
+                        "Magmatic Sulfide and Oxide Deposits",
+                        "Porphyry and Epithermal Deposits",
+                        "Volcanogenic Massive Sulfide (VMS) Deposits"
+                      ]
+                    },
+                    {
+                      "id": "ecogeo_ch3",
+                      "title": "Sedimentary and Metamorphic Ore Deposits",
+                      "topics": [
+                        "Sediment-hosted Deposits",
+                        "Banded Iron Formations",
+                        "Deposits formed by Weathering and Supergene Enrichment"
+                      ]
+                    },
+                    {
+                      "id": "ecogeo_ch4",
+                      "title": "Industrial Minerals",
+                      "topics": [
+                        "Construction Materials",
+                        "Deposits of Salt, Gypsum, and Potash",
+                        "Gemstones"
                       ]
                     }
                   ]
+                },
+                {
+                  "code": "Geol4107",
+                  "name": "Engineering Geology",
+                  "credits": 3,
+                  "prerequisites": [
+                    "Geol3106"
+                  ],
+                  "description": "The application of geological knowledge to civil engineering practice. This course addresses the influence of geological conditions on the design, construction, and performance of engineering structures, and the assessment of geological hazards.",
+                  "outcomes": [
+                    "Conduct a geotechnical site investigation for an engineering project.",
+                    "Assess the stability of soil and rock slopes.",
+                    "Evaluate the geological factors affecting the design of foundations, tunnels, and dams.",
+                    "Identify and analyze geological hazards like landslides and earthquakes."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "enggeo_ch1",
+                      "title": "Site Investigation and Characterization",
+                      "topics": [
+                        "Geotechnical Site Investigation Planning",
+                        "In-situ Testing",
+                        "Geotechnical Reporting"
+                      ]
+                    },
+                    {
+                      "id": "enggeo_ch2",
+                      "title": "Geology of Engineering Structures",
+                      "topics": [
+                        "Foundations on Soil and Rock",
+                        "Geological Considerations for Dams and Reservoirs",
+                        "Tunnelling and Underground Excavations"
+                      ]
+                    },
+                    {
+                      "id": "enggeo_ch3",
+                      "title": "Slope Stability",
+                      "topics": [
+                        "Landslide Classification and Causes",
+                        "Analysis of Soil and Rock Slope Stability",
+                        "Slope Stabilization Methods"
+                      ]
+                    },
+                    {
+                      "id": "enggeo_ch4",
+                      "title": "Geological Hazards",
+                      "topics": [
+                        "Earthquake Engineering Geology and Seismic Hazards",
+                        "Volcanic Hazards",
+                        "Subsidence"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol4109",
+                  "name": "Mineral Exploration and Resource Evaluation",
+                  "credits": 2,
+                  "prerequisites": [
+                    "Geol4105",
+                    "Geol3104"
+                  ],
+                  "description": "Covers the strategies and techniques used in the exploration for mineral deposits and the methods for evaluating and classifying mineral resources and reserves.",
+                  "outcomes": [
+                    "Design a phased mineral exploration program.",
+                    "Interpret various exploration data sets (geochemical, geophysical).",
+                    "Understand the principles of drilling and sampling for resource definition.",
+                    "Classify mineral resources and reserves according to international reporting codes."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "mere_ch1",
+                      "title": "Exploration Strategy and Targeting",
+                      "topics": [
+                        "Ore Deposit Models in Exploration",
+                        "Area Selection and Project Generation",
+                        "Exploration Program Design"
+                      ]
+                    },
+                    {
+                      "id": "mere_ch2",
+                      "title": "Exploration Techniques",
+                      "topics": [
+                        "Geochemical Surveys",
+                        "Application of Geophysical Methods",
+                        "Exploration Drilling"
+                      ]
+                    },
+                    {
+                      "id": "mere_ch3",
+                      "title": "Resource Estimation",
+                      "topics": [
+                        "Sampling and Assaying",
+                        "Geological Modeling and Orebody Interpretation",
+                        "Classical Resource Estimation Methods",
+                        "Introduction to Geostatistics"
+                      ]
+                    },
+                    {
+                      "id": "mere_ch4",
+                      "title": "Resource Classification and Economics",
+                      "topics": [
+                        "International Reporting Codes (JORC, NI 43-101)",
+                        "Modifying Factors for Reserve Calculation",
+                        "Introduction to Mine Feasibility Studies"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol4111",
+                  "name": "Research Methods in Geoscience",
+                  "credits": 2,
+                  "prerequisites": [],
+                  "description": "Introduces students to the methodologies of scientific research, experimental design, and data analysis in the geosciences, preparing them for their final year project.",
+                  "outcomes": [
+                    "Formulate clear research questions, hypotheses, and objectives.",
+                    "Conduct a systematic literature review.",
+                    "Understand the principles of research design in geoscience.",
+                    "Develop skills in scientific writing for proposals and reports."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "rmg_ch1",
+                      "title": "The Scientific Method in Geoscience",
+                      "topics": [
+                        "Formulating a Research Question",
+                        "Hypothesis Testing"
+                      ]
+                    },
+                    {
+                      "id": "rmg_ch2",
+                      "title": "Literature Review and Research Ethics",
+                      "topics": [
+                        "Searching Scientific Databases",
+                        "Critical Review of Literature",
+                        "Ethics and Plagiarism"
+                      ]
+                    },
+                    {
+                      "id": "rmg_ch3",
+                      "title": "Research Design and Data Collection",
+                      "topics": [
+                        "Field, Laboratory, and Model-based Research",
+                        "Sampling Design",
+                        "Data Management"
+                      ]
+                    },
+                    {
+                      "id": "rmg_ch4",
+                      "title": "Scientific Communication",
+                      "topics": [
+                        "Writing a Research Proposal",
+                        "Structure of a Scientific Paper",
+                        "Poster and Oral Presentations"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol4115",
+                  "name": "Final Year I project Proposal preparation",
+                  "credits": 0,
+                  "prerequisites": [
+                    "Geol4111"
+                  ],
+                  "description": "The preparatory phase of the final year project. Students identify a research topic, conduct an extensive literature review, define a clear methodology, and write a comprehensive research proposal under the guidance of a faculty advisor.",
+                  "outcomes": [
+                    "Identify a relevant and feasible problem in geoscience.",
+                    "Conduct a thorough literature search and write a critical review of existing work.",
+                    "Formulate a clear proposal with well-defined objectives, scope, and methodology.",
+                    "Develop a realistic timeline and resource plan for the project."
+                  ],
+                  "chapters": []
                 }
               ],
               "Semester II": [
                 {
                   "code": "Geol4102",
-                  "name": "Tectonics",
-                  "description": "A synthesis of structural geology, geophysics, and petrology to understand the large-scale processes that drive plate tectonics and shape the Earth's lithosphere.",
+                  "name": "Energy resource of the Earth",
                   "credits": 3,
                   "prerequisites": [
-                    "Geol3105"
+                    "Geol2106"
                   ],
+                  "description": "A geological study of the Earth's energy resources, focusing on the origin, accumulation, and exploration of fossil fuels (petroleum, natural gas, coal) and an introduction to geothermal and nuclear energy resources.",
                   "outcomes": [
-                    "Describe the driving forces of plate tectonics.",
-                    "Analyze the characteristics of different plate boundaries.",
-                    "Interpret regional geology in a plate tectonic context.",
-                    "Understand the evolution of mountain belts and continental rifts."
+                    "Describe the components of a petroleum system.",
+                    "Understand the geological conditions necessary for the formation of coal deposits.",
+                    "Explain the geological settings for geothermal energy resources.",
+                    "Analyze the geological controls on the occurrence of uranium deposits."
                   ],
                   "chapters": [
                     {
-                      "id": "tec_ch1",
-                      "title": "Plate Kinematics and Rheology",
+                      "id": "ere_ch1",
+                      "title": "Petroleum Geology",
                       "topics": [
-                        "Relative and Absolute Plate Motions",
-                        "Lithospheric Rheology",
-                        "Driving Forces of Plate Tectonics"
+                        "Source Rock, Reservoir, Seal, and Trap",
+                        "Migration and Accumulation of Hydrocarbons",
+                        "Petroleum Exploration Methods"
                       ]
                     },
                     {
-                      "id": "tec_ch2",
-                      "title": "Divergent and Transform Boundaries",
+                      "id": "ere_ch2",
+                      "title": "Coal Geology",
                       "topics": [
-                        "Continental Rifting",
-                        "Mid-Ocean Ridges",
-                        "Transform Faults"
+                        "Coal Formation and Rank",
+                        "Depositional Environments of Coal",
+                        "Coal Exploration and Resource Assessment"
                       ]
                     },
                     {
-                      "id": "tec_ch3",
-                      "title": "Convergent Boundaries",
+                      "id": "ere_ch3",
+                      "title": "Unconventional and Other Resources",
                       "topics": [
-                        "Subduction Zones",
-                        "Volcanic Arcs",
-                        "Continental Collision and Orogenesis"
+                        "Shale Gas and Oil",
+                        "Geothermal Energy Systems",
+                        "Uranium Geology"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "IGTP4016",
+                  "name": "Integrated Geological Team Project",
+                  "credits": 3,
+                  "prerequisites": [
+                    "Geol4103",
+                    "Geol3107"
+                  ],
+                  "description": "A capstone, field-based team project that requires students to integrate knowledge from multiple geological sub-disciplines (e.g., structural geology, petrology, geophysics) to investigate a complex geological area, culminating in a group report and presentation.",
+                  "outcomes": [
+                    "Work collaboratively in a team to plan and execute a geological field investigation.",
+                    "Integrate diverse geological data sets to develop a cohesive geological model.",
+                    "Manage project tasks, timelines, and responsibilities within a team.",
+                    "Jointly prepare and present a comprehensive geological report and map."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "igtp_ch1",
+                      "title": "Project Planning and Logistics",
+                      "topics": [
+                        "Defining Project Objectives",
+                        "Task Allocation and Scheduling",
+                        "Safety and Logistical Planning"
+                      ]
+                    },
+                    {
+                      "id": "igtp_ch2",
+                      "title": "Field Data Integration",
+                      "topics": [
+                        "Combining Mapping, Structural, and Stratigraphic Data",
+                        "Incorporating Geophysical or Geochemical Data"
+                      ]
+                    },
+                    {
+                      "id": "igtp_ch3",
+                      "title": "Synthesis and Interpretation",
+                      "topics": [
+                        "Developing a Unified Geological History",
+                        "Group Interpretation and Discussion Sessions"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "Geol4104",
-                  "name": "Environmental Geology",
-                  "description": "Application of geological principles to understand and mitigate natural hazards and environmental problems arising from human interaction with the geologic environment.",
+                  "name": "Geology and Geologic Resources of Ethiopia",
                   "credits": 3,
+                  "prerequisites": [
+                    "Geol2102",
+                    "Geol2104"
+                  ],
+                  "description": "A detailed study of the geology of Ethiopia and the Horn of Africa, covering its tectonic evolution, major geological terranes (from the Precambrian basement to the Rift Valley), and its significant geologic resources.",
                   "outcomes": [
-                    "Assess risks associated with geological hazards like earthquakes, landslides, and floods.",
-                    "Understand the geological aspects of waste disposal and land use planning.",
-                    "Apply geological knowledge to issues of water and soil contamination.",
-                    "Evaluate the impact of climate change on geological systems."
+                    "Describe the major tectono-stratigraphic units of Ethiopia.",
+                    "Understand the evolution of the East African Rift System.",
+                    "Identify the major mineral, energy, and water resources of the country.",
+                    "Relate the geology of Ethiopia to the broader tectonic framework of Africa."
                   ],
                   "chapters": [
                     {
-                      "id": "envg_ch1",
-                      "title": "Geological Hazards",
+                      "id": "gget_ch1",
+                      "title": "Precambrian Geology of the Horn",
                       "topics": [
-                        "Earthquake and Volcanic Hazards",
-                        "Landslides and Mass Wasting",
-                        "Flooding and Coastal Processes"
+                        "The Arabian-Nubian Shield",
+                        "Major Terranes and Suture Zones",
+                        "Associated Mineralization"
                       ]
                     },
                     {
-                      "id": "envg_ch2",
-                      "title": "Resources and Pollution",
+                      "id": "gget_ch2",
+                      "title": "Paleozoic and Mesozoic Sedimentary Basins",
                       "topics": [
-                        "Water Resources and Contamination",
-                        "Soils and Soil Degradation",
-                        "Geology of Waste Disposal"
+                        "Karoo Supergroup",
+                        "Mesozoic Marine Transgressions",
+                        "Petroleum Potential"
                       ]
                     },
                     {
-                      "id": "envg_ch3",
-                      "title": "Geology and Society",
+                      "id": "gget_ch3",
+                      "title": "Cenozoic Volcanism and the East African Rift",
                       "topics": [
-                        "Land-Use Planning",
-                        "Medical Geology",
-                        "Climate Change and Geology"
+                        "Flood Basalts",
+                        "Tectonic Evolution of the Rift Valley",
+                        "Rift-associated Volcanism and Geothermal Resources"
                       ]
                     }
                   ]
                 },
                 {
                   "code": "Geol4106",
-                  "name": "B.Sc. Thesis II",
-                  "description": "Execution of the research proposal from Thesis I. Students collect and analyze data, interpret results, and write a comprehensive thesis document, culminating in an oral defense.",
-                  "credits": 4,
+                  "name": "Environmental Geology",
+                  "credits": 2,
                   "prerequisites": [
-                    "Geol4105"
+                    "Geol3108"
+                  ],
+                  "description": "The study of the interactions between humans and the geological environment. This course addresses geological hazards, the management of geological resources, and the geological aspects of waste disposal and land-use planning.",
+                  "outcomes": [
+                    "Assess geological hazards and their risks to society.",
+                    "Understand the geological controls on groundwater contamination and remediation.",
+                    "Evaluate the suitability of geological sites for waste disposal.",
+                    "Apply geological principles to sustainable land-use planning."
                   ],
                   "chapters": [
                     {
-                      "id": "thesis2_ch1",
-                      "title": "Data Collection and Analysis",
+                      "id": "envgeo_ch1",
+                      "title": "Geological Hazards",
                       "topics": [
-                        "Fieldwork or Laboratory Analysis",
-                        "Data Processing and Visualization",
-                        "Statistical Analysis"
+                        "Earthquakes, Volcanoes, and Landslides",
+                        "Floods and Coastal Hazards",
+                        "Hazard Mapping and Risk Assessment"
                       ]
                     },
                     {
-                      "id": "thesis2_ch2",
-                      "title": "Results, Discussion, and Conclusion",
+                      "id": "envgeo_ch2",
+                      "title": "Water Resources and Contamination",
                       "topics": [
-                        "Presenting Results",
-                        "Interpreting Data and Discussing Implications",
-                        "Drawing Conclusions"
+                        "Groundwater Contamination and Transport",
+                        "Water Resource Management",
+                        "Introduction to Contaminant Hydrogeology"
                       ]
                     },
                     {
-                      "id": "thesis2_ch3",
-                      "title": "Thesis Writing and Defense",
+                      "id": "envgeo_ch3",
+                      "title": "Waste Disposal and Land Use",
                       "topics": [
-                        "Structuring and Writing the Thesis",
-                        "Creating Figures and Tables",
-                        "Preparing and Delivering the Oral Defense"
+                        "Geological Aspects of Solid and Hazardous Waste Disposal",
+                        "Land-Use Planning in Geologically Active Areas"
                       ]
                     }
                   ]
+                },
+                {
+                  "code": "Geol4108",
+                  "name": "Mining Geology",
+                  "credits": 2,
+                  "prerequisites": [
+                    "Geol4105",
+                    "Geol3101"
+                  ],
+                  "description": "The application of geological principles to mining operations. This course covers grade control, geological modeling for mine planning, geotechnical assessment of mine stability, and reconciliation between resource models and production.",
+                  "outcomes": [
+                    "Perform geological mapping and sampling for grade control in an operating mine.",
+                    "Understand the role of the geologist in short-term and long-term mine planning.",
+                    "Apply geotechnical principles to assess the stability of mine slopes and underground openings.",
+                    "Conduct mine reconciliation studies to improve resource models."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "mingeo_ch1",
+                      "title": "Grade Control and Orebody Modeling",
+                      "topics": [
+                        "Grade Control Sampling and Assaying",
+                        "Short-term Geological Modeling",
+                        "Ore Dilution and Loss"
+                      ]
+                    },
+                    {
+                      "id": "mingeo_ch2",
+                      "title": "Geotechnical Aspects of Mining",
+                      "topics": [
+                        "Geotechnical Mapping and Rock Mass Characterization",
+                        "Slope Stability in Open Pit Mines",
+                        "Ground Control in Underground Mines"
+                      ]
+                    },
+                    {
+                      "id": "mingeo_ch3",
+                      "title": "Mine Reconciliation",
+                      "topics": [
+                        "Comparing Resource Models to Production",
+                        "Sources of Variance",
+                        "Improving Estimation Models"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Geol4110",
+                  "name": "Final year project",
+                  "credits": 3,
+                  "prerequisites": [
+                    "Geol4115"
+                  ],
+                  "description": "The execution phase of the final year project. Students implement their approved proposal, carrying out field, laboratory, or computational work. The course culminates in the submission of a final thesis and an oral defense.",
+                  "outcomes": [
+                    "Successfully execute an independent, in-depth geological investigation.",
+                    "Collect, analyze, and interpret complex geological data.",
+                    "Produce a comprehensive, well-written thesis document of professional quality.",
+                    "Effectively communicate and defend the project's methodology, results, and significance."
+                  ],
+                  "chapters": []
+                },
+                {
+                  "code": "Geol4112",
+                  "name": "Elective",
+                  "credits": 3,
+                  "prerequisites": [],
+                  "description": "A course selected by the student from a list of approved advanced topics, allowing for specialization in areas such as advanced geophysics, basin analysis, volcanology, or paleoclimatology.",
+                  "outcomes": [
+                    "Gain in-depth knowledge in a specialized area of geology.",
+                    "Develop advanced skills in analysis or data interpretation related to the chosen topic.",
+                    "Critically evaluate current literature and future trends in the elective field."
+                  ],
+                  "chapters": []
                 }
               ]
             }
@@ -21600,126 +26804,320 @@ export const courseData: CourseData = {
             "Year 2": {
               "Semester I": [
                 {
-                  "code": "BIOT2101",
-                  "name": "Introduction to Biotechnology",
-                  "description": "A foundational course covering the interdisciplinary nature of biotechnology, its historical development, major applications in various sectors, and the associated ethical considerations.",
-                  "credits": 3,
+                  "code": "GLTr2001",
+                  "name": "Global Trends",
+                  "credits": 2,
+                  "description": "A course exploring major global trends, issues, and challenges in the 21st century, covering topics like globalization, international relations, global security, environmental challenges, and development.",
                   "outcomes": [
-                    "Understand the scope and interdisciplinary nature of biotechnology.",
-                    "Describe the major historical milestones and key discoveries.",
-                    "Identify applications of biotechnology in medicine, agriculture, and industry.",
-                    "Recognize the fundamental ethical and social issues related to biotechnology."
+                    "Identify and analyze major trends shaping the contemporary world.",
+                    "Understand the interconnectedness of global political, economic, and social systems.",
+                    "Critically evaluate different perspectives on global issues such as security, climate change, and migration."
                   ],
                   "chapters": [
                     {
-                      "id": "biot2101_ch1",
-                      "title": "History and Scope of Biotechnology",
+                      "id": "gt_ch1",
+                      "title": "Understanding Globalization",
                       "topics": [
-                        "Definitions of Biotechnology (Old and New)",
-                        "Historical Timeline: Fermentation to Genetic Engineering",
-                        "Interdisciplinary Nature: Biology, Chemistry, Engineering",
-                        "The Biotechnology Industry Landscape"
+                        "Dimensions of Globalization",
+                        "Debates on Globalization"
                       ]
                     },
                     {
-                      "id": "biot2101_ch2",
-                      "title": "Fundamentals of Molecular Biology",
+                      "id": "gt_ch2",
+                      "title": "International Relations and Security",
                       "topics": [
-                        "Review of DNA, RNA, and Protein Structure",
-                        "The Central Dogma: Replication, Transcription, Translation",
-                        "Introduction to Genes and Genomes"
+                        "Theories of International Relations",
+                        "The Concept of Security",
+                        "Conflict and Terrorism"
                       ]
                     },
                     {
-                      "id": "biot2101_ch3",
-                      "title": "Major Areas of Biotechnology",
+                      "id": "gt_ch3",
+                      "title": "Contemporary Global Challenges",
                       "topics": [
-                        "Medical Biotechnology (Pharmaceuticals, Diagnostics)",
-                        "Agricultural Biotechnology (GMOs, Crop Improvement)",
-                        "Industrial Biotechnology (Enzymes, Biofuels)",
-                        "Environmental Biotechnology (Bioremediation)"
-                      ]
-                    },
-                    {
-                      "id": "biot2101_ch4",
-                      "title": "Ethics and Social Impact",
-                      "topics": [
-                        "Introduction to Bioethics",
-                        "Public Perception of Biotechnology",
-                        "Regulatory Agencies and Oversight",
-                        "Patenting Life"
+                        "Environmental Change",
+                        "Global Poverty and Development",
+                        "Foreign Policy and Diplomacy"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "Chem2101",
-                  "name": "General Chemistry",
-                  "description": "Covers fundamental principles of chemistry, including atomic structure, chemical bonding, stoichiometry, and solution chemistry, providing a basis for biochemistry and analytical methods.",
-                  "credits": 4,
+                  "code": "SWENG2109",
+                  "name": "Introduction to Computer Science",
+                  "credits": 2,
+                  "description": "An introduction to the fundamental concepts of computer science, including algorithms, problem-solving, and basic programming using a language relevant to biological data analysis.",
+                  "outcomes": [
+                    "Develop algorithms and flowcharts to solve simple computational problems.",
+                    "Understand basic programming constructs like variables, data types, control flow, and functions.",
+                    "Write simple scripts to process text files and perform data analysis.",
+                    "Appreciate the role of computation in modern biotechnology."
+                  ],
                   "chapters": [
                     {
-                      "id": "chem2101_ch1",
-                      "title": "Atomic Structure and Periodicity",
+                      "id": "ics_ch1",
+                      "title": "Computational Thinking and Algorithms",
                       "topics": [
-                        "Atoms, Molecules, and Ions",
-                        "Quantum Theory and Electron Configurations",
-                        "Periodic Trends"
+                        "Problem Decomposition",
+                        "Algorithmic Design",
+                        "Flowcharts and Pseudocode"
                       ]
                     },
                     {
-                      "id": "chem2101_ch2",
-                      "title": "Chemical Bonding",
+                      "id": "ics_ch2",
+                      "title": "Programming Fundamentals",
                       "topics": [
-                        "Ionic and Covalent Bonding",
-                        "Lewis Structures and VSEPR Theory",
-                        "Intermolecular Forces"
+                        "Variables and Data Types",
+                        "Control Structures (Loops, Conditionals)",
+                        "Functions and Modularity"
                       ]
                     },
                     {
-                      "id": "chem2101_ch3",
-                      "title": "Stoichiometry and Chemical Reactions",
+                      "id": "ics_ch3",
+                      "title": "Data Structures and File Handling",
                       "topics": [
-                        "Chemical Equations and Stoichiometry",
-                        "Reactions in Aqueous Solutions",
-                        "Redox Reactions"
+                        "Arrays and Lists",
+                        "Reading and Writing Text Files",
+                        "Introduction to Biological Data Formats"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "Biol2103",
-                  "name": "General Biology",
-                  "description": "An introduction to the core principles of biology, including cell structure and function, genetics, evolution, and the diversity of life.",
-                  "credits": 4,
+                  "code": "Econ2003",
+                  "name": "Economics",
+                  "credits": 3,
+                  "description": "An introduction to microeconomic and macroeconomic principles, including supply and demand, market structures, national income, and fiscal and monetary policy, with relevance to the biotechnology, pharmaceutical, and agricultural industries.",
+                  "outcomes": [
+                    "Understand the basic principles of supply, demand, and market equilibrium.",
+                    "Analyze market structures and their impact on firms and consumers.",
+                    "Grasp key macroeconomic indicators and policy tools.",
+                    "Apply economic principles to understand issues in technology and health sectors."
+                  ],
                   "chapters": [
                     {
-                      "id": "biol2103_ch1",
-                      "title": "The Cell",
+                      "id": "econ_ch1",
+                      "title": "Introduction to Economics",
                       "topics": [
-                        "Prokaryotic and Eukaryotic Cells",
-                        "Cellular Organelles",
-                        "Cell Membranes and Transport",
-                        "Cellular Respiration and Photosynthesis"
+                        "The Economic Problem of Scarcity",
+                        "Opportunity Cost"
                       ]
                     },
                     {
-                      "id": "biol2103_ch2",
-                      "title": "Genetics and Molecular Biology",
+                      "id": "econ_ch2",
+                      "title": "Microeconomics",
                       "topics": [
-                        "DNA Structure and Replication",
-                        "Gene Expression",
-                        "Mendelian Genetics",
-                        "The Cell Cycle"
+                        "Supply and Demand",
+                        "Elasticity",
+                        "Theory of Production and Costs",
+                        "Market Structures"
                       ]
                     },
                     {
-                      "id": "biol2103_ch3",
-                      "title": "Evolution and Diversity",
+                      "id": "econ_ch3",
+                      "title": "Macroeconomics",
                       "topics": [
-                        "Darwinian Evolution and Natural Selection",
-                        "The Tree of Life",
-                        "Overview of Bacteria, Archaea, Protists, Fungi, Plants, and Animals"
+                        "Measuring National Income (GDP)",
+                        "Inflation and Unemployment",
+                        "Monetary and Fiscal Policy"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot2101",
+                  "name": "General Microbiology",
+                  "credits": 3,
+                  "description": "A foundational course on the biology of microorganisms, including bacteria, archaea, viruses, fungi, and protists. It covers their structure, growth, metabolism, genetics, and their roles in health, industry, and the environment.",
+                  "outcomes": [
+                    "Identify the major groups of microorganisms and their distinguishing characteristics.",
+                    "Describe the processes of microbial growth, metabolism, and control.",
+                    "Understand the ecological roles and industrial applications of microorganisms.",
+                    "Perform basic microbiological laboratory techniques, such as aseptic technique, staining, and culturing."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "gm_ch1",
+                      "title": "Introduction to the Microbial World",
+                      "topics": [
+                        "History of Microbiology",
+                        "Cell Structure of Prokaryotes and Eukaryotes",
+                        "Microbial Diversity"
+                      ]
+                    },
+                    {
+                      "id": "gm_ch2",
+                      "title": "Microbial Growth and Metabolism",
+                      "topics": [
+                        "Microbial Nutrition",
+                        "The Microbial Growth Curve",
+                        "Control of Microbial Growth (Physical and Chemical Methods)"
+                      ]
+                    },
+                    {
+                      "id": "gm_ch3",
+                      "title": "Microbial Genetics and Viruses",
+                      "topics": [
+                        "Bacterial Genetics",
+                        "Virus Structure and Replication Cycles"
+                      ]
+                    },
+                    {
+                      "id": "gm_ch4",
+                      "title": "Applied and Environmental Microbiology",
+                      "topics": [
+                        "Microbial Ecology",
+                        "Industrial Microbiology and Fermentation",
+                        "Medical Microbiology and Infectious Diseases"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh2103",
+                  "name": "Organic Chemistry",
+                  "credits": 3,
+                  "description": "A study of the fundamental principles of organic chemistry, including the structure, bonding, properties, and reaction mechanisms of carbon-based compounds, providing the essential foundation for understanding biochemistry.",
+                  "outcomes": [
+                    "Identify major organic functional groups and predict their reactivity.",
+                    "Understand key reaction mechanisms such as substitution, elimination, and addition.",
+                    "Relate the three-dimensional structure of organic molecules, including stereochemistry, to their properties.",
+                    "Describe the chemistry of key classes of biomolecules like carbohydrates, lipids, and amino acids."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "oc_ch1",
+                      "title": "Structure, Bonding, and Stereochemistry",
+                      "topics": [
+                        "Alkanes, Alkenes, Alkynes",
+                        "Aromatic Compounds",
+                        "Stereoisomerism and Chirality"
+                      ]
+                    },
+                    {
+                      "id": "oc_ch2",
+                      "title": "Functional Groups and Reaction Mechanisms",
+                      "topics": [
+                        "Alcohols, Ethers, and Epoxides",
+                        "Aldehydes and Ketones",
+                        "Carboxylic Acids and Derivatives"
+                      ]
+                    },
+                    {
+                      "id": "oc_ch3",
+                      "title": "Spectroscopy",
+                      "topics": [
+                        "Introduction to Infrared (IR) Spectroscopy",
+                        "Introduction to Nuclear Magnetic Resonance (NMR) Spectroscopy",
+                        "Mass Spectrometry"
+                      ]
+                    },
+                    {
+                      "id": "oc_ch4",
+                      "title": "Chemistry of Biomolecules",
+                      "topics": [
+                        "Carbohydrates",
+                        "Amino Acids, Peptides, and Proteins",
+                        "Lipids"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot2105",
+                  "name": "Cell Biology",
+                  "credits": 3,
+                  "description": "An in-depth study of the structure and function of eukaryotic cells. The course explores organelles, the cytoskeleton, membranes, the cell cycle, and cell communication pathways.",
+                  "outcomes": [
+                    "Describe the structure and function of all major cellular organelles.",
+                    "Explain the processes of membrane transport and cell signaling.",
+                    "Understand the regulation of the cell cycle and the process of apoptosis.",
+                    "Relate cellular processes to the overall physiology of an organism."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "cb_ch1",
+                      "title": "The Eukaryotic Cell",
+                      "topics": [
+                        "Cell Theory",
+                        "Structure of Membranes",
+                        "The Nucleus and Gene Expression"
+                      ]
+                    },
+                    {
+                      "id": "cb_ch2",
+                      "title": "Organelles and the Endomembrane System",
+                      "topics": [
+                        "Mitochondria and Cellular Respiration",
+                        "Endoplasmic Reticulum and Golgi Apparatus",
+                        "Protein Sorting and Vesicular Transport"
+                      ]
+                    },
+                    {
+                      "id": "cb_ch3",
+                      "title": "The Cytoskeleton and Cell Signaling",
+                      "topics": [
+                        "Microtubules, Actin Filaments, and Intermediate Filaments",
+                        "Cell Adhesion and Junctions",
+                        "Principles of Cell Communication"
+                      ]
+                    },
+                    {
+                      "id": "cb_ch4",
+                      "title": "The Cell Cycle",
+                      "topics": [
+                        "Phases of the Cell Cycle",
+                        "Regulation of the Cell Cycle (Cyclins and CDKs)",
+                        "Apoptosis"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot2107",
+                  "name": "Principles of Genetics",
+                  "credits": 3,
+                  "description": "A foundational course on the principles of heredity, covering Mendelian genetics, the chromosomal basis of inheritance, gene mapping, mutation, and population genetics.",
+                  "outcomes": [
+                    "Solve problems involving Mendelian inheritance, including dihybrid crosses and linkage.",
+                    "Explain the relationship between chromosomes and inheritance patterns.",
+                    "Analyze human pedigrees to determine modes of inheritance.",
+                    "Apply the Hardy-Weinberg principle to analyze allele frequencies in populations."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "pg_ch1",
+                      "title": "Mendelian Genetics",
+                      "topics": [
+                        "Principles of Segregation and Independent Assortment",
+                        "Dominance, Incomplete Dominance, and Codominance",
+                        "Probability in Genetics"
+                      ]
+                    },
+                    {
+                      "id": "pg_ch2",
+                      "title": "The Chromosomal Basis of Inheritance",
+                      "topics": [
+                        "Mitosis and Meiosis",
+                        "Sex-linked Inheritance",
+                        "Linkage and Gene Mapping"
+                      ]
+                    },
+                    {
+                      "id": "pg_ch3",
+                      "title": "Extensions and Variations",
+                      "topics": [
+                        "Multiple Alleles and Gene Interactions",
+                        "Chromosomal Aberrations",
+                        "Pedigree Analysis"
+                      ]
+                    },
+                    {
+                      "id": "pg_ch4",
+                      "title": "Population Genetics",
+                      "topics": [
+                        "The Hardy-Weinberg Principle",
+                        "Factors Affecting Allele Frequencies (Mutation, Migration, Selection, Drift)"
                       ]
                     }
                   ]
@@ -21727,137 +27125,348 @@ export const courseData: CourseData = {
               ],
               "Semester II": [
                 {
-                  "code": "Chem2102",
-                  "name": "Organic Chemistry",
-                  "description": "Study of the structure, properties, nomenclature, and reactions of carbon-containing compounds, with a focus on functional groups relevant to biomolecules.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "Chem2101"
+                  "code": "Biot2102",
+                  "name": "Molecular Biology",
+                  "credits": 2,
+                  "description": "Focuses on the molecular mechanisms of gene structure, replication, expression, and regulation in prokaryotic and eukaryotic organisms, exploring the central dogma of molecular biology.",
+                  "outcomes": [
+                    "Explain the molecular processes of DNA replication, transcription, and translation.",
+                    "Describe the mechanisms of gene regulation in both prokaryotes and eukaryotes.",
+                    "Understand the structure and function of different types of RNA.",
+                    "Relate the principles of molecular biology to genetic engineering."
                   ],
                   "chapters": [
                     {
-                      "id": "chem2102_ch1",
-                      "title": "Structure, Bonding, and Stereochemistry",
+                      "id": "mb_ch1",
+                      "title": "DNA Replication and Repair",
                       "topics": [
-                        "Alkanes, Alkenes, and Alkynes",
-                        "Functional Groups",
-                        "Chirality and Stereoisomers"
+                        "Mechanism of DNA Replication",
+                        "DNA Polymerases and other Enzymes",
+                        "DNA Damage and Repair Systems"
                       ]
                     },
                     {
-                      "id": "chem2102_ch2",
-                      "title": "Reactions and Mechanisms",
+                      "id": "mb_ch2",
+                      "title": "Gene Expression: Transcription",
                       "topics": [
-                        "Substitution and Elimination Reactions",
-                        "Addition Reactions",
-                        "Reactions of Aromatic Compounds"
+                        "The Process of Transcription",
+                        "RNA Polymerases",
+                        "RNA Processing in Eukaryotes (Splicing, Capping, Polyadenylation)"
                       ]
                     },
                     {
-                      "id": "chem2102_ch3",
-                      "title": "Biologically Relevant Molecules",
+                      "id": "mb_ch3",
+                      "title": "Gene Expression: Translation",
                       "topics": [
-                        "Carbohydrates",
-                        "Lipids",
-                        "Amino Acids and Peptides",
-                        "Nucleic Acids"
+                        "The Genetic Code",
+                        "Ribosomes and tRNA",
+                        "The Process of Protein Synthesis"
+                      ]
+                    },
+                    {
+                      "id": "mb_ch4",
+                      "title": "Regulation of Gene Expression",
+                      "topics": [
+                        "The Lac Operon in Prokaryotes",
+                        "Transcriptional Control in Eukaryotes",
+                        "Epigenetics"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "BIOT2102",
-                  "name": "General Microbiology",
-                  "description": "Study of microorganisms (bacteria, viruses, fungi, protozoa), their structure, growth, metabolism, and their roles in health, industry, and the environment.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "Biol2103"
+                  "code": "Biot2104",
+                  "name": "Techniques in Molecular biology",
+                  "credits": 1,
+                  "description": "A practical, laboratory-focused course on the fundamental techniques used in molecular biology research, including nucleic acid manipulation, PCR, electrophoresis, and an introduction to cloning.",
+                  "outcomes": [
+                    "Perform isolation of DNA and RNA from biological samples.",
+                    "Set up and troubleshoot Polymerase Chain Reaction (PCR) experiments.",
+                    "Prepare and run agarose gels for nucleic acid electrophoresis and interpret the results.",
+                    "Understand the basic principles of restriction digestion and ligation for molecular cloning."
                   ],
                   "chapters": [
                     {
-                      "id": "biot2102_ch1",
-                      "title": "Introduction to the Microbial World",
+                      "id": "tmb_ch1",
+                      "title": "Nucleic Acid Isolation and Quantification",
                       "topics": [
-                        "Prokaryotic and Eukaryotic Cell Structure",
-                        "Microbial Diversity",
-                        "Microscopy and Staining"
+                        "DNA and RNA Extraction protocols",
+                        "Spectrophotometric Quantification"
                       ]
                     },
                     {
-                      "id": "biot2102_ch2",
-                      "title": "Microbial Growth and Metabolism",
+                      "id": "tmb_ch2",
+                      "title": "Polymerase Chain Reaction (PCR)",
                       "topics": [
-                        "The Microbial Growth Curve",
-                        "Nutritional Requirements",
-                        "Metabolic Pathways",
-                        "Control of Microbial Growth"
+                        "Primer Design",
+                        "PCR Setup and Optimization",
+                        "Reverse Transcription PCR (RT-PCR)"
                       ]
                     },
                     {
-                      "id": "biot2102_ch3",
-                      "title": "Virology and Mycology",
+                      "id": "tmb_ch3",
+                      "title": "Gel Electrophoresis and Cloning",
                       "topics": [
-                        "Virus Structure and Replication",
-                        "Bacteriophages",
-                        "Biology of Fungi (Yeasts and Molds)"
-                      ]
-                    },
-                    {
-                      "id": "biot2102_ch4",
-                      "title": "Applied and Environmental Microbiology",
-                      "topics": [
-                        "Industrial Microbiology and Fermentation",
-                        "Medical Microbiology and Infectious Diseases",
-                        "Biogeochemical Cycles"
+                        "Agarose Gel Electrophoresis",
+                        "Restriction Enzyme Digestion",
+                        "Ligation and Transformation"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "BIOT2104",
-                  "name": "Biochemistry I: Biomolecules",
-                  "description": "A detailed study of the structure, function, and chemistry of the major classes of biological macromolecules: proteins, carbohydrates, and lipids.",
+                  "code": "Hist2002",
+                  "name": "History of Ethiopia and the Horn",
                   "credits": 3,
-                  "prerequisites": [
-                    "Chem2102"
+                  "description": "A survey of the history of Ethiopia and the Horn of Africa from ancient times to the modern era, focusing on social, political, economic, and cultural developments.",
+                  "outcomes": [
+                    "Understand the major historical periods and developments in Ethiopia and the Horn.",
+                    "Analyze the interactions between different peoples and states in the region.",
+                    "Appreciate the historical roots of contemporary issues in the region."
+                  ],
+                  "chapters": []
+                },
+                {
+                  "code": "Biot2110",
+                  "name": "Microbial Genetics",
+                  "credits": 2,
+                  "description": "A study of the genetics of microorganisms, including gene structure, mutation, genetic repair, and mechanisms of genetic exchange (conjugation, transformation, transduction) in bacteria and their viruses.",
+                  "outcomes": [
+                    "Describe the organization of genetic material in prokaryotes, including plasmids and bacteriophages.",
+                    "Explain the molecular basis of mutation and DNA repair mechanisms in bacteria.",
+                    "Analyze the different mechanisms of horizontal gene transfer.",
+                    "Understand how gene expression is regulated in response to environmental signals."
                   ],
                   "chapters": [
                     {
-                      "id": "biot2104_ch1",
-                      "title": "Amino Acids and Proteins",
+                      "id": "mg_ch1",
+                      "title": "The Genetic Material of Microbes",
                       "topics": [
-                        "Amino Acid Structure and Properties",
-                        "Peptide Bonds",
-                        "Protein Structure (Primary, Secondary, Tertiary, Quaternary)",
-                        "Protein Folding and Denaturation"
+                        "The Bacterial Chromosome",
+                        "Plasmids",
+                        "Bacteriophages"
                       ]
                     },
                     {
-                      "id": "biot2104_ch2",
-                      "title": "Enzymes",
+                      "id": "mg_ch2",
+                      "title": "Mutation and Repair",
                       "topics": [
-                        "Enzyme Catalysis",
-                        "Michaelis-Menten Kinetics",
-                        "Enzyme Inhibition",
-                        "Allosteric Regulation"
+                        "Types of Mutations",
+                        "Mutagenesis",
+                        "DNA Repair Mechanisms"
                       ]
                     },
                     {
-                      "id": "biot2104_ch3",
-                      "title": "Carbohydrates",
+                      "id": "mg_ch3",
+                      "title": "Genetic Exchange",
                       "topics": [
-                        "Monosaccharides and Disaccharides",
-                        "Polysaccharides (Starch, Glycogen, Cellulose)",
-                        "Glycoproteins"
+                        "Transformation",
+                        "Conjugation",
+                        "Transduction"
                       ]
                     },
                     {
-                      "id": "biot2104_ch4",
-                      "title": "Lipids and Biological Membranes",
+                      "id": "mg_ch4",
+                      "title": "Regulation of Gene Expression",
                       "topics": [
-                        "Fatty Acids and Triglycerides",
-                        "Membrane Lipids (Phospholipids, Sterols)",
-                        "Membrane Structure and Fluidity"
+                        "Transcriptional Regulation (Operons)",
+                        "Global Regulatory Networks"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot2112",
+                  "name": "Fundamentals of Biochemistry",
+                  "credits": 4,
+                  "description": "A comprehensive study of the chemistry of living organisms, focusing on the structure and function of major biomolecules and the central metabolic pathways for energy conversion and biosynthesis.",
+                  "outcomes": [
+                    "Describe the structure and function of carbohydrates, lipids, proteins, and nucleic acids.",
+                    "Explain the major metabolic pathways, including glycolysis, the Krebs cycle, oxidative phosphorylation, and fatty acid metabolism.",
+                    "Understand the principles of enzyme kinetics and mechanisms of metabolic regulation.",
+                    "Relate biochemical processes to cellular function and overall physiology."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "fob_ch1",
+                      "title": "Structure and Function of Biomolecules",
+                      "topics": [
+                        "Amino Acids and Protein Structure",
+                        "Carbohydrates and Glycobiology",
+                        "Lipids and Biological Membranes"
+                      ]
+                    },
+                    {
+                      "id": "fob_ch2",
+                      "title": "Enzymes and Bioenergetics",
+                      "topics": [
+                        "Enzyme Kinetics and Inhibition",
+                        "Introduction to Metabolism",
+                        "ATP and High-Energy Compounds"
+                      ]
+                    },
+                    {
+                      "id": "fob_ch3",
+                      "title": "Carbohydrate Metabolism",
+                      "topics": [
+                        "Glycolysis and Gluconeogenesis",
+                        "The Citric Acid Cycle (Krebs Cycle)",
+                        "Oxidative Phosphorylation and the Electron Transport Chain"
+                      ]
+                    },
+                    {
+                      "id": "fob_ch4",
+                      "title": "Lipid and Amino Acid Metabolism",
+                      "topics": [
+                        "Fatty Acid Oxidation and Synthesis",
+                        "Amino Acid Catabolism and the Urea Cycle"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot2108",
+                  "name": "Animal Anatomy and Physiology",
+                  "credits": 2,
+                  "description": "A comparative study of the structure and function of major organ systems in animals, providing a basis for applications in animal biotechnology, biomedical research, and understanding human physiology.",
+                  "outcomes": [
+                    "Identify major organ systems and their components in vertebrates.",
+                    "Explain the physiological functions of the digestive, circulatory, respiratory, and endocrine systems.",
+                    "Compare physiological adaptations across different animal groups.",
+                    "Relate anatomical structure to physiological function."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "aap_ch1",
+                      "title": "Introduction and Homeostasis",
+                      "topics": [
+                        "Levels of Organization",
+                        "Feedback Mechanisms",
+                        "Tissues"
+                      ]
+                    },
+                    {
+                      "id": "aap_ch2",
+                      "title": "Digestive and Respiratory Systems",
+                      "topics": [
+                        "Comparative Digestion",
+                        "Gas Exchange Mechanisms"
+                      ]
+                    },
+                    {
+                      "id": "aap_ch3",
+                      "title": "Circulatory and Excretory Systems",
+                      "topics": [
+                        "Open vs. Closed Circulatory Systems",
+                        "The Heart and Blood Vessels",
+                        "Osmoregulation and Excretion"
+                      ]
+                    },
+                    {
+                      "id": "aap_ch4",
+                      "title": "Nervous and Endocrine Systems",
+                      "topics": [
+                        "Nervous System Organization",
+                        "Hormonal Regulation"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh2114",
+                  "name": "Analytical Chemistry and Instrumentation",
+                  "credits": 3,
+                  "description": "Focuses on the theory, practice, and instrumentation of modern analytical techniques used for the quantitative and qualitative analysis of chemical and biological molecules.",
+                  "outcomes": [
+                    "Understand the operational principles of key analytical instruments like spectrophotometers, GC, and HPLC.",
+                    "Select appropriate analytical techniques for specific separation and quantification problems.",
+                    "Perform instrumental analysis of biological samples.",
+                    "Critically interpret and report analytical data, including quality control.",
+                  ],
+                  "chapters": [
+                    {
+                      "id": "aci_ch1",
+                      "title": "Introduction to Analytical Instrumentation",
+                      "topics": [
+                        "Instrument Components (Signal Generators, Detectors, Transducers)",
+                        "Signal-to-Noise Ratio",
+                        "Calibration Methods"
+                      ]
+                    },
+                    {
+                      "id": "aci_ch2",
+                      "title": "Spectroscopic Methods",
+                      "topics": [
+                        "UV-Visible and Fluorescence Spectroscopy",
+                        "Atomic Absorption and Emission Spectroscopy",
+                        "Infrared (IR) Spectroscopy"
+                      ]
+                    },
+                    {
+                      "id": "aci_ch3",
+                      "title": "Chromatographic Separations",
+                      "topics": [
+                        "Theory of Chromatography",
+                        "Gas Chromatography (GC) and Detectors",
+                        "High-Performance Liquid Chromatography (HPLC) and Detectors"
+                      ]
+                    },
+                    {
+                      "id": "aci_ch4",
+                      "title": "Electrochemical and Other Methods",
+                      "topics": [
+                        "Potentiometry and Ion-Selective Electrodes",
+                        "Introduction to Mass Spectrometry",
+                        "Electrophoresis"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot2106",
+                  "name": "Plant Anatomy and Physiology",
+                  "credits": 2,
+                  "description": "A study of the structure and function of plants, from cells and tissues to whole organisms. Covers plant growth, development, transport of water and nutrients, photosynthesis, and response to the environment, providing a basis for plant biotechnology.",
+                  "outcomes": [
+                    "Identify the major tissues and organs of vascular plants and describe their functions.",
+                    "Explain the mechanisms of photosynthesis, respiration, and transpiration.",
+                    "Describe the transport of water, minerals, and sugars throughout the plant.",
+                    "Understand the role of plant hormones in regulating growth and development."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "pap_ch1",
+                      "title": "Plant Structure",
+                      "topics": [
+                        "The Plant Cell",
+                        "Tissues and Tissue Systems",
+                        "The Structure of Roots, Stems, and Leaves"
+                      ]
+                    },
+                    {
+                      "id": "pap_ch2",
+                      "title": "Transport in Plants",
+                      "topics": [
+                        "Water and Mineral Absorption",
+                        "Transpiration and Water Movement",
+                        "Translocation of Sugars"
+                      ]
+                    },
+                    {
+                      "id": "pap_ch3",
+                      "title": "Plant Nutrition and Metabolism",
+                      "topics": [
+                        "Essential Nutrients",
+                        "Photosynthesis",
+                        "Respiration"
+                      ]
+                    },
+                    {
+                      "id": "pap_ch4",
+                      "title": "Plant Growth and Development",
+                      "topics": [
+                        "Plant Hormones",
+                        "Responses to Light and other Environmental Stimuli (Tropisms)"
                       ]
                     }
                   ]
@@ -21867,178 +27476,396 @@ export const courseData: CourseData = {
             "Year 3": {
               "Semester I": [
                 {
-                  "code": "BIOT3101",
-                  "name": "Genetics",
-                  "description": "A comprehensive study of the principles of heredity, including Mendelian, molecular, and population genetics.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "Biol2103"
+                  "code": "Biot3111",
+                  "name": "Principles of Plant Breeding",
+                  "credits": 2,
+                  "description": "An introduction to the science and art of genetic improvement of crop plants. The course covers plant reproductive systems, genetic variation, and the principles of selection, hybridization, and modern breeding techniques.",
+                  "outcomes": [
+                    "Understand the genetic basis of crop improvement and the importance of genetic diversity.",
+                    "Describe different modes of plant reproduction and their implications for breeding methods.",
+                    "Apply various selection methods for both self-pollinated and cross-pollinated crops.",
+                    "Explain the principles of hybridization, heterosis, and modern breeding technologies."
                   ],
                   "chapters": [
                     {
-                      "id": "biot3101_ch1",
-                      "title": "Mendelian and Chromosomal Inheritance",
+                      "id": "ppb_ch1",
+                      "title": "Introduction and Plant Reproductive Systems",
                       "topics": [
-                        "Laws of Segregation and Independent Assortment",
-                        "Gene Linkage and Chromosome Mapping",
-                        "Sex-linked Inheritance",
-                        "Chromosomal Abnormalities"
+                        "History and Objectives of Plant Breeding",
+                        "Modes of Reproduction in Crop Plants",
+                        "Genetic Basis of Breeding"
                       ]
                     },
                     {
-                      "id": "biot3101_ch2",
-                      "title": "Molecular Genetics",
+                      "id": "ppb_ch2",
+                      "title": "Methods of Selection",
                       "topics": [
-                        "DNA as the Genetic Material",
-                        "Gene Structure and Function",
-                        "Mutations and DNA Repair"
+                        "Selection in Self-Pollinated Crops (Pure-line, Mass Selection)",
+                        "Selection in Cross-Pollinated Crops (Recurrent Selection)"
                       ]
                     },
                     {
-                      "id": "biot3101_ch3",
+                      "id": "ppb_ch3",
+                      "title": "Hybridization and Heterosis",
+                      "topics": [
+                        "Techniques of Hybridization",
+                        "Handling of Segregating Generations (Pedigree, Bulk Method)",
+                        "Heterosis and Hybrid Vigor"
+                      ]
+                    },
+                    {
+                      "id": "ppb_ch4",
+                      "title": "Modern Breeding Techniques",
+                      "topics": [
+                        "Mutation Breeding",
+                        "Polyploidy Breeding",
+                        "Introduction to Marker-Assisted Selection (MAS)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot3101",
+                  "name": "Immunology and Immunotechnology",
+                  "credits": 3,
+                  "description": "A comprehensive study of the immune system, including its cellular and molecular components, and the application of immunological principles in biotechnology for diagnostics, therapeutics, and research.",
+                  "outcomes": [
+                    "Differentiate between the mechanisms of innate and adaptive immunity.",
+                    "Describe the structure of antibodies and the generation of antibody diversity.",
+                    "Explain the roles of T cells and B cells in the immune response.",
+                    "Understand the principles behind key immunotechnologies such as ELISA and monoclonal antibody production."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "immuno_ch1",
+                      "title": "Introduction to the Immune System",
+                      "topics": [
+                        "Innate and Adaptive Immunity",
+                        "Cells and Organs of the Immune System",
+                        "Antigens and Immunogenicity"
+                      ]
+                    },
+                    {
+                      "id": "immuno_ch2",
+                      "title": "Humoral Immunity",
+                      "topics": [
+                        "Antibody Structure and Function",
+                        "B-cell Development and Activation",
+                        "The Complement System"
+                      ]
+                    },
+                    {
+                      "id": "immuno_ch3",
+                      "title": "Cell-Mediated Immunity",
+                      "topics": [
+                        "The Major Histocompatibility Complex (MHC)",
+                        "T-cell Development and Activation",
+                        "Cytokines"
+                      ]
+                    },
+                    {
+                      "id": "immuno_ch4",
+                      "title": "Immunotechnology",
+                      "topics": [
+                        "Monoclonal and Polyclonal Antibodies",
+                        "Immunoassays (ELISA, Western Blot)",
+                        "Vaccine Technology"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot3103",
+                  "name": "Principles of Animal breeding",
+                  "credits": 2,
+                  "description": "Application of genetic principles to the improvement of livestock. Covers population genetics, quantitative traits, estimation of breeding values, selection strategies, and modern reproductive technologies.",
+                  "outcomes": [
+                    "Apply principles of population genetics to livestock populations.",
+                    "Analyze quantitative traits and estimate heritability and genetic correlations.",
+                    "Design effective selection and mating programs for livestock improvement.",
+                    "Describe the role of modern reproductive and molecular technologies in animal breeding."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "pab_ch1",
                       "title": "Population and Quantitative Genetics",
                       "topics": [
                         "Hardy-Weinberg Equilibrium",
-                        "Forces of Evolution (Drift, Selection, Migration)",
-                        "Quantitative Trait Loci (QTL)"
+                        "Forces Changing Gene Frequencies",
+                        "Genetic and Phenotypic Variation"
+                      ]
+                    },
+                    {
+                      "id": "pab_ch2",
+                      "title": "Heritability and Selection",
+                      "topics": [
+                        "Heritability and Repeatability",
+                        "Estimating Breeding Values (EBVs)",
+                        "Methods of Selection and Response to Selection"
+                      ]
+                    },
+                    {
+                      "id": "pab_ch3",
+                      "title": "Mating Systems",
+                      "topics": [
+                        "Inbreeding and its Effects",
+                        "Crossbreeding and Heterosis",
+                        "Designing Crossbreeding Systems"
+                      ]
+                    },
+                    {
+                      "id": "pab_ch4",
+                      "title": "Modern Breeding Technologies",
+                      "topics": [
+                        "Artificial Insemination (AI)",
+                        "Embryo Transfer",
+                        "Introduction to Genomic Selection"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "BIOT3103",
-                  "name": "Molecular Biology",
-                  "description": "An in-depth study of the molecular mechanisms underlying the storage, transmission, and expression of genetic information in prokaryotes and eukaryotes.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "BIOT2104"
+                  "code": "Biot3105",
+                  "name": "Microbial Biotechnology",
+                  "credits": 3,
+                  "description": "Exploration of the use of microorganisms (bacteria, yeast, fungi) in industrial processes. This course covers fermentation technology, strain improvement, and the production of commercially important products like antibiotics, enzymes, and biofuels.",
+                  "outcomes": [
+                    "Differentiate between primary and secondary microbial metabolites and their production kinetics.",
+                    "Describe classical and modern techniques for microbial strain improvement.",
+                    "Explain the principles of industrial fermentation technology.",
+                    "Identify key applications of microbes in the pharmaceutical, food, and environmental sectors."
                   ],
                   "chapters": [
                     {
-                      "id": "biot3103_ch1",
-                      "title": "DNA Replication and Repair",
+                      "id": "mb_ch1",
+                      "title": "Introduction to Industrial Microorganisms",
                       "topics": [
-                        "Mechanisms of DNA Replication",
-                        "Telomeres and Telomerase",
-                        "DNA Damage and Repair Pathways"
+                        "Screening and Isolation of Microorganisms",
+                        "Preservation of Industrial Strains",
+                        "Primary and Secondary Metabolites"
                       ]
                     },
                     {
-                      "id": "biot3103_ch2",
-                      "title": "Transcription and RNA Processing",
+                      "id": "mb_ch2",
+                      "title": "Fermentation Technology",
                       "topics": [
-                        "RNA Polymerases",
-                        "Promoters and Terminators",
-                        "RNA Splicing, Capping, and Polyadenylation"
+                        "Bioreactor Design and Operation",
+                        "Media Formulation and Sterilization",
+                        "Downstream Processing"
                       ]
                     },
                     {
-                      "id": "biot3103_ch3",
-                      "title": "Protein Synthesis",
+                      "id": "mb_ch3",
+                      "title": "Strain Improvement",
                       "topics": [
-                        "The Genetic Code",
-                        "Ribosome Structure and Function",
-                        "Mechanism of Translation"
+                        "Mutation and Selection",
+                        "Recombinant DNA Technology for Strain Improvement"
                       ]
                     },
                     {
-                      "id": "biot3103_ch4",
-                      "title": "Regulation of Gene Expression",
+                      "id": "mb_ch4",
+                      "title": "Products of Microbial Biotechnology",
                       "topics": [
-                        "The Lac and Trp Operons",
-                        "Eukaryotic Transcription Factors and Chromatin Remodeling",
-                        "Post-transcriptional Regulation (RNAi)"
+                        "Antibiotics and Pharmaceuticals",
+                        "Industrial Enzymes",
+                        "Biofuels and Organic Acids"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "BIOT3105",
-                  "name": "Biochemistry II: Metabolism",
-                  "description": "A study of the central metabolic pathways for the breakdown and synthesis of biomolecules and the integration and regulation of these pathways.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "BIOT2104"
+                  "code": "Biot3107",
+                  "name": "Fundamentals of Bioprocessing Engineering",
+                  "credits": 2,
+                  "description": "Applies engineering principles to biological manufacturing processes. The course covers material and energy balances, fluid flow and mixing, heat and mass transfer in bioreactors, and downstream processing for product recovery.",
+                  "outcomes": [
+                    "Apply mass and energy balances to analyze bioreactors and bioprocesses.",
+                    "Analyze fluid flow, mixing, and aeration in bioreactor systems.",
+                    "Understand the principles of mass transfer (e.g., oxygen transfer) and its impact on cell growth.",
+                    "Describe the major unit operations used in downstream processing."
                   ],
                   "chapters": [
                     {
-                      "id": "biot3105_ch1",
-                      "title": "Carbohydrate Metabolism",
-                      "topics": [
-                        "Glycolysis and Gluconeogenesis",
-                        "The Citric Acid Cycle",
-                        "Oxidative Phosphorylation and Electron Transport Chain"
-                      ]
-                    },
-                    {
-                      "id": "biot3105_ch2",
-                      "title": "Lipid Metabolism",
-                      "topics": [
-                        "Fatty Acid Oxidation (Beta-oxidation)",
-                        "Fatty Acid Synthesis",
-                        "Cholesterol and Steroid Metabolism"
-                      ]
-                    },
-                    {
-                      "id": "biot3105_ch3",
-                      "title": "Amino Acid Metabolism",
-                      "topics": [
-                        "Amino Acid Catabolism and Transamination",
-                        "The Urea Cycle",
-                        "Synthesis of Non-essential Amino Acids"
-                      ]
-                    },
-                    {
-                      "id": "biot3105_ch4",
-                      "title": "Integration of Metabolism",
-                      "topics": [
-                        "Hormonal Regulation (Insulin, Glucagon, Epinephrine)",
-                        "Metabolism in the Fed and Fasted States",
-                        "Metabolic Basis of Disease"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "BIOT3107",
-                  "name": "Bioprocess Principles",
-                  "description": "An introduction to the engineering principles underlying biological processes, including microbial kinetics, reactor design, and downstream processing.",
-                  "credits": 3,
-                  "chapters": [
-                    {
-                      "id": "biot3107_ch1",
+                      "id": "fbe_ch1",
                       "title": "Introduction to Bioprocesses",
                       "topics": [
-                        "Overview of Bioprocesses and Products",
                         "Material and Energy Balances",
-                        "Stoichiometry of Microbial Growth"
+                        "Stoichiometry of Microbial Growth and Product Formation"
                       ]
                     },
                     {
-                      "id": "biot3107_ch2",
-                      "title": "Microbial Growth Kinetics",
+                      "id": "fbe_ch2",
+                      "title": "Fluid Flow and Mixing",
                       "topics": [
-                        "Batch Culture",
-                        "Continuous Culture (Chemostat)",
-                        "Fed-Batch Culture"
+                        "Rheology of Fermentation Broths",
+                        "Mixing and Power Consumption in Stirred Tanks"
                       ]
                     },
                     {
-                      "id": "biot3107_ch3",
-                      "title": "Bioreactors",
+                      "id": "fbe_ch3",
+                      "title": "Mass and Heat Transfer",
                       "topics": [
-                        "Types of Bioreactors",
-                        "Agitation and Aeration",
-                        "Sterilization"
+                        "Oxygen Transfer Rate (OTR) and kLa",
+                        "Heat Generation and Removal in Bioreactors"
                       ]
                     },
                     {
-                      "id": "biot3107_ch4",
-                      "title": "Introduction to Downstream Processing",
+                      "id": "fbe_ch4",
+                      "title": "Downstream Processing",
                       "topics": [
                         "Cell Separation (Centrifugation, Filtration)",
                         "Cell Disruption",
-                        "Product Recovery and Purification Overview"
+                        "Product Purification (Chromatography)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot3109",
+                  "name": "Biophysics",
+                  "credits": 2,
+                  "description": "Application of the principles and methods of physics to understand biological systems. Topics include the thermodynamics of life, molecular forces, biomechanics, and the physical principles behind key bio-analytical techniques.",
+                  "outcomes": [
+                    "Apply thermodynamic concepts to biological energy transformations.",
+                    "Describe the physical forces that govern the structure and interaction of biomolecules.",
+                    "Understand the physical principles of techniques used to study biological structure and function.",
+                    "Relate physical properties of biological systems to their physiological roles."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "biophys_ch1",
+                      "title": "Thermodynamics and Bioenergetics",
+                      "topics": [
+                        "Laws of Thermodynamics in Biological Systems",
+                        "Free Energy and Chemical Equilibria",
+                        "ATP and Energy Coupling"
+                      ]
+                    },
+                    {
+                      "id": "biophys_ch2",
+                      "title": "Molecular Biophysics",
+                      "topics": [
+                        "Intermolecular Forces",
+                        "Protein Folding and Stability",
+                        "Structure of Nucleic Acids"
+                      ]
+                    },
+                    {
+                      "id": "biophys_ch3",
+                      "title": "Membrane and Cellular Biophysics",
+                      "topics": [
+                        "Membrane Structure and Transport",
+                        "Nerve Impulses",
+                        "Biomechanics of the Cytoskeleton"
+                      ]
+                    },
+                    {
+                      "id": "biophys_ch4",
+                      "title": "Biophysical Techniques",
+                      "topics": [
+                        "Spectroscopy (UV-Vis, Fluorescence)",
+                        "X-ray Crystallography and NMR",
+                        "Microscopy Techniques"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot3115",
+                  "name": "Genetic Engineering",
+                  "credits": 3,
+                  "description": "A detailed study of the core techniques of recombinant DNA technology. The course covers the tools and methods for manipulating DNA, cloning genes, and analyzing gene expression, along with their applications.",
+                  "outcomes": [
+                    "Explain the principles and steps involved in gene cloning.",
+                    "Describe the function of key tools in genetic engineering, including restriction enzymes, ligases, and vectors.",
+                    "Design PCR primers and analyze PCR-based experiments.",
+                    "Understand the methods for analyzing gene expression at the RNA and protein level."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ge_ch1",
+                      "title": "Tools of Genetic Engineering",
+                      "topics": [
+                        "Restriction Enzymes and DNA Ligase",
+                        "Cloning Vectors (Plasmids, Phages, Cosmids)",
+                        "Host Cells for Cloning"
+                      ]
+                    },
+                    {
+                      "id": "ge_ch2",
+                      "title": "Gene Cloning and Libraries",
+                      "topics": [
+                        "Creating Recombinant DNA",
+                        "Transformation and Selection of Recombinants",
+                        "Genomic and cDNA Libraries"
+                      ]
+                    },
+                    {
+                      "id": "ge_ch3",
+                      "title": "Polymerase Chain Reaction (PCR) and its Applications",
+                      "topics": [
+                        "Principles of PCR",
+                        "Quantitative PCR (qPCR)",
+                        "Site-Directed Mutagenesis"
+                      ]
+                    },
+                    {
+                      "id": "ge_ch4",
+                      "title": "Analysis of Gene Expression",
+                      "topics": [
+                        "DNA Sequencing (Sanger, Next-Generation)",
+                        "Analysis of RNA (Northern Blot, RT-PCR)",
+                        "Analysis of Proteins (Western Blot)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot3113",
+                  "name": "Biostatistics and Experimental design",
+                  "credits": 3,
+                  "description": "Covers the principles of designing biological experiments and the application of statistical methods for analyzing and interpreting the resulting data. Emphasis is on practical application using statistical software.",
+                  "outcomes": [
+                    "Design robust and efficient experiments using principles like randomization, replication, and blocking.",
+                    "Apply appropriate statistical tests (t-tests, ANOVA, chi-square) to analyze experimental data.",
+                    "Perform and interpret linear regression and correlation analyses.",
+                    "Use statistical software (e.g., R, SPSS) to manage and analyze biological data sets."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "biostat_ch1",
+                      "title": "Principles of Experimental Design",
+                      "topics": [
+                        "Completely Randomized Design (CRD)",
+                        "Randomized Complete Block Design (RCBD)",
+                        "Factorial Experiments"
+                      ]
+                    },
+                    {
+                      "id": "biostat_ch2",
+                      "title": "Analysis of Variance (ANOVA)",
+                      "topics": [
+                        "One-Way and Two-Way ANOVA",
+                        "Post-hoc Tests",
+                        "Assumptions of ANOVA"
+                      ]
+                    },
+                    {
+                      "id": "biostat_ch3",
+                      "title": "Regression and Correlation",
+                      "topics": [
+                        "Simple and Multiple Linear Regression",
+                        "Correlation Analysis",
+                        "Model Diagnostics"
+                      ]
+                    },
+                    {
+                      "id": "biostat_ch4",
+                      "title": "Non-parametric Statistics",
+                      "topics": [
+                        "Chi-Square Test",
+                        "Mann-Whitney U Test",
+                        "Kruskal-Wallis Test"
                       ]
                     }
                   ]
@@ -22046,140 +27873,402 @@ export const courseData: CourseData = {
               ],
               "Semester II": [
                 {
-                  "code": "BIOT3102",
-                  "name": "Immunology",
-                  "description": "A study of the immune system, including its cellular and molecular components, the mechanisms of innate and adaptive immunity, and applications in biotechnology.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "BIOT2104"
+                  "code": "Biot3102",
+                  "name": "Plant Biotechnology",
+                  "credits": 2,
+                  "description": "The application of biotechnology for the genetic improvement and utilization of plants. This course covers plant tissue culture, methods for creating transgenic plants, and applications in agriculture and industry.",
+                  "outcomes": [
+                    "Understand the principles and applications of plant tissue culture, including micropropagation.",
+                    "Describe the major methods of plant genetic transformation (Agrobacterium-mediated, biolistics).",
+                    "Explain the use of molecular markers in plant breeding.",
+                    "Discuss the benefits and controversies surrounding genetically modified crops."
                   ],
                   "chapters": [
                     {
-                      "id": "biot3102_ch1",
-                      "title": "Innate Immunity",
+                      "id": "pb_ch1",
+                      "title": "Plant Tissue Culture",
                       "topics": [
-                        "Cells of the Innate System (Macrophages, Neutrophils)",
-                        "Pattern Recognition Receptors",
-                        "Inflammation and the Complement System"
+                        "Principles and Techniques",
+                        "Micropropagation",
+                        "Somatic Embryogenesis and Artificial Seeds"
                       ]
                     },
                     {
-                      "id": "biot3102_ch2",
-                      "title": "Adaptive Immunity",
+                      "id": "pb_ch2",
+                      "title": "Plant Genetic Transformation",
                       "topics": [
-                        "Antigens and Antibodies",
-                        "B and T Lymphocyte Development and Activation",
-                        "Major Histocompatibility Complex (MHC)"
+                        "Agrobacterium-mediated Transformation",
+                        "Biolistics (Gene Gun)",
+                        "Selectable Markers and Reporter Genes"
                       ]
                     },
                     {
-                      "id": "biot3102_ch3",
-                      "title": "The Immune Response in Action",
+                      "id": "pb_ch3",
+                      "title": "Applications in Agriculture",
                       "topics": [
-                        "Humoral Immunity (Antibody Response)",
-                        "Cell-Mediated Immunity (Cytotoxic T Cells)",
-                        "Immunological Memory"
+                        "Herbicide and Insect Resistance",
+                        "Improved Nutritional Quality",
+                        "Drought and Salinity Tolerance"
                       ]
                     },
                     {
-                      "id": "biot3102_ch4",
-                      "title": "Applied Immunology",
+                      "id": "pb_ch4",
+                      "title": "Molecular Farming and Regulation",
                       "topics": [
-                        "Vaccines",
-                        "Monoclonal Antibodies",
-                        "Immunoassays (ELISA, Western Blot)",
-                        "Hypersensitivity and Autoimmunity"
+                        "Plants as Bioreactors for Pharmaceuticals",
+                        "Biosafety and Regulatory Issues"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "BIOT3104",
-                  "name": "Recombinant DNA Technology",
-                  "description": "A comprehensive, hands-on study of the techniques used to isolate, analyze, and manipulate DNA, and to express recombinant proteins.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "BIOT3103"
+                  "code": "Biot3104",
+                  "name": "Molecular Diagnostics",
+                  "credits": 1,
+                  "description": "A focused study on the principles and applications of molecular techniques for the detection and diagnosis of diseases in humans, animals, and plants. Covers nucleic acid-based and protein-based diagnostic methods.",
+                  "outcomes": [
+                    "Explain the principles of PCR-based methods for detecting pathogens and genetic mutations.",
+                    "Understand the application of immunoassays (like ELISA) in disease diagnosis.",
+                    "Describe the role of DNA sequencing and microarrays in diagnostics.",
+                    "Compare the advantages and limitations of different diagnostic platforms."
                   ],
                   "chapters": [
                     {
-                      "id": "biot3104_ch1",
-                      "title": "Core Tools of Genetic Engineering",
+                      "id": "md_ch1",
+                      "title": "Nucleic Acid-Based Diagnostics",
                       "topics": [
-                        "Restriction Enzymes and DNA Ligase",
-                        "Plasmids, Vectors, and Cloning",
-                        "Creating and Screening DNA Libraries"
+                        "PCR, RT-PCR, and qPCR",
+                        "Nucleic Acid Hybridization (Probes)",
+                        "DNA Sequencing in Diagnostics"
                       ]
                     },
                     {
-                      "id": "biot3104_ch2",
-                      "title": "Polymerase Chain Reaction (PCR)",
+                      "id":"md_ch2",
+                      "title": "Immuno-based Diagnostics",
                       "topics": [
-                        "Principles and Methodology",
-                        "Reverse Transcriptase PCR (RT-PCR)",
-                        "Quantitative PCR (qPCR)"
+                        "ELISA and its variations",
+                        "Western Blotting",
+                        "Immunofluorescence and Immunohistochemistry"
                       ]
                     },
                     {
-                      "id": "biot3104_ch3",
-                      "title": "Analysis of Nucleic Acids and Proteins",
+                      "id": "md_ch3",
+                      "title": "Advanced Diagnostics and Applications",
                       "topics": [
-                        "Gel Electrophoresis",
-                        "DNA Sequencing (Sanger, Next-Generation)",
-                        "Blotting Techniques (Southern, Northern, Western)"
-                      ]
-                    },
-                    {
-                      "id": "biot3104_ch4",
-                      "title": "Modern Applications",
-                      "topics": [
-                        "Expression of Recombinant Proteins",
-                        "Genome Editing with CRISPR-Cas9",
-                        "Transgenic Animals and Plants"
+                        "Microarrays and Gene Expression Profiling",
+                        "Biosensors",
+                        "Point-of-Care Diagnostics"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "BIOT3106",
-                  "name": "Bioinformatics",
-                  "description": "An introduction to the use of computational tools to analyze large-scale biological data, including DNA, RNA, and protein sequences.",
-                  "credits": 3,
+                  "code": "Biot3110",
+                  "name": "Fungal Biotechnology",
+                  "credits": 2,
+                  "description": "A study of fungi (yeasts and molds) and their exploitation in various biotechnological applications. Covers fungal biology, fermentation, and the industrial production of enzymes, organic acids, antibiotics, and other valuable compounds.",
+                  "outcomes": [
+                    "Understand the unique biology and diversity of fungi.",
+                    "Describe the principles of solid-state and submerged fermentation for fungal production.",
+                    "Identify key industrial products derived from fungi.",
+                    "Explain the role of fungi in bioremediation and biocontrol."
+                  ],
                   "chapters": [
                     {
-                      "id": "biot3106_ch1",
-                      "title": "Biological Databases and Sequence Retrieval",
+                      "id": "fb_ch1",
+                      "title": "Biology and Diversity of Fungi",
                       "topics": [
-                        "Primary and Secondary Databases (GenBank, UniProt)",
-                        "Sequence Formats (FASTA)",
-                        "Data Retrieval and Management"
+                        "Yeast and Filamentous Fungi",
+                        "Fungal Growth and Reproduction",
+                        "Fungal Genetics"
                       ]
                     },
                     {
-                      "id": "biot3106_ch2",
+                      "id": "fb_ch2",
+                      "title": "Fungal Fermentation",
+                      "topics": [
+                        "Submerged Fermentation",
+                        "Solid-State Fermentation (SSF)",
+                        "Bioreactor Design for Fungi"
+                      ]
+                    },
+                    {
+                      "id": "fb_ch3",
+                      "title": "Industrial Products from Fungi",
+                      "topics": [
+                        "Organic Acids (Citric Acid)",
+                        "Enzymes (Amylases, Cellulases)",
+                        "Antibiotics (Penicillin)",
+                        "Mushrooms and Single-Cell Protein"
+                      ]
+                    },
+                    {
+                      "id": "fb_ch4",
+                      "title": "Environmental Applications",
+                      "topics": [
+                        "Mycoremediation",
+                        "Fungi as Biocontrol Agents"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot3106",
+                  "name": "Plant Cell and Tissue Culture",
+                  "credits": 2,
+                  "description": "A practical and theoretical course on the techniques for growing plant cells, tissues, and organs in vitro under sterile conditions. Covers media preparation, micropropagation, callus culture, somatic embryogenesis, and applications.",
+                  "outcomes": [
+                    "Prepare sterile culture media and establish aseptic plant cultures.",
+                    "Perform micropropagation for rapid clonal multiplication of plants.",
+                    "Induce and maintain callus and cell suspension cultures.",
+                    "Understand the process of somatic embryogenesis and its applications."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "pctc_ch1",
+                      "title": "Principles and Laboratory Setup",
+                      "topics": [
+                        "Concept of Totipotency",
+                        "Aseptic Techniques",
+                        "Culture Media Composition and Preparation"
+                      ]
+                    },
+                    {
+                      "id":"pctc_ch2",
+                      "title": "Micropropagation",
+                      "topics": [
+                        "Stages of Micropropagation",
+                        "Organogenesis",
+                        "Acclimatization"
+                      ]
+                    },
+                    {
+                      "id": "pctc_ch3",
+                      "title": "Cell and Callus Culture",
+                      "topics": [
+                        "Callus Induction and Maintenance",
+                        "Cell Suspension Cultures",
+                        "Production of Secondary Metabolites"
+                      ]
+                    },
+                    {
+                      "id": "pctc_ch4",
+                      "title": "Advanced Techniques",
+                      "topics": [
+                        "Somatic Embryogenesis",
+                        "Protoplast Isolation and Fusion",
+                        "Haploid Production"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot3108",
+                  "name": "Medical Biotechnology",
+                  "credits": 3,
+                  "description": "The application of biotechnological principles and techniques to human health and medicine. The course covers the production of recombinant therapeutics, diagnostics, gene therapy, and stem cell technology.",
+                  "outcomes": [
+                    "Understand the production process for recombinant protein therapeutics like insulin and antibodies.",
+                    "Explain the different strategies and challenges of gene therapy.",
+                    "Describe the types and therapeutic potential of stem cells.",
+                    "Discuss the role of biotechnology in personalized medicine and diagnostics."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "medbio_ch1",
+                      "title": "Recombinant Pharmaceuticals",
+                      "topics": [
+                        "Production of Insulin, Growth Hormone, and Erythropoietin",
+                        "Therapeutic Monoclonal Antibodies",
+                        "Recombinant Vaccines"
+                      ]
+                    },
+                    {
+                      "id": "medbio_ch2",
+                      "title": "Gene Therapy",
+                      "topics": [
+                        "Viral and Non-viral Vectors",
+                        "Strategies for Gene Therapy (Somatic vs. Germline)",
+                        "Ethical Considerations"
+                      ]
+                    },
+                    {
+                      "id": "medbio_ch3",
+                      "title": "Stem Cell and Tissue Engineering",
+                      "topics": [
+                        "Embryonic and Adult Stem Cells",
+                        "Induced Pluripotent Stem Cells (iPSCs)",
+                        "Principles of Tissue Engineering"
+                      ]
+                    },
+                    {
+                      "id": "medbio_ch4",
+                      "title": "Personalized Medicine and Diagnostics",
+                      "topics": [
+                        "Pharmacogenomics",
+                        "Molecular Diagnostics for Genetic Diseases",
+                        "Cancer Biotechnology"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "ISTP3116",
+                  "name": "Integrated Science Team Project",
+                  "credits": 3,
+                  "description": "A multidisciplinary project where teams of students collaborate to solve a real-world problem or develop a new product related to biotechnology, from concept to prototype.",
+                  "outcomes": [
+                    "Apply the principles of product development from idea generation to bench-top formulation.",
+                    "Collaborate effectively within a diverse team environment.",
+                    "Apply project management principles to meet deadlines and deliverables.",
+                    "Communicate technical solutions through written reports and oral presentations."
+                  ],
+                  "chapters": []
+                },
+                {
+                  "code": "Biot3118",
+                  "name": "Aquatic Biotechnology",
+                  "credits": 2,
+                  "description": "The application of biotechnology to aquatic organisms and environments. Covers genetic improvement in aquaculture, diagnostics for aquatic animal diseases, bioremediation of water, and marine bioprospecting.",
+                  "outcomes": [
+                    "Describe biotechnological approaches for improving growth and disease resistance in aquaculture.",
+                    "Understand the application of molecular tools for aquatic animal health management.",
+                    "Explain the use of microorganisms for bioremediation of aquatic pollution.",
+                    "Appreciate the potential of marine organisms as a source of novel bioactive compounds."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ab_ch1",
+                      "title": "Biotechnology in Aquaculture",
+                      "topics": [
+                        "Selective Breeding and Hybridization",
+                        "Transgenesis in Fish",
+                        "Control of Reproduction"
+                      ]
+                    },
+                    {
+                      "id": "ab_ch2",
+                      "title": "Aquatic Animal Health",
+                      "topics": [
+                        "Molecular Diagnostics for Fish Pathogens",
+                        "DNA Vaccines for Fish"
+                      ]
+                    },
+                    {
+                      "id": "ab_ch3",
+                      "title": "Aquatic Environmental Biotechnology",
+                      "topics": [
+                        "Bioremediation of Polluted Waters",
+                        "Algal Biotechnology for Biofuels and High-Value Products"
+                      ]
+                    },
+                    {
+                      "id": "ab_ch4",
+                      "title": "Marine Bioprospecting",
+                      "topics": [
+                        "Screening for Novel Compounds",
+                        "Marine Enzymes and Pharmaceuticals"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot3114",
+                  "name": "Introduction to Bioinformatics",
+                  "credits": 3,
+                  "description": "An introduction to the use of computational tools to analyze biological data. The course covers biological databases, sequence alignment, phylogenetic analysis, and structural bioinformatics.",
+                  "outcomes": [
+                    "Navigate and retrieve information from major biological databases (e.g., NCBI, PDB).",
+                    "Perform pairwise and multiple sequence alignments and interpret the results.",
+                    "Construct and interpret phylogenetic trees to understand evolutionary relationships.",
+                    "Use software to visualize and analyze protein and nucleic acid structures."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "bioinfo_ch1",
+                      "title": "Biological Databases",
+                      "topics": [
+                        "Primary and Secondary Databases",
+                        "NCBI and GenBank",
+                        "Protein Data Bank (PDB)"
+                      ]
+                    },
+                    {
+                      "id": "bioinfo_ch2",
                       "title": "Sequence Alignment",
                       "topics": [
-                        "Pairwise Alignment (BLAST, FASTA)",
-                        "Scoring Matrices",
+                        "Scoring Matrices (BLOSUM, PAM)",
+                        "Pairwise Alignment (Needleman-Wunsch, Smith-Waterman)",
+                        "Database Searching with BLAST and FASTA",
                         "Multiple Sequence Alignment (Clustal)"
                       ]
                     },
                     {
-                      "id": "biot3106_ch3",
-                      "title": "Genomics and Proteomics",
-                      "topics": [
-                        "Gene Prediction and Genome Annotation",
-                        "Analysis of High-Throughput Sequencing Data",
-                        "Protein Structure Prediction and Visualization"
-                      ]
-                    },
-                    {
-                      "id": "biot3106_ch4",
+                      "id": "bioinfo_ch3",
                       "title": "Phylogenetics",
                       "topics": [
                         "Molecular Evolution",
-                        "Construction of Phylogenetic Trees",
-                        "Interpreting Evolutionary Relationships"
+                        "Methods for Tree Reconstruction (Distance-based, Character-based)",
+                        "Interpreting Phylogenetic Trees"
+                      ]
+                    },
+                    {
+                      "id": "bioinfo_ch4",
+                      "title": "Structural Bioinformatics",
+                      "topics": [
+                        "Protein Structure Visualization (PyMOL, Chimera)",
+                        "Protein Structure Prediction",
+                        "Introduction to Molecular Docking"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot3116",
+                  "name": "Research Methodology and Academic Writing",
+                  "credits": 2,
+                  "description": "Focuses on the skills required to conduct scientific research and communicate findings effectively. Covers research design, data analysis, literature review, and the structure of scientific papers, proposals, and theses.",
+                  "outcomes": [
+                    "Formulate clear research questions and hypotheses.",
+                    "Design a research study with appropriate controls and methodology.",
+                    "Conduct a systematic literature review and synthesize information.",
+                    "Write a scientific report or paper in a clear, concise, and structured manner (IMRaD format)."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "rmaw_ch1",
+                      "title": "The Research Process",
+                      "topics": [
+                        "The Scientific Method",
+                        "Formulating a Research Question",
+                        "Research Ethics"
+                      ]
+                    },
+                    {
+                      "id": "rmaw_ch2",
+                      "title": "Literature Review and Research Design",
+                      "topics": [
+                        "Searching Scientific Literature",
+                        "Types of Research Designs",
+                        "Sampling"
+                      ]
+                    },
+                    {
+                      "id": "rmaw_ch3",
+                      "title": "Scientific Writing",
+                      "topics": [
+                        "Structure of a Scientific Paper (IMRaD)",
+                        "Writing Clearly and Concisely",
+                        "Citation and Referencing"
+                      ]
+                    },
+                    {
+                      "id": "rmaw_ch4",
+                      "title": "Proposals and Presentations",
+                      "topics": [
+                        "Writing a Research Proposal",
+                        "Creating Scientific Posters",
+                        "Delivering an Oral Presentation"
                       ]
                     }
                   ]
@@ -22189,127 +28278,310 @@ export const courseData: CourseData = {
             "Year 4": {
               "Semester I": [
                 {
-                  "code": "BIOT4101",
-                  "name": "Bioprocess Engineering",
-                  "description": "Quantitative analysis and design of bioprocess systems, focusing on bioreactor design, scale-up, and downstream purification processes.",
+                  "code": "Biot4101",
+                  "name": "Enzyme Technology",
                   "credits": 3,
-                  "prerequisites": [
-                    "BIOT3107"
+                  "description": "A study of the industrial production, purification, immobilization, and application of enzymes as biocatalysts in various sectors, including food, pharmaceuticals, and diagnostics.",
+                  "outcomes": [
+                    "Describe methods for large-scale production and purification of enzymes.",
+                    "Explain the principles and advantages of enzyme immobilization techniques.",
+                    "Analyze enzyme kinetics in both free and immobilized systems.",
+                    "Design processes utilizing enzymes for specific industrial applications."
                   ],
                   "chapters": [
                     {
-                      "id": "biot4101_ch1",
-                      "title": "Bioreactor Design and Analysis",
+                      "id": "et_ch1",
+                      "title": "Production and Purification of Enzymes",
                       "topics": [
-                        "Mass Transfer in Bioreactors (kLa)",
-                        "Heat Transfer and Sterilization",
-                        "Bioreactor Scale-up"
+                        "Sources of Enzymes",
+                        "Fermentation for Enzyme Production",
+                        "Downstream Processing and Purification Strategies"
                       ]
                     },
                     {
-                      "id": "biot4101_ch2",
-                      "title": "Downstream Processing I: Separation",
+                      "id": "et_ch2",
+                      "title": "Enzyme Immobilization",
                       "topics": [
-                        "Filtration and Microfiltration",
-                        "Centrifugation",
-                        "Aqueous Two-Phase Extraction"
+                        "Methods of Immobilization (Adsorption, Covalent Bonding, Entrapment)",
+                        "Properties of Immobilized Enzymes",
+                        "Mass Transfer Effects in Immobilized Systems"
                       ]
                     },
                     {
-                      "id": "biot4101_ch3",
-                      "title": "Downstream Processing II: Purification",
+                      "id": "et_ch3",
+                      "title": "Enzyme Reactors",
                       "topics": [
-                        "Principles of Chromatography",
-                        "Ion Exchange, Size Exclusion, and Affinity Chromatography",
-                        "Chromatography Scale-up"
+                        "Batch and Continuous Enzyme Reactors",
+                        "Packed-Bed and Fluidized-Bed Reactors",
+                        "Membrane Reactors"
                       ]
                     },
                     {
-                      "id": "biot4101_ch4",
-                      "title": "Process Economics and Validation",
+                      "id": "et_ch4",
+                      "title": "Applications of Enzyme Technology",
                       "topics": [
-                        "Bioprocess Economics",
-                        "Process Instrumentation and Control",
-                        "Good Manufacturing Practices (GMP)"
+                        "Enzymes in the Food and Beverage Industry",
+                        "Enzymes in Diagnostics (Biosensors)",
+                        "Enzymes in the Pharmaceutical and Detergent Industries"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "BIOT4103",
-                  "name": "Cell Culture Technology",
-                  "description": "Principles and techniques for the in vitro cultivation of animal and plant cells, and their applications in research and industry.",
+                  "code": "Biot4103",
+                  "name": "Industrial Biotechnology",
                   "credits": 3,
+                  "description": "Focuses on the use of microorganisms and enzymes for the sustainable production of bulk chemicals, fine chemicals, biofuels, and bioplastics, often referred to as 'white biotechnology'.",
+                  "outcomes": [
+                    "Understand the concept of biorefineries and integrated bioprocessing.",
+                    "Describe the metabolic pathways for producing key industrial platform chemicals.",
+                    "Analyze the processes for producing biofuels like bioethanol and biodiesel.",
+                    "Evaluate the economic and environmental aspects of industrial biotechnology processes."
+                  ],
                   "chapters": [
                     {
-                      "id": "biot4103_ch1",
-                      "title": "Fundamentals of Cell Culture",
+                      "id": "ib_ch1",
+                      "title": "Introduction to Industrial Biotechnology",
                       "topics": [
-                        "Aseptic Technique and Laboratory Design",
-                        "Cell Culture Media and Sera",
-                        "Cell Lines and Primary Cultures"
+                        "White Biotechnology Concepts",
+                        "Platform Chemicals from Biomass",
+                        "The Biorefinery Concept"
                       ]
                     },
                     {
-                      "id": "biot4103_ch2",
-                      "title": "Animal Cell Culture",
+                      "id": "ib_ch2",
+                      "title": "Biofuels and Bioenergy",
                       "topics": [
-                        "Growth of Anchorage-Dependent and Suspension Cells",
-                        "Cell Characterization and Cryopreservation",
-                        "Scale-up of Animal Cell Cultures"
+                        "Bioethanol Production from Sugar and Lignocellulose",
+                        "Biodiesel Production",
+                        "Biogas and Biohydrogen"
                       ]
                     },
                     {
-                      "id": "biot4103_ch3",
-                      "title": "Plant Tissue Culture",
+                      "id": "ib_ch3",
+                      "title": "Biochemicals and Bioplastics",
                       "topics": [
-                        "Media Formulation and Plant Hormones",
-                        "Micropropagation and Somatic Embryogenesis",
-                        "Callus and Suspension Cultures"
+                        "Production of Organic Acids (Citric, Lactic)",
+                        "Production of Amino Acids and Vitamins",
+                        "Biopolymers (e.g., PHA, PLA)"
                       ]
                     },
                     {
-                      "id": "biot4103_ch4",
-                      "title": "Applications",
+                      "id": "ib_ch4",
+                      "title": "Process Economics and Sustainability",
                       "topics": [
-                        "Production of Recombinant Proteins and Monoclonal Antibodies",
-                        "Tissue Engineering",
-                        "Production of Secondary Metabolites"
+                        "Techno-economic Analysis",
+                        "Life Cycle Assessment (LCA) of Bioprocesses"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "BIOT4105",
-                  "name": "Thesis I / Research Methodology",
-                  "description": "Development of a research proposal for the final year thesis, including literature review, experimental design, and ethical considerations.",
-                  "credits": 2,
+                  "code": "Biot4105",
+                  "name": "Environmental Biotechnology",
+                  "credits": 3,
+                  "description": "The application of biological systems and processes for the remediation of contaminated environments and the treatment of waste. Covers bioremediation, wastewater treatment, solid waste management, and environmental monitoring.",
+                  "outcomes": [
+                    "Apply microbiological principles to design bioremediation strategies for contaminated soil and water.",
+                    "Analyze the biological processes in modern wastewater treatment plants.",
+                    "Describe biotechnological approaches for solid waste management, such as composting and anaerobic digestion.",
+                    "Understand the use of biosensors for environmental monitoring."
+                  ],
                   "chapters": [
                     {
-                      "id": "biot4105_ch1",
-                      "title": "The Scientific Method and Experimental Design",
+                      "id": "eb_ch1",
+                      "title": "Bioremediation",
                       "topics": [
-                        "Formulating a Research Hypothesis",
-                        "Types of Experimental Designs",
-                        "Controls and Variables"
+                        "Microbial Degradation of Pollutants",
+                        "In-situ and Ex-situ Bioremediation Technologies",
+                        "Phytoremediation"
                       ]
                     },
                     {
-                      "id": "biot4105_ch2",
-                      "title": "Literature Review and Scientific Writing",
+                      "id": "eb_ch2",
+                      "title": "Biological Wastewater Treatment",
                       "topics": [
-                        "Critical Evaluation of Scientific Papers",
-                        "Citation Management",
-                        "Structuring a Literature Review"
+                        "Activated Sludge Process",
+                        "Biological Nutrient Removal (Nitrogen and Phosphorus)",
+                        "Anaerobic Wastewater Treatment"
                       ]
                     },
                     {
-                      "id": "biot4105_ch3",
-                      "title": "Proposal Writing",
+                      "id": "eb_ch3",
+                      "title": "Solid Waste Management",
                       "topics": [
-                        "Components of a Research Proposal",
-                        "Budgeting and Timelines",
-                        "Presenting the Proposal"
+                        "Composting",
+                        "Anaerobic Digestion for Biogas Production",
+                        "Bioleaching of Metals"
+                      ]
+                    },
+                    {
+                      "id": "eb_ch4",
+                      "title": "Environmental Monitoring",
+                      "topics": [
+                        "Biosensors for Pollutant Detection",
+                        "Molecular Tools for Monitoring Microbial Communities"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot4107",
+                  "name": "Introduction to Omics science",
+                  "credits": 2,
+                  "description": "An introduction to the high-throughput, system-wide analysis of biological molecules. The course provides an overview of genomics, transcriptomics, proteomics, and metabolomics and their applications.",
+                  "outcomes": [
+                    "Differentiate between the major 'omics' disciplines.",
+                    "Understand the core technologies used in genomics (sequencing) and transcriptomics (microarrays, RNA-Seq).",
+                    "Describe the key methods in proteomics (mass spectrometry) and metabolomics.",
+                    "Appreciate how 'omics' data is used to gain a systems-level understanding of biology."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "omics_ch1",
+                      "title": "Genomics",
+                      "topics": [
+                        "Genome Sequencing Technologies (NGS)",
+                        "Genome Assembly and Annotation",
+                        "Comparative Genomics"
+                      ]
+                    },
+                    {
+                      "id": "omics_ch2",
+                      "title": "Transcriptomics",
+                      "topics": [
+                        "Microarrays",
+                        "RNA-Sequencing (RNA-Seq)",
+                        "Analysis of Differential Gene Expression"
+                      ]
+                    },
+                    {
+                      "id": "omics_ch3",
+                      "title": "Proteomics",
+                      "topics": [
+                        "2D Gel Electrophoresis",
+                        "Mass Spectrometry for Protein Identification",
+                        "Protein-Protein Interactions"
+                      ]
+                    },
+                    {
+                      "id": "omics_ch4",
+                      "title": "Metabolomics and Systems Integration",
+                      "topics": [
+                        "Introduction to Metabolomics",
+                        "Integrating Omics Data",
+                        "Introduction to Systems Biology"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot4111",
+                  "name": "Final year Project I",
+                  "credits": 0,
+                  "description": "The first phase of the capstone project. Students work with a faculty advisor to identify a research problem, conduct a thorough literature review, and write a detailed project proposal outlining the objectives, methodology, and expected outcomes.",
+                  "outcomes": [
+                    "Formulate a clear and feasible project proposal with defined objectives and scope.",
+                    "Conduct a comprehensive literature review to establish the background and rationale for the project.",
+                    "Develop a detailed methodology and work plan for project execution.",
+                    "Prepare and defend the project proposal in a formal setting."
+                  ],
+                  "chapters": []
+                },
+                {
+                  "code": "Biot4115",
+                  "name": "Animal Biotechnology",
+                  "credits": 3,
+                  "description": "The application of biotechnology to improve animal health, productivity, and to develop novel products. Covers transgenesis, cloning, reproductive technologies, and animal diagnostics.",
+                  "outcomes": [
+                    "Understand the methods for creating transgenic animals and their applications.",
+                    "Describe the process of animal cloning and its ethical implications.",
+                    "Explain advanced reproductive technologies like artificial insemination and in-vitro fertilization.",
+                    "Discuss the role of biotechnology in animal disease diagnostics and vaccine development."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ab_ch1",
+                      "title": "Transgenic Animals",
+                      "topics": [
+                        "Methods of Gene Transfer",
+                        "Applications in Agriculture and Medicine",
+                        "Animal Bioreactors ('Pharming')"
+                      ]
+                    },
+                    {
+                      "id": "ab_ch2",
+                      "title": "Animal Cloning",
+                      "topics": [
+                        "Somatic Cell Nuclear Transfer (SCNT)",
+                        "Applications and Limitations of Cloning"
+                      ]
+                    },
+                    {
+                      "id": "ab_ch3",
+                      "title": "Reproductive Technologies",
+                      "topics": [
+                        "Artificial Insemination (AI)",
+                        "In-Vitro Fertilization (IVF)",
+                        "Embryo Transfer"
+                      ]
+                    },
+                    {
+                      "id": "ab_ch4",
+                      "title": "Animal Health Biotechnology",
+                      "topics": [
+                        "Molecular Diagnostics for Animal Diseases",
+                        "Recombinant Vaccines for Livestock",
+                        "Marker-Assisted Selection"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot4113",
+                  "name": "Nanobiotechnology",
+                  "credits": 2,
+                  "description": "Explores the intersection of nanotechnology and biology. This course covers the synthesis and characterization of nanomaterials and their application in diagnostics, drug delivery, and bio-imaging.",
+                  "outcomes": [
+                    "Describe different types of nanomaterials (e.g., nanoparticles, quantum dots, nanotubes).",
+                    "Understand the principles of targeted drug delivery using nanocarriers.",
+                    "Explain the application of nanotechnology in advanced diagnostics and biosensors.",
+                    "Discuss the potential toxicity and safety considerations of nanomaterials."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "nano_ch1",
+                      "title": "Introduction to Nanomaterials",
+                      "topics": [
+                        "Synthesis of Nanoparticles",
+                        "Characterization Techniques (TEM, SEM, AFM)"
+                      ]
+                    },
+                    {
+                      "id": "nano_ch2",
+                      "title": "Nanomedicine and Drug Delivery",
+                      "topics": [
+                        "Nanocarriers for Drug Delivery (Liposomes, Micelles)",
+                        "Targeted Delivery",
+                        "Theranostics"
+                      ]
+                    },
+                    {
+                      "id": "nano_ch3",
+                      "title": "Nanodiagnostics and Biosensors",
+                      "topics": [
+                        "Quantum Dots for Bio-imaging",
+                        "Nanoparticle-based Assays",
+                        "Nanosensors"
+                      ]
+                    },
+                    {
+                      "id": "nano_ch4",
+                      "title": "Bionanotoxicology",
+                      "topics": [
+                        "Interaction of Nanomaterials with Biological Systems",
+                        "Assessing Nanotoxicity",
+                        "Regulatory Aspects"
                       ]
                     }
                   ]
@@ -22317,112 +28589,290 @@ export const courseData: CourseData = {
               ],
               "Semester II": [
                 {
-                  "code": "BIOT4102",
-                  "name": "Thesis II",
-                  "description": "Independent research project involving the execution of the proposal from Thesis I, data analysis, interpretation, and communication of results in a written thesis and oral defense.",
+                  "code": "Biot4112",
+                  "name": "Final Year Project II",
                   "credits": 4,
-                  "prerequisites": [
-                    "BIOT4105"
+                  "description": "The execution phase of the capstone project. Students implement their approved proposal, carrying out laboratory experiments or computational work. The course culminates in the submission of a final thesis and an oral defense.",
+                  "outcomes": [
+                    "Successfully execute an independent, in-depth research project.",
+                    "Analyze and interpret experimental or computational data critically.",
+                    "Produce a comprehensive, well-written thesis document of professional quality.",
+                    "Effectively communicate and defend the project's methodology, results, and significance."
+                  ],
+                  "chapters": []
+                },
+                {
+                  "code": "Biot4102",
+                  "name": "Cancer Biology",
+                  "credits": 2,
+                  "description": "An introduction to the molecular and cellular basis of cancer. This course covers the genetic and epigenetic changes that lead to cancer, the hallmarks of cancer, and modern approaches to cancer diagnosis and therapy.",
+                  "outcomes": [
+                    "Explain the roles of oncogenes and tumor suppressor genes in cancer development.",
+                    "Describe the key 'Hallmarks of Cancer', such as sustained proliferation and evading cell death.",
+                    "Understand the processes of metastasis and angiogenesis.",
+                    "Discuss the principles of modern cancer therapies, including chemotherapy, targeted therapy, and immunotherapy."
                   ],
                   "chapters": [
                     {
-                      "id": "biot4102_ch1",
-                      "title": "Data Collection and Analysis",
+                      "id": "cb_ch1",
+                      "title": "The Molecular Basis of Cancer",
                       "topics": [
-                        "Laboratory or Computational Work",
-                        "Troubleshooting Experiments",
-                        "Statistical Analysis of Data"
+                        "Oncogenes",
+                        "Tumor Suppressor Genes",
+                        "DNA Damage and Repair"
                       ]
                     },
                     {
-                      "id": "biot4102_ch2",
-                      "title": "Thesis Writing",
+                      "id": "cb_ch2",
+                      "title": "Hallmarks of Cancer",
                       "topics": [
-                        "Structuring the Thesis (Introduction, Methods, Results, Discussion)",
-                        "Creating Figures and Tables",
-                        "Proper Referencing"
+                        "Sustaining Proliferative Signaling",
+                        "Evading Growth Suppressors",
+                        "Resisting Cell Death",
+                        "Inducing Angiogenesis"
                       ]
                     },
                     {
-                      "id": "biot4102_ch3",
-                      "title": "Scientific Communication",
+                      "id": "cb_ch3",
+                      "title": "Tumor Invasion and Metastasis",
                       "topics": [
-                        "Preparing a Scientific Poster",
-                        "Delivering an Oral Presentation",
-                        "Preparing for the Thesis Defense"
+                        "The Metastatic Cascade",
+                        "Tumor Microenvironment"
+                      ]
+                    },
+                    {
+                      "id": "cb_ch4",
+                      "title": "Cancer Therapy",
+                      "topics": [
+                        "Chemotherapy and Radiation",
+                        "Targeted Therapies",
+                        "Immunotherapy"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "BIOT4104",
-                  "name": "Bioethics and Intellectual Property",
-                  "description": "An exploration of the ethical, legal, and social issues arising from advances in biotechnology, and an introduction to intellectual property protection.",
+                  "code": "Biot4104",
+                  "name": "Food Biotechnology",
                   "credits": 2,
+                  "description": "Focuses on the application of modern biotechnology to improve food production, quality, and safety. Covers genetically modified foods, fermentation improvement, enzyme applications, and diagnostic tools for food safety.",
+                  "outcomes": [
+                    "Understand the science behind genetically modified (GM) crops and foods.",
+                    "Describe the use of biotechnology to improve food fermentations and starter cultures.",
+                    "Explain the application of enzymes as processing aids in the food industry.",
+                    "Analyze the use of molecular diagnostics for detecting foodborne pathogens and allergens."
+                  ],
                   "chapters": [
                     {
-                      "id": "biot4104_ch1",
-                      "title": "Ethical Frameworks in Biotechnology",
+                      "id": "foodbio_ch1",
+                      "title": "Genetically Modified Foods",
                       "topics": [
-                        "Principles of Bioethics",
-                        "Ethical Issues in Genetic Engineering and Cloning",
-                        "Ethics of Stem Cell Research"
+                        "Techniques for creating GM plants and animals",
+                        "Examples of GM crops",
+                        "Safety and Regulatory Issues"
                       ]
                     },
                     {
-                      "id": "biot4104_ch2",
-                      "title": "Intellectual Property Rights (IPR)",
+                      "id": "foodbio_ch2",
+                      "title": "Fermentation and Enzyme Technology",
                       "topics": [
-                        "Patents, Trademarks, and Copyrights",
-                        "Patenting Life Forms and DNA Sequences",
-                        "IPR in Developing Countries"
+                        "Genetic Improvement of Starter Cultures",
+                        "Enzymes in Baking, Brewing, and Dairy Industries"
                       ]
                     },
                     {
-                      "id":"biot4104_ch3",
-                      "title": "Regulatory Affairs",
+                      "id": "foodbio_ch3",
+                      "title": "Food Diagnostics",
                       "topics": [
-                        "Regulation of GMOs",
-                        "Clinical Trial Regulations",
-                        "Biosafety Guidelines"
+                        "PCR-based methods for pathogen detection",
+                        "Immunoassays (ELISA) for allergens and toxins",
+                        "Biosensors for Food Quality"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "BIOT4202",
-                  "name": "Elective (e.g., Medical Biotechnology)",
-                  "description": "A specialized course focusing on the application of biotechnology in human health, including diagnostics, therapeutics, and regenerative medicine.",
-                  "credits": 3,
+                  "code": "Biot4106",
+                  "name": "Pharmaceutical Biotechnology",
+                  "credits": 2,
+                  "description": "An in-depth look at the development, production, and regulation of biopharmaceuticals. The course covers recombinant proteins, monoclonal antibodies, vaccines, and gene therapy from a product-oriented perspective.",
+                  "outcomes": [
+                    "Understand the drug discovery and development pipeline for biopharmaceuticals.",
+                    "Describe the large-scale production and purification of therapeutic proteins.",
+                    "Compare different vaccine platforms and their mechanisms of action.",
+                    "Grasp the regulatory framework for approving and monitoring biopharmaceutical products."
+                  ],
                   "chapters": [
                     {
-                      "id": "biot4202_ch1",
-                      "title": "Pharmaceutical Biotechnology",
+                      "id": "pharmbio_ch1",
+                      "title": "Drug Discovery and Development",
                       "topics": [
-                        "Production of Recombinant Protein Drugs (Insulin, Antibodies)",
-                        "Vaccine Development",
-                        "Drug Delivery Systems"
+                        "Target Identification and Validation",
+                        "Preclinical and Clinical Trials"
                       ]
                     },
                     {
-                      "id": "biot4202_ch2",
-                      "title": "Molecular Diagnostics",
+                      "id": "pharmbio_ch2",
+                      "title": "Production of Biopharmaceuticals",
                       "topics": [
-                        "PCR-based and DNA Microarray Diagnostics",
-                        "Immunoassays (ELISA)",
-                        "Biosensors"
+                        "Expression Systems (Bacterial, Yeast, Mammalian cells)",
+                        "Bioprocess Development and Scale-up",
+                        "Purification and Formulation"
                       ]
                     },
                     {
-                      "id": "biot4202_ch3",
-                      "title": "Gene Therapy and Regenerative Medicine",
+                      "id": "pharmbio_ch3",
+                      "title": "Therapeutic Products",
                       "topics": [
-                        "Viral and Non-viral Vectors",
-                        "Stem Cell Technology",
-                        "Tissue Engineering"
+                        "Monoclonal Antibodies",
+                        "Recombinant Vaccines",
+                        "Nucleic Acid-based Therapies (Gene Therapy, siRNA)"
+                      ]
+                    },
+                    {
+                      "id": "pharmbio_ch4",
+                      "title": "Regulation and Quality Control",
+                      "topics": [
+                        "Good Manufacturing Practices (GMP)",
+                        "Regulatory Agencies (e.g., FDA, EMA)",
+                        "Quality Control and Assurance"
                       ]
                     }
                   ]
+                },
+                {
+                  "code": "Biot4108",
+                  "name": "Biosafety and Intellectual Property Right in Biotechnology",
+                  "credits": 2,
+                  "description": "Covers two critical aspects of biotechnology: ensuring safe practices in the lab and environment (biosafety), and protecting inventions and discoveries (intellectual property rights).",
+                  "outcomes": [
+                    "Understand and apply the principles of biosafety, including risk assessment and containment levels.",
+                    "Describe the regulatory framework for handling genetically modified organisms (GMOs).",
+                    "Differentiate between various forms of intellectual property (patents, trademarks, copyrights).",
+                    "Analyze the requirements for patenting a biotechnology invention."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "bipr_ch1",
+                      "title": "Biosafety Principles and Practices",
+                      "topics": [
+                        "Risk Assessment and Management",
+                        "Biosafety Levels (BSL-1 to BSL-4)",
+                        "Laboratory Biosafety Guidelines"
+                      ]
+                    },
+                    {
+                      "id": "bipr_ch2",
+                      "title": "Regulation of GMOs",
+                      "topics": [
+                        "Environmental Risk Assessment of GMOs",
+                        "The Cartagena Protocol on Biosafety",
+                        "National Biosafety Frameworks"
+                      ]
+                    },
+                    {
+                      "id": "bipr_ch3",
+                      "title": "Introduction to Intellectual Property Rights (IPR)",
+                      "topics": [
+                        "Patents",
+                        "Trademarks",
+                        "Copyrights and Trade Secrets"
+                      ]
+                    },
+                    {
+                      "id": "bipr_ch4",
+                      "title": "IPR in Biotechnology",
+                      "topics": [
+                        "Patenting Life Forms",
+                        "Patentability Requirements for Biotech Inventions",
+                        "Plant Breeders' Rights"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biot4110",
+                  "name": "Introductory System and Synthetic biology",
+                  "credits": 1,
+                  "description": "An introduction to two modern, complementary fields: Systems Biology, which studies complex biological systems as integrated wholes, and Synthetic Biology, which focuses on the design and construction of new biological parts, devices, and systems.",
+                  "outcomes": [
+                    "Understand the goals and approaches of systems biology.",
+                    "Explain the principles of synthetic biology, including standardization and abstraction.",
+                    "Describe basic examples of synthetic gene circuits, such as toggle switches and oscillators.",
+                    "Appreciate the potential applications and ethical considerations of these fields."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "issb_ch1",
+                      "title": "Systems Biology",
+                      "topics": [
+                        "Biological Networks (Gene Regulatory, Protein-Protein Interaction)",
+                        "Computational Modeling of Networks"
+                      ]
+                    },
+                    {
+                      "id": "issb_ch2",
+                      "title": "Synthetic Biology",
+                      "topics": [
+                        "Standard Biological Parts (BioBricks)",
+                        "Design of Simple Genetic Circuits",
+                        "Minimal Genomes and Artificial Life"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "BMgt4116",
+                  "name": "Project Planning and Management",
+                  "credits": 2,
+                  "description": "An introduction to the principles and techniques for planning, scheduling, executing, and controlling projects, with a focus on applications in scientific research and biotechnology industry.",
+                  "outcomes": [
+                    "Develop a project charter and scope statement.",
+                    "Create a work breakdown structure (WBS) and a project schedule using Gantt charts and PERT/CPM.",
+                    "Understand basic project cost estimation and budgeting.",
+                    "Identify and manage project risks."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ppm_ch1",
+                      "title": "Project Management Framework",
+                      "topics": [
+                        "Project Life Cycle",
+                        "Stakeholder Management",
+                        "Scope Management"
+                      ]
+                    },
+                    {
+                      "id": "ppm_ch2",
+                      "title": "Project Scheduling",
+                      "topics": [
+                        "Work Breakdown Structure (WBS)",
+                        "Network Diagrams (PERT/CPM)",
+                        "Gantt Charts"
+                      ]
+                    },
+                    {
+                      "id": "ppm_ch3",
+                      "title": "Cost and Risk Management",
+                      "topics": [
+                        "Cost Estimation",
+                        "Budgeting",
+                        "Risk Identification and Analysis"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Biotxx",
+                  "name": "Elective",
+                  "credits": 2,
+                  "description": "A course selected by the student from a list of approved advanced topics, allowing for specialization in areas such as virology, computational biology, drug discovery, or other emerging fields.",
+                  "outcomes": [
+                    "Gain in-depth knowledge in a specialized area of biotechnology.",
+                    "Develop advanced skills or theoretical understanding beyond the core curriculum.",
+                    "Critically evaluate current literature and future trends in the chosen elective field."
+                  ],
+                  "chapters": []
                 }
               ]
             }
@@ -22435,360 +28885,633 @@ export const courseData: CourseData = {
             "Year 2": {
               "Semester I": [
                 {
-                  "code": "ICHE2101",
-                  "name": "Fundamentals of Industrial Chemistry",
-                  "description": "An introduction to the chemical industry, covering raw materials, major industrial processes, process flow diagrams, and the economic and environmental context of chemical manufacturing.",
-                  "credits": 3,
+                  "code": "GLTr2001",
+                  "name": "Global trends",
+                  "credits": 2,
+                  "description": "A course exploring major global trends, issues, and challenges in the 21st century, covering topics like globalization, international relations, global security, environmental challenges, and development.",
                   "outcomes": [
-                    "Identify the major sectors of the chemical industry.",
-                    "Describe the flow of materials from raw sources to finished products.",
-                    "Interpret basic process flow diagrams (PFDs).",
-                    "Understand the economic and environmental factors influencing chemical production."
+                    "Identify and analyze major trends shaping the contemporary world.",
+                    "Understand the interconnectedness of global political, economic, and social systems.",
+                    "Critically evaluate different perspectives on global issues such as security, climate change, and migration."
                   ],
                   "chapters": [
                     {
-                      "id": "iche2101_ch1",
-                      "title": "The Chemical Industry",
+                      "id": "gt_ch1",
+                      "title": "Understanding Globalization",
                       "topics": [
-                        "Structure and Sectors of the Chemical Industry",
-                        "Raw Materials (Fossil fuels, Biomass, Minerals)",
-                        "Bulk vs. Fine vs. Specialty Chemicals"
+                        "Dimensions of Globalization",
+                        "Debates on Globalization"
                       ]
                     },
                     {
-                      "id": "iche2101_ch2",
-                      "title": "Chemical Process Fundamentals",
+                      "id": "gt_ch2",
+                      "title": "International Relations and Security",
                       "topics": [
-                        "Process Flow Diagrams (PFDs)",
-                        "Unit Operations and Unit Processes",
-                        "Introduction to Material and Energy Balances"
+                        "Theories of International Relations",
+                        "The Concept of Security",
+                        "Conflict and Terrorism"
                       ]
                     },
                     {
-                      "id": "iche2101_ch3",
-                      "title": "Major Inorganic Chemical Industries",
+                      "id": "gt_ch3",
+                      "title": "Contemporary Global Challenges",
                       "topics": [
-                        "Sulfuric Acid Production (Contact Process)",
-                        "Ammonia Synthesis (Haber-Bosch Process)",
-                        "Chlor-alkali Industry"
-                      ]
-                    },
-                    {
-                      "id": "iche2101_ch4",
-                      "title": "Major Organic Chemical Industries",
-                      "topics": [
-                        "Petroleum Refining Overview",
-                        "Production of Ethylene and Propylene",
-                        "Introduction to Polymers"
+                        "Environmental Change",
+                        "Global Poverty and Development",
+                        "Foreign Policy and Diplomacy"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "Chem2101",
-                  "name": "Organic Chemistry I",
-                  "description": "A study of the structure, nomenclature, properties, and reactions of alkanes, alkenes, alkynes, and alkyl halides, with an emphasis on reaction mechanisms and stereochemistry.",
-                  "credits": 4,
-                  "chapters": [
-                    {
-                      "id": "chem2101_ch1",
-                      "title": "Structure, Bonding, and Alkanes",
-                      "topics": [
-                        "Review of General Chemistry Bonding",
-                        "Alkanes and Cycloalkanes",
-                        "Conformational Analysis"
-                      ]
-                    },
-                    {
-                      "id": "chem2101_ch2",
-                      "title": "Stereochemistry and Functional Groups",
-                      "topics": [
-                        "Chirality and Optical Activity",
-                        "Nomenclature of Stereoisomers",
-                        "Overview of Functional Groups"
-                      ]
-                    },
-                    {
-                      "id": "chem2101_ch3",
-                      "title": "Reactions of Alkenes and Alkynes",
-                      "topics": [
-                        "Electrophilic Addition Reactions",
-                        "Radical Reactions",
-                        "Acidity of Alkynes"
-                      ]
-                    },
-                    {
-                      "id": "chem2101_ch4",
-                      "title": "Substitution and Elimination Reactions",
-                      "topics": [
-                        "Alkyl Halides",
-                        "The SN1 and SN2 Reactions",
-                        "The E1 and E2 Reactions"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "Chem2103",
+                  "code": "InCh2101",
                   "name": "Analytical Chemistry",
-                  "description": "Introduction to the theory and practice of quantitative chemical analysis, including statistical data treatment, gravimetric analysis, and volumetric analysis (titrations).",
-                  "credits": 4,
+                  "credits": 3,
+                  "description": "A foundational course covering the principles of quantitative and qualitative chemical analysis. It focuses on statistical data treatment, classical wet chemical methods (gravimetric and volumetric), and an introduction to chemical equilibria.",
+                  "outcomes": [
+                    "Apply statistical methods to evaluate analytical data and assess measurement quality.",
+                    "Understand the theory and perform calculations for gravimetric and titrimetric analysis.",
+                    "Solve problems involving chemical equilibria, including acid-base and solubility equilibria.",
+                    "Develop a strong foundation for subsequent instrumental analysis courses."
+                  ],
                   "chapters": [
                     {
-                      "id": "chem2103_ch1",
-                      "title": "Fundamentals of Analytical Chemistry",
+                      "id": "ac_ch1",
+                      "title": "Data Handling and Statistics",
                       "topics": [
-                        "The Analytical Process",
                         "Errors in Chemical Analysis",
-                        "Statistical Data Treatment (Mean, Std Dev, Confidence Intervals)"
+                        "Statistical Treatment of Data (Mean, Standard Deviation, Confidence Intervals)",
+                        "The Method of Least Squares"
                       ]
                     },
                     {
-                      "id": "chem2103_ch2",
+                      "id": "ac_ch2",
                       "title": "Gravimetric Methods of Analysis",
                       "topics": [
                         "Principles of Gravimetry",
-                        "Precipitation and Co-precipitation",
+                        "Precipitation Reactions",
                         "Calculation of Results"
                       ]
                     },
                     {
-                      "id": "chem2103_ch3",
-                      "title": "Volumetric Methods: Acid-Base Titrations",
+                      "id": "ac_ch3",
+                      "title": "Volumetric Methods of Analysis (Titrimetry)",
                       "topics": [
-                        "Principles of Volumetric Analysis",
-                        "Acid-Base Equilibria and Buffers",
-                        "Titration Curves and Indicators"
+                        "Standard Solutions and Stoichiometry",
+                        "Acid-Base Titrations and Indicators",
+                        "Complexometric and Redox Titrations"
                       ]
                     },
                     {
-                      "id": "chem2103_ch4",
-                      "title": "Volumetric Methods: Complexometric and Redox Titrations",
+                      "id": "ac_ch4",
+                      "title": "Aqueous Solution Chemistry",
                       "topics": [
-                        "Complexation Reactions (EDTA Titrations)",
-                        "Redox Titrations",
-                        "Potentiometric Titrations"
+                        "Chemical Equilibrium",
+                        "Solubility Equilibria",
+                        "Acid-Base Equilibria and Buffer Solutions"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "Chem2105",
-                  "name": "Physical Chemistry I (Thermodynamics)",
-                  "description": "A study of the fundamental principles of chemical thermodynamics, including the laws of thermodynamics, thermochemistry, phase equilibria, and chemical equilibria.",
-                  "credits": 3,
+                  "code": "InCh2105",
+                  "name": "Practical Analytical Chemistry",
+                  "credits": 1,
+                  "description": "A laboratory course accompanying Analytical Chemistry (InCh2101). It provides hands-on experience with classical quantitative analysis techniques, emphasizing precision, accuracy, and proper laboratory notebook keeping.",
+                  "outcomes": [
+                    "Properly use analytical balances, volumetric glassware, and titration equipment.",
+                    "Prepare and standardize chemical solutions.",
+                    "Perform gravimetric and volumetric analyses on unknown samples.",
+                    "Analyze and report experimental results with appropriate statistical treatment."
+                  ],
                   "chapters": [
                     {
-                      "id": "chem2105_ch1",
-                      "title": "The First Law of Thermodynamics",
+                      "id": "pac_ch1",
+                      "title": "Experiment 1: Gravimetric Analysis",
                       "topics": [
-                        "Work, Heat, and Energy",
-                        "Enthalpy",
-                        "Thermochemistry (Hess's Law)"
+                        "Determination of Chloride or Sulfate"
                       ]
                     },
                     {
-                      "id": "chem2105_ch2",
-                      "title": "The Second and Third Laws of Thermodynamics",
+                      "id": "pac_ch2",
+                      "title": "Experiment 2: Acid-Base Titration",
                       "topics": [
-                        "Entropy and Spontaneity",
-                        "Gibbs Free Energy",
-                        "The Third Law of Thermodynamics"
+                        "Standardization of NaOH and HCl",
+                        "Determination of Acetic Acid in Vinegar"
                       ]
                     },
                     {
-                      "id": "chem2105_ch3",
-                      "title": "Phase Equilibria",
+                      "id": "pac_ch3",
+                      "title": "Experiment 3: Redox and Complexometric Titrations",
                       "topics": [
-                        "The Gibbs Phase Rule",
-                        "Phase Diagrams of Pure Substances",
-                        "Phase Diagrams of Binary Mixtures"
+                        "Determination of Iron by Permanganometry",
+                        "Determination of Water Hardness by EDTA Titration"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Stat2103",
+                  "name": "Statistics for Industrial Chemists",
+                  "credits": 3,
+                  "description": "An application-focused statistics course covering descriptive statistics, probability distributions, hypothesis testing, regression, and an introduction to statistical process control (SPC) and design of experiments (DOE).",
+                  "outcomes": [
+                    "Apply probability distributions to model industrial processes and quality data.",
+                    "Perform hypothesis testing to compare production batches or analytical methods.",
+                    "Develop and evaluate regression models to understand relationships between process variables.",
+                    "Understand the principles of SPC and factorial experimental design."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "sic_ch1",
+                      "title": "Probability and Descriptive Statistics",
+                      "topics": [
+                        "Data Summarization and Visualization",
+                        "Probability Rules",
+                        "Common Distributions (Normal, Binomial, Poisson)"
                       ]
                     },
                     {
-                      "id": "chem2105_ch4",
-                      "title": "Chemical Equilibrium",
+                      "id": "sic_ch2",
+                      "title": "Statistical Inference",
                       "topics": [
-                        "The Equilibrium Constant",
-                        "Response of Equilibria to Conditions (Le Chatelier's Principle)",
-                        "Equilibrium Calculations"
+                        "Sampling Distributions",
+                        "Confidence Intervals",
+                        "Hypothesis Testing (t-tests, ANOVA, Chi-square)"
                       ]
+                    },
+                    {
+                      "id": "sic_ch3",
+                      "title": "Regression and Correlation",
+                      "topics": [
+                        "Simple and Multiple Linear Regression",
+                        "Correlation Analysis",
+                        "Model Adequacy Checking"
+                      ]
+                    },
+                    {
+                      "id": "sic_ch4",
+                      "title": "Industrial Applications",
+                      "topics": [
+                        "Introduction to Statistical Process Control (SPC)",
+                        "Introduction to Design of Experiments (DOE)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh2107",
+                  "name": "Inorganic chemistry I",
+                  "credits": 3,
+                  "description": "A study of the fundamental principles of inorganic chemistry, including atomic structure, periodic trends, chemical bonding theories (VSEPR, Valence Bond, Molecular Orbital), and the descriptive chemistry of main group elements.",
+                  "outcomes": [
+                    "Understand the quantum mechanical model of the atom and its relation to periodic properties.",
+                    "Apply VSEPR and Valence Bond theories to predict molecular geometries.",
+                    "Construct molecular orbital diagrams for simple diatomic molecules.",
+                    "Describe the characteristic chemistry and industrial relevance of the s-block and p-block elements."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ic1_ch1",
+                      "title": "Atomic Structure and Periodicity",
+                      "topics": [
+                        "Quantum Numbers and Electron Configurations",
+                        "Periodic Trends (Ionization Energy, Electron Affinity, Atomic Radii)"
+                      ]
+                    },
+                    {
+                      "id": "ic1_ch2",
+                      "title": "Chemical Bonding",
+                      "topics": [
+                        "Lewis Structures and Resonance",
+                        "Valence Shell Electron Pair Repulsion (VSEPR) Theory",
+                        "Valence Bond Theory and Hybridization"
+                      ]
+                    },
+                    {
+                      "id": "ic1_ch3",
+                      "title": "Molecular Orbital Theory",
+                      "topics": [
+                        "Molecular Orbitals from Atomic Orbitals",
+                        "MO Diagrams for Homonuclear and Heteronuclear Diatomics"
+                      ]
+                    },
+                    {
+                      "id": "ic1_ch4",
+                      "title": "Chemistry of the Main Group Elements",
+                      "topics": [
+                        "Hydrogen and the Alkali/Alkaline Earth Metals",
+                        "The Boron and Carbon Groups",
+                        "The Halogens and Noble Gases"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Econ2003",
+                  "name": "Economics",
+                  "credits": 3,
+                  "description": "An introduction to microeconomic and macroeconomic principles, including supply and demand, market structures, national income, and fiscal and monetary policy, with relevance to the chemical industry and commodity markets.",
+                  "outcomes": [
+                    "Understand the basic principles of supply, demand, and market equilibrium.",
+                    "Analyze different market structures and their impact on firms and consumers.",
+                    "Grasp key macroeconomic indicators and policy tools.",
+                    "Apply economic principles to understand issues in commodity-driven industries."
+                  ],
+                  "chapters": []
+                },
+                {
+                  "code": "InCh2109",
+                  "name": "Organic Chemistry I",
+                  "credits": 3,
+                  "description": "The first course in a sequence focusing on the structure, bonding, nomenclature, properties, and reactions of organic compounds. This course primarily covers alkanes, alkenes, alkynes, and stereochemistry.",
+                  "outcomes": [
+                    "Apply IUPAC rules to name organic compounds and draw structures from names.",
+                    "Understand and predict the three-dimensional structure of molecules, including stereochemistry.",
+                    "Describe the mechanisms of fundamental organic reactions like substitution and elimination.",
+                    "Predict the products of reactions involving alkanes, alkenes, and alkynes."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "oc1_ch1",
+                      "title": "Structure, Bonding, and Acids/Bases",
+                      "topics": [
+                        "Hybridization and Molecular Geometry",
+                        "Resonance",
+                        "Brønsted-Lowry and Lewis Acids and Bases"
+                      ]
+                    },
+                    {
+                      "id": "oc1_ch2",
+                      "title": "Alkanes and Stereochemistry",
+                      "topics": [
+                        "Nomenclature of Alkanes",
+                        "Conformational Analysis",
+                        "Chirality, Enantiomers, and Diastereomers"
+                      ]
+                    },
+                    {
+                      "id": "oc1_ch3",
+                      "title": "Alkenes and Alkynes",
+                      "topics": [
+                        "Structure and Nomenclature",
+                        "Electrophilic Addition Reactions",
+                        "Markovnikov's Rule"
+                      ]
+                    },
+                    {
+                      "id": "oc1_ch4",
+                      "title": "Substitution and Elimination Reactions",
+                      "topics": [
+                        "Alkyl Halides",
+                        "SN1, SN2, E1, and E2 Reaction Mechanisms",
+                        "Reaction Kinetics"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh2111",
+                  "name": "Practical Organic Chemistry I",
+                  "credits": 1,
+                  "description": "A laboratory course for Organic Chemistry I. Focuses on developing fundamental laboratory techniques for the synthesis, separation, and purification of organic compounds.",
+                  "outcomes": [
+                    "Safely handle organic chemicals and laboratory equipment.",
+                    "Perform common purification techniques, including recrystallization, distillation, and extraction.",
+                    "Monitor reactions using Thin Layer Chromatography (TLC).",
+                    "Characterize simple organic compounds by measuring physical properties like melting point."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "poc1_ch1",
+                      "title": "Experiment 1: Melting Point Determination",
+                      "topics": []
+                    },
+                    {
+                      "id": "poc1_ch2",
+                      "title": "Experiment 2: Recrystallization",
+                      "topics": []
+                    },
+                    {
+                      "id": "poc1_ch3",
+                      "title": "Experiment 3: Extraction",
+                      "topics": []
+                    },
+                    {
+                      "id": "poc1_ch4",
+                      "title": "Experiment 4: Simple and Fractional Distillation",
+                      "topics": []
                     }
                   ]
                 }
               ],
               "Semester II": [
                 {
-                  "code": "Chem2102",
-                  "name": "Organic Chemistry II",
-                  "description": "Continuation of Organic Chemistry I, covering spectroscopy, alcohols, ethers, aldehydes, ketones, carboxylic acids, and their derivatives.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "Chem2101"
+                  "code": "InCh2102",
+                  "name": "Instrumental Analysis I",
+                  "credits": 3,
+                  "description": "Focuses on the theory, instrumentation, and application of spectroscopic methods of chemical analysis. Covers UV-Visible, Infrared, and atomic spectroscopy techniques.",
+                  "outcomes": [
+                    "Understand the principles of light-matter interaction and the components of spectroscopic instruments.",
+                    "Apply UV-Visible spectroscopy for quantitative analysis using Beer's Law.",
+                    "Interpret Infrared (IR) spectra to identify functional groups in organic molecules.",
+                    "Describe the principles and applications of Atomic Absorption and Emission Spectroscopy (AAS/AES)."
                   ],
                   "chapters": [
                     {
-                      "id": "chem2102_ch1",
-                      "title": "Spectroscopy",
+                      "id": "ia1_ch1",
+                      "title": "Introduction to Spectroscopy",
+                      "topics": [
+                        "Electromagnetic Spectrum",
+                        "Instrument Components (Source, Monochromator, Detector)"
+                      ]
+                    },
+                    {
+                      "id": "ia1_ch2",
+                      "title": "UV-Visible Spectroscopy",
+                      "topics": [
+                        "Theory and Instrumentation",
+                        "Beer-Lambert Law",
+                        "Quantitative Analysis Applications"
+                      ]
+                    },
+                    {
+                      "id": "ia1_ch3",
+                      "title": "Infrared (IR) Spectroscopy",
+                      "topics": [
+                        "Theory of Molecular Vibrations",
+                        "Instrumentation (FTIR)",
+                        "Interpretation of Spectra and Functional Group Identification"
+                      ]
+                    },
+                    {
+                      "id": "ia1_ch4",
+                      "title": "Atomic Spectroscopy",
+                      "topics": [
+                        "Principles of Atomic Absorption and Emission",
+                        "Instrumentation (AAS, ICP-AES)",
+                        "Applications for Trace Metal Analysis"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh2104",
+                  "name": "Practical Instrumental Analysis I",
+                  "credits": 1,
+                  "description": "A laboratory course accompanying Instrumental Analysis I, providing hands-on experience with spectroscopic instrumentation for quantitative and qualitative analysis.",
+                  "outcomes": [
+                    "Prepare samples and standards for instrumental analysis.",
+                    "Operate a UV-Visible spectrophotometer and perform a quantitative analysis.",
+                    "Acquire and interpret an IR spectrum of an unknown compound.",
+                    "Perform a simple trace metal analysis using Atomic Absorption Spectroscopy."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "pia1_ch1",
+                      "title": "Experiment 1: UV-Visible Spectrophotometry",
+                      "topics": [
+                        "Determining an Absorption Spectrum",
+                        "Verifying Beer's Law and Analyzing an Unknown"
+                      ]
+                    },
+                    {
+                      "id": "pia1_ch2",
+                      "title": "Experiment 2: Infrared Spectroscopy",
+                      "topics": [
+                        "Sample Preparation Techniques",
+                        "Identifying Functional Groups in an Unknown Compound"
+                      ]
+                    },
+                    {
+                      "id": "pia1_ch3",
+                      "title": "Experiment 3: Atomic Absorption Spectroscopy",
+                      "topics": [
+                        "Creating a Calibration Curve",
+                        "Determining the Concentration of a Metal in a Sample"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "Hist2002",
+                  "name": "History of Ethiopia and the Horn",
+                  "credits": 3,
+                  "description": "A survey of the history of Ethiopia and the Horn of Africa from ancient times to the modern era, focusing on social, political, economic, and cultural developments.",
+                  "outcomes": [],
+                  "chapters": []
+                },
+                {
+                  "code": "InCh2106",
+                  "name": "Physical Chemistry I",
+                  "credits": 3,
+                  "description": "The first course in physical chemistry, focusing on chemical thermodynamics. Covers the laws of thermodynamics, thermochemistry, and the physical properties of gases, liquids, and solutions.",
+                  "outcomes": [
+                    "Apply the First, Second, and Third Laws of Thermodynamics to chemical and physical processes.",
+                    "Calculate changes in enthalpy, entropy, and Gibbs free energy for reactions.",
+                    "Understand and apply models for ideal and real gases.",
+                    "Describe the thermodynamic properties of simple mixtures and phase equilibria."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "pc1_ch1",
+                      "title": "Properties of Gases",
+                      "topics": [
+                        "Ideal Gas Law",
+                        "Real Gases and the van der Waals Equation"
+                      ]
+                    },
+                    {
+                      "id": "pc1_ch2",
+                      "title": "The First Law of Thermodynamics",
+                      "topics": [
+                        "Work, Heat, and Internal Energy",
+                        "Enthalpy",
+                        "Thermochemistry and Hess's Law"
+                      ]
+                    },
+                    {
+                      "id": "pc1_ch3",
+                      "title": "The Second and Third Laws of Thermodynamics",
+                      "topics": [
+                        "Entropy and Spontaneity",
+                        "Gibbs and Helmholtz Free Energy",
+                        "The Third Law"
+                      ]
+                    },
+                    {
+                      "id": "pc1_ch4",
+                      "title": "Simple Mixtures and Phase Equilibria",
+                      "topics": [
+                        "Chemical Potential",
+                        "Ideal Solutions (Raoult's Law)",
+                        "Phase Diagrams of One-Component Systems"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh2108",
+                  "name": "Practical Inorganic Qualitative Analysis",
+                  "credits": 1,
+                  "description": "A laboratory course focusing on classical wet chemical methods for the systematic identification of unknown inorganic cations and anions in aqueous solution.",
+                  "outcomes": [
+                    "Perform systematic qualitative analysis for common cations based on group separation schemes.",
+                    "Perform confirmatory tests for common anions.",
+                    "Develop logical problem-solving skills for identifying components in a mixture.",
+                    "Safely handle a variety of inorganic reagents."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "piqa_ch1",
+                      "title": "Analysis of Cation Group I (The Insoluble Chlorides)",
+                      "topics": []
+                    },
+                    {
+                      "id": "piqa_ch2",
+                      "title": "Analysis of Cation Groups II & III (The Acid- and Base-Insoluble Sulfides)",
+                      "topics": []
+                    },
+                    {
+                      "id": "piqa_ch3",
+                      "title": "Analysis of Cations Groups IV & V (The Carbonates and Soluble Ions)",
+                      "topics": []
+                    },
+                    {
+                      "id": "piqa_ch4",
+                      "title": "Analysis of Anions",
+                      "topics": []
+                    }
+                  ]
+                },
+                {
+                  "code": "Phys2114",
+                  "name": "Physics for Industrial Chemists",
+                  "credits": 3,
+                  "description": "Covers physics concepts essential for industrial chemistry, such as thermodynamics and heat transfer, fluid dynamics, electricity and magnetism, and optics, focusing on their application in process equipment and instrumentation.",
+                  "outcomes": [
+                    "Apply thermodynamic principles and analyze basic heat transfer problems.",
+                    "Understand the fundamentals of fluid statics and dynamics.",
+                    "Grasp the principles of electricity and magnetism relevant to motors and sensors.",
+                    "Understand basic optical principles as applied in spectroscopy and other instruments."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "pic_ch1",
+                      "title": "Thermodynamics and Heat Transfer",
+                      "topics": [
+                        "Laws of Thermodynamics Review",
+                        "Mechanisms of Heat Transfer (Conduction, Convection, Radiation)"
+                      ]
+                    },
+                    {
+                      "id": "pic_ch2",
+                      "title": "Fluid Dynamics",
+                      "topics": [
+                        "Fluid Statics",
+                        "Bernoulli's Principle",
+                        "Viscosity and Flow in Pipes"
+                      ]
+                    },
+                    {
+                      "id": "pic_ch3",
+                      "title": "Electricity and Magnetism",
+                      "topics": [
+                        "DC and AC Circuits",
+                        "Electromagnetic Induction",
+                        "Principles of Electric Motors"
+                      ]
+                    },
+                    {
+                      "id": "pic_ch4",
+                      "title": "Optics and Modern Physics",
+                      "topics": [
+                        "Reflection, Refraction, and Lenses",
+                        "Wave Optics (Interference, Diffraction)",
+                        "Introduction to Quantum Concepts"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh2110",
+                  "name": "Organic Chemistry II",
+                  "credits": 3,
+                  "description": "A continuation of Organic Chemistry I, focusing on the chemistry of aromatic compounds, aldehydes, ketones, carboxylic acids and their derivatives, amines, and an introduction to biomolecules.",
+                  "outcomes": [
+                    "Predict the products and propose mechanisms for reactions of aromatic compounds.",
+                    "Understand the chemistry of the carbonyl group and its derivatives.",
+                    "Describe the synthesis and reactions of amines.",
+                    "Apply spectroscopic methods (NMR, IR, MS) to determine the structure of organic compounds."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "oc2_ch1",
+                      "title": "Spectroscopy for Structure Determination",
                       "topics": [
                         "Mass Spectrometry",
-                        "Infrared (IR) Spectroscopy",
+                        "Infrared Spectroscopy Review",
                         "Nuclear Magnetic Resonance (NMR) Spectroscopy"
                       ]
                     },
                     {
-                      "id": "chem2102_ch2",
-                      "title": "Alcohols, Ethers, and Epoxides",
+                      "id": "oc2_ch2",
+                      "title": "Aromatic Compounds",
                       "topics": [
-                        "Properties and Reactions of Alcohols",
-                        "Synthesis and Reactions of Ethers",
-                        "Epoxide Chemistry"
+                        "Aromaticity",
+                        "Electrophilic Aromatic Substitution",
+                        "Nucleophilic Aromatic Substitution"
                       ]
                     },
                     {
-                      "id": "chem2102_ch3",
-                      "title": "Aldehydes and Ketones",
+                      "id": "oc2_ch3",
+                      "title": "Carbonyl Chemistry",
                       "topics": [
-                        "Nucleophilic Addition Reactions",
-                        "The Wittig Reaction",
-                        "Acetal Formation"
+                        "Chemistry of Aldehydes and Ketones",
+                        "Chemistry of Carboxylic Acids and their Derivatives (Esters, Amides, etc.)"
                       ]
                     },
                     {
-                      "id": "chem2102_ch4",
-                      "title": "Carboxylic Acids and Derivatives",
+                      "id": "oc2_ch4",
+                      "title": "Amines and Biomolecules",
                       "topics": [
-                        "Acidity of Carboxylic Acids",
-                        "Nucleophilic Acyl Substitution",
-                        "Chemistry of Esters, Amides, and Acid Chlorides"
+                        "Synthesis and Reactions of Amines",
+                        "Introduction to Carbohydrates and Amino Acids"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "ICHE2102",
-                  "name": "Chemical Engineering Principles",
-                  "description": "Application of the principles of conservation of mass and energy to the analysis of chemical processes, including systems with reaction, recycle, and purge streams.",
-                  "credits": 3,
-                  "chapters": [
-                    {
-                      "id": "iche2102_ch1",
-                      "title": "Material Balances on Non-Reactive Systems",
-                      "topics": [
-                        "Degree of Freedom Analysis",
-                        "Balances on Multiple-Unit Processes",
-                        "Recycle, Bypass, and Purge Streams"
-                      ]
-                    },
-                    {
-                      "id": "iche2102_ch2",
-                      "title": "Material Balances on Reactive Systems",
-                      "topics": [
-                        "Stoichiometry",
-                        "Limiting and Excess Reactants",
-                        "Extent of Reaction",
-                        "Combustion Reactions"
-                      ]
-                    },
-                    {
-                      "id": "iche2102_ch3",
-                      "title": "Properties of Gases, Vapors, and Liquids",
-                      "topics": [
-                        "Ideal Gas Law",
-                        "Real Gas Equations of State",
-                        "Vapor Pressure and Saturation"
-                      ]
-                    },
-                    {
-                      "id": "iche2102_ch4",
-                      "title": "Energy Balances",
-                      "topics": [
-                        "Forms of Energy",
-                        "Energy Balances on Closed and Open Systems",
-                        "Standard Heats of Reaction and Formation"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "ICHE2104",
-                  "name": "Introduction to Polymer Science",
-                  "description": "An introduction to the chemistry and physics of polymers, including polymerization mechanisms, polymer structure, properties, and major industrial plastics.",
-                  "credits": 3,
-                  "chapters": [
-                    {
-                      "id": "iche2104_ch1",
-                      "title": "Fundamentals of Polymers",
-                      "topics": [
-                        "Basic Concepts and Nomenclature",
-                        "Molecular Weight and Distributions",
-                        "Polymer Structure and Morphology"
-                      ]
-                    },
-                    {
-                      "id": "iche2104_ch2",
-                      "title": "Polymerization Mechanisms",
-                      "topics": [
-                        "Step-Growth Polymerization",
-                        "Chain-Growth Polymerization (Free Radical, Ionic)",
-                        "Copolymerization"
-                      ]
-                    },
-                    {
-                      "id": "iche2104_ch3",
-                      "title": "Polymer Properties",
-                      "topics": [
-                        "Thermal Properties (Tg, Tm)",
-                        "Mechanical Properties",
-                        "Polymer Solutions"
-                      ]
-                    },
-                    {
-                      "id": "iche2104_ch4",
-                      "title": "Major Industrial Polymers",
-                      "topics": [
-                        "Polyethylene, Polypropylene",
-                        "Polyvinyl Chloride (PVC), Polystyrene (PS)",
-                        "Polyethylene Terephthalate (PET), Nylons"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "code": "Chem2106",
-                  "name": "Physical Chemistry II (Kinetics & Quantum)",
-                  "description": "A study of the rates and mechanisms of chemical reactions, and an introduction to quantum mechanics and its application to atomic and molecular structure.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "Chem2105"
+                  "code": "InCh2112",
+                  "name": "Practical Organic Chemistry II",
+                  "credits": 1,
+                  "description": "A laboratory course accompanying Organic Chemistry II. Involves multi-step synthesis, purification of products by chromatography, and characterization of products using spectroscopic techniques.",
+                  "outcomes": [
+                    "Safely perform multi-step organic syntheses.",
+                    "Purify compounds using column chromatography.",
+                    "Acquire and interpret IR and simple NMR spectra to identify products.",
+                    "Maintain a detailed and professional laboratory notebook."
                   ],
                   "chapters": [
                     {
-                      "id": "chem2106_ch1",
-                      "title": "Chemical Kinetics",
+                      "id": "poc2_ch1",
+                      "title": "Experiment 1: Electrophilic Aromatic Substitution",
                       "topics": [
-                        "Rate Laws and Reaction Order",
-                        "Integrated Rate Laws",
-                        "Arrhenius Equation and Activation Energy"
+                        "e.g., Nitration of Methyl Benzoate"
                       ]
                     },
                     {
-                      "id": "chem2106_ch2",
-                      "title": "Reaction Mechanisms",
+                      "id": "poc2_ch2",
+                      "title": "Experiment 2: Carbonyl Chemistry",
                       "topics": [
-                        "Elementary Reactions",
-                        "Steady-State Approximation",
-                        "Chain Reactions",
-                        "Catalysis"
+                        "e.g., Grignard Reaction or Aldol Condensation"
                       ]
                     },
                     {
-                      "id": "chem2106_ch3",
-                      "title": "Introduction to Quantum Mechanics",
+                      "id": "poc2_ch3",
+                      "title": "Experiment 3: Multi-step Synthesis Project",
                       "topics": [
-                        "The Schrödinger Equation",
-                        "Particle in a Box",
-                        "The Harmonic Oscillator"
+                        "A two or three-step synthesis incorporating multiple techniques"
                       ]
                     }
                   ]
@@ -22798,137 +29521,349 @@ export const courseData: CourseData = {
             "Year 3": {
               "Semester I": [
                 {
-                  "code": "ICHE3101",
-                  "name": "Instrumental Methods of Analysis",
-                  "description": "Theory and practice of modern instrumental techniques used for chemical analysis, including spectroscopy, chromatography, and electrochemistry.",
+                  "code": "InCh3101",
+                  "name": "Instrumental Analysis II",
+                  "credits": 3,
+                  "description": "A continuation of instrumental analysis, focusing on separation science and electrochemical methods. Covers the theory, instrumentation, and applications of gas chromatography (GC), high-performance liquid chromatography (HPLC), and key electrochemical techniques.",
+                  "outcomes": [
+                    "Understand the principles of chromatographic separation.",
+                    "Select appropriate chromatographic methods (GC, HPLC) for analyzing complex mixtures.",
+                    "Interpret chromatograms for qualitative and quantitative analysis.",
+                    "Describe the principles of potentiometry, voltammetry, and other electrochemical methods."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ia2_ch1",
+                      "title": "Introduction to Chromatography",
+                      "topics": [
+                        "Theory of Chromatographic Separation (Plate Theory, Rate Theory)",
+                        "Resolution, Efficiency, and Band Broadening"
+                      ]
+                    },
+                    {
+                      "id": "ia2_ch2",
+                      "title": "Gas Chromatography (GC)",
+                      "topics": [
+                        "Instrumentation (Injectors, Columns, Ovens)",
+                        "Detectors (FID, TCD)",
+                        "Qualitative and Quantitative Applications"
+                      ]
+                    },
+                    {
+                      "id": "ia2_ch3",
+                      "title": "High-Performance Liquid Chromatography (HPLC)",
+                      "topics": [
+                        "Instrumentation (Pumps, Columns, Detectors)",
+                        "Normal-phase and Reversed-phase Chromatography",
+                        "Gradient Elution"
+                      ]
+                    },
+                    {
+                      "id": "ia2_ch4",
+                      "title": "Electrochemical Methods",
+                      "topics": [
+                        "Potentiometry and Ion-Selective Electrodes",
+                        "Voltammetry (e.g., Cyclic Voltammetry)",
+                        "Introduction to Coulometry and Conductometry"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh3103",
+                  "name": "Practical Instrumental Analysis II",
+                  "credits": 1,
+                  "description": "A laboratory course providing hands-on experience with chromatographic and electrochemical instrumentation for quantitative and qualitative analysis.",
+                  "outcomes": [
+                    "Prepare samples and operate a Gas Chromatograph (GC) and High-Performance Liquid Chromatograph (HPLC).",
+                    "Perform qualitative and quantitative analysis of a mixture using chromatographic techniques.",
+                    "Use an ion-selective electrode for potentiometric analysis.",
+                    "Write professional laboratory reports detailing instrumental procedures and results."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "pia2_ch1",
+                      "title": "Experiment 1: Gas Chromatography",
+                      "topics": [
+                        "Separation of a Mixture of Volatile Compounds",
+                        "Effect of Temperature on Separation"
+                      ]
+                    },
+                    {
+                      "id": "pia2_ch2",
+                      "title": "Experiment 2: High-Performance Liquid Chromatography",
+                      "topics": [
+                        "Quantitative Analysis of a Component (e.g., Caffeine in beverages)"
+                      ]
+                    },
+                    {
+                      "id": "pia2_ch3",
+                      "title": "Experiment 3: Potentiometry",
+                      "topics": [
+                        "Determination of Fluoride Concentration using an Ion-Selective Electrode"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh3105",
+                  "name": "Industrial organic and consumer Products",
+                  "credits": 3,
+                  "description": "A study of the large-scale production, chemistry, and application of major organic chemicals and consumer products, including polymers, detergents, dyes, pharmaceuticals, and agrochemicals.",
+                  "outcomes": [
+                    "Describe the industrial processes for producing key bulk organic chemicals.",
+                    "Understand the chemistry and technology of polymer production and characterization.",
+                    "Explain the chemical principles behind soaps, detergents, and colorants.",
+                    "Relate the structure of organic molecules to their function in consumer products."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "iocp_ch1",
+                      "title": "Petrochemicals and Bulk Organics",
+                      "topics": [
+                        "Sources of Organic Raw Materials (Petroleum, Natural Gas)",
+                        "Production of major Intermediates (Ethylene, Propylene, BTX)"
+                      ]
+                    },
+                    {
+                      "id": "iocp_ch2",
+                      "title": "Polymer Chemistry and Technology",
+                      "topics": [
+                        "Polymerization Mechanisms (Addition, Condensation)",
+                        "Major Industrial Polymers (PE, PP, PVC, PET)",
+                        "Polymer Properties and Processing"
+                      ]
+                    },
+                    {
+                      "id": "iocp_ch3",
+                      "title": "Surfactants and Colorants",
+                      "topics": [
+                        "Chemistry of Soaps and Detergents",
+                        "Dyes and Pigments",
+                        "Formulation of Cleaning Products"
+                      ]
+                    },
+                    {
+                      "id": "iocp_ch4",
+                      "title": "Fine Chemicals",
+                      "topics": [
+                        "Introduction to Agrochemicals",
+                        "Introduction to Pharmaceuticals",
+                        "Perfumes and Flavors"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh3107",
+                  "name": "Physical Chemistry II",
+                  "credits": 3,
+                  "description": "A continuation of Physical Chemistry, this course covers chemical kinetics, introductory quantum mechanics, and spectroscopy, providing the theoretical basis for understanding reaction rates and molecular structure.",
+                  "outcomes": [
+                    "Determine rate laws and propose reaction mechanisms from experimental data.",
+                    "Understand the fundamental postulates of quantum mechanics and solve the Schrödinger equation for simple systems.",
+                    "Relate molecular spectroscopy to the underlying quantum energy levels.",
+                    "Analyze complex reaction kinetics, including catalysis and chain reactions."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "pc2_ch1",
+                      "title": "Chemical Kinetics",
+                      "topics": [
+                        "Rate Laws and Integrated Rate Laws",
+                        "Reaction Mechanisms",
+                        "Temperature Dependence and the Arrhenius Equation",
+                        "Catalysis"
+                      ]
+                    },
+                    {
+                      "id": "pc2_ch2",
+                      "title": "Introduction to Quantum Mechanics",
+                      "topics": [
+                        "The Failure of Classical Mechanics",
+                        "The Schrödinger Equation",
+                        "Particle in a Box and the Harmonic Oscillator"
+                      ]
+                    },
+                    {
+                      "id": "pc2_ch3",
+                      "title": "Atomic and Molecular Structure",
+                      "topics": [
+                        "The Hydrogen Atom",
+                        "Approximation Methods for Many-Electron Atoms",
+                        "Molecular Orbital Theory Review"
+                      ]
+                    },
+                    {
+                      "id": "pc2_ch4",
+                      "title": "Molecular Spectroscopy",
+                      "topics": [
+                        "Rotational and Vibrational Spectroscopy",
+                        "Electronic Spectroscopy",
+                        "Principles of NMR and ESR"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh3109",
+                  "name": "Practical Physical Chemistry I",
+                  "credits": 1,
+                  "description": "A laboratory course providing hands-on experience with experimental techniques in physical chemistry, focusing on thermodynamics, kinetics, and electrochemistry.",
+                  "outcomes": [
+                    "Perform calorimetric measurements to determine thermodynamic quantities.",
+                    "Experimentally determine the rate law of a chemical reaction.",
+                    "Measure electrochemical cell potentials and other electrochemical properties.",
+                    "Analyze and interpret physical chemistry data using graphical and statistical methods."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ppc1_ch1",
+                      "title": "Experiment 1: Thermochemistry",
+                      "topics": [
+                        "Calorimetry",
+                        "Determining Enthalpy of Reaction"
+                      ]
+                    },
+                    {
+                      "id": "ppc1_ch2",
+                      "title": "Experiment 2: Chemical Kinetics",
+                      "topics": [
+                        "Determining Reaction Order and Rate Constant"
+                      ]
+                    },
+                    {
+                      "id": "ppc1_ch3",
+                      "title": "Experiment 3: Electrochemistry",
+                      "topics": [
+                        "Constructing a Galvanic Cell",
+                        "Verifying the Nernst Equation"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh3111",
+                  "name": "Inorganic Chemistry II",
                   "credits": 4,
-                  "prerequisites": [
-                    "Chem2103"
+                  "description": "An advanced course in inorganic chemistry focusing on the chemistry of transition metals, including coordination chemistry, bonding theories, reaction mechanisms, and an introduction to organometallic and solid-state chemistry.",
+                  "outcomes": [
+                    "Describe the properties and trends of the d-block elements.",
+                    "Apply bonding theories (Crystal Field Theory, Ligand Field Theory) to explain the electronic structure and properties of coordination compounds.",
+                    "Understand the mechanisms of substitution and redox reactions in coordination complexes.",
+                    "Grasp the fundamentals of organometallic and solid-state inorganic chemistry."
                   ],
                   "chapters": [
                     {
-                      "id": "iche3101_ch1",
-                      "title": "Spectroscopic Methods",
+                      "id": "ic2_ch1",
+                      "title": "Chemistry of Transition Metals",
                       "topics": [
-                        "UV-Visible Spectroscopy",
-                        "Infrared (IR) and Raman Spectroscopy",
-                        "Atomic Absorption and Emission Spectroscopy"
+                        "Properties of d-block elements",
+                        "Coordination Compounds and Nomenclature"
                       ]
                     },
                     {
-                      "id": "iche3101_ch2",
-                      "title": "Chromatographic Separations",
+                      "id": "ic2_ch2",
+                      "title": "Bonding in Coordination Compounds",
                       "topics": [
-                        "Principles of Chromatography",
-                        "Gas Chromatography (GC)",
-                        "High-Performance Liquid Chromatography (HPLC)"
+                        "Isomerism",
+                        "Crystal Field Theory (CFT)",
+                        "Ligand Field Theory (LFT) and Molecular Orbital approach"
                       ]
                     },
                     {
-                      "id": "iche3101_ch3",
-                      "title": "Mass Spectrometry",
+                      "id": "ic2_ch3",
+                      "title": "Electronic Spectra and Reaction Mechanisms",
                       "topics": [
-                        "Ionization Methods",
-                        "Mass Analyzers",
-                        "Hyphenated Techniques (GC-MS, LC-MS)"
+                        "Electronic Spectra of Coordination Complexes",
+                        "Ligand Substitution Reactions",
+                        "Redox Reactions"
                       ]
                     },
                     {
-                      "id": "iche3101_ch4",
-                      "title": "Electrochemical and Thermal Methods",
+                      "id": "ic2_ch4",
+                      "title": "Organometallic and Solid-State Chemistry",
                       "topics": [
-                        "Potentiometry",
-                        "Voltammetry",
-                        "Thermogravimetric Analysis (TGA)"
+                        "The 18-Electron Rule",
+                        "Common Organometallic Reactions",
+                        "Introduction to Crystal Structures and Bonding in Solids"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "ICHE3103",
-                  "name": "Chemical Unit Operations I",
-                  "description": "Application of fluid mechanics and heat transfer principles to the analysis and design of equipment used in the chemical industry.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "ICHE2102"
+                  "code": "InCh3113",
+                  "name": "Practical Inorganic Synthesis",
+                  "credits": 1,
+                  "description": "A laboratory course focused on the synthesis and characterization of inorganic and coordination compounds. Emphasizes techniques for handling air-sensitive materials and characterizing products using spectroscopic and other methods.",
+                  "outcomes": [
+                    "Synthesize a variety of coordination compounds.",
+                    "Use techniques for purification like recrystallization.",
+                    "Characterize synthesized compounds using techniques such as UV-Vis and IR spectroscopy.",
+                    "Properly document synthetic procedures and characterization data."
                   ],
                   "chapters": [
                     {
-                      "id": "iche3103_ch1",
-                      "title": "Fluid Mechanics",
-                      "topics": [
-                        "Fluid Statics and Dynamics",
-                        "Flow in Pipes and Frictional Losses",
-                        "Pump Selection and Sizing"
-                      ]
+                      "id": "pis_ch1",
+                      "title": "Synthesis and Characterization of a Coordination Complex",
+                      "topics": []
                     },
                     {
-                      "id": "iche3103_ch2",
-                      "title": "Heat Transfer by Conduction and Convection",
-                      "topics": [
-                        "Fourier's Law of Conduction",
-                        "Principles of Convection",
-                        "Heat Transfer Coefficients"
-                      ]
+                      "id": "pis_ch2",
+                      "title": "Investigation of Isomerism in Coordination Chemistry",
+                      "topics": []
                     },
                     {
-                      "id": "iche3103_ch3",
-                      "title": "Heat Exchangers",
-                      "topics": [
-                        "Types of Heat Exchangers",
-                        "Log Mean Temperature Difference (LMTD) Method",
-                        "Effectiveness-NTU Method"
-                      ]
-                    },
-                    {
-                      "id": "iche3103_ch4",
-                      "title": "Heat Transfer with Phase Change",
-                      "topics": [
-                        "Boiling and Condensation",
-                        "Evaporators"
-                      ]
+                      "id": "pis_ch3",
+                      "title": "Synthesis of an Organometallic Compound",
+                      "topics": []
                     }
                   ]
                 },
                 {
-                  "code": "ICHE3105",
-                  "name": "Industrial Catalysis",
-                  "description": "Study of the principles of heterogeneous and homogeneous catalysis, catalyst preparation, characterization, and their application in major industrial processes.",
-                  "credits": 3,
+                  "code": "InCh3115",
+                  "name": "Computer Applications for Chemists",
+                  "credits": 2,
+                  "description": "A practical course on using computer software essential for modern chemistry. Covers chemical drawing software, data analysis and plotting packages, chemical literature databases, and an introduction to molecular modeling.",
+                  "outcomes": [
+                    "Create publication-quality chemical structures and reaction schemes using software like ChemDraw.",
+                    "Analyze and plot scientific data using spreadsheets or specialized software like Origin.",
+                    "Effectively search chemical literature databases like SciFinder and Reaxys.",
+                    "Perform basic molecular modeling and computational chemistry calculations."
+                  ],
                   "chapters": [
                     {
-                      "id": "iche3105_ch1",
-                      "title": "Fundamentals of Catalysis",
+                      "id": "cac_ch1",
+                      "title": "Chemical Drawing and Publishing",
                       "topics": [
-                        "Homogeneous and Heterogeneous Catalysis",
-                        "Adsorption and Desorption",
-                        "Catalyst Activity, Selectivity, and Deactivation"
+                        "Using ChemDraw or similar software",
+                        "Creating figures for reports and presentations"
                       ]
                     },
                     {
-                      "id": "iche3105_ch2",
-                      "title": "Catalyst Preparation and Characterization",
+                      "id": "cac_ch2",
+                      "title": "Data Analysis and Plotting",
                       "topics": [
-                        "Preparation Methods (Precipitation, Impregnation)",
-                        "Characterization Techniques (BET, XRD, TEM)"
+                        "Advanced features in Excel",
+                        "Introduction to Origin or similar plotting software"
                       ]
                     },
                     {
-                      "id": "iche3105_ch3",
-                      "title": "Industrial Catalytic Processes",
+                      "id": "cac_ch3",
+                      "title": "Chemical Literature and Databases",
                       "topics": [
-                        "Catalysis in Petrochemical Industry (Cracking, Reforming)",
-                        "Synthesis Gas and Ammonia Synthesis",
-                        "Polymerization Catalysis (Ziegler-Natta)"
+                        "Searching SciFinder",
+                        "Using Reaxys",
+                        "Accessing Crystallographic Databases"
                       ]
                     },
                     {
-                      "id": "iche3105_ch4",
-                      "title": "Modern Trends in Catalysis",
+                      "id": "cac_ch4",
+                      "title": "Introduction to Molecular Modeling",
                       "topics": [
-                        "Biocatalysis and Enzymes",
-                        "Photocatalysis",
-                        "Green Catalysis"
+                        "Molecular Mechanics",
+                        "Semi-empirical and Ab-initio methods",
+                        "Visualizing molecular orbitals"
                       ]
                     }
                   ]
@@ -22936,358 +29871,901 @@ export const courseData: CourseData = {
               ],
               "Semester II": [
                 {
-                  "code": "ICHE3102",
-                  "name": "Chemical Reaction Engineering",
-                  "description": "The study of chemical reaction rates and the design of chemical reactors, covering rate laws and the design equations for ideal and non-ideal reactors.",
+                  "code": "InCh3102",
+                  "name": "Physical Chemistry III",
                   "credits": 3,
-                  "prerequisites": [
-                    "Chem2106"
+                  "description": "An advanced physical chemistry course covering topics such as statistical mechanics, which connects molecular properties to macroscopic thermodynamics, and the chemistry of surfaces and colloids.",
+                  "outcomes": [
+                    "Understand the fundamentals of statistical mechanics and partition functions.",
+                    "Relate microscopic molecular properties to macroscopic thermodynamic functions.",
+                    "Describe the physical and chemical properties of surfaces and interfaces.",
+                    "Analyze the stability and properties of colloidal systems."
                   ],
                   "chapters": [
                     {
-                      "id": "iche3102_ch1",
-                      "title": "Kinetics and Rate Laws",
+                      "id": "pc3_ch1",
+                      "title": "Statistical Mechanics",
                       "topics": [
-                        "Reaction Rate Definition",
-                        "Rate Law and Reaction Order",
-                        "Analysis of Batch Reactor Data"
+                        "The Boltzmann Distribution",
+                        "Molecular and System Partition Functions",
+                        "Calculating Thermodynamic Properties from Partition Functions"
                       ]
                     },
                     {
-                      "id": "iche3102_ch2",
-                      "title": "Isothermal Reactor Design",
+                      "id": "pc3_ch2",
+                      "title": "Surface Chemistry",
                       "topics": [
-                        "Design Equations for Batch, CSTR, PFR",
-                        "Reactors in Series and Parallel",
-                        "Multiple Reactions"
+                        "Surface Tension",
+                        "Adsorption Isotherms (Langmuir, BET)",
+                        "Catalysis on Surfaces"
                       ]
                     },
                     {
-                      "id": "iche3102_ch3",
-                      "title": "Non-Isothermal Reactor Design",
+                      "id": "pc3_ch3",
+                      "title": "Colloid and Interface Science",
                       "topics": [
-                        "The Energy Balance",
-                        "Adiabatic Reactor Operation",
-                        "Reactors with Heat Exchange"
-                      ]
-                    },
-                    {
-                      "id": "iche3102_ch4",
-                      "title": "Catalytic and Multiphase Reactors",
-                      "topics": [
-                        "Kinetics of Heterogeneous Catalysis",
-                        "Design of Packed Bed Reactors (PBR)",
-                        "Introduction to Multiphase Reactors"
+                        "Types of Colloidal Systems",
+                        "Stability of Colloids (DLVO Theory)",
+                        "Surfactants and Micelles"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "ICHE3104",
-                  "name": "Chemical Unit Operations II",
-                  "description": "Application of mass transfer principles to the analysis and design of separation equipment such as distillation columns, absorbers, and extractors.",
-                  "credits": 3,
-                  "prerequisites": [
-                    "ICHE3103"
+                  "code": "InCh3104",
+                  "name": "Practical Physical Chemistry II",
+                  "credits": 1,
+                  "description": "An advanced laboratory course in physical chemistry. Experiments focus on topics like surface chemistry, electrochemistry, and the determination of physical properties of materials.",
+                  "outcomes": [
+                    "Experimentally determine surface tension of liquids.",
+                    "Measure viscosity of solutions.",
+                    "Construct and analyze an adsorption isotherm.",
+                    "Perform experiments to determine other physical properties like partial molar volume."
                   ],
                   "chapters": [
                     {
-                      "id": "iche3104_ch1",
-                      "title": "Fundamentals of Mass Transfer",
+                      "id": "ppc2_ch1",
+                      "title": "Experiment 1: Surface Tension Measurement",
+                      "topics": []
+                    },
+                    {
+                      "id": "ppc2_ch2",
+                      "title": "Experiment 2: Viscometry",
+                      "topics": []
+                    },
+                    {
+                      "id": "ppc2_ch3",
+                      "title": "Experiment 3: Adsorption from Solution",
+                      "topics": []
+                    }
+                  ]
+                },
+                {
+                  "code": "ChEg3106",
+                  "name": "Unit operations for Industrial Chemists",
+                  "credits": 3,
+                  "description": "An introduction to the fundamental principles of chemical engineering unit operations, focusing on fluid flow, heat transfer, and mass transfer operations essential for the chemical process industry.",
+                  "outcomes": [
+                    "Analyze fluid flow in pipes and calculate pressure drop and pumping requirements.",
+                    "Apply heat transfer principles to the design of simple heat exchangers.",
+                    "Understand the principles of key mass transfer operations like distillation, absorption, and extraction.",
+                    "Develop and interpret process flow diagrams."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "uoic_ch1",
+                      "title": "Fluid Flow",
                       "topics": [
-                        "Molecular Diffusion (Fick's Law)",
-                        "Convective Mass Transfer",
-                        "Mass Transfer Coefficients"
+                        "Fluid Statics and Dynamics",
+                        "Flow in Pipes and Friction Losses",
+                        "Pumps and Compressors"
                       ]
                     },
                     {
-                      "id": "iche3104_ch2",
-                      "title": "Gas Absorption and Stripping",
+                      "id": "uoic_ch2",
+                      "title": "Heat Transfer",
                       "topics": [
-                        "Equilibrium Relations",
-                        "Design of Packed Towers"
+                        "Mechanisms of Heat Transfer",
+                        "Heat Exchangers",
+                        "Evaporation"
                       ]
                     },
                     {
-                      "id": "iche3104_ch3",
-                      "title": "Distillation",
+                      "id": "uoic_ch3",
+                      "title": "Mass Transfer Operations",
                       "topics": [
-                        "Vapor-Liquid Equilibrium (VLE)",
-                        "Design of Tray Towers (McCabe-Thiele Method)"
-                      ]
-                    },
-                    {
-                      "id": "iche3104_ch4",
-                      "title": "Other Separation Processes",
-                      "topics": [
+                        "Distillation",
+                        "Gas Absorption",
                         "Liquid-Liquid Extraction",
-                        "Adsorption",
-                        "Drying of Solids"
+                        "Drying"
+                      ]
+                    },
+                    {
+                      "id": "uoic_ch4",
+                      "title": "Mechanical Separations",
+                      "topics": [
+                        "Filtration",
+                        "Sedimentation",
+                        "Centrifugation"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "ICHE3106",
-                  "name": "Quality Control and Assurance",
-                  "description": "Principles and practices of quality management in the chemical industry, including statistical process control (SPC), quality standards, and analytical method validation.",
+                  "code": "Biot3108",
+                  "name": "Industrial Microbiology for Chemists",
                   "credits": 3,
+                  "description": "Focuses on the use of microorganisms in industrial processes to produce chemicals and pharmaceuticals. Covers fermentation technology, microbial metabolism, and downstream processing from a chemical perspective.",
+                  "outcomes": [
+                    "Understand the basics of microbial growth and metabolism.",
+                    "Describe the principles of industrial fermentation and bioreactor operation.",
+                    "Identify key chemical products produced by microbial fermentation (e.g., antibiotics, organic acids, biofuels).",
+                    "Grasp the fundamentals of downstream processing for product recovery."
+                  ],
                   "chapters": [
                     {
-                      "id": "iche3106_ch1",
-                      "title": "Introduction to Quality",
+                      "id": "imc_ch1",
+                      "title": "Introduction to Industrial Microorganisms",
                       "topics": [
-                        "Quality Control vs. Quality Assurance",
-                        "Total Quality Management (TQM)",
-                        "Quality Management Systems (ISO 9001)"
+                        "Microbial Diversity",
+                        "Microbial Growth Kinetics",
+                        "Metabolic Pathways"
                       ]
                     },
                     {
-                      "id": "iche3106_ch2",
-                      "title": "Statistical Process Control (SPC)",
+                      "id": "imc_ch2",
+                      "title": "Fermentation Technology",
                       "topics": [
-                        "Control Charts for Variables (X-bar, R charts)",
-                        "Control Charts for Attributes (p, c charts)",
-                        "Process Capability Analysis"
+                        "Bioreactor Design and Operation",
+                        "Media Formulation and Sterilization"
                       ]
                     },
                     {
-                      "id": "iche3106_ch3",
-                      "title": "Analytical Method Validation",
+                      "id": "imc_ch3",
+                      "title": "Products of Industrial Microbiology",
                       "topics": [
-                        "Accuracy, Precision, Linearity, and Range",
-                        "Limits of Detection and Quantitation (LOD/LOQ)",
-                        "Method Validation Protocols"
+                        "Production of Antibiotics",
+                        "Production of Organic Acids and Solvents",
+                        "Introduction to Enzyme Technology"
+                      ]
+                    },
+                    {
+                      "id": "imc_ch4",
+                      "title": "Downstream Processing",
+                      "topics": [
+                        "Cell Separation",
+                        "Product Recovery and Purification"
                       ]
                     }
                   ]
+                },
+                {
+                  "code": "InCh3110",
+                  "name": "Systematic Identification of organic compounds",
+                  "credits": 2,
+                  "description": "A capstone laboratory-style course that integrates chemical and spectroscopic methods for the structure elucidation of unknown organic compounds.",
+                  "outcomes": [
+                    "Devise a systematic strategy for identifying an unknown organic compound.",
+                    "Perform classical qualitative tests for functional groups.",
+                    "Integrate data from multiple spectroscopic methods (IR, NMR, MS) to deduce a structure.",
+                    "Logically defend a proposed structure based on collected evidence."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "sioc_ch1",
+                      "title": "Preliminary Examination and Physical Properties",
+                      "topics": []
+                    },
+                    {
+                      "id": "sioc_ch2",
+                      "title": "Qualitative Analysis for Functional Groups",
+                      "topics": []
+                    },
+                    {
+                      "id": "sioc_ch3",
+                      "title": "Spectroscopic Analysis (IR, NMR, MS)",
+                      "topics": []
+                    },
+                    {
+                      "id": "sioc_ch4",
+                      "title": "Structure Elucidation and Reporting",
+                      "topics": []
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh3112",
+                  "name": "Industrial Inorganic Products",
+                  "credits": 3,
+                  "description": "A study of the large-scale manufacturing processes, chemistry, and applications of major inorganic chemicals, including industrial gases, acids, bases, fertilizers, pigments, and materials for the construction industry.",
+                  "outcomes": [
+                    "Describe the industrial production methods for key inorganic commodities like ammonia, sulfuric acid, and chlorine.",
+                    "Understand the chemistry and technology of fertilizer production.",
+                    "Explain the production and properties of major industrial pigments and fillers.",
+                    "Analyze the chemical processes involved in the production of cement and glass."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "iip_ch1",
+                      "title": "Industrial Gases and Acids",
+                      "topics": [
+                        "Air Separation (N2, O2, Ar)",
+                        "Sulfuric Acid (Contact Process)",
+                        "Nitric Acid and Hydrochloric Acid"
+                      ]
+                    },
+                    {
+                      "id": "iip_ch2",
+                      "title": "Alkalis and Fertilizers",
+                      "topics": [
+                        "Chlor-alkali Process (NaOH, Cl2)",
+                        "Ammonia (Haber-Bosch Process)",
+                        "Production of Phosphate and Potash Fertilizers"
+                      ]
+                    },
+                    {
+                      "id": "iip_ch3",
+                      "title": "Pigments and Fillers",
+                      "topics": [
+                        "Titanium Dioxide",
+                        "Carbon Black",
+                        "Clays and Carbonates"
+                      ]
+                    },
+                    {
+                      "id": "iip_ch4",
+                      "title": "Silicate Industries",
+                      "topics": [
+                        "Cement Manufacturing",
+                        "Glass Production",
+                        "Ceramics"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh3114",
+                  "name": "Research methods and scientific writing",
+                  "credits": 2,
+                  "description": "Focuses on the skills required to conduct scientific research and communicate findings effectively. Covers literature review, research design, data analysis, and the structure of scientific papers, proposals, and reports.",
+                  "outcomes": [
+                    "Formulate clear research questions and hypotheses.",
+                    "Design a research study with appropriate controls and methodology.",
+                    "Conduct a systematic literature review and synthesize information.",
+                    "Write a scientific report or paper in a clear, concise, and structured manner (IMRaD format)."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "rmsw_ch1",
+                      "title": "The Research Process",
+                      "topics": [
+                        "The Scientific Method",
+                        "Formulating a Research Question",
+                        "Research Ethics"
+                      ]
+                    },
+                    {
+                      "id": "rmsw_ch2",
+                      "title": "Literature Review and Research Design",
+                      "topics": [
+                        "Searching Scientific Literature (e.g., SciFinder, Web of Science)",
+                        "Types of Research Designs",
+                        "Experimental Design"
+                      ]
+                    },
+                    {
+                      "id": "rmsw_ch3",
+                      "title": "Scientific Writing",
+                      "topics": [
+                        "Structure of a Scientific Paper (IMRaD)",
+                        "Writing Clearly and Concisely",
+                        "Citation and Referencing"
+                      ]
+                    },
+                    {
+                      "id": "rmsw_ch4",
+                      "title": "Proposals and Presentations",
+                      "topics": [
+                        "Writing a Research Proposal",
+                        "Creating Scientific Posters",
+                        "Delivering an Oral Presentation"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "ISTP3116",
+                  "name": "Integrated Science Team Project",
+                  "credits": 3,
+                  "description": "A multidisciplinary project where teams of students collaborate to solve a real-world industrial chemistry problem or develop a new product, from concept to bench-scale demonstration.",
+                  "outcomes": [
+                    "Apply the principles of product or process development from idea generation to proof-of-concept.",
+                    "Collaborate effectively within a diverse team environment.",
+                    "Apply project management principles to meet deadlines and deliverables.",
+                    "Communicate technical solutions and business cases through written reports and oral presentations."
+                  ],
+                  "chapters": []
+                }
+              ],
+              "Semester III": [
+                {
+                  "code": "InCh3117",
+                  "name": "Industrial Attachment",
+                  "credits": 3,
+                  "description": "A supervised, practical work experience program in a chemical industry or related laboratory setting. Students apply their academic knowledge to real-world problems, develop professional skills, and gain exposure to industrial practices.",
+                  "outcomes": [
+                    "Apply chemical knowledge and laboratory skills to solve practical problems in an industrial environment.",
+                    "Develop professional communication, teamwork, and problem-solving skills.",
+                    "Gain an understanding of the organizational structure, operations, and safety culture of a chemical company.",
+                    "Produce a comprehensive technical report and presentation detailing the internship experience and project work."
+                  ],
+                  "chapters": []
                 }
               ]
             },
             "Year 4": {
               "Semester I": [
                 {
-                  "code": "ICHE4101",
-                  "name": "Chemical Process Design and Economics",
-                  "description": "A capstone course on the design of chemical processes, integrating principles of reaction engineering and separations with economic analysis to evaluate process feasibility.",
-                  "credits": 4,
-                  "prerequisites": [
-                    "ICHE3102",
-                    "ICHE3104"
+                  "code": "InCh4101",
+                  "name": "Sugar Processing and Production",
+                  "credits": 3,
+                  "description": "A comprehensive study of the technology and chemistry involved in the large-scale production of sugar from sugarcane and sugar beets. The course covers extraction, purification, crystallization, and the utilization of by-products.",
+                  "outcomes": [
+                    "Describe the chemical composition of sugarcane and sugar beets.",
+                    "Explain the unit operations in a sugar factory, including juice extraction, clarification, and evaporation.",
+                    "Analyze the principles of sugar crystallization and centrifugation.",
+                    "Understand the production and industrial uses of by-products like molasses and bagasse."
                   ],
                   "chapters": [
                     {
-                      "id": "iche4101_ch1",
-                      "title": "Process Synthesis and Flowsheet Development",
+                      "id": "spp_ch1",
+                      "title": "Raw Materials and Juice Extraction",
                       "topics": [
-                        "The Design Process",
-                        "Developing Process Flow Diagrams (PFDs)",
-                        "Heuristics for Process Synthesis"
+                        "Sugarcane and Sugar Beet Composition",
+                        "Milling of Sugarcane",
+                        "Diffusion for Juice Extraction"
                       ]
                     },
                     {
-                      "id": "iche4101_ch2",
-                      "title": "Equipment Sizing and Selection",
+                      "id": "spp_ch2",
+                      "title": "Juice Purification and Clarification",
                       "topics": [
-                        "Reactor Sizing",
-                        "Distillation Column Sizing",
-                        "Heat Exchanger Sizing"
+                        "Liming and Carbonation",
+                        "Sulphitation",
+                        "Filtration and Removal of Impurities"
                       ]
                     },
                     {
-                      "id": "iche4101_ch3",
-                      "title": "Capital and Operating Cost Estimation",
+                      "id": "spp_ch3",
+                      "title": "Evaporation and Crystallization",
                       "topics": [
-                        "Fixed and Working Capital",
-                        "Estimation of Manufacturing Costs",
-                        "Depreciation"
+                        "Multiple-Effect Evaporators",
+                        "Theory of Crystallization",
+                        "Vacuum Pans and Crystal Growth"
                       ]
                     },
                     {
-                      "id": "iche4101_ch4",
-                      "title": "Profitability Analysis",
+                      "id": "spp_ch4",
+                      "title": "Centrifugation and By-product Utilization",
                       "topics": [
-                        "Time Value of Money",
-                        "Net Present Value (NPV) and Internal Rate of Return (IRR)",
-                        "Sensitivity Analysis"
+                        "Separation of Crystals",
+                        "Molasses Production and Uses",
+                        "Bagasse as Fuel"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "ICHE4103",
-                  "name": "Petrochemical Technology",
-                  "description": "A study of the technologies used to convert crude oil and natural gas into fuels and chemical feedstocks, and their subsequent conversion into major petrochemical products.",
+                  "code": "InCh4103",
+                  "name": "Leather Processing and Production",
                   "credits": 3,
+                  "description": "A detailed study of the chemical and mechanical processes involved in converting raw hides and skins into finished leather. Covers pre-tanning, tanning, post-tanning operations, and environmental aspects of the leather industry.",
+                  "outcomes": [
+                    "Understand the chemistry and structure of collagen in hides and skins.",
+                    "Describe the sequence of operations in a tannery, from beamhouse to finishing.",
+                    "Compare and contrast different tanning methods, particularly chrome and vegetable tanning.",
+                    "Analyze the environmental impacts of leather processing and methods for waste treatment."
+                  ],
                   "chapters": [
                     {
-                      "id": "iche4103_ch1",
-                      "title": "Petroleum Refining Processes",
+                      "id": "lpp_ch1",
+                      "title": "Hide/Skin Structure and Beamhouse Operations",
                       "topics": [
-                        "Crude Oil Distillation",
-                        "Cracking (Catalytic, Thermal)",
-                        "Reforming and Alkylation"
+                        "Chemistry of Collagen",
+                        "Soaking, Liming, and Dehairing",
+                        "Deliming, Bating, and Pickling"
                       ]
                     },
                     {
-                      "id": "iche4103_ch2",
-                      "title": "Production of C1 and C2 Chemicals",
+                      "id": "lpp_ch2",
+                      "title": "Tanning Chemistry and Processes",
                       "topics": [
-                        "Synthesis Gas Production and Uses",
-                        "Ethylene Production (Steam Cracking)",
-                        "Ethylene Derivatives (Ethylene Oxide, Vinyl Chloride)"
+                        "Chrome Tanning",
+                        "Vegetable Tanning",
+                        "Aldehyde and Synthetic Tanning Agents"
                       ]
                     },
                     {
-                      "id": "iche4103_ch3",
-                      "title": "Production of C3 and C4 Chemicals",
+                      "id": "lpp_ch3",
+                      "title": "Post-tanning and Finishing Operations",
                       "topics": [
-                        "Propylene Production and Derivatives",
-                        "Butadiene and Butenes"
+                        "Retanning, Dyeing, and Fatliquoring",
+                        "Drying",
+                        "Mechanical and Chemical Finishing"
                       ]
                     },
                     {
-                      "id": "iche4103_ch4",
-                      "title": "Production of Aromatic Chemicals",
+                      "id": "lpp_ch4",
+                      "title": "Environmental Aspects",
                       "topics": [
-                        "BTX Production (Benzene, Toluene, Xylenes)",
-                        "Styrene and Phenol Production"
+                        "Tannery Effluent Characteristics",
+                        "Wastewater Treatment",
+                        "Solid Waste Management and Chrome Recovery"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "ICHE4105",
-                  "name": "Industrial Chemistry Laboratory",
-                  "description": "A hands-on laboratory course focused on pilot-scale unit operations, instrumental analysis, and quality control tests relevant to the chemical industry.",
-                  "credits": 2,
+                  "code": "InCh4105",
+                  "name": "Industrial Pharmacy",
+                  "credits": 3,
+                  "description": "An introduction to the science of drug formulation and manufacturing. Covers dosage forms, principles of drug delivery, manufacturing processes, and quality control systems in the pharmaceutical industry.",
+                  "outcomes": [
+                    "Differentiate between various pharmaceutical dosage forms (tablets, capsules, injectables).",
+                    "Understand the principles of drug formulation, including the role of excipients.",
+                    "Describe key manufacturing processes like granulation, tableting, and sterilization.",
+                    "Grasp the fundamentals of Good Manufacturing Practices (GMP) and quality assurance in pharmaceuticals."
+                  ],
                   "chapters": [
                     {
-                      "id": "iche4105_ch1",
-                      "title": "Pilot-Scale Unit Operations",
+                      "id": "ip_ch1",
+                      "title": "Introduction and Dosage Forms",
                       "topics": [
-                        "Distillation Column Experiment",
-                        "Batch Reactor Experiment",
-                        "Heat Exchanger Performance"
+                        "Drug Discovery and Development Process",
+                        "Solid Dosage Forms (Tablets, Capsules)",
+                        "Liquid and Semi-solid Dosage Forms",
+                        "Sterile Products"
                       ]
                     },
                     {
-                      "id": "iche4105_ch2",
-                      "title": "Industrial Product Analysis",
+                      "id": "ip_ch2",
+                      "title": "Pharmaceutics and Drug Delivery",
                       "topics": [
-                        "Analysis of a Commercial Product (e.g., Aspirin, Soap)",
-                        "Polymer Characterization (e.g., Viscosity, DSC)",
-                        "Quality Control Testing"
+                        "Excipients in Drug Formulation",
+                        "Bioavailability and Pharmacokinetics",
+                        "Introduction to Controlled Release Systems"
+                      ]
+                    },
+                    {
+                      "id": "ip_ch3",
+                      "title": "Pharmaceutical Manufacturing Processes",
+                      "topics": [
+                        "Mixing and Granulation",
+                        "Tablet Compression",
+                        "Aseptic Processing and Sterilization"
+                      ]
+                    },
+                    {
+                      "id": "ip_ch4",
+                      "title": "Quality Control and Regulation",
+                      "topics": [
+                        "Good Manufacturing Practices (GMP)",
+                        "Quality Assurance and Quality Control",
+                        "Regulatory Affairs"
                       ]
                     }
                   ]
+                },
+                {
+                  "code": "InCh4107",
+                  "name": "Chemistry of Materials",
+                  "credits": 3,
+                  "description": "A study of the synthesis, structure, and properties of advanced materials, with a focus on polymers, ceramics, composites, and electronic materials from a chemical perspective.",
+                  "outcomes": [
+                    "Understand the relationship between structure and properties in polymers, ceramics, and composites.",
+                    "Describe chemical methods for synthesizing different classes of materials.",
+                    "Analyze the chemical principles behind the function of electronic and optical materials.",
+                    "Select materials for specific high-performance applications based on their chemical properties."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "com_ch1",
+                      "title": "Polymer Science and Engineering",
+                      "topics": [
+                        "Polymerization Mechanisms",
+                        "Structure-Property Relationships in Polymers",
+                        "Specialty Polymers"
+                      ]
+                    },
+                    {
+                      "id": "com_ch2",
+                      "title": "Ceramic and Composite Materials",
+                      "topics": [
+                        "Synthesis of Ceramic Powders (Sol-Gel)",
+                        "Processing of Ceramics",
+                        "Polymer-, Metal-, and Ceramic-Matrix Composites"
+                      ]
+                    },
+                    {
+                      "id": "com_ch3",
+                      "title": "Electronic and Optical Materials",
+                      "topics": [
+                        "Semiconductor Chemistry",
+                        "Conductors and Superconductors",
+                        "Materials for Optical Applications"
+                      ]
+                    },
+                    {
+                      "id": "com_ch4",
+                      "title": "Materials Characterization",
+                      "topics": [
+                        "X-ray Diffraction (XRD)",
+                        "Electron Microscopy (SEM, TEM)",
+                        "Thermal Analysis (TGA, DSC)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh4109",
+                  "name": "Environmental Chemistry and Waste management",
+                  "credits": 3,
+                  "description": "The study of chemical processes in the environment (air, water, soil) and the application of chemical principles to the management and treatment of industrial and municipal waste.",
+                  "outcomes": [
+                    "Analyze the fate and transport of pollutants in the environment.",
+                    "Describe the chemistry of major atmospheric and aquatic pollution problems.",
+                    "Understand the chemical principles behind wastewater treatment processes.",
+                    "Evaluate technologies for solid and hazardous waste management."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "ecwm_ch1",
+                      "title": "Atmospheric and Aquatic Chemistry",
+                      "topics": [
+                        "Chemistry of Air Pollution (Smog, Acid Rain)",
+                        "Chemistry of Natural Waters (Carbonate System, Redox)",
+                        "Water Pollution and Eutrophication"
+                      ]
+                    },
+                    {
+                      "id": "ecwm_ch2",
+                      "title": "Wastewater Treatment Chemistry",
+                      "topics": [
+                        "Primary, Secondary, and Tertiary Treatment",
+                        "Chemical Coagulation and Flocculation",
+                        "Disinfection Chemistry"
+                      ]
+                    },
+                    {
+                      "id": "ecwm_ch3",
+                      "title": "Solid and Hazardous Waste Management",
+                      "topics": [
+                        "Characterization of Wastes",
+                        "Landfill Chemistry",
+                        "Chemical Treatment of Hazardous Wastes"
+                      ]
+                    },
+                    {
+                      "id": "ecwm_ch4",
+                      "title": "Soil Chemistry and Remediation",
+                      "topics": [
+                        "Contaminant-Soil Interactions",
+                        "Introduction to Chemical Remediation Techniques"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh4111",
+                  "name": "Biochemistry",
+                  "credits": 3,
+                  "description": "A study of the chemistry of living systems, focusing on the structure, function, and metabolism of major biomolecules, providing a foundation for understanding biochemical industries.",
+                  "outcomes": [
+                    "Describe the structure and function of carbohydrates, lipids, proteins, and nucleic acids.",
+                    "Explain the major metabolic pathways for energy production and biosynthesis.",
+                    "Understand the principles of enzyme kinetics and metabolic regulation.",
+                    "Relate biochemical principles to industrial fermentation and enzyme technology."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "biochem_ch1",
+                      "title": "Structure and Function of Biomolecules",
+                      "topics": [
+                        "Amino Acids, Peptides, and Proteins",
+                        "Carbohydrates",
+                        "Lipids and Membranes"
+                      ]
+                    },
+                    {
+                      "id": "biochem_ch2",
+                      "title": "Enzymes",
+                      "topics": [
+                        "Enzyme Kinetics (Michaelis-Menten)",
+                        "Mechanisms of Enzyme Action",
+                        "Enzyme Regulation"
+                      ]
+                    },
+                    {
+                      "id": "biochem_ch3",
+                      "title": "Bioenergetics and Metabolism",
+                      "topics": [
+                        "Glycolysis and Gluconeogenesis",
+                        "The Citric Acid Cycle (Krebs Cycle)",
+                        "Oxidative Phosphorylation"
+                      ]
+                    },
+                    {
+                      "id": "biochem_ch4",
+                      "title": "Metabolism of Lipids and Nitrogen",
+                      "topics": [
+                        "Fatty Acid Oxidation and Synthesis",
+                        "Amino Acid Metabolism"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh4114",
+                  "name": "Student Project",
+                  "credits": 0,
+                  "prerequisites": [],
+                  "description": "The first phase of the final year project. Students identify a research topic, conduct an extensive literature review, define a clear methodology, and write a comprehensive research proposal under the guidance of a faculty advisor. The course is graded Pass/Fail based on the quality of the proposal.",
+                  "outcomes": [
+                    "Identify a relevant problem in industrial chemistry.",
+                    "Conduct a thorough literature search and write a critical review.",
+                    "Formulate a clear proposal with well-defined objectives, scope, and methodology.",
+                    "Develop a realistic timeline and resource plan for the project."
+                  ],
+                  "chapters": []
                 }
               ],
               "Semester II": [
                 {
-                  "code": "ICHE4102",
-                  "name": "Environmental Chemistry and Waste Management",
-                  "description": "Study of chemical processes in the environment and the technologies used to manage and treat industrial waste and pollution.",
-                  "credits": 3,
+                  "code": "InCh4102",
+                  "name": "Real Sample Analysis",
+                  "credits": 1,
+                  "description": "A practical, project-based laboratory course focused on the challenges of analyzing complex, real-world samples (e.g., environmental, food, industrial). Emphasis is on sampling, sample preparation, and method validation.",
+                  "outcomes": [
+                    "Develop and execute a plan for sampling a complex material.",
+                    "Select and perform appropriate sample preparation techniques (e.g., extraction, digestion).",
+                    "Adapt and validate an analytical method for a specific sample matrix.",
+                    "Troubleshoot analytical problems arising from matrix effects."
+                  ],
                   "chapters": [
                     {
-                      "id": "iche4102_ch1",
-                      "title": "Chemistry of the Atmosphere, Water, and Soil",
+                      "id": "rsa_ch1",
+                      "title": "Project: Analysis of a Real Sample",
                       "topics": [
-                        "Atmospheric Pollutants and Reactions",
-                        "Aquatic Chemistry and Water Pollution",
-                        "Soil Chemistry and Contamination"
-                      ]
-                    },
-                    {
-                      "id": "iche4102_ch2",
-                      "title": "Industrial Wastewater Treatment",
-                      "topics": [
-                        "Primary, Secondary, and Tertiary Treatment",
-                        "Advanced Oxidation Processes",
-                        "Sludge Management"
-                      ]
-                    },
-                    {
-                      "id": "iche4102_ch3",
-                      "title": "Air Pollution Control and Solid Waste",
-                      "topics": [
-                        "Control of Gaseous and Particulate Emissions",
-                        "Solid and Hazardous Waste Management",
-                        "Recycling and Waste Minimization"
+                        "Project Planning",
+                        "Sample Preparation",
+                        "Instrumental Analysis",
+                        "Data Interpretation and Reporting"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "ICHE4104",
-                  "name": "Process Control and Instrumentation",
-                  "description": "Principles of automatic process control, including measurement devices, final control elements, and the design and tuning of feedback controllers.",
-                  "credits": 3,
+                  "code": "InCh4104",
+                  "name": "Pharmaceutical Analysis",
+                  "credits": 2,
+                  "description": "Focuses on the quality control of pharmaceutical products. Covers official methods described in pharmacopoeias, validation of analytical procedures, and techniques for assay, impurity profiling, and dissolution testing.",
+                  "outcomes": [
+                    "Understand the role of pharmacopoeias (e.g., USP, BP) in pharmaceutical quality control.",
+                    "Apply techniques like HPLC and UV-Vis spectroscopy for drug substance assay and impurity determination.",
+                    "Perform and interpret dissolution testing for solid dosage forms.",
+                    "Understand the principles of analytical method validation."
+                  ],
                   "chapters": [
                     {
-                      "id": "iche4104_ch1",
-                      "title": "Process Dynamics and Modeling",
+                      "id": "pa_ch1",
+                      "title": "Pharmacopoeias and Regulatory Context",
                       "topics": [
-                        "Laplace Transforms and Transfer Functions",
-                        "Dynamic Behavior of First and Second-Order Systems"
+                        "The Role of the USP and other Pharmacopoeias",
+                        "Good Laboratory Practices (GLP)"
                       ]
                     },
                     {
-                      "id": "iche4104_ch2",
-                      "title": "Feedback Control Systems",
+                      "id": "pa_ch2",
+                      "title": "Assay and Impurity Analysis",
                       "topics": [
-                        "PID Controller Algorithms",
-                        "Block Diagram Analysis",
-                        "Stability Analysis"
+                        "Chromatographic Purity and Assay Methods (HPLC)",
+                        "Spectroscopic Methods"
                       ]
                     },
                     {
-                      "id": "iche4104_ch3",
-                      "title": "Controller Tuning and Advanced Control",
+                      "id": "pa_ch3",
+                      "title": "Performance Tests and Method Validation",
                       "topics": [
-                        "Controller Tuning Methods",
-                        "Feedforward and Cascade Control"
-                      ]
-                    },
-                    {
-                      "id": "iche4104_ch4",
-                      "title": "Process Instrumentation",
-                      "topics": [
-                        "Sensors for Temperature, Pressure, Flow, Level",
-                        "Control Valves",
-                        "Piping and Instrumentation Diagrams (P&IDs)"
+                        "Dissolution Testing",
+                        "Analytical Method Validation (Accuracy, Precision, Linearity, etc.)"
                       ]
                     }
                   ]
                 },
                 {
-                  "code": "ICHE4106",
-                  "name": "B.Sc. Thesis / Project",
-                  "description": "An independent research or design project supervised by a faculty member, integrating knowledge from across the curriculum and culminating in a formal thesis and oral defense.",
+                  "code": "InCh4106",
+                  "name": "Quality Assurance and Management systems",
+                  "credits": 2,
+                  "description": "A study of the principles and implementation of quality management systems in the chemical industry. Covers topics like ISO 9001, Total Quality Management (TQM), Statistical Process Control (SPC), and documentation.",
+                  "outcomes": [
+                    "Understand the difference between quality assurance (QA) and quality control (QC).",
+                    "Describe the key elements of the ISO 9001 quality management system standard.",
+                    "Apply basic Statistical Process Control (SPC) tools like control charts.",
+                    "Develop standard operating procedures (SOPs) and other quality documentation."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "qams_ch1",
+                      "title": "Introduction to Quality Management",
+                      "topics": [
+                        "Concepts of Quality",
+                        "Total Quality Management (TQM)",
+                        "Cost of Quality"
+                      ]
+                    },
+                    {
+                      "id": "qams_ch2",
+                      "title": "ISO 9001 Quality Management System",
+                      "topics": [
+                        "The Process Approach",
+                        "Key Clauses of ISO 9001",
+                        "Documentation and Auditing"
+                      ]
+                    },
+                    {
+                      "id": "qams_ch3",
+                      "title": "Statistical Process Control (SPC)",
+                      "topics": [
+                        "Control Charts for Variables (X-bar, R charts)",
+                        "Control Charts for Attributes (p, c charts)",
+                        "Process Capability Analysis"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh4108",
+                  "name": "Chemistry of paper, pigments and natural products",
+                  "credits": 3,
+                  "description": "A specialized course covering the chemistry and technology of three distinct areas: pulp and paper manufacturing, inorganic and organic pigments, and the extraction and characterization of natural products.",
+                  "outcomes": [
+                    "Describe the chemical processes involved in pulping and papermaking.",
+                    "Understand the chemistry and properties of major classes of industrial pigments.",
+                    "Explain methods for the extraction and isolation of natural products from plant sources.",
+                    "Relate the chemical structure of these materials to their applications."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "cppnp_ch1",
+                      "title": "Pulp and Paper Chemistry",
+                      "topics": [
+                        "Chemistry of Cellulose, Hemicellulose, and Lignin",
+                        "Chemical Pulping Processes (Kraft, Sulfite)",
+                        "Bleaching and Papermaking"
+                      ]
+                    },
+                    {
+                      "id": "cppnp_ch2",
+                      "title": "Chemistry of Pigments",
+                      "topics": [
+                        "Inorganic Pigments (e.g., TiO2, Iron Oxides)",
+                        "Organic Dyes and Pigments",
+                        "Color Theory and Measurement"
+                      ]
+                    },
+                    {
+                      "id": "cppnp_ch3",
+                      "title": "Chemistry of Natural Products",
+                      "topics": [
+                        "Classification of Natural Products",
+                        "Extraction and Isolation Techniques",
+                        "Introduction to Major Classes (Alkaloids, Terpenoids, Flavonoids)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh4110",
+                  "name": "Industrial safety and loss prevention",
+                  "credits": 2,
+                  "description": "A study of the principles of safety in the chemical process industry. Covers hazard identification, risk assessment, process safety management (PSM), and the prevention of fires, explosions, and toxic releases.",
+                  "outcomes": [
+                    "Identify potential hazards in a chemical process.",
+                    "Conduct a qualitative risk assessment using methods like Hazard and Operability (HAZOP) studies.",
+                    "Understand the key elements of a Process Safety Management (PSM) program.",
+                    "Describe methods for preventing and mitigating fires and explosions."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "islp_ch1",
+                      "title": "Introduction to Industrial Safety",
+                      "topics": [
+                        "Toxicology and Industrial Hygiene",
+                        "Safety Regulations and Standards"
+                      ]
+                    },
+                    {
+                      "id": "islp_ch2",
+                      "title": "Hazard Identification and Risk Assessment",
+                      "topics": [
+                        "HAZOP Studies",
+                        "Fault Tree Analysis",
+                        "Layers of Protection Analysis (LOPA)"
+                      ]
+                    },
+                    {
+                      "id": "islp_ch3",
+                      "title": "Fires and Explosions",
+                      "topics": [
+                        "Fire Triangle and Flammability Limits",
+                        "Prevention of Fires and Explosions",
+                        "Pressure Relief Systems"
+                      ]
+                    },
+                    {
+                      "id": "islp_ch4",
+                      "title": "Process Safety Management (PSM)",
+                      "topics": [
+                        "Elements of PSM",
+                        "Incident Investigation",
+                        "Management of Change"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh4112",
+                  "name": "Cement, glass and ceramics",
+                  "credits": 3,
+                  "description": "A detailed study of the chemistry, raw materials, manufacturing processes, and properties of major silicate-based industrial materials.",
+                  "outcomes": [
+                    "Describe the chemistry of cement hydration and the properties of concrete.",
+                    "Explain the manufacturing process for Portland cement.",
+                    "Understand the relationship between composition, structure, and properties of different types of glass.",
+                    "Describe the processing and properties of traditional and advanced ceramics."
+                  ],
+                  "chapters": [
+                    {
+                      "id": "cgc_ch1",
+                      "title": "Cement Chemistry and Technology",
+                      "topics": [
+                        "Raw Materials for Cement",
+                        "Cement Manufacturing Process (Kiln Chemistry)",
+                        "Chemistry of Cement Hydration"
+                      ]
+                    },
+                    {
+                      "id": "cgc_ch2",
+                      "title": "Glass Science and Technology",
+                      "topics": [
+                        "Structure of Glass",
+                        "Glass Manufacturing Process",
+                        "Types and Properties of Commercial Glasses"
+                      ]
+                    },
+                    {
+                      "id": "cgc_ch3",
+                      "title": "Ceramic Science and Technology",
+                      "topics": [
+                        "Classification of Ceramics",
+                        "Processing of Traditional Ceramics (Clay products)",
+                        "Processing and Properties of Advanced Ceramics"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "InCh4114",
+                  "name": "Student Project",
                   "credits": 4,
-                  "chapters": [
-                    {
-                      "id": "iche4106_ch1",
-                      "title": "Project Proposal and Literature Review",
-                      "topics": []
-                    },
-                    {
-                      "id": "iche4106_ch2",
-                      "title": "Experimental Work / Process Design",
-                      "topics": []
-                    },
-                    {
-                      "id": "iche4106_ch3",
-                      "title": "Data Analysis and Interpretation",
-                      "topics": []
-                    },
-                    {
-                      "id": "iche4106_ch4",
-                      "title": "Thesis Writing and Defense",
-                      "topics": []
-                    }
-                  ]
+                  "description": "The execution phase of the final year project. Students implement their approved proposal, carrying out laboratory or process development work. The course culminates in the submission of a final thesis and an oral defense.",
+                  "outcomes": [
+                    "Successfully execute an independent, in-depth industrial chemistry project.",
+                    "Collect, analyze, and interpret experimental data.",
+                    "Produce a comprehensive, well-written thesis document of professional quality.",
+                    "Effectively communicate and defend the project's methodology, results, and significance."
+                  ],
+                  "chapters": []
                 }
               ]
             }
