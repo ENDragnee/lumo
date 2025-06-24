@@ -1,7 +1,17 @@
 // models/Highlight.js
-import mongoose from "mongoose";
+import mongoose, { Schema, Document, model} from "mongoose";
 
-const highlightSchema = new mongoose.Schema({
+interface HighlightDocument extends Document {
+  user_id: Schema.Types.ObjectId;
+  content_id: Schema.Types.ObjectId;
+  color: string;
+  highlighted_text: string;
+  start_offset: number;
+  end_offset: number;
+  createdAt: Date;
+}
+
+const highlightSchema = new Schema<HighlightDocument>({
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true

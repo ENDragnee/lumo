@@ -13,7 +13,9 @@ export interface IContent extends Document {
   createdBy: Types.ObjectId;
   tags: string[];
   institution?: string;
-  subject?: string;
+  difficulty?: "easy" | "medium" | "hard";
+  estimatedTime?: string;
+  description?: string;
   userEngagement: {
     saves: number;
     shares: number;
@@ -56,7 +58,13 @@ const ContentSchema = new mongoose.Schema<IContent>({
     default: []
   },
   institution: { type: String },
-  subject: { type: String },
+  difficulty: {
+    type: String,
+    enum: ["easy", "medium", "hard"],
+    default: "easy"
+  },
+  estimatedTime: { type: String },
+  description: { type: String },
   userEngagement: {
     saves: { type: Number, default: 0 },
     shares: { type: Number, default: 0 },

@@ -1,13 +1,18 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB;
+const MONGODB_URI = process.env.DATABASE_URL;
 
 if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB environment variable in your .env file');
 }
 
 // Global cache to store connection across API calls (to prevent multiple connections)
-let cached = (global)._mongoose || { conn: null, promise: null };
+declare global {
+  // eslint-disable-next-line no-var
+  var _mongoose: { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null } | undefined;
+}
+
+let cached = global._mongoose || { conn: null, promise: null };
 
 const connectDB = async () => {
   if (cached.conn) {
@@ -18,8 +23,6 @@ const connectDB = async () => {
     // Create a new connection if one doesn't exist
     cached.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
-      useNewUrlParser: true,
-      useUnifiedTopology: true, // Ensure stable connections
       dbName: "Lumo",
     }).then((mongoose) => {
       console.log("MongoDB connected ✅");
