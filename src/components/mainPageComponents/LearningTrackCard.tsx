@@ -1,6 +1,7 @@
 
 import { Play, CheckCircle, Lock } from 'lucide-react'
 import { DownloadButton } from "@/components/offline/DownloadButton"
+import { formatRelativeDate } from '@/lib/format-date'; // Import your new helper
 // Learning Track Card Component with Download Button
 export function LearningTrackCard({ track }: any) {
   const getStateIcon = (state: string) => {
@@ -44,7 +45,7 @@ export function LearningTrackCard({ track }: any) {
         <div className={isLocked ? "text-gray-400" : ""}>
           <p className="font-semibold text-gray-800">{track.title}</p>
           <p className="text-sm text-gray-500">
-            {track.subject} • Last accessed: {track.lastAccessed}
+            {track.subject} • Last accessed: {formatRelativeDate(track.lastAccessedAt) || "N/A"}
           </p>
         </div>
       </div>

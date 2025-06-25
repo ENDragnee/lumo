@@ -1,12 +1,12 @@
 // app/content/page.tsx (Modified)
 "use client";
 import { useEffect, useState, Suspense } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { ContentRenderer } from "@/components/contentRender";
 import { restoreHighlights } from "@/utils/restoreHighlight";
-import { cn } from "@/lib/utils";
 import { QuizDisplay } from "@/components/QuizDisplay"; // Import the new component
 import { Loader2 } from "lucide-react";
+import { useInteractionTracker } from "@/app/hooks/useInteractionTracker";
 
 // Helper component to manage contentId state from searchParams
 function ContentPageContent() {
@@ -61,6 +61,7 @@ function ContentPageContent() {
      console.log("Content loaded signal received for ID:", id); // Debug log
      setIsContentLoaded(true);
   }
+  useInteractionTracker(id, isContentLoaded);
 
   return (
     <>
@@ -79,24 +80,9 @@ function ContentPageContent() {
   );
 }
 
-
-// Main Page Component (Mostly unchanged)
 export default function ContentPage() {
-  const router = useRouter();
-  // Assuming these state variables are managed elsewhere or removed if not used here directly
-  // const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  // const [isRecommendationOpen, setIsRecommendationOpen] = useState(true);
-
-  // The layout handles sidebar toggling now, so direct state here might be redundant
-  // unless needed for specific conditional rendering within this page.
-
-  // useEffect(() => { ... screen size logic - likely better handled in layout ... });
-
   return (
-    // Wrap with Suspense for the useSearchParams hook
     <Suspense fallback={<PageLoadingSkeleton />}>
-      {/* The layout already handles padding and margins based on sidebars */}
-      {/* No need for extra flex/h-screen here as layout manages it */}
       <div className="mx-auto max-w-4xl h-full"> {/* Ensure content stays centered */}
         <ContentPageContent />
       </div>
@@ -104,7 +90,6 @@ export default function ContentPage() {
   );
 }
 
-// Simple skeleton loader for the page
 function PageLoadingSkeleton() {
     return (
         <div className="flex justify-center items-center h-full">

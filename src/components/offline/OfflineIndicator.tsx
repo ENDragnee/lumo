@@ -1,14 +1,23 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Wifi, WifiOff, FolderSyncIcon as Sync, AlertCircle } from "lucide-react"
 import { useOfflineSync } from "../../hooks/useOfflineSync"
 
 export function OfflineIndicator() {
+  const [isMounted, setIsMounted] = useState(false)
   const { isOnline, syncQueue, isSyncing, syncPendingChanges } = useOfflineSync()
   const [showDetails, setShowDetails] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  if (!isMounted) {
+    return null
+  }
 
   return (
     <div className="flex items-center gap-2">

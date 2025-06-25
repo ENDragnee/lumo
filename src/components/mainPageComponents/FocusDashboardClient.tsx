@@ -85,10 +85,7 @@ export default function FocusDashboardClient({ user, initialData }: { user: any,
                             focusArea={studentData.focusArea}
                             weeklyGoal={studentData.weeklyGoal}
                         />
-                        <ActivityCanvas
-                            activity={studentData.activity}
-                            totalTasksCompleted={studentData.totalTasksCompleted}
-                        />
+                        <ActivityCanvas />
                     </div>
                 )
             // You should have these components created for a full experience
@@ -102,7 +99,7 @@ export default function FocusDashboardClient({ user, initialData }: { user: any,
                   <h1 className="text-4xl font-bold text-shadow tracking-tight">AI Study Assistant</h1>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div>
-                      <AIRecommendationsPanel studentId="alex-chen" />
+                      <AIRecommendationsPanel />
                     </div>
                     <div>
                       <SmartStudyPlanner />
@@ -198,12 +195,6 @@ export default function FocusDashboardClient({ user, initialData }: { user: any,
                         <div className="flex items-center gap-3">
                             <OfflineIndicator />
                             <NotificationCenter compact />
-                            <Avatar className="w-8 h-8">
-                                <AvatarImage src={user.image || staticStudentData.avatar} />
-                                <AvatarFallback className="bg-pacific text-frost">
-                                    {user.name?.charAt(0) || 'U'}
-                                </AvatarFallback>
-                            </Avatar>
                         </div>
                     </div>
                 </div>

@@ -30,6 +30,7 @@ import {
 } from "lucide-react"
 import { useOfflineSync } from "../../hooks/useOfflineSync"
 import { HistoryDocument } from "@/models/History"
+import { signOut } from "next-auth/react"
 
 interface SmartHubSidebarProps {
   activeTab: string
@@ -37,7 +38,7 @@ interface SmartHubSidebarProps {
   user: {
     name: string
     email: string
-    avatar: string
+    profileImage: string
     institution: string
   }
 }
@@ -100,7 +101,7 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
     { id: "home", name: "Home", icon: Home, href: "#" },
     { id: "courses", name: "Courses", icon: BookOpen, href: "#" },
     { id: "plan", name: "Plan", icon: Calendar, href: "#", badge: planStats.total },
-    { id: "ai-recommendations", name: "AI Assistant", icon: Brain, href: "#", badge: "5" },
+    { id: "ai-recommendations", name: "AI Assistant", icon: Brain, href: "#" },
     {
       id: "offline",
       name: "Offline Access",
@@ -109,12 +110,6 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
       badge: stats.totalDownloaded > 0 ? stats.totalDownloaded.toString() : undefined,
       status: isOnline ? "online" : "offline",
     },
-  ]
-
-  const favorite = [
-    { id: "finals-prep", name: "Finals Prep Kit", icon: Star, type: "collection" },
-    { id: "maya-lin", name: "Prof. Maya Lin", icon: User, type: "teacher" },
-    { id: "physics-lab", name: "Physics Lab Manual", icon: BookOpen, type: "material" },
   ]
 
   // Zone 3: Resources
@@ -133,7 +128,6 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
       } ${item.status === "offline" ? "text-red-600" : ""}`}
       onClick={onClick}
     >
-      <item.icon className="w-5 h-5 mr-3" />
       <span className="flex-1 text-left">{item.name}</span>
       {children}
     </Button>
@@ -261,7 +255,7 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="w-full justify-start h-auto p-3 hover:bg-gray-900/5">
               <Avatar className="w-9 h-9">
-                <AvatarImage src={user.avatar || "/placeholder.svg"} />
+                <AvatarImage src={user.profileImage} />
                 <AvatarFallback className="bg-pacific text-frost text-sm">
                   {user.name
                     .split(" ")
@@ -290,7 +284,7 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
               Notifications
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer text-red-600">
+            <DropdownMenuItem className="cursor-pointer text-red-600" onClick={() => signOut()}>
               <LogOut className="w-4 h-4 mr-2" />
               Log Out
             </DropdownMenuItem>

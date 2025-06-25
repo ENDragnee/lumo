@@ -494,7 +494,7 @@ export default function SignIn() {
             }
         } else if (result?.ok) {
             // Successful sign in
-            router.push("/main"); // Redirect to the main page or dashboard
+            router.push(`${process.env.NEXT_PUBLIC_MAIN_PAGE}`); // Redirect to the main page or dashboard
             // Optionally refresh router state if needed, though push usually suffices
             // router.refresh();
         } else {
@@ -519,7 +519,7 @@ export default function SignIn() {
         // Errors during the OAuth flow will redirect back here with ?error=...
         // Success will redirect to callbackUrl defined in authOptions or '/main' here.
         await signIn("google", {
-            callbackUrl: "/main", // Where to go after successful Google auth
+            callbackUrl: process.env.NEXT_PUBLIC_MAIN_PAGE, // Where to go after successful Google auth
         });
         // If signIn initiates successfully, the page redirects, so code below here
         // might not execute unless there's an immediate client-side error.
@@ -537,11 +537,14 @@ export default function SignIn() {
   const isSubmitting = isLoading || isGoogleLoading;
 
   return (
-    <Container>
+    <Container className="flex flex-col items-center justify-center min-h-screen p-4">
       <SignInCard>
+      <div className="flex flex-col items-center mb-6">
         <LogoWrapper>
           <Logo />
         </LogoWrapper>
+        <a href="/" className="text-gray-600 hover:text-black dark:text-white dark:hover:text-gray-300 text-center items-center justify-center">Go to main page</a>
+      </div>
         <Title>Sign In</Title>
         <Subtitle>to continue to Lumo</Subtitle>
 
