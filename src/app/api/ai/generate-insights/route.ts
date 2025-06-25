@@ -4,40 +4,33 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from '@/lib/auth';
 import connectDB from '@/lib/mongodb';
 import Interaction from '@/models/Interaction';
-import { kv } from '@vercel/kv';
 import mongoose from 'mongoose';
 import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
-
-// --- NEW: Google Gemini Setup ---
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import redis from '@/lib/redis'; // Import our Redis client
 
 const apiKey = process.env.GEMINI_API_KEY;
 if (!apiKey) {
     throw new Error("GEMINI_API_KEY environment variable is not set.");
 }
 const genAI = new GoogleGenerativeAI(apiKey);
-// Use a model that supports JSON output well, like gemini-1.5-flash
 const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash-latest",
-    generationConfig: {
-      responseMimeType: "application/json", // This is crucial for structured output
-    },
+    generationConfig: { responseMimeType: "application/json" },
 });
 
-// Zod schema for a single recommendation (from the AI)
 const StudyRecommendationSchema = z.object({
   title: z.string(),
-  description: z.string().describe("A one-sentence description of the recommended activity."),
-  reasoning: z.string().describe("The AI's reasoning for this recommendation based on user data."),
-  actionText: z.string().describe("Short, actionable button text, e.g., 'Review Topic', 'Start Quiz'"),
-  contentId: z.string().optional().describe("The MongoDB _id of the content to link to."), 
+  description: z.string(),
+  reasoning: z.string(),
+  actionText: z.string(),
+  contentId: z.string().optional(), 
 });
 
-// Zod schema for the entire AI response object
 const AIInsightsSchema = z.object({
-  strengths: z.array(z.string()).describe("A list of 2-3 key strengths based on the user's performance."),
-  weaknesses: z.array(z.string()).describe("A list of 2-3 key weaknesses or areas needing focus."),
+  strengths: z.array(z.string()),
+  weaknesses: z.array(z.string()),
   aiRecommendations: z.array(StudyRecommendationSchema),
 });
 
@@ -49,85 +42,77 @@ export async function GET(request: Request) {
   const userId = session.user.id;
   const requestUrl = new URL(request.url);
 
-  // --- Caching Logic (Unchanged) ---
-  const cacheKey = `ai-insights:${userId}`;
+  const aiCacheKey = `ai-insights:${userId}`;
   try {
-    const cachedData = await kv.get<z.infer<typeof AIInsightsSchema>>(cacheKey);
+    const cachedData = await redis.get(aiCacheKey);
     if (cachedData) {
-      console.log(`CACHE HIT for AI insights: user ${userId}`);
-      return NextResponse.json(cachedData);
+      console.log(`CACHE HIT (L2): Returning AI insights for user ${userId} from Redis.`);
+      return NextResponse.json(JSON.parse(cachedData));
     }
-  } catch (kvError) {
-    console.error("Vercel KV error on GET:", kvError);
-  }
-  console.log(`CACHE MISS for AI insights: user ${userId}`);
-
+  } catch (redisError) { console.error("Redis L2 GET error:", redisError); }
+  console.log(`CACHE MISS (L2): AI insights for user ${userId}`);
 
   try {
+    let topRankedContent: any[];
+    const recommendationsCacheKey = `recommendations:${userId}`;
+    try {
+        const cachedRecs = await redis.get(recommendationsCacheKey);
+        if (cachedRecs) {
+            console.log(`CACHE HIT (L1): Using cached recommendations for user ${userId}`);
+            topRankedContent = JSON.parse(cachedRecs);
+        } else {
+            console.log(`CACHE MISS (L1): Fetching fresh recommendations for user ${userId}`);
+            const recommendationsResponse = await fetch(`${requestUrl.origin}/api/recommendations`, {
+                headers: { 'Cookie': request.headers.get('cookie') || '' }
+            });
+            if (!recommendationsResponse.ok) throw new Error('Failed to fetch algorithmic recommendations');
+            topRankedContent = await recommendationsResponse.json();
+            // No need to set cache here, the recommendations API does it itself.
+        }
+    } catch (redisError) {
+        console.error("Redis L1 GET error, fetching fresh recommendations as fallback.", redisError);
+        const recommendationsResponse = await fetch(`${requestUrl.origin}/api/recommendations`, {
+            headers: { 'Cookie': request.headers.get('cookie') || '' }
+        });
+        if (!recommendationsResponse.ok) throw new Error('Fallback fetch failed for algorithmic recommendations');
+        topRankedContent = await recommendationsResponse.json();
+    }
+
     await connectDB();
-
-    // --- Data Aggregation Phase (Unchanged) ---
-    const recommendationsResponse = await fetch(`${requestUrl.origin}/api/recommendations`, {
-        headers: { 'Cookie': request.headers.get('cookie') || '' }
-    });
-    if (!recommendationsResponse.ok) throw new Error('Failed to fetch algorithmic recommendations');
-    const topRankedContent = await recommendationsResponse.json();
-
     const interactionStats = await Interaction.aggregate([
       { $match: { userId: new mongoose.Types.ObjectId(userId) } },
       { $group: { _id: null, totalStudyDuration: { $sum: "$durationSeconds" }, totalSessions: { $sum: { $cond: [{ $eq: ["$eventType", "start"] }, 1, 0] } } } }
     ]);
     const stats = interactionStats[0] || { totalStudyDuration: 0, totalSessions: 0 };
 
-    // --- Prompt Engineering Phase for Gemini ---
     const userDataSummary = `
       User's Overall Stats:
       - Total study time: ${Math.round(stats.totalStudyDuration / 60)} minutes.
       - Total study sessions started: ${stats.totalSessions}.
-
       Top 5 Algorithmically-Ranked Content Recommendations:
-      These are items the user should focus on next, based on their detailed engagement (struggle, progress, etc.).
       ${topRankedContent.slice(0, 5).map((item: any, index: number) => 
-        `${index + 1}. Title: "${item.title}" (Content ID: ${item._id}). Reason: This content was identified as high-priority.`
+        `${index + 1}. Title: "${item.title}" (Content ID: ${item._id}).`
       ).join('\n')}
     `;
 
     const prompt = `
-      You are an expert, encouraging learning coach named LumoAI. Your task is to analyze a student's learning data and generate a structured JSON object containing personalized insights.
-      Your tone should be positive and motivating.
-      Based on the provided data summary, generate a JSON response that strictly adheres to the following JSON schema. Do not include any other text or markdown formatting like \`\`\`json.
-      
-      JSON Schema:
-      ${JSON.stringify(zodToJsonSchema(AIInsightsSchema))}
-
-      User Data Summary:
-      ${userDataSummary}
+      You are an expert learning coach. Generate a JSON object with personalized insights based on the user data. Your tone must be positive. Strictly adhere to the following JSON schema, without any markdown.
+      JSON Schema: ${JSON.stringify(zodToJsonSchema(AIInsightsSchema))}
+      User Data: ${userDataSummary}
     `;
 
-    // --- Google Gemini API Call ---
     const result = await model.generateContent(prompt);
-    const response = result.response;
-    const responseText = response.text();
+    const responseText = result.response.text();
+    if (!responseText) throw new Error("Gemini AI did not return a valid response text.");
     
-    if (!responseText) {
-      throw new Error("Gemini AI did not return a valid response text.");
-    }
-    
-    // --- Parse, Validate, and Cache ---
-    // The responseText should already be a stringified JSON object because of the responseMimeType config.
     const insights = AIInsightsSchema.parse(JSON.parse(responseText));
-
-    try {
-        await kv.set(cacheKey, insights, { ex: 3600 });
-    } catch (kvError) {
-        console.error("Vercel KV error on SET:", kvError);
-    }
+    
+    await redis.set(aiCacheKey, JSON.stringify(insights), 'EX', 3600);
 
     return NextResponse.json(insights);
 
   } catch (error) {
     console.error('[AI_INSIGHTS_ERROR]', error);
-    // Check for specific Gemini errors if needed
     return NextResponse.json({ error: 'Internal Server Error generating AI insights' }, { status: 500 });
   }
 }
