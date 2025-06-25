@@ -35,14 +35,37 @@ export function ContentRenderer({ id, onContentLoaded }: ContentRendererProps) {
   const [content, setContent] = useState(undefined)
 
   useEffect(() => {
+    // --- FIX: Add a guard clause. If there's no valid ID, do not fetch. ---
+    if (!id) {
+      setLoading(false)
+      setError('No content ID provided.')
+      return
+    }
+
     const loadContent = async () => {
+      // Reset state for new ID fetches
+      setLoading(true)
+      setError('')
+      setContent(undefined)
+      
       try {
-        const response = await fetch(`/api/Deserialize?id=${id}`)
-        if (!response.ok) throw new Error('Failed to fetch content')
+        const response = await fetch(`/api/deserialize?id=${id}`)
+        
+        // --- FIX: Improve error handling from the server response. ---
+        if (!response.ok) {
+          // Attempt to parse a JSON error body from the server for a better message
+          const errorData = await response.json().catch(() => ({}))
+          throw new Error(errorData.error || `Failed to fetch content (status: ${response.status})`)
+        }
+
         const responseData = await response.json()
-        if (!responseData?.data) throw new Error('Invalid data structure')
+        if (!responseData?.data) {
+          throw new Error('Invalid data structure received from server.')
+        }
+
         const parsedContent = JSON.parse(responseData.data)
         setContent(parsedContent)
+
       } catch (err) {
         console.error('Error loading content:', err)
         setError(err instanceof Error ? err.message : 'An unknown error occurred')

@@ -1,5 +1,5 @@
 import connectDB from '@/lib/mongodb'
-import SerializedData, { IContent } from "@/models/SerializedData"
+import Content, { IContent } from "@/models/Content"
 import { NextRequest } from 'next/server'
 
 interface SelectedData {
@@ -17,9 +17,9 @@ export async function GET(request: NextRequest) {
     let data: SelectedData | null = null
 
     if (id) {
-      data = await SerializedData.findById(id).select('data title -_id').exec()
+      data = await Content.findById(id).select('data title -_id').exec()
     } else {
-      data = await SerializedData.findOne()
+      data = await Content.findOne()
         .sort({ createdAt: -1 })
         .select('data title -_id')
         .exec()

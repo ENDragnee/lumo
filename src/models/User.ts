@@ -1,3 +1,4 @@
+// models/User
 import mongoose, { Document, Types } from 'mongoose';
 
 export interface IUser extends Document {
