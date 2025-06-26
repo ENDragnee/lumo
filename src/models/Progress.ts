@@ -1,4 +1,4 @@
-// src/models/Progress.ts (AFTER FIX)
+// src/models/Progress.ts
 import mongoose, { Schema, Document, Model } from 'mongoose'; // Import Model type
 
 // Assume IProgress interface is defined above this line

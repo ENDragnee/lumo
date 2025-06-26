@@ -29,8 +29,10 @@ import {
   WifiOff,
 } from "lucide-react"
 import { useOfflineSync } from "../../hooks/useOfflineSync"
-import { HistoryDocument } from "@/models/History"
+import { HistoryItem } from "@/types/historyItems"
 import { signOut } from "next-auth/react"
+import { formatAbsoluteDate } from "@/lib/format-date"
+import { useRouter } from "next/navigation"
 
 interface SmartHubSidebarProps {
   activeTab: string
@@ -47,16 +49,17 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
   const [isClient, setIsClient] = useState(false)
   const [isResourcesExpanded, setIsResourcesExpanded] = useState(true)
   const { isOnline, stats } = useOfflineSync()
-  const [recentHistories, setRecentHistories] = useState<HistoryDocument[]>([])
-  const [favorites, setFavorites] = useState<HistoryDocument[]>([])
+  const [recentHistories, setRecentHistories] = useState<HistoryItem[]>([])
+  const [favorites, setFavorites] = useState<HistoryItem[]>([])
   const [planStats, setPlanStats] = useState<any>({ total: 0, completed: 0, overdue: 0 })
+  const router = useRouter()
   const fetchRecentHistories = async () => {
     try {
       const response = await fetch("/api/history?limit=3");
       if (response.ok) {
         const data = await response.json();
         data.sort(
-          (a: HistoryDocument, b: HistoryDocument) =>
+          (a: HistoryItem, b: HistoryItem) =>
             new Date(b.viewed_at).getTime() - new Date(a.viewed_at).getTime()
         );
         setRecentHistories(data);
@@ -137,13 +140,13 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
     <Button
       variant="ghost"
       className="w-full justify-start h-9 text-gray-600 hover:bg-gray-900/5 hover:text-gray-800 group"
-      onClick={() => setActiveTab("courses")}
+      onClick={() => router.push(`/content?id=${course.content._id}`)}
     >
       <span className={`w-2 h-2 mr-3 rounded-full ${course.color}`} />
-      <div className="flex-1 text-left">
-        <div className="text-sm font-medium truncate">{course.content_id.title}</div>
-        <div className="text-xs text-gray-400">
-          {course.progress}% • {course.viewed_at}
+      <div className="flex-1 text-left min-w-0">
+        <div className="text-sm font-medium truncate">{course.content.title}</div>
+        <div className="text-xs text-gray-400 truncate">
+          {course.progress || "0"}% • {formatAbsoluteDate(course.viewed_at)}
         </div>
       </div>
       <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -157,8 +160,8 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
       onClick={() => setActiveTab(item.type === "teacher" ? "teachers" : "courses")}
     >
       <item.icon className="w-4 h-4 mr-3 text-yellow-500" />
-      <div className="flex-1 text-left">
-        <div className="text-sm font-medium truncate">{item.content_id.title}</div>
+      <div className="flex-1 text-left min-w-0">
+        <div className="text-sm font-medium truncate">{item.content.title}</div>
         <div className="text-xs text-gray-400 capitalize">{item.type}</div>
       </div>
     </Button>
@@ -214,7 +217,7 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
               <h3 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Favorites</h3>
               <div className="space-y-1">
                 {favorites.map((item) => (
-                  <FavoriteItem key={item.id} item={item} />
+                  <FavoriteItem key={item._id} item={item} />
                 ))}
               </div>
             </div>

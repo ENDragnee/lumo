@@ -2,284 +2,151 @@
 
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
-import { Play, Pause, SkipBack, SkipForward, BookOpen, Clock, CheckCircle } from "lucide-react"
-import { useOfflineSync, type OfflineContent } from "../../hooks/useOfflineSync"
+import { Loader2, WifiOff, AlertTriangle } from "lucide-react"
+
+// Import the necessary hooks and types
+import { IOfflinePackage } from "@/types/offline-package"
+import { useOfflineSync } from "@/hooks/useOfflineSync"
+import { useOfflineInteractionTracker } from "@/hooks/useOfflineInteractionTracker";
+// We need the online ContentRenderer to display the offline Craft.js data
+import { ContentRenderer } from "@/components/contentRender" 
 
 interface OfflineContentViewerProps {
-  contentId: string
-  onProgressUpdate?: (progress: number) => void
+  contentId: string;
 }
 
-export function OfflineContentViewer({ contentId, onProgressUpdate }: OfflineContentViewerProps) {
-  const { getContent, updateProgress, isOnline } = useOfflineSync()
-  const [content, setContent] = useState<OfflineContent | null>(null)
-  const [currentPosition, setCurrentPosition] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [timeSpent, setTimeSpent] = useState(0)
+export function OfflineContentViewer({ contentId }: OfflineContentViewerProps) {
+  // Destructure only the functions needed from the main sync hook
+  const { getContent } = useOfflineSync();
 
+  // State to hold the loaded offline package and the loading status
+  const [pkg, setPkg] = useState<IOfflinePackage | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // This effect runs when the component mounts or the contentId changes.
+  // Its job is to load the content package from IndexedDB.
   useEffect(() => {
-    const foundContent = getContent(contentId)
-    if (foundContent) {
-      setContent(foundContent)
-      setCurrentPosition(foundContent.progress?.lastPosition || 0)
-      setTimeSpent(foundContent.progress?.timeSpent || 0)
-    }
-  }, [contentId, getContent])
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout
-    if (isPlaying) {
-      interval = setInterval(() => {
-        setTimeSpent((prev) => prev + 1)
-        if (content?.type === "video" && content.metadata.duration) {
-          setCurrentPosition((prev) => {
-            const newPosition = Math.min(prev + 1, content.metadata.duration!)
-            const percentage = (newPosition / content.metadata.duration!) * 100
-
-            // Update progress every 10 seconds
-            if (newPosition % 10 === 0) {
-              updateProgress(contentId, {
-                percentage,
-                lastPosition: newPosition,
-                timeSpent: timeSpent + 1,
-                completed: percentage >= 95,
-              })
-              onProgressUpdate?.(percentage)
-            }
-
-            return newPosition
-          })
+    // A self-invoking async function to load the data
+    const loadContent = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const foundPackage = await getContent(contentId);
+        if (foundPackage) {
+          setPkg(foundPackage);
+        } else {
+          // If the package is not found in IndexedDB, set an error message
+          setError("This content is not available for offline viewing. Please download it first.");
         }
-      }, 1000)
+      } catch (err) {
+        console.error("Failed to load offline package from IndexedDB:", err);
+        setError("An error occurred while trying to load the offline content.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (contentId) {
+      loadContent();
     }
-    return () => clearInterval(interval)
-  }, [isPlaying, content, contentId, updateProgress, timeSpent, onProgressUpdate])
+  }, [contentId, getContent]);
+  
+  // This dedicated hook handles all the logic for tracking how long
+  // the user views this offline content. It activates as soon as 'pkg' is loaded.
+  useOfflineInteractionTracker(pkg);
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
-  }
 
-  const handlePlayPause = () => {
-    setIsPlaying(!isPlaying)
-  }
+  // --- RENDER LOGIC ---
 
-  const handleSeek = (direction: "forward" | "backward") => {
-    const seekAmount = 10 // seconds
-    setCurrentPosition((prev) => {
-      const newPosition =
-        direction === "forward"
-          ? Math.min(prev + seekAmount, content?.metadata.duration || prev)
-          : Math.max(prev - seekAmount, 0)
-      return newPosition
-    })
-  }
-
-  const handleMarkComplete = async () => {
-    if (content) {
-      await updateProgress(contentId, {
-        completed: true,
-        percentage: 100,
-        timeSpent,
-        lastPosition: content.metadata.duration || currentPosition,
-      })
-      onProgressUpdate?.(100)
-    }
-  }
-
-  if (!content) {
+  // 1. Handle the loading state
+  if (loading) {
     return (
-      <Card className="shadow-apple-md">
+      <div className="flex flex-col justify-center items-center h-full p-10 text-center">
+        <Loader2 className="w-10 h-10 animate-spin text-gray-400" />
+        <p className="mt-4 text-gray-500">Loading Offline Content...</p>
+      </div>
+    );
+  }
+
+  // 2. Handle any errors, including content not being found
+  if (error) {
+    return (
+      <Card className="shadow-apple-md bg-yellow-50 border-yellow-200">
         <CardContent className="p-8 text-center">
-          <p className="text-graphite">Content not found or not downloaded</p>
+          <AlertTriangle className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
+          <p className="text-yellow-800 font-semibold">Could Not Load Content</p>
+          <p className="text-yellow-700 text-sm mt-2">{error}</p>
         </CardContent>
       </Card>
-    )
+    );
   }
 
-  const progressPercentage = content.metadata.duration
-    ? (currentPosition / content.metadata.duration) * 100
-    : content.progress?.percentage || 0
+  // 3. Handle the case where loading is done but the package is still null
+  if (!pkg) {
+    return (
+        <Card className="shadow-apple-md">
+            <CardContent className="p-8 text-center">
+                <p className="text-graphite">An unexpected error occurred. Package is null.</p>
+            </CardContent>
+        </Card>
+    );
+  }
 
+  // 4. Render the full viewer if data is successfully loaded
   return (
-    <div className="space-y-6">
-      {/* Content Header */}
+    <div className="space-y-6 animate-fade-in">
       <Card className="shadow-apple-md">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-responsive-h3">{content.title}</CardTitle>
+              <CardTitle className="text-responsive-h3">{pkg.content.title}</CardTitle>
               <div className="flex items-center gap-2 mt-2">
-                <Badge variant="outline" className="capitalize">
-                  {content.type}
-                </Badge>
-                <Badge variant="secondary">{content.subject}</Badge>
-                {!isOnline && <Badge className="bg-blue-100 text-blue-800">Offline Mode</Badge>}
+                <Badge variant="secondary">{pkg.content.difficulty || 'Standard'}</Badge>
+                {pkg.content.tags?.slice(0, 2).map(tag => (
+                    <Badge key={tag} variant="outline">{tag}</Badge>
+                ))}
               </div>
             </div>
-            <div className="text-right">
-              <div className="text-sm text-graphite">Progress: {Math.round(progressPercentage)}%</div>
-              <div className="text-xs text-graphite">Time spent: {formatTime(timeSpent)}</div>
-            </div>
+            <Badge className="bg-blue-100 text-blue-800 border border-blue-200 py-1 px-3">
+                <WifiOff className="w-4 h-4 mr-2" />
+                Offline Mode
+            </Badge>
           </div>
         </CardHeader>
       </Card>
+      
+      {/* RENDER THE REAL OFFLINE CRAFT.JS CONTENT */}
+      {/* We pass the stringified Craft.js JSON from our package to the renderer */}
+      <div className="bg-white p-1 md:p-4 rounded-lg shadow-inner border border-gray-200">
+         <ContentRenderer 
+            id={pkg.contentId} 
+            // This prop tells the renderer to use this data instead of fetching online
+            offlineData={pkg.content.data} 
+         />
+      </div>
 
-      {/* Video Player (for video content) */}
-      {content.type === "video" && (
-        <Card className="shadow-apple-md">
-          <CardContent className="p-6">
-            <div className="bg-gray-900 rounded-lg aspect-video flex items-center justify-center mb-4">
-              <div className="text-white text-center">
-                <Play className="w-16 h-16 mx-auto mb-2 opacity-50" />
-                <p className="text-sm opacity-75">Offline Video Player</p>
-                <p className="text-xs opacity-50">Simulated video content</p>
-              </div>
-            </div>
-
-            {/* Video Controls */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-graphite">{formatTime(currentPosition)}</span>
-                <Progress value={progressPercentage} className="flex-1" />
-                <span className="text-sm text-graphite">{formatTime(content.metadata.duration || 0)}</span>
-              </div>
-
-              <div className="flex items-center justify-center gap-4">
-                <Button variant="outline" size="sm" onClick={() => handleSeek("backward")}>
-                  <SkipBack className="w-4 h-4" />
-                </Button>
-                <Button onClick={handlePlayPause} className="bg-pacific hover:bg-midnight">
-                  {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                </Button>
-                <Button variant="outline" size="sm" onClick={() => handleSeek("forward")}>
-                  <SkipForward className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Text Content (for materials, courses) */}
-      {(content.type === "material" || content.type === "course") && (
-        <Card className="shadow-apple-md">
-          <CardContent className="p-6">
-            <div className="prose max-w-none">
-              <h3>Chapter 1: Introduction</h3>
-              <p>
-                This is simulated offline content for <strong>{content.title}</strong>. In a real implementation, this
-                would contain the actual course material, formatted text, images, and interactive elements.
-              </p>
-
-              <h4>Key Concepts</h4>
-              <ul>
-                <li>Fundamental principles of {content.subject}</li>
-                <li>Practical applications and examples</li>
-                <li>Problem-solving techniques</li>
-                <li>Real-world case studies</li>
-              </ul>
-
-              <h4>Learning Objectives</h4>
-              <p>
-                By the end of this section, you will be able to understand and apply the core concepts of{" "}
-                {content.subject} in various scenarios.
-              </p>
-
-              {content.type === "course" && content.content.chapters && (
-                <div className="mt-6">
-                  <h4>Course Chapters</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {content.content.chapters.map((chapter: string, index: number) => (
-                      <div key={index} className="p-3 bg-white/60 backdrop-blur-sm rounded-lg border border-cloud">
-                        <div className="flex items-center gap-2">
-                          <BookOpen className="w-4 h-4 text-pacific" />
-                          <span className="font-medium">{chapter}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Quiz Content */}
-      {content.type === "quiz" && (
-        <Card className="shadow-apple-md">
-          <CardContent className="p-6">
-            <div className="space-y-6">
-              <div className="text-center">
-                <h3 className="text-lg font-semibold text-shadow mb-2">{content.subject} Quiz</h3>
-                <p className="text-sm text-graphite">{content.metadata.questions} questions • Offline mode</p>
-              </div>
-
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <h4 className="font-semibold text-blue-900 mb-2">Question 1 of {content.metadata.questions}</h4>
-                <p className="text-blue-800 mb-4">What is the fundamental principle behind {content.subject}?</p>
-
-                <div className="space-y-2">
-                  {["Option A", "Option B", "Option C", "Option D"].map((option, index) => (
-                    <label key={index} className="flex items-center gap-2 cursor-pointer">
-                      <input type="radio" name="question1" className="text-pacific" />
-                      <span className="text-sm">
-                        {option}: Sample answer for {content.subject}
+      {/* RENDER OFFLINE HIGHLIGHTS */}
+      {pkg.highlights && pkg.highlights.length > 0 && (
+          <Card>
+            <CardHeader><CardTitle>Your Highlights</CardTitle></CardHeader>
+            <CardContent>
+                <ul className="list-disc pl-5 space-y-2">
+                  {pkg.highlights.map((h, i) => (
+                    <li key={i} className="text-sm">
+                      <span className="p-1 rounded" style={{ backgroundColor: `${h.color}40` }}>
+                        "{h.highlighted_text}"
                       </span>
-                    </label>
+                    </li>
                   ))}
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <Button variant="outline">Previous</Button>
-                <span className="text-sm text-graphite">1 of {content.metadata.questions}</span>
-                <Button className="bg-pacific hover:bg-midnight">Next</Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+                </ul>
+            </CardContent>
+          </Card>
       )}
 
-      {/* Progress Actions */}
-      <Card className="shadow-apple-md">
-        <CardContent className="p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-graphite" />
-                <span className="text-sm text-graphite">{formatTime(timeSpent)} studied</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-16 bg-gray-200 rounded-full h-2">
-                  <div className="bg-pacific h-2 rounded-full" style={{ width: `${progressPercentage}%` }} />
-                </div>
-                <span className="text-sm text-graphite">{Math.round(progressPercentage)}%</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              {progressPercentage < 95 && (
-                <Button onClick={handleMarkComplete} variant="outline">
-                  <CheckCircle className="w-4 h-4 mr-2" />
-                  Mark Complete
-                </Button>
-              )}
-              {content.progress?.completed && (
-                <Badge className="bg-green-100 text-green-800">
-                  <CheckCircle className="w-3 h-3 mr-1" />
-                  Completed
-                </Badge>
-              )}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Future sections for offline quizzes or other interactive elements would go here,
+          reading their data from the `pkg` object. */}
     </div>
-  )
+  );
 }

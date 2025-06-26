@@ -60,9 +60,7 @@ export function LearningTrackCard({ track }: any) {
               />
             </div>
             <DownloadButton
-              contentId={track.id}
-              contentType="course"
-              title={track.title}
+              contentId={track._id}
               // FIX: Replaced Math.random() with a deterministic calculation
             />
           </>

@@ -119,6 +119,7 @@ export function ForYouSection({ name, upNext, focusArea, weeklyGoal }: any) {
                 </Button>
               </div>
               <div className="space-y-3">
+              
                 {content.length > 0 ? (
                     content.map((contents: any) => (
                         <LearningTrackCard key={contents._id} track={contents} />

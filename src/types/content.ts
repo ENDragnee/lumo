@@ -6,4 +6,5 @@ export interface Content {
     institution: string;
     description?: string;
     progress?: number;
+    version?: number;
   }

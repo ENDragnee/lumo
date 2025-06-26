@@ -26,7 +26,7 @@ function ContentPageContent() {
       try {
         const response = await fetch(`/api/history?id=${id}`, { // Ensure this API exists and works
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+  headers: { "Content-Type": "application/json" },
         });
         if (!response.ok) throw new Error("Failed to update history");
       } catch (error) {

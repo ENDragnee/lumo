@@ -24,6 +24,7 @@ export interface IContent extends Document {
   parentId: Types.ObjectId | null;
   isDraft: boolean;
   isTrash: boolean;
+  version: number; // The versioning field
 }
 
 const ContentSchema = new mongoose.Schema<IContent>({
@@ -72,6 +73,10 @@ const ContentSchema = new mongoose.Schema<IContent>({
   },
   isDraft: { type: Boolean, default: true },
   isTrash: { type: Boolean, default: false },
+  version: {
+    type: Number,
+    default: 1
+  }
 });
 
 const Content: Model<IContent> = 

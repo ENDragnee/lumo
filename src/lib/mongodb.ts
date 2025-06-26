@@ -1,42 +1,72 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 const MONGODB_URI = process.env.DATABASE_URL;
 
 if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB environment variable in your .env file');
+  throw new Error('Please define the DATABASE_URL environment variable in your .env file');
 }
 
-// Global cache to store connection across API calls (to prevent multiple connections)
+/**
+ * Global is used here to maintain a cached connection across hot reloads
+ * in development. This prevents connections from growing exponentially
+ * during API Route usage.
+ */
+interface MongooseCache {
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
+}
+
+// Extend the NodeJS Global type with our Mongoose cache property
 declare global {
-  // eslint-disable-next-line no-var
-  var _mongoose: { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null } | undefined;
+  var mongooseCache: MongooseCache | undefined;
 }
 
-let cached = global._mongoose || { conn: null, promise: null };
+// This is the line we're fixing.
+// We let TypeScript infer the type, which will be `MongooseCache | undefined`.
+let cached = global.mongooseCache;
 
-const connectDB = async () => {
+// If the cache is empty, we initialize it.
+if (!cached) {
+  cached = global.mongooseCache = { conn: null, promise: null };
+}
+
+const connectDB = async (): Promise<Mongoose> => {
+  // If a connection is already cached, use it.
+  // The 'if' check above ensures `cached` is not null here.
   if (cached.conn) {
-    return cached.conn; // Return existing connection if already established
+    // console.log("🚀 Using cached MongoDB connection."); // Uncomment for debugging
+    return cached.conn;
   }
 
+  // If a connection promise doesn't exist, create a new one.
   if (!cached.promise) {
-    // Create a new connection if one doesn't exist
-    cached.promise = mongoose.connect(MONGODB_URI, {
+    const opts = {
       bufferCommands: false,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+      maxPoolSize: 10,
       dbName: "Lumo",
-    }).then((mongoose) => {
-      console.log("MongoDB connected ✅");
-      return mongoose;
-    }).catch((error) => {
-      console.error("MongoDB connection error ❌", error);
-      cached.promise = null; // Reset promise on failure to prevent using a failed connection
-      throw error;
+    };
+
+    // console.log("🔥 Creating new MongoDB connection."); // Uncomment for debugging
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongooseInstance) => {
+      console.log("✅ MongoDB connected successfully!");
+      return mongooseInstance;
     });
   }
 
-  cached.conn = await cached.promise;
-  (global)._mongoose = cached;
+  try {
+    // Await the connection promise and cache the connection instance.
+    // The `if` check above ensures `cached` is not null here.
+    cached.conn = await cached.promise;
+  } catch (e) {
+    // If the connection fails, nullify the promise so the next request can try again.
+    cached.promise = null;
+    console.error("❌ MongoDB connection error:", e);
+    throw e;
+  }
 
+  // Return the established connection.
   return cached.conn;
 };
 

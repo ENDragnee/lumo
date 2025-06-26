@@ -1,7 +1,7 @@
-// models/Highlight.js
+// models/Highlight.ts
 import mongoose, { Schema, Document, model} from "mongoose";
 
-interface HighlightDocument extends Document {
+export interface IHighlight extends Document {
   user_id: Schema.Types.ObjectId;
   content_id: Schema.Types.ObjectId;
   color: string;
@@ -11,7 +11,7 @@ interface HighlightDocument extends Document {
   createdAt: Date;
 }
 
-const highlightSchema = new Schema<HighlightDocument>({
+const highlightSchema = new Schema<IHighlight>({
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true

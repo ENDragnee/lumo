@@ -4,7 +4,6 @@
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
     Users, ChevronRight, Search, Home, FileText, BarChart3, Menu, X, Download
 } from "lucide-react"
