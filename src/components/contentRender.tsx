@@ -4,6 +4,10 @@ import { useEffect, useState } from 'react'
 import { Editor, Frame } from '@craftjs/core'
 import { viewerResolver } from '@/types/resolver'
 import { Loader2 } from 'lucide-react' // Import a loader for a better UX
+import { Card, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Wifi } from 'lucide-react' // Import an icon for offline mode
+import { Content } from '@/types/content'
 
 const componentResolver = {
   div: ({
@@ -32,10 +36,11 @@ interface ContentRendererProps {
   offlineData?: string; // NEW: An optional prop to pass pre-fetched offline data
 }
 
+
 export function ContentRenderer({ id, onContentLoaded, offlineData }: ContentRendererProps) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [content, setContent] = useState<object | undefined>(undefined) // Type content as an object
+  const [content, setContent] = useState<Content>() // Type content as an object
 
   useEffect(() => {
     // This effect now handles both online and offline data loading.
@@ -74,7 +79,7 @@ export function ContentRenderer({ id, onContentLoaded, offlineData }: ContentRen
       
       console.log(`[ContentRenderer] No offline data. Fetching online content for id: "${id}"`);
       try {
-        const response = await fetch(`/api/deserialize?id=${id}`);
+        const response = await fetch(`/api/deserialize/${id}`);
         
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({}));
@@ -87,7 +92,7 @@ export function ContentRenderer({ id, onContentLoaded, offlineData }: ContentRen
         }
 
         const parsedContent = JSON.parse(responseData.data);
-        setContent(parsedContent);
+        setContent(responseData);
 
       } catch (err) {
         console.error('Error loading online content:', err);
@@ -140,14 +145,36 @@ export function ContentRenderer({ id, onContentLoaded, offlineData }: ContentRen
   }
 
   return (
-    <div id="content" className="h-full w-full">
-      <Editor
-        enabled={false}
-        resolver={componentResolver}
-        onRender={({ render }) => render}
-      >
-        <EditorContent data={content} />
-      </Editor>
+    <div id="content" className="h-full w-full space-y-6">
+      <Card className="shadow-apple-md">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-responsive-h3">{content.title}</CardTitle>
+              <div className="flex items-center gap-2 mt-2">
+                <Badge variant="secondary">{content.difficulty || 'Standard'}</Badge>
+                {content.tags?.slice(0, 2).map(tag => (
+                    <Badge key={tag} variant="outline">{tag}</Badge>
+                ))}
+              </div>
+            </div>
+            <Badge className="bg-blue-100 text-blue-800 border border-blue-200 py-1 px-3">
+                <Wifi className="w-4 h-4 mr-2" />
+                Online Mode
+            </Badge>
+          </div>
+        </CardHeader>
+      </Card>
+
+      <div className="bg-white p-1 md:p-4 rounded-lg shadow-inner border border-gray-200">
+        <Editor
+          enabled={false}
+          resolver={componentResolver}
+          onRender={({ render }) => render}
+        >
+          <EditorContent data={content.data} />
+        </Editor>
+      </div>
     </div>
   );
 }

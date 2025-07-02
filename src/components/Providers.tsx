@@ -5,7 +5,7 @@ import { ReactNode, useState } from "react";
 import { ThemeProvider } from "next-themes";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "sonner";
-import LeftSidebar from "@/components/mainPage/LeftSidebar";
+//import LeftSidebar from "@/components/mainPage/LeftSidebar";
 import BottomNavbar from "@/components/mainPage/BottomNavbar";
 import { usePathname } from "next/navigation";
 
@@ -53,10 +53,7 @@ export default function Providers({ children }: { children: ReactNode }) {
         <Toaster position="top-center" expand={false} richColors className="mt-10" />
         <main className="flex h-screen relative">
           <div className="hidden md:block">
-            <LeftSidebar
-              isCollapsed={isLeftSidebarCollapsed}
-              setIsCollapsed={setIsLeftSidebarCollapsed}
-            />
+          {/*<LeftSidebar isCollapsed={isLeftSidebarCollapsed} setIsCollapsed={setIsLeftSidebarCollapsed} />*/}
           </div>
           {/* Use flex-1 and overflow-auto on the main content area */}
           <div className="flex-1 overflow-auto">

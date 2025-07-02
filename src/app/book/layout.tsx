@@ -101,10 +101,6 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
     setMenuPosition({ x: event.clientX, y: event.clientY })
   }
 
-  const handleCloseMenu = () => {
-    setMenuPosition(null)
-  }
-
   const handleSessionEnd = (isStudySession: boolean) => {
     const message = isStudySession ? "Time to focus!" : "Time to take a break!"
     const borderColor = isStudySession ? "border-red-500" : "border-green-500"
@@ -254,9 +250,6 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
                 <>
                   <Clock onSessionEnd={handleSessionEnd} />
                   <ScrollProgressBar />
-                   {menuPosition && (
-                      <ContextMenu2 x={menuPosition.x} y={menuPosition.y} onClose={handleCloseMenu} />
-                   )}
                 </>
             )}
           </>

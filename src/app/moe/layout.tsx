@@ -310,10 +310,6 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
                   <Clock onSessionEnd={handleSessionEnd} />
                   {/* Scroll Progress Bar */}
                   <ScrollProgressBar />
-                  {/* Custom Context Menu */}
-                   {menuPosition && (
-                      <ContextMenu2 x={menuPosition.x} y={menuPosition.y} onClose={handleCloseMenu} />
-                   )}
                 </>
             )}
           </>

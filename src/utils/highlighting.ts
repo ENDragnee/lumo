@@ -1,3 +1,4 @@
+
 // src/utils/highlighting.ts
 "use client";
 import { Schema } from 'mongoose';

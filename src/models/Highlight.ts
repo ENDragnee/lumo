@@ -8,6 +8,8 @@ export interface IHighlight extends Document {
   highlighted_text: string;
   start_offset: number;
   end_offset: number;
+  contextPrefix: string;
+  contextSuffix: string;
   createdAt: Date;
 }
 
@@ -35,6 +37,14 @@ const highlightSchema = new Schema<IHighlight>({
   end_offset: {
     type: Number,
     required: true
+  },
+  contextPrefix: {
+    type: String,
+    required: false,
+  },
+  contextSuffix: {
+    type: String,
+    required: false,
   },
   createdAt: {
     type: Date,

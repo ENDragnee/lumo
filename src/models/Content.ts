@@ -1,5 +1,6 @@
 // models/Content.ts
 import mongoose, { Document, Model, Types } from 'mongoose';
+export type ContentType = 'static' | 'dynamic';
 
 export interface IContent extends Document {
   title: string;
@@ -7,6 +8,7 @@ export interface IContent extends Document {
   passRate: number;
   thumbnail: string;
   rating?: number;
+  contentType: ContentType;
   data: string;
   createdAt: Date;
   lastModifiedAt?: Date;
@@ -25,6 +27,7 @@ export interface IContent extends Document {
   isDraft: boolean;
   isTrash: boolean;
   version: number; // The versioning field
+  institutionId?: Types.ObjectId; // For B2B model
 }
 
 const ContentSchema = new mongoose.Schema<IContent>({
@@ -33,6 +36,12 @@ const ContentSchema = new mongoose.Schema<IContent>({
   passRate: { type: Number, default: 0 },
   thumbnail: { type: String, required: true },
   rating: Number,
+  contentType: {
+    type: String,
+    enum: ['static', 'dynamic'],
+    required: true,
+    default: 'static' // Default to 'static' for your current needs
+  },
   data: {
     type: String,
     required: false
@@ -76,7 +85,12 @@ const ContentSchema = new mongoose.Schema<IContent>({
   version: {
     type: Number,
     default: 1
-  }
+  },
+  institutionId: { // This links to your new Institution model
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Institution',
+    required: false // Optional, for content not tied to an institution
+  },
 });
 
 const Content: Model<IContent> = 
