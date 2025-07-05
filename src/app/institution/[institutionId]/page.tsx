@@ -55,7 +55,6 @@ async function getPortalData(institutionId: string): Promise<{
 export default async function InstitutionPortalPage({ params }: { params: { institutionId: string } }) {
   const { institutionId } = params;
   
-  // Destructure the whole session, and then the user from it for clarity
   const { institution, membership, session } = await getPortalData(institutionId);
   const sessionUser = session?.user; // This user is now correctly typed
 
@@ -65,8 +64,7 @@ export default async function InstitutionPortalPage({ params }: { params: { inst
   }
   
   // For this specific portal, we use 'mor-ethiopia' as the key.
-  const portalKey = 'mor-ethiopia';
-  const PortalComponents = loadInstitutionPortal(portalKey);
+  const PortalComponents = loadInstitutionPortal(institution.portalKey);
 
   if (!PortalComponents) {
     return <div>Error: The portal for this institution is not configured.</div>;

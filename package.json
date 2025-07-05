@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "npx prisma generate",  
-    "seed:static": "tsx ./scripts/seeder-logic.ts"
+    "seed:static": "tsx ./scripts/seeder-logic.ts",
+    "seed:institution": "tsx ./scripts/seed-institutions.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.0.8",

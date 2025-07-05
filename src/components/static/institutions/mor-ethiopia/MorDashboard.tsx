@@ -1,4 +1,4 @@
-// /app/static/institutions/mor-ethiopia/MorDashboard.tsx
+// /app/static/institutions/mor-ethiopia/MorDashboard.tsx (UPDATED FILE)
 
 "use client"; // The top-level component that uses state must be a client component
 
@@ -9,19 +9,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, CheckCircle, Clock, Award, User, Menu, X, Play, Lock } from "lucide-react";
 import Link from "next/link";
-import { InstitutionPortalProps } from "@/lib/institutionPortalLoader";
+// --- UPDATED ---
+// Import the specific `DashboardPortalProps` type from the loader.
+import { DashboardPortalProps } from "@/lib/institutionPortalLoader";
 import { IContent } from "@/models/Content";
 import { ResponsiveCircularProgress } from '@/components/ui/CircularProgress'; // Using your new progress component
-
-// This file now exports a single Client Component that receives all its data via props.
-// The data fetching is handled by the parent page component.
-
-// Define a type for the props this UI component receives, extending the base portal props
-type DashboardUIProps = InstitutionPortalProps & {
-  modules: (IContent & { _id: string })[];
-};
-
-export default function MorDashboard({ institution, user, membership, modules }: DashboardUIProps) {
+export default function Dashboard({ institution, user, membership, modules = [] }: DashboardPortalProps) {
   // --- STATE MANAGEMENT ---
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   

@@ -11,24 +11,8 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Upload, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { InstitutionPortalProps } from "@/lib/institutionPortalLoader"; // Import the props type
-
+import { registerForInstitution } from "@/app/actions/registerForInstitution";
 // NEW: Server Action to handle registration
-async function registerForInstitution(institutionId: string, metadata: Record<string, any>) {
-  'use server'; // This marks the function as a Server Action
-  
-  // Here we call the API endpoint we created earlier.
-  // In a real app, you'd get the base URL from an environment variable.
-  const response = await fetch(`/api/institutions/${institutionId}/members`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ metadata }),
-    // Important: Re-use the user's cookie for authentication
-    cache: 'no-store', 
-  });
-  
-  return response.json();
-}
-
 
 export default function MorRegistration({ institution, user, membership }: InstitutionPortalProps) {
   const router = useRouter();

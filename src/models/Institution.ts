@@ -8,6 +8,7 @@ export interface IInstitution extends Document {
   members: Types.ObjectId[]; // All users associated (teachers, creators)
   createdAt: Date;
   updatedAt: Date;
+  portalKey: string;
   subscriptionStatus: 'active' | 'trialing' | 'past_due' | 'canceled';
   branding: {
     logoUrl?: string;
@@ -20,6 +21,7 @@ const InstitutionSchema = new mongoose.Schema<IInstitution>({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   admins: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  portalKey: { type: String, required: true, unique: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   subscriptionStatus: {
