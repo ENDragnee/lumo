@@ -8,5 +8,6 @@ export interface Content {
     subject: string;
     institution: string;
     description?: string;
+    estimatedTime?: number; // Estimated time in minutes
     version?: number;
   }

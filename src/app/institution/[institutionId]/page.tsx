@@ -1,6 +1,6 @@
-// /app/institution/[institutionId]/page.tsx (NEW FILE)
+// /app/institution/[institutionId]/page.tsx (CORRECTED)
 
-import { getServerSession } from 'next-auth/next';
+import { getServerSession } from 'next-auth/next'; // Import Session type
 import { authOptions } from '@/lib/auth';
 import mongoose from 'mongoose';
 import dbConnect from '@/lib/mongodb';
@@ -8,21 +8,21 @@ import Institution, { IInstitution } from '@/models/Institution';
 import InstitutionMember, { IInstitutionMember } from '@/models/InstitutionMember';
 import { loadInstitutionPortal } from '@/lib/institutionPortalLoader';
 import { notFound } from 'next/navigation';
-import { User } from 'next-auth'; // Import User type from next-auth
+import { Session } from 'next-auth';
+// No need to import User from 'next-auth' here, we'll use Session
 
 // It's good practice to define the data fetching logic separately
 async function getPortalData(institutionId: string): Promise<{
   institution: (IInstitution & { _id: string }) | null;
   membership: (IInstitutionMember & { _id: string }) | null;
-  sessionUser: User | null;
+  session: Session | null; // Use the Session type which includes our custom user
 }> {
   // 1. Get Session
   const session = await getServerSession(authOptions);
-  const sessionUser = session?.user ?? null;
 
   // 2. Validate ID and Connect to DB
   if (!mongoose.Types.ObjectId.isValid(institutionId)) {
-    return { institution: null, membership: null, sessionUser };
+    return { institution: null, membership: null, session };
   }
   await dbConnect();
 
@@ -31,10 +31,12 @@ async function getPortalData(institutionId: string): Promise<{
   
   // 4. Fetch Membership only if user is logged in
   let membershipPromise: Promise<IInstitutionMember | null> = Promise.resolve(null);
-  if (sessionUser?.id) {
+  
+  // The type declaration file ensures `session.user.id` exists and is a string
+  if (session?.user?.id) {
     membershipPromise = InstitutionMember.findOne({
       institutionId: new mongoose.Types.ObjectId(institutionId),
-      userId: new mongoose.Types.ObjectId(sessionUser.id),
+      userId: new mongoose.Types.ObjectId(session.user.id),
     }).lean();
   }
 
@@ -45,7 +47,7 @@ async function getPortalData(institutionId: string): Promise<{
   return {
     institution: institution ? JSON.parse(JSON.stringify(institution)) : null,
     membership: membership ? JSON.parse(JSON.stringify(membership)) : null,
-    sessionUser: sessionUser,
+    session, // Return the whole session object
   };
 }
 
@@ -53,7 +55,9 @@ async function getPortalData(institutionId: string): Promise<{
 export default async function InstitutionPortalPage({ params }: { params: { institutionId: string } }) {
   const { institutionId } = params;
   
-  const { institution, membership, sessionUser } = await getPortalData(institutionId);
+  // Destructure the whole session, and then the user from it for clarity
+  const { institution, membership, session } = await getPortalData(institutionId);
+  const sessionUser = session?.user; // This user is now correctly typed
 
   // If the institution itself doesn't exist, show a 404 page.
   if (!institution) {
@@ -61,19 +65,17 @@ export default async function InstitutionPortalPage({ params }: { params: { inst
   }
   
   // For this specific portal, we use 'mor-ethiopia' as the key.
-  // In a more dynamic system, you might store this key in the institution document itself.
   const portalKey = 'mor-ethiopia';
   const PortalComponents = loadInstitutionPortal(portalKey);
 
   if (!PortalComponents) {
-    // This is a server error, the portal is not configured correctly.
     return <div>Error: The portal for this institution is not configured.</div>;
   }
   
   const portalProps = {
     institution,
     membership,
-    user: sessionUser,
+    user: sessionUser, // Pass the correctly typed user
   };
 
   // --- The Core Authorization and Rendering Logic ---
