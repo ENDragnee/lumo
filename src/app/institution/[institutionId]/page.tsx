@@ -9,6 +9,8 @@ import InstitutionMember, { IInstitutionMember } from '@/models/InstitutionMembe
 import { loadInstitutionPortal } from '@/lib/institutionPortalLoader';
 import { notFound } from 'next/navigation';
 import { Session } from 'next-auth';
+import Content from '@/models/Content'; // Import the Content model
+import { json } from 'stream/consumers';
 // No need to import User from 'next-auth' here, we'll use Session
 
 // It's good practice to define the data fetching logic separately
@@ -52,11 +54,12 @@ async function getPortalData(institutionId: string): Promise<{
 }
 
 
-export default async function InstitutionPortalPage({ params }: { params: { institutionId: string } }) {
-  const { institutionId } = params;
+export default async function InstitutionPortalPage({ params }: { params: Promise<{ institutionId: string }> }) {
+  const { institutionId } = await params;
   
   const { institution, membership, session } = await getPortalData(institutionId);
   const sessionUser = session?.user; // This user is now correctly typed
+  const modules = await Content.find({institutionId: institutionId}).sort({ order: -1 }).lean();
 
   // If the institution itself doesn't exist, show a 404 page.
   if (!institution) {
@@ -80,7 +83,7 @@ export default async function InstitutionPortalPage({ params }: { params: { inst
 
   if (membership && membership.status === 'active') {
     // USER IS AN ACTIVE MEMBER: Show the full dashboard.
-    return <PortalComponents.Dashboard {...portalProps} />;
+    return <PortalComponents.Dashboard {...portalProps} modules={JSON.parse(JSON.stringify(modules))}/>;
   } else if (sessionUser) {
     // USER IS LOGGED IN, BUT NOT A MEMBER (or pending/revoked): Show the registration page.
     return <PortalComponents.Registration {...portalProps} />;

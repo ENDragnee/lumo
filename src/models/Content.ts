@@ -14,7 +14,6 @@ export interface IContent extends Document {
   lastModifiedAt?: Date;
   createdBy: Types.ObjectId;
   tags: string[];
-  institution?: string;
   difficulty?: "easy" | "medium" | "hard";
   estimatedTime?: string;
   description?: string;
@@ -67,7 +66,6 @@ const ContentSchema = new mongoose.Schema<IContent>({
     type: [String],
     default: []
   },
-  institution: { type: String },
   difficulty: {
     type: String,
     enum: ["easy", "medium", "hard"],
