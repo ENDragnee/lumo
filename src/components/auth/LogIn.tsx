@@ -1,4 +1,4 @@
-// components/SignIn.tsx
+// components/auth/LogIn.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -11,8 +11,8 @@ import { FcGoogle } from "react-icons/fc"; // Import Google icon
 
 // Assuming GlobalStyle with CSS Variables is applied in your layout
 // Import shared components and animations if applicable
-import Logo from "./ui/Logo"; // Adjust path if necessary
-import { gradientShift } from "./ui/animations"; // Adjust path if necessary
+import Logo from "@/components/ui/Logo"; // Adjust path if necessary
+import { gradientShift } from "@/components/ui/animations"; // Adjust path if necessary
 
 // --- Styled Components ---
 
@@ -429,6 +429,16 @@ export default function SignIn() {
   const searchParams = useSearchParams();
   const { resolvedTheme } = useTheme();
 
+  // MODIFICATION START: Handle callbackUrl for redirection
+  // Get callbackUrl from query parameters
+  const callbackUrl = searchParams.get("callbackUrl");
+  const defaultRedirectUrl = process.env.NEXT_PUBLIC_MAIN_PAGE || "/";
+  // Ensure the callbackUrl is a relative path to prevent open redirect vulnerabilities
+  const safeCallbackUrl = (callbackUrl && callbackUrl.startsWith("/"))
+    ? callbackUrl
+    : defaultRedirectUrl;
+  // MODIFICATION END
+
   // Handle Auth Errors from URL query params
   useEffect(() => {
     const errorParam = searchParams?.get("error");
@@ -482,7 +492,7 @@ export default function SignIn() {
             email,
             password,
             redirect: false,
-            // callbackUrl: "/main", // Specify success redirect if needed here or in authOptions
+            // callbackUrl is not needed here since we redirect manually below
         });
 
         if (result?.error) {
@@ -494,9 +504,8 @@ export default function SignIn() {
             }
         } else if (result?.ok) {
             // Successful sign in
-            router.push(`${process.env.NEXT_PUBLIC_MAIN_PAGE}`); // Redirect to the main page or dashboard
-            // Optionally refresh router state if needed, though push usually suffices
-            // router.refresh();
+            // MODIFICATION: Redirect to the safe callback URL or the default page
+            router.push(safeCallbackUrl);
         } else {
             // Handle unexpected non-error, non-ok result
              setError("An unexpected issue occurred during sign in.");
@@ -517,9 +526,9 @@ export default function SignIn() {
     try {
         // Use redirect: true (default) - NextAuth handles the redirects.
         // Errors during the OAuth flow will redirect back here with ?error=...
-        // Success will redirect to callbackUrl defined in authOptions or '/main' here.
+        // MODIFICATION: Success will redirect to the safe callback URL.
         await signIn("google", {
-            callbackUrl: process.env.NEXT_PUBLIC_MAIN_PAGE, // Where to go after successful Google auth
+            callbackUrl: safeCallbackUrl,
         });
         // If signIn initiates successfully, the page redirects, so code below here
         // might not execute unless there's an immediate client-side error.

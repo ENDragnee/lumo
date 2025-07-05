@@ -119,8 +119,10 @@ const LoadingText = styled.p`
   letter-spacing: 0.5px;
   opacity: 0.8;
 `;
-
-export default function Loader() {
+type LoaderProps = {
+  page?: string;
+}
+export default function Loader({ page }: LoaderProps) {
   return (
     <LoaderContainer>
       <OrbWrapper>
@@ -131,7 +133,7 @@ export default function Loader() {
           <Logo />
         </LogoContainer>
       </OrbWrapper>
-      <LoadingText>Initializing...</LoadingText>
+      <LoadingText>{page} is Initializing...</LoadingText>
     </LoaderContainer>
   );
 }
