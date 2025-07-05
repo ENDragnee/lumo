@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 // The value is a dynamic import function that points to the component.
 const staticComponents: Record<string, ComponentType<{}>> = {
   // Key: 'welcome-page' -> Component: /src/app/static/WelcomePage.tsx
-  'welcome-page': dynamic(() => import('@/app/static/mor/page')),
+  'welcome-page': dynamic(() => import('@/components/static/institutions/mor-ethiopia/TaxRegistrationModule')),
 
   // Add more static pages here as you create them
   // 'advanced-css': dynamic(() => import('@/app/static/AdvancedCss')),

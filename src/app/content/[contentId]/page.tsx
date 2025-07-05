@@ -16,9 +16,9 @@ import { ContentEffects } from "@/components/ContentEffects";
 import { updateHistory } from "@/lib/actions/history";
 
 type ContentPageProps = {
-  params: {
+  params: Promise<{
     contentId: string;
-  };
+  }>;
 };
 
 // --- DATA FETCHER ---
@@ -40,7 +40,7 @@ async function getContent(id: string): Promise<IContent | null> {
 
 // The main page is now a smart router for content types.
 export default async function ContentPage({ params }: ContentPageProps) {
-  const { contentId } = params;
+  const { contentId } = await params;
 
   if (!contentId) {
     return <div className="p-4 text-center text-muted-foreground">No content selected.</div>;

@@ -33,6 +33,8 @@ const InstitutionSchema = new mongoose.Schema<IInstitution>({
   },
 }, { timestamps: true }); // `timestamps: true` automatically handles createdAt/updatedAt
 
+InstitutionSchema.index({ members: 1 });
+
 const Institution: Model<IInstitution> =
   mongoose.models.Institution || mongoose.model<IInstitution>('Institution', InstitutionSchema);
 
