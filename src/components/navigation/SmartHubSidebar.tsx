@@ -29,10 +29,10 @@ import {
   WifiOff,
 } from "lucide-react"
 import { useOfflineSync } from "../../hooks/useOfflineSync"
-import { HistoryItem } from "@/types/historyItems"
 import { signOut } from "next-auth/react"
 import { formatAbsoluteDate } from "@/lib/format-date"
 import { useRouter } from "next/navigation"
+import { getHistory, HistoryItem } from "@/app/actions/history"
 
 interface SmartHubSidebarProps {
   activeTab: string
@@ -55,26 +55,17 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
   const router = useRouter()
   const fetchRecentHistories = async () => {
     try {
-      const response = await fetch("/api/history?limit=3");
-      if (response.ok) {
-        const data = await response.json();
-        data.sort(
-          (a: HistoryItem, b: HistoryItem) =>
-            new Date(b.viewed_at).getTime() - new Date(a.viewed_at).getTime()
-        );
-        setRecentHistories(data);
-      }
+      const historyData = await getHistory({ limit: 3 });
+      console.log("Recent Histories:", historyData);
+        setRecentHistories(historyData);
     } catch (error) {
       console.error("Failed to fetch recent histories:", error);
     }
   };
   const fetchStarred = async () => {
   try {
-    const response = await fetch("/api/history/star?limit=5");
-    if (response.ok) {
-      const data = await response.json();
-      setFavorites(data);
-    }
+    const staredData = await getHistory({ limit: 5 });
+      setFavorites(staredData);
   } catch (error) {
     console.log("Failed to fetch stars:", error);
   }
@@ -140,13 +131,13 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
     <Button
       variant="ghost"
       className="w-full justify-start h-9 text-gray-600 hover:bg-gray-900/5 hover:text-gray-800 group"
-      onClick={() => router.push(`/content?id=${course.content._id}`)}
+      onClick={() => router.push(`/content/${course._id}`)}
     >
       <span className={`w-2 h-2 mr-3 rounded-full ${course.color}`} />
       <div className="flex-1 text-left min-w-0">
-        <div className="text-sm font-medium truncate">{course.content.title}</div>
+        <div className="text-sm font-medium truncate">{course.title}</div>
         <div className="text-xs text-gray-400 truncate">
-          {course.progress || "0"}% • {formatAbsoluteDate(course.viewed_at)}
+          {course.progress || "0"}% • {formatAbsoluteDate(course.latestInteractionTime)}
         </div>
       </div>
       <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -159,9 +150,9 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
       className="w-full justify-start h-9 text-gray-600 hover:bg-gray-900/5 hover:text-gray-800"
       onClick={() => setActiveTab(item.type === "teacher" ? "teachers" : "courses")}
     >
-      <item.icon className="w-4 h-4 mr-3 text-yellow-500" />
+      <Star className="w-4 h-4 mr-3 text-yellow-500" />
       <div className="flex-1 text-left min-w-0">
-        <div className="text-sm font-medium truncate">{item.content.title}</div>
+        <div className="text-sm font-medium truncate">{item.title}</div>
         <div className="text-xs text-gray-400 capitalize">{item.type}</div>
       </div>
     </Button>
