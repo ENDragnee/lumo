@@ -19,7 +19,7 @@ if (apiKey) {
     try {
         scorerAI = new GoogleGenerativeAI(apiKey);
         scorerModel = scorerAI.getGenerativeModel({
-            model: "gemini-1.5-flash-latest",
+            model: "gemini-2.0-flash-latest",
             safetySettings: [ /* Safety settings as needed */ ],
             generationConfig: {
                 responseMimeType: "application/json",

@@ -9,7 +9,6 @@ import { Toaster, toast } from "sonner"
 import { ScrollProgressBar } from "@/components/scroll-progress-bar"
 import { ThemeProvider } from "next-themes"
 import "@/app/globals.css"
-import { SidebarProvider } from "@/app/hooks/SidebarContext"
 import { SessionProvider } from "next-auth/react"
 import AIFeature from "@/components/ai-feature" // Keep this import
 import TabManager from "@/components/Tab"
@@ -132,7 +131,6 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
       <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
-        <SidebarProvider>
           <>
             {shouldRenderNav && (
               <>
@@ -270,7 +268,6 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
                 </>
             )}
           </>
-        </SidebarProvider>
       </ThemeProvider>
     </SessionProvider>
   )
