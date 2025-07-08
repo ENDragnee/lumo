@@ -9,6 +9,10 @@ interface GridItem {
     title: string;
     thumbnail: string;
     tags?: string[];
+    createdBy: {
+        _id: string;
+        name: string;
+    }
     // Public page won't have progress/performance, so they are omitted here.
     // Your ContentCard will handle their absence gracefully.
 }

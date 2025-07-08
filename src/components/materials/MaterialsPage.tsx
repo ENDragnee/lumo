@@ -1,13 +1,28 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { IContent } from "@/models/Content"
-import { FilterControls } from "./FilterControls"
-import { InstitutionCard } from "../cards/InstitutionCard" // Corrected import path
-import { ContentCard } from "@/components/cards/ContentCard"
-import { ContentCardList } from "@/components/cards/ContentCardList"
+import { useState, useEffect, useRef, useCallback } from "react";
+import { FilterControls } from "./FilterControls";
+import { InstitutionCard } from "../cards/InstitutionCard";
+import { ContentCard } from "@/components/cards/ContentCard";
+import { ContentCardList } from "@/components/cards/ContentCardList";
 
-// NEW: This type now correctly matches the API's output
+// This type now matches the enriched API response
+type RecommendedContent = {
+  _id: string;
+  title: string;
+  thumbnail: string;
+  tags?: string[];
+  difficulty: 'easy' | 'medium' | 'hard';
+  performance?: {
+    understandingLevel: 'needs-work' | 'foundational' | 'good' | 'mastered';
+  };
+  lastAccessedAt?: string | Date;
+  createdBy: { // Changed to non-optional to match API
+    _id: string;
+    name: string;
+  };
+};
+
 type RecommendedInstitutionData = {
   id: string;
   title: string;
@@ -19,50 +34,107 @@ type RecommendedInstitutionData = {
   gradient: string;
 };
 
+const PAGE_SIZE = 20;
+
 export function MaterialsPage() {
   const [view, setView] = useState<"list" | "grid">("grid");
   const [filters, setFilters] = useState({});
-  const [loading, setLoading] = useState(true);
+  
+  // State for infinite scroll
+  const [content, setContent] = useState<RecommendedContent[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(true); // For initial page load
+  const [loadingMore, setLoadingMore] = useState(false); // For subsequent page loads
   const [error, setError] = useState<string | null>(null);
-  const [content, setContent] = useState<IContent[]>([]);
+  
   const [institutions, setInstitutions] = useState<RecommendedInstitutionData[]>([]);
 
-  useEffect(() => {
-    const fetchAllData = async () => {
+  // Observer for infinite scroll
+  const observer = useRef<IntersectionObserver>();
+  const lastElementRef = useCallback((node: HTMLDivElement) => {
+    if (loading || loadingMore) return;
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        setPage(prevPage => prevPage + 1);
+      }
+    });
+    if (node) observer.current.observe(node);
+  }, [loading, loadingMore, hasMore]);
+
+  // Function to fetch recommendations
+  const fetchRecommendations = useCallback(async (pageNum: number) => {
+      if (pageNum === 1) setLoading(true);
+      else setLoadingMore(true);
+
       try {
-        setLoading(true);
-        const [coursesRes, institutionsRes] = await Promise.all([
-          fetch("/api/recommendations"),
-          fetch("/api/recommendations/institutions")
+          const res = await fetch(`/api/recommendations?page=${pageNum}&limit=${PAGE_SIZE}`);
+          if (!res.ok) {
+              throw new Error("Failed to fetch courses");
+          }
+          const newData = await res.json();
+          
+          setContent(prevContent => pageNum === 1 ? newData : [...prevContent, ...newData]);
+          setHasMore(newData.length === PAGE_SIZE);
+
+      } catch (err) {
+          console.error("Error fetching recommendations:", err);
+          setError("Could not load courses. Please try again.");
+      } finally {
+          if (pageNum === 1) setLoading(false);
+          else setLoadingMore(false);
+      }
+  }, []);
+
+  // Effect for initial data load (institutions + first page of content)
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        // Fetch institutions and first page of content in parallel
+        const [institutionsRes] = await Promise.all([
+          fetch("/api/recommendations/institutions"),
+          fetchRecommendations(1) // This function handles its own state
         ]);
 
-        if (!coursesRes.ok || !institutionsRes.ok) {
-          throw new Error("Failed to fetch required data");
-        }
-
-        const coursesData = await coursesRes.json();
+        if (!institutionsRes.ok) throw new Error("Failed to fetch institutions");
         const institutionsData = await institutionsRes.json();
-        
-        setContent(Array.isArray(coursesData) ? coursesData : []);
         setInstitutions(Array.isArray(institutionsData) ? institutionsData : []);
 
       } catch (err) {
-        console.error("Error fetching materials page data:", err);
-        setError("Could not load materials. Please try refreshing the page.");
+        console.error("Error fetching initial materials page data:", err);
+        setError("Could not load all materials. Please try refreshing.");
       } finally {
-        setLoading(false);
+        // The fetchRecommendations function sets its loading to false
       }
     };
-    fetchAllData();
-  }, []);
+    fetchInitialData();
+  }, [fetchRecommendations]); // Only depends on the memoized fetch function
 
+  // Effect for fetching subsequent pages
+  useEffect(() => {
+      if (page > 1) {
+          fetchRecommendations(page);
+      }
+  }, [page, fetchRecommendations]);
+
+  // Client-side filtering
   const filteredContent = content.filter(item => {
     const { subject, difficulty } = filters as any;
     if (subject && item.tags && !item.tags.includes(subject)) return false;
     if (difficulty && item.difficulty !== difficulty.toLowerCase()) return false;
     return true;
   });
-  
+
+  if (loading && page === 1) {
+    return (
+      <div className="text-center py-20 text-gray-500 dark:text-gray-400">
+        <p>Loading your personalized courses...</p>
+      </div>
+    );
+  }
 
   if (error) {
     return <div className="text-center py-20 text-red-500">{error}</div>;
@@ -92,7 +164,6 @@ export function MaterialsPage() {
                 courseCount={collection.courseCount}
                 enrolledCount={collection.enrolledCount}
                 estimatedTime={collection.estimatedTime}
-                // FIXED: Pass the correct 'difficulty' string prop
                 difficulty={collection.difficulty} 
                 gradient={collection.gradient}
               />
@@ -105,20 +176,37 @@ export function MaterialsPage() {
         <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">All Courses</h2>
         {filteredContent.length > 0 ? (
           <div className={view === "grid" ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" : "space-y-2"}>
-            {filteredContent.map((item, index) =>
-                view === "grid" ? (
-                  <ContentCard key={item._id} item={item} index={index} />
-                ) : (
-                  <ContentCardList key={item._id} item={item} index={index} />
-                )
-            )}
+            {filteredContent.map((item, index) => {
+                const card = view === "grid" 
+                  ? <ContentCard key={item._id} item={item} index={index} />
+                  : <ContentCardList key={item._id} item={item} index={index} />
+
+                // If this is the last item, attach the ref to its container
+                if (filteredContent.length === index + 1) {
+                    return <div ref={lastElementRef} key={item._id}>{card}</div>
+                } else {
+                    return card;
+                }
+            })}
           </div>
         ) : (
-          <div className="text-center py-10 text-gray-500 dark:text-gray-400">
+          !loading && <div className="text-center py-10 text-gray-500 dark:text-gray-400">
             <p>No courses match your current filters, or you may not be subscribed to any creators.</p>
           </div>
         )}
       </div>
+
+      {loadingMore && (
+        <div className="text-center py-10 text-gray-500 dark:text-gray-400">
+          <p>Loading more courses...</p>
+        </div>
+      )}
+
+      {!hasMore && content.length > 0 && (
+        <div className="text-center py-10 text-gray-500 dark:text-gray-400">
+          <p>You've reached the end!</p>
+        </div>
+      )}
     </div>
   )
 }

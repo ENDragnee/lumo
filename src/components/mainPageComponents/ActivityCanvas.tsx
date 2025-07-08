@@ -3,9 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Loader2, AlertTriangle, BarChart } from "lucide-react";
+import { AlertTriangle, BarChart } from "lucide-react";
 
-// --- TYPE DEFINITION for the data we expect from our new API ---
 interface DailyActivity {
   date: string;
   dayLabel: string;
@@ -13,7 +12,6 @@ interface DailyActivity {
   topics: string[];
 }
 
-// --- CUSTOM HOOK for fetching weekly activity data ---
 function useWeeklyActivity(userId?: string | null) {
   const [activity, setActivity] = useState<DailyActivity[]>([]);
   const [loading, setLoading] = useState(true);
@@ -23,7 +21,7 @@ function useWeeklyActivity(userId?: string | null) {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('/api/analytics/weekly-activity');
+      const response = await fetch("/api/analytics/weekly-activity");
       if (!response.ok) {
         throw new Error("Could not load activity data.");
       }
@@ -40,17 +38,17 @@ function useWeeklyActivity(userId?: string | null) {
     if (userId) {
       fetchActivity();
     } else {
-      setLoading(false); // No user, so not loading
+      setLoading(false);
     }
   }, [userId, fetchActivity]);
 
   return { activity, loading, error };
 }
 
-
-// --- SKELETON COMPONENT for the loading state ---
 function ActivityCanvasSkeleton() {
   const dayLabels = ["S", "M", "T", "W", "T", "F", "S"];
+  const fixedHeights = [60, 40, 70, 50, 80, 30, 45];
+
   return (
     <div>
       <div className="flex justify-between items-baseline mb-6">
@@ -64,7 +62,7 @@ function ActivityCanvasSkeleton() {
               <div key={index} className="flex flex-col items-center">
                 <div
                   className="w-5 bg-gray-200 rounded-full animate-pulse"
-                  style={{ height: `${Math.floor(Math.random() * 75) + 15}%` }} // Random height for visual effect
+                  style={{ height: `${fixedHeights[index]}%` }}
                 />
                 <span className="text-xs text-gray-400 mt-2">{label}</span>
               </div>
@@ -76,8 +74,6 @@ function ActivityCanvasSkeleton() {
   );
 }
 
-
-// --- MAIN COMPONENT ---
 export function ActivityCanvas() {
   const { data: session } = useSession();
   const { activity, loading, error } = useWeeklyActivity(session?.user?.id);
@@ -97,16 +93,16 @@ export function ActivityCanvas() {
   }
 
   if (!activity || activity.length === 0) {
-      return (
-          <div className="text-center p-10 bg-gray-50 border border-gray-200 rounded-lg">
-              <BarChart className="mx-auto h-8 w-8 text-gray-400 mb-2" />
-              <p className="text-gray-600 font-semibold">No Activity Recorded</p>
-              <p className="text-gray-500 text-sm">Start some learning sessions to see your activity here.</p>
-          </div>
-      );
+    return (
+      <div className="text-center p-10 bg-gray-50 border border-gray-200 rounded-lg">
+        <BarChart className="mx-auto h-8 w-8 text-gray-400 mb-2" />
+        <p className="text-gray-600 font-semibold">No Activity Recorded</p>
+        <p className="text-gray-500 text-sm">Start some learning sessions to see your activity here.</p>
+      </div>
+    );
   }
 
-  const maxActivity = Math.max(...activity.map(d => d.totalHours), 1); // Use 1 as a minimum to avoid division by zero
+  const maxActivity = Math.max(...activity.map((d) => d.totalHours), 1);
   const totalHours = activity.reduce((sum, day) => sum + day.totalHours, 0).toFixed(1);
 
   return (
@@ -127,8 +123,6 @@ export function ActivityCanvas() {
                   style={{ height: `${(day.totalHours / maxActivity) * 100}%`, minHeight: "4px" }}
                 />
                 <span className="text-xs text-gray-500 mt-2">{day.dayLabel}</span>
-                
-                {/* --- ENHANCED TOOLTIP --- */}
                 <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-shadow text-frost text-xs px-3 py-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none w-max max-w-xs z-10">
                   <p className="font-bold text-sm mb-1">{day.totalHours} hours</p>
                   {day.topics.length > 0 ? (
@@ -142,7 +136,6 @@ export function ActivityCanvas() {
                   )}
                   <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-shadow"></div>
                 </div>
-
               </div>
             ))}
           </div>

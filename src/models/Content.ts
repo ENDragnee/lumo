@@ -6,9 +6,7 @@ export interface IContent extends Document {
   _id: string;
   title: string;
   views: number;
-  passRate: number;
   thumbnail: string;
-  rating?: number;
   contentType: ContentType;
   data: string;
   createdAt: Date;
@@ -16,12 +14,13 @@ export interface IContent extends Document {
   createdBy: Types.ObjectId;
   tags: string[];
   difficulty?: "easy" | "medium" | "hard";
-  estimatedTime?: string;
   description?: string;
   userEngagement: {
-    saves: number;
-    shares: number;
-    completions: number;
+    rating?: number;
+    views?: number;
+    saves?: number;
+    shares?: number;
+    completions?: number;
   };
   parentId: Types.ObjectId | null;
   isDraft: boolean;
@@ -33,9 +32,7 @@ export interface IContent extends Document {
 const ContentSchema = new mongoose.Schema<IContent>({
   title: { type: String, required: true },
   views: { type: Number, default: 0 },
-  passRate: { type: Number, default: 0 },
   thumbnail: { type: String, required: true },
-  rating: Number,
   contentType: {
     type: String,
     enum: ['static', 'dynamic'],
@@ -72,9 +69,10 @@ const ContentSchema = new mongoose.Schema<IContent>({
     enum: ["easy", "medium", "hard"],
     default: "easy"
   },
-  estimatedTime: { type: String },
   description: { type: String },
   userEngagement: {
+    rating: { type: Number, default: 0 },
+    views: { type: Number, default: 0 },
     saves: { type: Number, default: 0 },
     shares: { type: Number, default: 0 },
     completions: { type: Number, default: 0 }

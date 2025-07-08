@@ -5,11 +5,11 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Progress } from '@/components/ui/progress';
 import { UnderstandingBadge } from '@/components/UnderstandingBadge';
-import { DownloadButton } from "@/components/offline/DownloadButton"; // NEW: Import DownloadButton
-import { formatRelativeDate } from '@/lib/format-date'; // NEW: Import date formatter
+import { DownloadButton } from "@/components/offline/DownloadButton";
+import { formatRelativeDate } from '@/lib/format-date';
 import { MoreVertical, Star } from 'lucide-react';
+import Link from 'next/link';
 
 // --- Constants for Fallback Images ---
 const PLACEHOLDER_SVG_PATH = '/placeholder.svg';
@@ -21,11 +21,14 @@ interface ContentCardListProps {
     title: string;
     thumbnail: string;
     tags?: string[];
-    progress?: number;
     performance?: {
       understandingLevel: 'needs-work' | 'foundational' | 'good' | 'mastered';
     };
-    lastAccessedAt?: string | Date; // NEW: Added last accessed date
+    lastAccessedAt?: string | Date;
+    createdBy?: {
+        _id: string;
+        name: string;
+    };
   };
   index: number;
 }
@@ -33,19 +36,16 @@ interface ContentCardListProps {
 export function ContentCardList({ item, index }: ContentCardListProps) {
   const router = useRouter();
 
-  const handleCardClick = (id: string) => {
-    router.push(`/content/${id}`);
+  const handleCardClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push(`/content/${item._id}`);
   };
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.currentTarget;
-    if (target.src !== `${window.location.origin}${PLACEHOLDER_SVG_PATH}`) {
-      target.onerror = null;
-      target.src = PLACEHOLDER_SVG_PATH;
-    }
+    if (target.src.includes(PLACEHOLDER_SVG_PATH)) return;
+    target.src = PLACEHOLDER_SVG_PATH;
   };
-
-  const currentProgress = item.progress ?? 0;
 
   return (
     <motion.div
@@ -55,11 +55,11 @@ export function ContentCardList({ item, index }: ContentCardListProps) {
       className="w-full"
     >
       <div
-        onClick={() => handleCardClick(item._id)}
+        onClick={handleCardClick}
         className="flex items-center gap-4 p-3 w-full cursor-pointer transition-colors duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800/50"
       >
         {/* Thumbnail */}
-        <div className="relative h-14 w-24 flex-shrink-0 overflow-hidden rounded-md bg-gray-200 dark:bg-gray-700">
+        <div className="relative h-16 w-28 flex-shrink-0 overflow-hidden rounded-md bg-gray-200 dark:bg-gray-700">
           <Image
             src={`${process.env.NEXT_PUBLIC_CREATOR_URL}${item.thumbnail}` || PLACEHOLDER_SVG_PATH}
             alt={item.title}
@@ -75,35 +75,29 @@ export function ContentCardList({ item, index }: ContentCardListProps) {
           <p title={item.title} className="text-sm font-semibold line-clamp-1 dark:text-gray-100 text-gray-800">
             {item.title}
           </p>
-          {/* NEW: Display Last Accessed Date */}
+          {item.createdBy && (
+              <Link
+                href={`/creator/${item.createdBy._id}`}
+                onClick={(e) => e.stopPropagation()}
+                className="text-xs text-gray-500 dark:text-gray-400 mt-1 hover:text-primary dark:hover:text-sky-400 transition-colors w-fit"
+              >
+                by {item.createdBy.name}
+              </Link>
+          )}
           {item.lastAccessedAt && (
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                 Last accessed: {formatRelativeDate(item.lastAccessedAt)}
               </p>
           )}
-          <div className="flex items-center gap-2 mt-1.5">
-            <UnderstandingBadge level={item.performance?.understandingLevel} />
-            {item.tags && item.tags.length > 0 && (
-              <span className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1 hidden sm:block">
-                {item.tags.join(' · ')}
-              </span>
-            )}
-          </div>
         </div>
 
-        {/* Progress Bar and Score (visible on larger screens) */}
-        <div className="hidden md:flex flex-col items-end w-40 flex-shrink-0">
-          <div className="flex items-center w-full">
-            <Progress value={currentProgress} className="h-1.5 w-full" />
-            <span className="ml-2 text-xs font-mono text-gray-500 dark:text-gray-400 w-8 text-right">
-              {currentProgress}%
-            </span>
-          </div>
-          <p className="text-xs text-gray-400 mt-1">Progress</p>
+        {/* Understanding Badge (replaces progress bar) */}
+        <div className="hidden sm:block flex-shrink-0 mx-4">
+            <UnderstandingBadge level={item.performance?.understandingLevel} />
         </div>
         
-        {/* NEW: Updated Actions Menu */}
-        <div className="flex-shrink-0 flex items-center">
+        {/* Actions Menu */}
+        <div className="flex-shrink-0 flex items-center ml-auto">
            <div onClick={(e) => e.stopPropagation()}>
              <DownloadButton contentId={item._id} />
            </div>

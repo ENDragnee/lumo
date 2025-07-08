@@ -6,7 +6,7 @@ import { authOptions } from '@/lib/auth';
 import connectDB from '@/lib/mongodb';
 import User from '@/models/User';
 import UserSettings from '@/models/UserSettings';
-import { Subscribtion } from '@/models/Subscribtion'; // Corrected import
+import Subscribtion from '@/models/Subscribtion'; // Corrected import
 import mongoose from 'mongoose';
 
 // --- GET: Fetch all data needed for the settings page ---
