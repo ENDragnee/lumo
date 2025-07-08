@@ -257,10 +257,9 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
                 ///shouldRenderNav && isRecommendationOpen && !isMobile && "md:mr-80", // Apply margin only on desktop
               )}
               onContextMenu={shouldRenderNav ? handleContextMenu : undefined}
+              id = "content"
             >
-              <div id="content-container" className="px-4 py-6 md:px-6 lg:px-8 h-full">
                 {children}
-              </div>
             </main>
 
             {/* Floating Widgets */}

@@ -1,69 +1,72 @@
-// components/materials/MaterialsPage.tsx
 "use client"
 
 import { useState, useEffect } from "react"
 import { IContent } from "@/models/Content"
 import { FilterControls } from "./FilterControls"
-import { FeaturedCollectionCard } from "@/components/materials/FeaturedCollectionCard"
-import { LearningTrackCard } from "@/components/mainPageComponents/LearningTrackCard"
-import { GraduationCap } from "lucide-react"
+import { InstitutionCard } from "../cards/InstitutionCard" // Corrected import path
+import { ContentCard } from "@/components/cards/ContentCard"
+import { ContentCardList } from "@/components/cards/ContentCardList"
 
-const institutionData = [
-  {
-    id: "aastu",
-    title: "AASTU Curriculum",
-    description: "Your primary learning hub for all official university courses and materials.",
-    courseCount: 12,
-    enrolledCount: 350,
-    estimatedTime: "20 hours",
-    difficulty: "medium" as "medium",
-    gradient: "from-sage to-green-600",
-    icon: <GraduationCap className="w-6 h-6" />,
-  },
-  {
-    id: "moe",
-    title: "Ministry of Education Resources",
-    description: "Official supplementary resources provided by the Ministry for a broader educational scope.",
-    courseCount: 25,
-    enrolledCount: 500,
-    estimatedTime: "40 hours",
-    difficulty: "hard" as "hard",
-    gradient: "from-butter to-yellow-500",
-    icon: <GraduationCap className="w-6 h-6" />,
-  },
-]
+// NEW: This type now correctly matches the API's output
+type RecommendedInstitutionData = {
+  id: string;
+  title: string;
+  description: string;
+  courseCount: number;
+  enrolledCount: number;
+  estimatedTime: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+  gradient: string;
+};
 
 export function MaterialsPage() {
-  const [view, setView] = useState<"list" | "grid">("grid")
-  const [filters, setFilters] = useState({})
-  const [content, setContent] = useState<IContent[]>([])
+  const [view, setView] = useState<"list" | "grid">("grid");
+  const [filters, setFilters] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [content, setContent] = useState<IContent[]>([]);
+  const [institutions, setInstitutions] = useState<RecommendedInstitutionData[]>([]);
 
-  // This would ideally be a more sophisticated fetch that uses the filters
   useEffect(() => {
-    const fetchAllContent = async () => {
+    const fetchAllData = async () => {
       try {
-        const res = await fetch("/api/recommendations")
-        if (!res.ok) {
-          throw new Error("Failed to fetch content")
-        }
-        const data = await res.json()
-        setContent(Array.isArray(data) ? data : [])
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    fetchAllContent()
-  }, [])
+        setLoading(true);
+        const [coursesRes, institutionsRes] = await Promise.all([
+          fetch("/api/recommendations"),
+          fetch("/api/recommendations/institutions")
+        ]);
 
-  // A real implementation would filter on the backend,
-  // but for now we can filter on the client side as an example.
+        if (!coursesRes.ok || !institutionsRes.ok) {
+          throw new Error("Failed to fetch required data");
+        }
+
+        const coursesData = await coursesRes.json();
+        const institutionsData = await institutionsRes.json();
+        
+        setContent(Array.isArray(coursesData) ? coursesData : []);
+        setInstitutions(Array.isArray(institutionsData) ? institutionsData : []);
+
+      } catch (err) {
+        console.error("Error fetching materials page data:", err);
+        setError("Could not load materials. Please try refreshing the page.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAllData();
+  }, []);
+
   const filteredContent = content.filter(item => {
-    const { subject, difficulty, progress } = filters as any;
+    const { subject, difficulty } = filters as any;
     if (subject && item.tags && !item.tags.includes(subject)) return false;
     if (difficulty && item.difficulty !== difficulty.toLowerCase()) return false;
-    // 'progress' filtering logic would be more complex and require user progress data per item
     return true;
   });
+  
+
+  if (error) {
+    return <div className="text-center py-20 text-red-500">{error}</div>;
+  }
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -76,39 +79,43 @@ export function MaterialsPage() {
         activeFilters={filters}
       />
 
-      {/* Featured Collections */}
-      <div>
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Featured Collections</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {institutionData.map((collection) => (
-            <FeaturedCollectionCard
-              key={collection.id}
-              id={collection.id}
-              title={collection.title}
-              description={collection.description}
-              courseCount={collection.courseCount}
-              enrolledCount={collection.enrolledCount}
-              estimatedTime={collection.estimatedTime}
-              difficulty={collection.difficulty}
-              gradient={collection.gradient}
-              icon={collection.icon}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* All Materials */}
-      <div>
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">All Courses</h2>
-        {filteredContent.length > 0 ? (
-          <div className={view === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-3"}>
-            {filteredContent.map((track) => (
-              <LearningTrackCard key={(track as any)._id} track={track} />
+      {institutions.length > 0 && (
+        <div>
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Featured Collections</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {institutions.map((collection) => (
+              <InstitutionCard
+                key={collection.id}
+                id={collection.id}
+                title={collection.title}
+                description={collection.description}
+                courseCount={collection.courseCount}
+                enrolledCount={collection.enrolledCount}
+                estimatedTime={collection.estimatedTime}
+                // FIXED: Pass the correct 'difficulty' string prop
+                difficulty={collection.difficulty} 
+                gradient={collection.gradient}
+              />
             ))}
           </div>
+        </div>
+      )}
+
+      <div>
+        <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">All Courses</h2>
+        {filteredContent.length > 0 ? (
+          <div className={view === "grid" ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" : "space-y-2"}>
+            {filteredContent.map((item, index) =>
+                view === "grid" ? (
+                  <ContentCard key={item._id} item={item} index={index} />
+                ) : (
+                  <ContentCardList key={item._id} item={item} index={index} />
+                )
+            )}
+          </div>
         ) : (
-          <div className="text-center py-10 text-gray-500">
-            <p>No courses match your current filters.</p>
+          <div className="text-center py-10 text-gray-500 dark:text-gray-400">
+            <p>No courses match your current filters, or you may not be subscribed to any creators.</p>
           </div>
         )}
       </div>

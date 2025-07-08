@@ -1,13 +1,19 @@
-// app/api/subscribe/route.ts
+// app/api/subscription/subscribe/[creatorId]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth"; // Import from your options file
 import connectDB from '@/lib/mongodb';
-import { Subscribtion } from '@/models/Subscribtion';
+import Subscribtion from '@/models/Subscribtion';
 import User from '@/models/User';
 import mongoose, { Types } from 'mongoose';
 
-export async function PUT(request: NextRequest) {
+type SubscribtionProps = {
+  params: Promise<{
+    creatorId: string; // Expecting creatorId as a string
+  }>;
+}
+
+export async function PUT(request: NextRequest, { params }: SubscribtionProps) {
     const session = await getServerSession(authOptions); // Get session
 
     if (!session || !session.user?.id) { // Check for session and user ID
@@ -18,9 +24,8 @@ export async function PUT(request: NextRequest) {
 
     try {
         await connectDB();
-        const { creatorId, subscribe } = await request.json();
-
-        // ... rest of the validation and logic remains the same ...
+        const { creatorId } = await params;
+        const { subscribe } = await request.json();
 
         if (!creatorId || typeof subscribe !== 'boolean') {
             return NextResponse.json({ message: 'Missing creatorId or subscribe status' }, { status: 400 });

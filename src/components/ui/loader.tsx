@@ -1,3 +1,4 @@
+// @/component/ui/loader
 "use client";
 
 import styled, { keyframes } from 'styled-components';

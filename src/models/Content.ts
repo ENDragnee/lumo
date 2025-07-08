@@ -3,6 +3,7 @@ import mongoose, { Document, Model, Types } from 'mongoose';
 export type ContentType = 'static' | 'dynamic';
 
 export interface IContent extends Document {
+  _id: string;
   title: string;
   views: number;
   passRate: number;

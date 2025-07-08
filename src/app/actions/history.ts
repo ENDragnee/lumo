@@ -1,4 +1,4 @@
-// /lib/actions/history.ts
+// /app/actions/history.ts
 'use server';
 
 import mongoose from 'mongoose';
@@ -7,51 +7,59 @@ import { authOptions } from '@/lib/auth';
 import connectDB from '@/lib/mongodb';
 import Interaction, { IInteraction } from '@/models/Interaction';
 import Content from '@/models/Content';
-import Challenge, { IChallenge } from '@/models/Challenge'; // FIX: Import IChallenge type
-import Score, { IScore } from '@/models/Score'; // FIX: Import IScore type
+import Challenge, { IChallenge } from '@/models/Challenge';
+import Score, { IScore } from '@/models/Score';
 
 // Define the shape of the data the action will return for each history item
 export interface HistoryItem {
     _id: string; // The Content ID
     title: string;
-    thumbnail: string;
+    thumbnail: string | null; // Thumbnail can be optional
     latestInteractionTime: Date;
     progress: number; // A calculated progress/score percentage (0-100)
 }
 
 /**
- * Fetches the user's interaction history.
- * It finds the most recent interaction for each unique piece of content,
- * then enriches it with content details and calculates the current progress or score.
+ * Fetches the user's interaction history with support for pagination and searching.
  *
  * @param {object} options - The options for fetching history.
  * @param {number} options.limit - The maximum number of history items to return.
+ * @param {number} options.offset - The number of items to skip (for pagination).
+ * @param {string} [options.searchTerm] - An optional term to search for in content titles.
  * @returns {Promise<HistoryItem[]>} A promise that resolves to an array of history items.
  */
-export async function getHistory(options: { limit: number }): Promise<HistoryItem[]> {
+export async function getHistory(options: {
+    limit: number;
+    offset: number;
+    searchTerm?: string;
+}): Promise<HistoryItem[]> {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
-        throw new Error('Unauthorized');
+        // Return empty array for unauthenticated users instead of throwing
+        // This is often better for UI components.
+        return [];
     }
 
     const userId = new mongoose.Types.ObjectId(session.user.id);
-    const { limit = 50 } = options;
+    const { limit = 20, offset = 0, searchTerm } = options;
 
     try {
         await connectDB();
 
-        // Step 1: Get the list of recently interacted-with content
-        const recentInteractionsPipeline: mongoose.PipelineStage[] = [
+        // Step 1: Build the aggregation pipeline to get the paginated list of recently interacted-with content
+        const pipeline: mongoose.PipelineStage[] = [
+            // Find all interactions for the current user
             { $match: { userId: userId } },
+            // Sort by timestamp to easily find the most recent one
             { $sort: { timestamp: -1 } },
+            // Group by contentId to get only the latest interaction for each piece of content
             {
                 $group: {
                     _id: "$contentId",
                     latestTimestamp: { $first: "$timestamp" }
                 }
             },
-            { $sort: { latestTimestamp: -1 } },
-            { $limit: limit },
+            // Join with the Content collection to get details like title and thumbnail
             {
                 $lookup: {
                     from: Content.collection.name,
@@ -60,62 +68,74 @@ export async function getHistory(options: { limit: number }): Promise<HistoryIte
                     as: "contentDetails"
                 }
             },
-            { $match: { "contentDetails": { $ne: [] } } },
+            // Deconstruct the contentDetails array field from the input documents to output a document for each element
             { $unwind: "$contentDetails" },
+        ];
+
+        // Conditionally add a search stage if a searchTerm is provided
+        if (searchTerm && searchTerm.trim() !== '') {
+            pipeline.push({
+                $match: {
+                    "contentDetails.title": { $regex: searchTerm, $options: 'i' }
+                }
+            });
+        }
+
+        // Add final sorting, pagination, and projection stages
+        pipeline.push(
+            // Sort the final list by the most recent interaction time
+            { $sort: { latestTimestamp: -1 } },
+            // Skip documents for pagination
+            { $skip: offset },
+            // Limit the number of results for the current page
+            { $limit: limit },
+            // Shape the final output for this stage
             {
                 $project: {
                     _id: 0,
                     contentId: "$_id",
                     title: "$contentDetails.title",
-                    thumbnail: "$contentDetails.thumbnail",
+                    thumbnail: "$contentDetails.imageUrl", // Assuming the model has `imageUrl`
                     latestInteractionTime: "$latestTimestamp"
                 }
             }
-        ];
+        );
 
-        const recentContentList = await Interaction.aggregate(recentInteractionsPipeline);
-        
+        const recentContentList = await Interaction.aggregate(pipeline);
+
         if (recentContentList.length === 0) {
             return [];
         }
 
-        // Step 2: Enrich each item with its specific progress.
+        // Step 2: Enrich each item with its specific progress (same as before)
         const historyWithProgress = await Promise.all(
             recentContentList.map(async (item) => {
                 let progress = 0;
 
-                // FIX: Explicitly type the result of findOne.lean() to be IChallenge or null
                 const challenge: IChallenge | null = await Challenge.findOne({
                     userId,
                     contentId: item.contentId
-                }).lean<IChallenge>();
-                
-                if (challenge) {
-                    // FIX: 'challenge.status' is now correctly typed and accessible.
-                    if (challenge.status === 'completed') {
-                        // FIX: Explicitly type the result of this findOne as well
-                        const latestScore: IScore | null = await Score.findOne({ challengeId: challenge._id })
-                            .sort({ createdAt: -1 })
-                            .lean<IScore>();
-                        if (latestScore) {
-                            progress = latestScore.score;
-                        }
+                }).lean();
+
+                if (challenge?.status === 'completed') {
+                    const latestScore: IScore | null = await Score.findOne({ challengeId: challenge._id })
+                        .sort({ createdAt: -1 })
+                        .lean();
+                    if (latestScore) {
+                        progress = latestScore.score;
                     }
                 } else {
-                    // FIX: Explicitly type this result for consistency and safety
                     const lastProgressInteraction: IInteraction | null = await Interaction.findOne({
                         userId,
                         contentId: item.contentId,
                         endProgress: { $exists: true, $ne: null }
-                    })
-                    .sort({ timestamp: -1 })
-                    .lean<IInteraction>();
+                    }).sort({ timestamp: -1 }).lean();
 
                     if (lastProgressInteraction?.endProgress) {
                         progress = lastProgressInteraction.endProgress;
                     }
                 }
-                
+
                 return {
                     _id: item.contentId.toString(),
                     title: item.title,
@@ -125,11 +145,12 @@ export async function getHistory(options: { limit: number }): Promise<HistoryIte
                 };
             })
         );
-        
+
         return historyWithProgress;
 
     } catch (error: any) {
-        console.error("getHistory Action Failed:", error.message);
+        console.error("getHistory Action Failed:", error);
+        // Throwing the error allows the client component's catch block to handle it
         throw new Error("Failed to fetch history.");
     }
 }

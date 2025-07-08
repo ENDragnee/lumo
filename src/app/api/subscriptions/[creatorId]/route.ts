@@ -3,7 +3,7 @@ import { NextRequest ,NextResponse } from 'next/server';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from '@/lib/auth';
 import connectDB from '@/lib/mongodb';
-import { Subscribtion } from '@/models/Subscribtion';
+import Subscribtion from '@/models/Subscribtion';
 import mongoose from 'mongoose';
 
 // --- DELETE: To handle unsubscribing from a creator ---

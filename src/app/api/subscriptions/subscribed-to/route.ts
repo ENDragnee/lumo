@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import connectDB from '@/lib/mongodb';
-import { Subscribtion, ISubscribtion } from '@/models/Subscribtion';
+import Subscribtion, { ISubscribtion } from '@/models/Subscribtion';
 import User, { IUser } from '@/models/User'; // Ensure IUser is imported
 import mongoose, { Types } from 'mongoose';
 
