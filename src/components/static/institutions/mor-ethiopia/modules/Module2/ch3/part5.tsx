@@ -136,12 +136,12 @@ const content = {
 };
 
 const Section = ({ title, icon, children }: { title: string; icon: ReactNode; children: ReactNode }) => (
-    <div className="mb-12">
-        <div className="flex items-center mb-4 border-b-2 border-gray-200 pb-2">
+    <div className="mb-8">
+        <div className="flex items-center mb-3 border-b pb-2">
             <div className="text-gray-600 mr-3">{icon}</div>
             <h2 className="text-xl md:text-2xl font-bold text-gray-800">{title}</h2>
         </div>
-        <div className="space-y-4 text-gray-700 leading-relaxed pl-2">{children}</div>
+        <div className="space-y-3 text-gray-700 leading-relaxed">{children}</div>
     </div>
 );
 
@@ -154,32 +154,32 @@ export default function RentalRatesAndLossesChapter() {
     const toggleLanguage = () => setLang(lang === 'am' ? 'en' : 'am');
 
     return (
-        <div className="font-sans bg-gray-100 p-4 sm:p-6 md:p-8">
-            <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-lg">
-                <header className="bg-blue-700 text-white p-6 rounded-t-lg relative">
+        <div className="font-sans p-2 sm:p-4">
+            <div className="max-w-full mx-auto">
+                <header className="py-4 border-b relative">
                     <div className="flex items-center">
-                        <Percent className="h-10 w-10 mr-4 flex-shrink-0" />
+                        <Percent className="h-8 w-8 mr-3" />
                         <div><h1 className="text-2xl md:text-3xl font-bold">{t.title}</h1></div>
                     </div>
-                    <button onClick={toggleLanguage} className="absolute top-4 right-4 bg-white text-blue-700 font-semibold py-2 px-4 rounded-md text-sm hover:bg-blue-100">{t.langButton}</button>
+                    <button onClick={toggleLanguage} className="absolute top-4 right-4 text-gray-800 font-semibold py-2 px-4 text-sm">{t.langButton}</button>
                 </header>
 
-                <main className="p-6 md:p-10">
+                <main className="py-4">
                     <Section title={t.section2_4_Title} icon={<Calculator />}>
                         <p>{t.taxRates.body}</p>
                         <p>{t.taxRates.individual}</p>
-                        <h4 className="font-bold text-lg mt-4">{t.taxBracketsTitle}</h4>
-                        <div className="overflow-x-auto rounded-lg border">
-                            <table className="min-w-full bg-white text-sm">
-                                <thead className="bg-gray-100"><tr>{t.taxTableHeaders.map(h => <th key={h} className="py-3 px-4 text-left font-semibold text-gray-600">{h}</th>)}</tr></thead>
-                                <tbody>{t.taxBrackets.map((row, i) => <tr key={i} className="hover:bg-gray-50 border-t"><td className="py-2 px-4">{row[0]}</td><td className="py-2 px-4">{row[1]}</td><td className="py-2 px-4">{row[2]}</td></tr>)}</tbody>
+                        <h4 className="font-bold text-lg mt-3">{t.taxBracketsTitle}</h4>
+                        <div className="overflow-x-auto">
+                            <table className="min-w-full text-sm">
+                                <thead><tr>{t.taxTableHeaders.map(h => <th key={h} className="py-2 px-4 border-b text-left font-semibold">{h}</th>)}</tr></thead>
+                                <tbody>{t.taxBrackets.map((row, i) => <tr key={i}><td className="py-2 px-4 border-b">{row[0]}</td><td className="py-2 px-4 border-b">{row[1]}</td><td className="py-2 px-4 border-b">{row[2]}</td></tr>)}</tbody>
                             </table>
                         </div>
                     </Section>
 
                     <Section title={t.section2_5_Title} icon={<Users />}>
                         <p>{t.sublessorDef}</p>
-                        <div className="p-4 bg-red-50 border-l-4 border-red-500 text-red-800">
+                        <div className="p-3">
                             <h4 className="font-bold flex items-center"><AlertCircle className="h-5 w-5 mr-2" />Landlord Liability</h4>
                             <p className="mt-1">{t.sublessorLiability}</p>
                         </div>
@@ -196,15 +196,13 @@ export default function RentalRatesAndLossesChapter() {
                     <Section title={t.section2_8_Title} icon={<Info />}><p>{t.notificationRule}</p></Section>
                     <Section title={t.section2_9_Title} icon={<Info />}><p>{t.estimationRule}</p></Section>
                     
-                     <div className="my-10 p-6 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
+                     <div className="my-6 p-4">
                         <h3 className="text-xl font-bold text-gray-800 mb-2">{t.caseStudy.title}</h3>
-                        <p className="text-gray-600 mb-4 italic">{t.caseStudy.scenario}</p>
+                        <p className="text-gray-600 mb-3 italic">{t.caseStudy.scenario}</p>
                         <div className="font-semibold text-gray-800 space-y-2">
                             <p>{t.caseStudy.q1}</p>
                             <p>{t.caseStudy.q2}</p>
                         </div>
-                        {/* Note: This is now a display-only question. To make it a clickable quiz like before,
-                            you would wrap it in a dedicated <Quiz> component. */}
                     </div>
 
                 </main>
@@ -214,7 +212,7 @@ export default function RentalRatesAndLossesChapter() {
 }
 
 const LossCarryForwardSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
-    const t = content[lang].simulator; // Make sure your i18n content object is updated (see below)
+    const t = content[lang].simulator;
 
     const createInitialState = () => Array.from({ length: 5 }, (_, i) => ({
         id: i,
@@ -230,10 +228,9 @@ const LossCarryForwardSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
     const handleInputChange = (id: number, value: string, type: 'profit' | 'loss') => {
         const newYears = years.map(year => {
             if (year.id === id) {
-                // When user types in one field, clear the other to avoid ambiguity
                 if (type === 'profit') {
                     return { ...year, profitInput: value, lossInput: '' };
-                } else { // type === 'loss'
+                } else {
                     return { ...year, lossInput: value, profitInput: '' };
                 }
             }
@@ -250,12 +247,11 @@ const LossCarryForwardSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
         let lossPool: { amount: number; yearsLeft: number }[] = [];
         const calculatedYears = years.map(yearData => {
             let pl = 0;
-            // Determine Profit or Loss value from the two separate inputs
             const profitValue = parseFloat(yearData.profitInput);
             const lossValue = parseFloat(yearData.lossInput);
 
             if (!isNaN(lossValue) && lossValue > 0) {
-                pl = -lossValue; // Treat loss input as a negative number
+                pl = -lossValue;
             } else if (!isNaN(profitValue) && profitValue > 0) {
                 pl = profitValue;
             }
@@ -264,13 +260,11 @@ const LossCarryForwardSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
             let taxableIncome = 0;
 
             if (pl < 0) {
-                // If it's a loss, add it to the pool
                 lossPool.push({ amount: -pl, yearsLeft: 5 });
-                taxableIncome = 0; // Taxable income is 0 in a loss year
+                taxableIncome = 0;
             } else {
-                // If it's a profit, try to use up losses from the pool
                 taxableIncome = pl;
-                lossPool = lossPool.filter(loss => loss.yearsLeft > 0); // Remove expired losses
+                lossPool = lossPool.filter(loss => loss.yearsLeft > 0);
 
                 for (let loss of lossPool) {
                     if (taxableIncome > 0) {
@@ -280,10 +274,9 @@ const LossCarryForwardSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
                         lossUsed += amountToUse;
                     }
                 }
-                lossPool = lossPool.filter(loss => loss.amount > 0); // Remove fully used losses
+                lossPool = lossPool.filter(loss => loss.amount > 0);
             }
             
-            // Decrement years left for all active losses
             lossPool.forEach(loss => loss.yearsLeft--);
 
             return { ...yearData, lossUsed, taxableIncome };
@@ -302,11 +295,11 @@ const LossCarryForwardSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
 
     return (
         <Section title={t.title} icon={<CalendarClock />}>
-            <div className="p-4 bg-gray-50 rounded-lg border">
-                <p className="text-sm text-gray-600 mb-4">{t.instructions}</p>
+            <div className="p-3">
+                <p className="text-sm text-gray-600 mb-3">{t.instructions}</p>
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm">
-                        <thead className="bg-gray-200">
+                        <thead className="text-left">
                             <tr className="text-left">
                                 <th className="p-2">{t.year}</th>
                                 <th className="p-2 text-green-700">{t.profit}</th>
@@ -324,7 +317,7 @@ const LossCarryForwardSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
                                             type="number"
                                             value={year.profitInput}
                                             onChange={(e) => handleInputChange(year.id, e.target.value, 'profit')}
-                                            className="w-full p-1 border rounded-md"
+                                            className="w-full p-1 border"
                                             placeholder="5000"
                                         />
                                     </td>
@@ -333,7 +326,7 @@ const LossCarryForwardSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
                                             type="number"
                                             value={year.lossInput}
                                             onChange={(e) => handleInputChange(year.id, e.target.value, 'loss')}
-                                            className="w-full p-1 border rounded-md"
+                                            className="w-full p-1 border"
                                             placeholder="2000"
                                         />
                                     </td>
@@ -344,9 +337,9 @@ const LossCarryForwardSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
                         </tbody>
                     </table>
                 </div>
-                <div className="mt-4 flex flex-wrap items-center gap-4">
-                    <button onClick={handleCalculate} className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center"><Play className="h-4 w-4 mr-2"/>{t.calculate}</button>
-                    <button onClick={handleReset} className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 flex items-center"><RefreshCw className="h-4 w-4 mr-2"/>{t.reset}</button>
+                <div className="mt-3 flex flex-wrap items-center gap-3">
+                    <button onClick={handleCalculate} className="px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 flex items-center"><Play className="h-4 w-4 mr-2"/>{t.calculate}</button>
+                    <button onClick={handleReset} className="px-4 py-2 bg-gray-600 text-white text-sm rounded-md hover:bg-gray-700 flex items-center"><RefreshCw className="h-4 w-4 mr-2"/>{t.reset}</button>
                 </div>
             </div>
         </Section>

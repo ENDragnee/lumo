@@ -1,19 +1,14 @@
+// Suggested file path: /src/components/static/mor/BusinessIncomeTaxChapter.tsx
 'use client';
 
-import { useState, ReactNode, ChangeEvent } from 'react';
+import { useState, ReactNode } from 'react';
 import {
     Briefcase,
     FileText,
     CircleDollarSign,
     Percent,
     MinusCircle,
-    Banknote,
-    ArrowDownUp,
     TrendingDown,
-    Landmark,
-    Heart,
-    HandCoins,
-    XCircle,
     Calculator,
     Lightbulb,
     HelpCircle,
@@ -21,7 +16,7 @@ import {
     ChevronUp
 } from 'lucide-react';
 
-// --- i18n Content Object (1-to-1 with PDF pages 44-92) ---
+// --- i18n Content Object ---
 const content = {
     am: {
         title: "ክፍል ሦስት: የንግድ ስራ ገቢ ግብር (ሰንጠረዥ ሐ)",
@@ -162,29 +157,29 @@ const individualTaxBrackets = [
 // --- Helper Components ---
 
 const Section = ({ title, icon, children }: { title: string, icon: ReactNode, children: ReactNode }) => (
-    <div className="mb-12">
-        <div className="flex items-center mb-4 border-b-2 border-blue-200 pb-2">
+    <div className="mb-8">
+        <div className="flex items-center mb-3 border-b border-gray-300 pb-2">
             <div className="text-blue-600 mr-3">{icon}</div>
-            <h2 className="text-xl md:text-2xl font-bold text-gray-800">{title}</h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-800">{title}</h2>
         </div>
-        <div className="space-y-4 text-gray-700 leading-relaxed pl-2">{children}</div>
+        <div className="space-y-3 text-gray-800 leading-loose pl-2">{children}</div>
     </div>
 );
 
 const AccordionItem = ({ title, children, icon }: { title: string, children: ReactNode, icon: ReactNode }) => {
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <div className="border border-gray-200 rounded-lg overflow-hidden">
+        <div>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex justify-between items-center p-4 text-left font-semibold text-gray-700 bg-gray-50 hover:bg-gray-100"
+                className="w-full flex justify-between items-center p-3 text-left font-semibold text-gray-800"
             >
                 <div className="flex items-center">
                     {icon} <span className="ml-3">{title}</span>
                 </div>
                 {isOpen ? <ChevronUp /> : <ChevronDown />}
             </button>
-            {isOpen && <div className="p-4 bg-white border-t">{children}</div>}
+            {isOpen && <div className="p-3">{children}</div>}
         </div>
     );
 };
@@ -193,11 +188,11 @@ const QuizQuestion = ({ q, a, lang }: { q: string, a: string, lang: 'am' | 'en' 
     const [show, setShow] = useState(false);
     return (
         <div className="mb-4">
-            <p className="font-semibold text-gray-800 flex items-start"><HelpCircle className="h-5 w-5 mr-2 mt-1 flex-shrink-0"/>{q}</p>
-            <button onClick={() => setShow(!show)} className="text-sm text-blue-600 hover:underline mt-2">
+            <p className="font-semibold text-gray-800 flex items-start text-lg"><HelpCircle className="h-5 w-5 mr-2 mt-1 flex-shrink-0"/>{q}</p>
+            <button onClick={() => setShow(!show)} className="text-base text-blue-600 hover:underline mt-2">
                 {show ? content[lang].hideAnswer : content[lang].showAnswer}
             </button>
-            {show && <p className="mt-2 p-3 bg-green-50 rounded-md border border-green-200 flex items-start"><Lightbulb className="h-5 w-5 mr-2 mt-1 flex-shrink-0 text-green-600"/>{a}</p>}
+            {show && <p className="mt-2 p-3 flex items-start text-lg"><Lightbulb className="h-5 w-5 mr-2 mt-1 flex-shrink-0 text-green-600"/>{a}</p>}
         </div>
     );
 };
@@ -223,62 +218,62 @@ export default function BusinessIncomeTaxChapter() {
     };
 
     return (
-        <div className="font-sans bg-gray-100 p-4 sm:p-6 md:p-8">
-            <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-lg">
-                <header className="bg-blue-700 text-white p-6 rounded-t-lg relative">
+        <div className="font-sans p-4 sm:p-6">
+            <div className="max-w-7xl mx-auto">
+                <header className="p-6 border-b relative">
                     <div className="flex items-center">
                         <Briefcase className="h-10 w-10 mr-4" />
-                        <div><h1 className="text-2xl md:text-3xl font-bold">{t.title}</h1></div>
+                        <div><h1 className="text-3xl md:text-4xl font-bold">{t.title}</h1></div>
                     </div>
-                    <button onClick={toggleLanguage} className="absolute top-4 right-4 bg-white text-blue-700 font-semibold py-2 px-4 rounded-md text-sm hover:bg-blue-100">{t.langButton}</button>
+                    <button onClick={toggleLanguage} className="absolute top-4 right-4 bg-gray-200 text-gray-800 font-semibold py-2 px-4 text-sm">{t.langButton}</button>
                 </header>
 
-                <main className="p-6 md:p-10">
+                <main className="p-6">
                     <Section title={t.taxableIncomeTitle} icon={<FileText />}>
-                        <p>{t.taxableIncomeDef}</p>
-                        <p className="p-3 bg-blue-50 border border-blue-200 rounded-md text-sm">{t.ifrsNote}</p>
+                        <p className="text-lg">{t.taxableIncomeDef}</p>
+                        <p className="p-3 text-base">{t.ifrsNote}</p>
                     </Section>
 
                     <Section title={t.businessIncomeTitle} icon={<CircleDollarSign />}>
-                        <ul className="list-disc list-inside space-y-2">{t.businessIncomeItems.map((item, i) => <li key={i}>{item}</li>)}</ul>
+                        <ul className="list-disc list-inside space-y-2 text-lg">{t.businessIncomeItems.map((item, i) => <li key={i}>{item}</li>)}</ul>
                     </Section>
 
                     <Section title={t.taxRateTitle} icon={<Percent />}>
-                        <p className="font-semibold">{t.rateForBodies}</p>
-                        <p>{t.rateForIndividuals}</p>
-                        <div className="p-6 my-8 bg-blue-50 border-t-4 border-blue-400 rounded-b-lg shadow-md">
-                            <h3 className="text-xl font-bold text-gray-800 flex items-center mb-4"><Calculator className="mr-2"/>{t.calculatorTitle}</h3>
-                            <div className="flex flex-col sm:flex-row items-center gap-4">
-                                <input type="number" value={income} onChange={(e) => setIncome(e.target.value)} placeholder={t.annualIncomeLabel} className="flex-grow w-full p-2 border border-gray-300 rounded-md" />
-                                <button onClick={calculateTax} className="w-full sm:w-auto bg-blue-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-blue-700">Calculate</button>
+                        <p className="font-semibold text-lg">{t.rateForBodies}</p>
+                        <p className="text-lg">{t.rateForIndividuals}</p>
+                        <div className="p-6 my-8">
+                            <h3 className="text-2xl font-bold text-gray-800 flex items-center mb-4"><Calculator className="mr-2"/>{t.calculatorTitle}</h3>
+                            <div className="flex flex-col sm:flex-row items-center gap-3">
+                                <input type="number" value={income} onChange={(e) => setIncome(e.target.value)} placeholder={t.annualIncomeLabel} className="flex-grow w-full p-2 border border-gray-300" />
+                                <button onClick={calculateTax} className="w-full sm:w-auto bg-blue-600 text-white font-semibold py-2 px-6 hover:bg-blue-700">Calculate</button>
                             </div>
-                            {result && <div className="mt-4 p-4 bg-white rounded-lg border border-gray-200 font-bold text-lg text-green-700">Tax Payable: {result.tax.toLocaleString()} ETB</div>}
+                            {result && <div className="mt-4 p-4 font-bold text-xl text-green-700">Tax Payable: {result.tax.toLocaleString()} ETB</div>}
                         </div>
                     </Section>
 
                     <Section title={t.deductibleExpensesTitle} icon={<MinusCircle />}>
-                        <p>{t.deductibleGeneral}</p>
+                        <p className="text-lg">{t.deductibleGeneral}</p>
                         <div className="space-y-2">
                             {t.deductions.map((item, i) => (
-                                <AccordionItem key={i} title={item.title} icon={<Banknote className="text-green-600" />}>
-                                    <p>{item.text}</p>
+                                <AccordionItem key={i} title={item.title} icon={<CircleDollarSign className="text-green-600" />}>
+                                    <p className="text-lg">{item.text}</p>
                                 </AccordionItem>
                             ))}
                         </div>
                     </Section>
 
-                    <Section title={t.nonDeductibleTitle} icon={<XCircle />}>
-                         <ul className="list-disc list-inside space-y-2 text-red-800 bg-red-50 p-4 rounded-md">
+                    <Section title={t.nonDeductibleTitle} icon={<MinusCircle color="red" />}>
+                         <ul className="list-disc list-inside space-y-2 text-red-800 p-4 text-lg">
                             {t.nonDeductibleItems.map((item, i) => <li key={i}>{item}</li>)}
                          </ul>
                     </Section>
 
                     <Section title={t.lossCarryForwardTitle} icon={<TrendingDown />}>
-                        <p className="p-3 bg-yellow-50 border-l-4 border-yellow-400">{t.lossCarryForwardText}</p>
+                        <p className="p-3 text-lg">{t.lossCarryForwardText}</p>
                     </Section>
                     
-                    <div className="my-10 p-6 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
-                        <h3 className="text-xl font-bold text-gray-800 mb-4">{t.quizTitle}</h3>
+                    <div className="my-10 p-6">
+                        <h3 className="text-2xl font-bold text-gray-800 mb-4">{t.quizTitle}</h3>
                         <QuizQuestion q={t.q1} a={t.a1} lang={lang} />
                         <QuizQuestion q={t.q2} a={t.a2} lang={lang} />
                         <QuizQuestion q={t.q3} a={t.a3} lang={lang} />

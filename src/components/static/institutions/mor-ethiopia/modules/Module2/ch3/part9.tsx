@@ -1,22 +1,7 @@
 'use client';
 
 import { useState, ReactNode } from 'react';
-import {
-    Heart,
-    TrendingDown,
-    Building,
-    Wrench,
-    Video,
-    BarChart2,
-    Calculator,
-    Info,
-    RefreshCw,
-    Play,
-    GitCompareArrows,
-    Lightbulb,
-    FileText,
-    Percent
-} from 'lucide-react';
+import { Heart, TrendingDown, Building, Wrench, Video, BarChart2, Calculator, Info, RefreshCw, Play, GitCompareArrows, Lightbulb, FileText, Percent } from 'lucide-react';
 
 // --- i18n Content Object (1-to-1 with PDF slides 60-74, plus explanations) ---
 const content = {
@@ -164,7 +149,7 @@ const content = {
 
 // --- Helper Components ---
 const Section = ({ title, icon, children }: { title: string; icon: ReactNode; children: ReactNode }) => (
-    <div className="mb-12"><div className="flex items-center mb-4 border-b-2 border-gray-200 pb-2"><div className="text-gray-600 mr-3">{icon}</div><h2 className="text-xl md:text-2xl font-bold text-gray-800">{title}</h2></div><div className="space-y-4 text-gray-700 leading-relaxed pl-2">{children}</div></div>
+    <div className="mb-8"><div className="flex items-center mb-3"><div className="text-gray-600 mr-3">{icon}</div><h2 className="text-xl md:text-2xl font-bold text-gray-800">{title}</h2></div><div className="space-y-3 text-gray-700 leading-relaxed">{children}</div></div>
 );
 
 const DepreciationSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
@@ -205,26 +190,26 @@ const DepreciationSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
 
     return (
         <Section title={t.title} icon={<GitCompareArrows />}>
-            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <p className="text-sm text-gray-600 mb-4">{t.instructions}</p>
-                <div className="grid md:grid-cols-2 gap-4 mb-4">
-                    <input type="number" value={inputs.cost} onChange={e => setInputs({...inputs, cost: e.target.value})} placeholder={t.assetCost} className="p-2 border rounded-md"/>
-                    <input type="number" value={inputs.rate} onChange={e => setInputs({...inputs, rate: e.target.value})} placeholder={t.rate} className="p-2 border rounded-md"/>
+            <div className="p-3">
+                <p className="text-sm text-gray-600 mb-3">{t.instructions}</p>
+                <div className="grid md:grid-cols-2 gap-3 mb-3">
+                    <input type="number" value={inputs.cost} onChange={e => setInputs({...inputs, cost: e.target.value})} placeholder={t.assetCost} className="p-2 border"/>
+                    <input type="number" value={inputs.rate} onChange={e => setInputs({...inputs, rate: e.target.value})} placeholder={t.rate} className="p-2 border"/>
                 </div>
                 <div className="flex gap-2">
-                    <button onClick={handleCalculate} className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2"><Play size={16}/>{t.calculate}</button>
-                    <button onClick={handleReset} className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 flex items-center gap-2"><RefreshCw size={16}/>{t.reset}</button>
+                    <button onClick={handleCalculate} className="px-4 py-2 bg-blue-600 text-white text-sm hover:bg-blue-700 flex items-center gap-2"><Play size={16}/>{t.calculate}</button>
+                    <button onClick={handleReset} className="px-4 py-2 bg-gray-600 text-white text-sm hover:bg-gray-700 flex items-center gap-2"><RefreshCw size={16}/>{t.reset}</button>
                 </div>
 
                 {results.length > 0 && (
-                    <div className="mt-6">
-                        <h3 className="text-lg font-bold mb-2">{t.resultsTitle}</h3>
-                        <div className="grid lg:grid-cols-2 gap-6">
+                    <div className="mt-4">
+                        <h3 className="font-bold text-lg mb-2">{t.resultsTitle}</h3>
+                        <div className="grid lg:grid-cols-2 gap-4">
                             {/* Straight-Line Results */}
-                            <div className="p-3 border rounded-lg bg-white">
+                            <div className="p-3">
                                 <h4 className="font-bold text-center mb-2">{t.slMethod}</h4>
                                 <table className="w-full text-xs text-center">
-                                    <thead className="bg-gray-100"><tr><th>{t.year}</th><th>{t.openingValue}</th><th>{t.depreciation}</th><th>{t.closingValue}</th></tr></thead>
+                                    <thead><tr><th>{t.year}</th><th>{t.openingValue}</th><th>{t.depreciation}</th><th>{t.closingValue}</th></tr></thead>
                                     <tbody>{results.map(r => (<tr key={r.year} className="border-t">
                                         <td className="p-1 font-semibold">{r.year}</td><td>{r.sl.opening.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
                                         <td className="text-red-600">({r.sl.dep.toLocaleString(undefined, {maximumFractionDigits: 0})})</td>
@@ -233,10 +218,10 @@ const DepreciationSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
                                 </table>
                             </div>
                             {/* Declining-Balance Results */}
-                             <div className="p-3 border rounded-lg bg-white">
+                             <div className="p-3">
                                 <h4 className="font-bold text-center mb-2">{t.dbMethod}</h4>
                                 <table className="w-full text-xs text-center">
-                                    <thead className="bg-gray-100"><tr><th>{t.year}</th><th>{t.openingValue}</th><th>{t.depreciation}</th><th>{t.closingValue}</th></tr></thead>
+                                    <thead><tr><th>{t.year}</th><th>{t.openingValue}</th><th>{t.depreciation}</th><th>{t.closingValue}</th></tr></thead>
                                     <tbody>{results.map(r => (<tr key={r.year} className="border-t">
                                         <td className="p-1 font-semibold">{r.year}</td><td>{r.db.opening.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
                                         <td className="text-red-600">({r.db.dep.toLocaleString(undefined, {maximumFractionDigits: 0})})</td>
@@ -260,15 +245,15 @@ export default function DepreciationAndDonationsChapter() {
     const toggleLanguage = () => setLang(lang === 'am' ? 'en' : 'am');
 
     return (
-        <div className="font-sans bg-gray-100 p-4 sm:p-6 md:p-8">
-            <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-lg">
-                <header className="bg-blue-700 text-white p-6 rounded-t-lg relative">
-                    <div className="flex items-center"><TrendingDown className="h-10 w-10 mr-4" /><div><h1 className="text-2xl md:text-3xl font-bold">{t.title}</h1></div></div>
-                    <button onClick={toggleLanguage} className="absolute top-4 right-4 bg-white text-blue-700 font-semibold py-2 px-4 rounded-md text-sm hover:bg-blue-100">{t.langButton}</button>
+        <div className="font-sans p-2 sm:p-4">
+            <div className="max-w-full mx-auto">
+                <header className="py-4 border-b relative">
+                    <div className="flex items-center"><TrendingDown className="h-8 w-8 mr-3" /><div><h1 className="text-2xl md:text-3xl font-bold">{t.title}</h1></div></div>
+                    <button onClick={toggleLanguage} className="absolute top-4 right-4 text-gray-800 font-semibold py-2 px-4 text-sm">{t.langButton}</button>
                 </header>
-                <main className="p-6 md:p-10">
+                <main className="py-4">
                     <Section title={t.donationSection.title} icon={<Heart />}>
-                        <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-r-lg">
+                        <div className="p-3">
                             <p className="text-green-800 font-semibold">{t.donationSection.rule}</p>
                             <p className="text-sm text-green-700 mt-2">{t.donationSection.explanation}</p>
                         </div>
@@ -276,11 +261,11 @@ export default function DepreciationAndDonationsChapter() {
                     
                     <Section title={t.depreciationSection.title} icon={<Building />}>
                         <p>{t.depreciationSection.intro}</p>
-                        <div className="p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg">
+                        <div className="p-3">
                             <h4 className="font-bold flex items-center text-blue-800"><Lightbulb className="h-5 w-5 mr-2" />{t.depreciationSection.explanationTitle}</h4>
                             <p className="mt-1 text-sm text-blue-700">{t.depreciationSection.explanation}</p>
                         </div>
-                        <div className="mt-4 p-4 bg-gray-50 border rounded-lg">
+                        <div className="mt-3 p-3">
                             <h4 className="font-bold">{t.depreciationSection.depreciableAssetDef.title}</h4>
                             <ul className="list-disc list-inside space-y-1 mt-2">{t.depreciationSection.depreciableAssetDef.points.map((p, i) => <li key={i}>{p}</li>)}</ul>
                         </div>
@@ -289,23 +274,23 @@ export default function DepreciationAndDonationsChapter() {
                     <Section title={t.depreciationSection.methodsTitle} icon={<BarChart2 />}>
                         <p>{t.depreciationSection.methodsIntro}</p>
                         <div className="grid md:grid-cols-2 gap-4">
-                            <div className="p-4 bg-gray-100 rounded-lg">
+                            <div className="p-3">
                                 <h4 className="font-bold">{t.straightLineSection.title}</h4>
                                 <p className="text-sm mt-1">{t.straightLineSection.explanation}</p>
                             </div>
-                            <div className="p-4 bg-gray-100 rounded-lg">
+                            <div className="p-3">
                                 <h4 className="font-bold">{t.decliningBalanceSection.title}</h4>
                                 <p className="text-sm mt-1">{t.decliningBalanceSection.explanation}</p>
                             </div>
                         </div>
-                         <a href={t.depreciationSection.youtubeLink} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"><Video size={16}/>{t.depreciationSection.youtubeText}</a>
+                         <a href={t.depreciationSection.youtubeLink} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm"><Video size={16}/>{t.depreciationSection.youtubeText}</a>
                     </Section>
                     
                     <DepreciationSimulator lang={lang} />
 
                     <Section title={t.improvementSection.title} icon={<Wrench />}>
                         <p>{t.improvementSection.rule}</p>
-                        <div className="p-3 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 rounded-r-md">
+                        <div className="p-3">
                             <h4 className="font-bold flex items-center"><Percent className="h-4 w-4 mr-2" />Limit</h4>
                             <p className="mt-1 text-sm">{t.improvementSection.limit}</p>
                         </div>

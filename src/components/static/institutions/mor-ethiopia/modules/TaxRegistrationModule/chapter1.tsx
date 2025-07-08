@@ -7,6 +7,7 @@ import {
     Target,
     ListChecks,
     Users,
+    Globe,
     FileText,
     BookMarked,
     HelpCircle,
@@ -119,17 +120,17 @@ const DefinitionCard = ({ term, definition }: { term: string, definition: string
 
     return (
         <div 
-            className="w-full h-40 bg-white rounded-lg shadow-md cursor-pointer transform transition-transform duration-500 [perspective:1000px]"
+                        className="w-full h-40 cursor-pointer transform transition-transform duration-500 [perspective:1000px]"
             onClick={() => setIsFlipped(!isFlipped)}
         >
             <div className={`relative w-full h-full [transform-style:preserve-3d] transition-transform duration-500 ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}>
                 {/* Front of the card */}
-                <div className="absolute w-full h-full flex flex-col justify-center items-center bg-blue-50 border-2 border-blue-200 rounded-lg p-4 [backface-visibility:hidden]">
+                <div className="absolute w-full h-full flex flex-col justify-center items-center bg-blue-50 p-4 [backface-visibility:hidden]">
                     <HelpCircle className="h-8 w-8 text-blue-500 mb-2" />
                     <p className="text-lg font-semibold text-center text-blue-800">{term}</p>
                 </div>
                 {/* Back of the card */}
-                <div className="absolute w-full h-full flex flex-col justify-center items-center bg-green-50 border-2 border-green-300 rounded-lg p-4 [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                <div className="absolute w-full h-full flex flex-col justify-center items-center bg-green-50 rounded-lg p-4 [backface-visibility:hidden] [transform:rotateY(180deg)]">
                     <p className="text-sm text-center text-gray-800">{definition}</p>
                 </div>
             </div>
@@ -149,10 +150,10 @@ export default function TaxRegistrationChapterOne() {
     };
 
     return (
-        <div className="font-sans bg-gray-100 p-4 sm:p-6 md:p-8">
-            <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-lg">
+        <div className="font-sans bg-white p-4 sm:p-6 md:p-8">
+            <div className="max-w-5xl mx-auto">
                 {/* Chapter Header */}
-                <header className="bg-blue-700 text-white p-6 rounded-t-lg relative">
+                <header className="bg-blue-700 text-white p-6 flex items-center justify-between">
                     <div className="flex items-center">
                         <BookOpen className="h-10 w-10 mr-4" />
                         <div>
@@ -161,16 +162,17 @@ export default function TaxRegistrationChapterOne() {
                     </div>
                     <button 
                         onClick={toggleLanguage}
-                        className="absolute top-4 right-4 bg-white text-blue-700 font-semibold py-2 px-4 rounded-md text-sm hover:bg-blue-100 transition-colors"
+                        className="p-2 rounded-full bg-white text-blue-700 hover:bg-blue-100 transition-colors"
+                        aria-label="Toggle language"
                     >
-                        {t.langButton}
+                        <Globe className="h-6 w-6" />
                     </button>
                 </header>
 
-                <main className="p-6 md:p-10">
+                <main className="p-4">
                     {/* 1.1 Objective Section */}
                     <Section title={t.objectiveSectionTitle}>
-                        <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="p-4 bg-gray-50 rounded-lg">
                             <h3 className="font-bold text-lg text-gray-900 flex items-center mb-2">
                                 <Target className="h-5 w-5 mr-2 text-blue-600"/>
                                 {t.mainObjectiveTitle}
@@ -178,7 +180,7 @@ export default function TaxRegistrationChapterOne() {
                             <p>{t.mainObjectiveText}</p>
                         </div>
                         
-                        <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="mt-6 p-4 bg-gray-50 rounded-lg">
                             <h3 className="font-bold text-lg text-gray-900 flex items-center mb-3">
                                 <ListChecks className="h-5 w-5 mr-2 text-blue-600"/>
                                 {t.specificObjectivesTitle}
@@ -197,7 +199,7 @@ export default function TaxRegistrationChapterOne() {
                     {/* 1.2 Scope Section */}
                     <Section title={t.scopeSectionTitle}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <div className="p-4 bg-gray-50 rounded-lg">
                                 <h3 className="font-bold text-lg text-gray-900 flex items-center mb-3">
                                     <FileText className="h-5 w-5 mr-2 text-blue-600"/>
                                     {t.documentCoverageTitle}
@@ -206,7 +208,7 @@ export default function TaxRegistrationChapterOne() {
                                     {t.laws.map((law, i) => <li key={i}>{law}</li>)}
                                 </ul>
                             </div>
-                            <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <div className="p-4 bg-gray-50 rounded-lg">
                                 <h3 className="font-bold text-lg text-gray-900 flex items-center mb-3">
                                     <Users className="h-5 w-5 mr-2 text-blue-600"/>
                                     {t.participantsTitle}
