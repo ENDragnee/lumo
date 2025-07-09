@@ -2,6 +2,7 @@
 import mongoose, { Document, Schema, Model } from 'mongoose';
 
 export interface IInteraction extends Document {
+  _id: Schema.Types.ObjectId;
   userId: mongoose.Types.ObjectId;
   contentId: mongoose.Types.ObjectId;
   sessionId: string;

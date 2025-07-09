@@ -296,7 +296,7 @@ export default function DepreciationAndDonationsChapter() {
                             <p className="mt-1 text-sm">{t.improvementSection.limit}</p>
                         </div>
                     </Section>
-                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/8" next="/institutional-portal/mor-ethiopia/2/10" lang={lang} />
+                    <ChapterNavigation previous="/content/686e8e6423afc16ef4f670b7" next="/content/686e8e6423afc16ef4f670bd" lang={lang} />
                 </main>
             </div>
         </div>

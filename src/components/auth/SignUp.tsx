@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect, FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useTheme } from "next-themes";
 import styled, { css } from "styled-components";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiLoader, FiChevronRight, FiUser } from 'react-icons/fi'; // Added FiUser
@@ -10,6 +10,7 @@ import { FiMail, FiLock, FiEye, FiEyeOff, FiLoader, FiChevronRight, FiUser } fro
 // --- Assuming shared components & styles ---
 import Logo from "@/components/ui/Logo";
 import { gradientShift } from "@/components/ui/animations";
+import GoogleSignInButton from "./GoogleSignInButton";
 
 // --- Styled Components (No changes needed here, using existing styles) ---
 
@@ -45,6 +46,12 @@ const SignUpCard = styled.div`
     --card-border-color: rgba(56, 189, 248, 0.15);
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--neon-glow-1, #22d3ee);
   }
+`;
+const SocialLoginWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
 `;
 
 const LogoWrapper = styled.div`
@@ -206,6 +213,14 @@ const SignInLink = styled.button`
 export default function SignUp() {
   const router = useRouter();
   const { resolvedTheme } = useTheme();
+  const searchParams = useSearchParams();
+
+  const callbackUrl = searchParams.get("callbackUrl");
+  const defaultRedirectUrl = process.env.NEXT_PUBLIC_MAIN_PAGE || "/";
+  // Ensure the callbackUrl is a relative path to prevent open redirect vulnerabilities
+  const safeCallbackUrl = (callbackUrl && callbackUrl.startsWith("/"))
+    ? callbackUrl
+    : defaultRedirectUrl;
 
   // Updated State
   const [firstName, setFirstName] = useState("");
@@ -213,6 +228,7 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false); // Loading for Google
   const [gender, setGender] = useState("");
   const [otp, setOtp] = useState("");
   
@@ -286,6 +302,7 @@ export default function SignUp() {
 
   const handleSignUp = async (e: FormEvent) => {
     e.preventDefault();
+    setIsGoogleLoading(false); // Ensure only one loader is active
 
     if (!isAwaitingOtp) {
         handleSendOtp();
@@ -317,6 +334,7 @@ export default function SignUp() {
       setIsLoading(false);
     }
   };
+  const isSubmitting = isLoading || isGoogleLoading;
 
   return (
     <Container>
@@ -414,6 +432,14 @@ export default function SignUp() {
                 </ResendOtpButton>
             )}
         </FormContainer>
+
+        <SocialLoginWrapper>
+             <GoogleSignInButton
+                callbackUrl={safeCallbackUrl}
+                disabled={isSubmitting}
+                setError={setError}
+             />
+        </SocialLoginWrapper>
 
         <SignInPrompt>
           Already have an account?

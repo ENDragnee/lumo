@@ -107,29 +107,32 @@ export async function getHistory(options: {
             return [];
         }
 
-        // Step 2: Enrich each item with its specific progress (same as before)
+        // Step 2: Enrich each item with its specific progress
         const historyWithProgress = await Promise.all(
             recentContentList.map(async (item) => {
                 let progress = 0;
 
-                const challenge: IChallenge | null = await Challenge.findOne({
+                // Cast the result to IChallenge | null to fix the type mismatch
+                const challenge = await Challenge.findOne({
                     userId,
                     contentId: item.contentId
-                }).lean();
+                }).lean() as unknown as IChallenge | null;
 
                 if (challenge?.status === 'completed') {
-                    const latestScore: IScore | null = await Score.findOne({ challengeId: challenge._id })
+                    // Cast the result to IScore | null for consistency
+                    const latestScore = await Score.findOne({ challengeId: challenge._id })
                         .sort({ createdAt: -1 })
-                        .lean();
+                        .lean() as unknown as IScore | null;
                     if (latestScore) {
                         progress = latestScore.score;
                     }
                 } else {
-                    const lastProgressInteraction: IInteraction | null = await Interaction.findOne({
+                    // Cast the result to IInteraction | null for consistency
+                    const lastProgressInteraction = await Interaction.findOne({
                         userId,
                         contentId: item.contentId,
                         endProgress: { $exists: true, $ne: null }
-                    }).sort({ timestamp: -1 }).lean();
+                    }).sort({ timestamp: -1 }).lean() as unknown as IInteraction | null;
 
                     if (lastProgressInteraction?.endProgress) {
                         progress = lastProgressInteraction.endProgress;

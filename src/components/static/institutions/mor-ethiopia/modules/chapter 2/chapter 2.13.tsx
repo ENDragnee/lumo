@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { BookCheck, FileQuestion, Send, CheckCircle, XCircle, Globe } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- Quiz Data ---
 const quizData = {
@@ -214,6 +215,7 @@ export default function ComprehensiveFinalExam() {
                             </button>
                         </div>
                     )}
+                    <ChapterNavigation previous='/content/686e8e6523afc16ef4f670c3' next='/content/686e8e6523afc16ef4f670c9' lang={lang}/>
                 </main>
             </div>
         </div>

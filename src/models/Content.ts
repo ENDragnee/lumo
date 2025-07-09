@@ -15,6 +15,7 @@ export interface IContent extends Document {
   tags: string[];
   difficulty?: "easy" | "medium" | "hard";
   description?: string;
+  estimatedTime?: number;
   userEngagement: {
     rating?: number;
     views?: number;
@@ -70,6 +71,7 @@ const ContentSchema = new mongoose.Schema<IContent>({
     default: "easy"
   },
   description: { type: String },
+  estimatedTime: { type: Number, default: 0 },
   userEngagement: {
     rating: { type: Number, default: 0 },
     views: { type: Number, default: 0 },

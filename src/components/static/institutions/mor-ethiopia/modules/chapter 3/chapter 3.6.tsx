@@ -25,6 +25,7 @@ import {
     Users,
     Building2
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object ---
 const content = {
@@ -259,6 +260,7 @@ export default function WithholdingAgentsAndExemptionsModule() {
                                 </div>
                             )})}                        </div>
                     </Section>
+                    <ChapterNavigation previous='/content/686e8e6823afc16ef4f670e4' next='/content/686e8e6823afc16ef4f670ea' lang={lang} />
 
                 </main>
                 

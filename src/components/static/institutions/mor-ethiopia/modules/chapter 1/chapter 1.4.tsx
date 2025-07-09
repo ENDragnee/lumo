@@ -216,7 +216,7 @@ export default function TaxRegistrationPenaltiesChapter() {
                             <p className="text-red-800 leading-relaxed">{t.criminalLiabilityText}</p>
                         </div>
                     </Section>
-                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/1/3" next="/institutional-portal/mor-ethiopia/2/1" lang={lang} />
+                    <ChapterNavigation previous="/content/686e8e6223afc16ef4f6709c" next="/content/686e8e6223afc16ef4f670a2" lang={lang} />
                 </main>
             </div>
         </div>

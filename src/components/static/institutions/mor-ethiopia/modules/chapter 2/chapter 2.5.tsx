@@ -205,7 +205,7 @@ export default function RentalRatesAndLossesChapter() {
                             <p>{t.caseStudy.q2}</p>
                         </div>
                     </div>
-                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/4" next="/institutional-portal/mor-ethiopia/2/6" lang={lang} />
+                    <ChapterNavigation previous="/content/686e8e6323afc16ef4f670ab" next="/content/686e8e6323afc16ef4f670b1" lang={lang} />
                 </main>
             </div>
         </div>

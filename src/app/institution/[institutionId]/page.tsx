@@ -1,6 +1,6 @@
-// /app/institution/[institutionId]/page.tsx (CORRECTED)
+// /app/institution/[institutionId]/page.tsx (CORRECTED & UPDATED)
 
-import { getServerSession } from 'next-auth/next'; // Import Session type
+import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import mongoose from 'mongoose';
 import dbConnect from '@/lib/mongodb';
@@ -9,13 +9,15 @@ import InstitutionMember, { IInstitutionMember } from '@/models/InstitutionMembe
 import { loadInstitutionPortal } from '@/lib/institutionPortalLoader';
 import { notFound } from 'next/navigation';
 import { Session } from 'next-auth';
-import Content from '@/models/Content'; // Import the Content model
+import Content from '@/models/Content';
+// --- 1. IMPORT THE ACTION ---
+import { getInteractedContentIds } from '@/app/actions/interactionActions';
 
 // It's good practice to define the data fetching logic separately
 async function getPortalData(institutionId: string): Promise<{
   institution: (IInstitution & { _id: string }) | null;
   membership: (IInstitutionMember & { _id: string }) | null;
-  session: Session | null; // Use the Session type which includes our custom user
+  session: Session | null;
 }> {
   // 1. Get Session
   const session = await getServerSession(authOptions);
@@ -32,7 +34,6 @@ async function getPortalData(institutionId: string): Promise<{
   // 4. Fetch Membership only if user is logged in
   let membershipPromise: Promise<IInstitutionMember | null> = Promise.resolve(null);
   
-  // The type declaration file ensures `session.user.id` exists and is a string
   if (session?.user?.id) {
     membershipPromise = InstitutionMember.findOne({
       institutionId: new mongoose.Types.ObjectId(institutionId),
@@ -43,11 +44,10 @@ async function getPortalData(institutionId: string): Promise<{
   // 5. Await all promises
   const [institution, membership] = await Promise.all([institutionPromise, membershipPromise]);
 
-  // The .lean() objects need to be stringified for Next.js to be happy
   return {
     institution: institution ? JSON.parse(JSON.stringify(institution)) : null,
     membership: membership ? JSON.parse(JSON.stringify(membership)) : null,
-    session, // Return the whole session object
+    session,
   };
 }
 
@@ -56,15 +56,16 @@ export default async function InstitutionPortalPage({ params }: { params: Promis
   const { institutionId } = await params;
   
   const { institution, membership, session } = await getPortalData(institutionId);
-  const sessionUser = session?.user; // This user is now correctly typed
-  const modules = await Content.find({institutionId: institutionId}).sort({ order: -1 }).lean();
+  const sessionUser = session?.user;
+  // Fetch modules only if the user is a member, as they are only needed for the dashboard
+  const modules = (membership && membership.status === 'active') 
+    ? await Content.find({ institutionId: institutionId }).sort({ order: 1 }).lean() 
+    : [];
 
-  // If the institution itself doesn't exist, show a 404 page.
   if (!institution) {
     notFound();
   }
   
-  // For this specific portal, we use 'mor-ethiopia' as the key.
   const PortalComponents = loadInstitutionPortal(institution.portalKey);
 
   if (!PortalComponents) {
@@ -74,16 +75,34 @@ export default async function InstitutionPortalPage({ params }: { params: Promis
   const portalProps = {
     institution,
     membership,
-    user: sessionUser, // Pass the correctly typed user
+    user: sessionUser,
   };
 
   // --- The Core Authorization and Rendering Logic ---
 
   if (membership && membership.status === 'active') {
     // USER IS AN ACTIVE MEMBER: Show the full dashboard.
-    return <PortalComponents.Dashboard {...portalProps} modules={JSON.parse(JSON.stringify(modules))}/>;
+
+    // --- 2. GET LIVE INTERACTION DATA ---
+    // Get an array of all module IDs
+    const moduleIds = modules.map(m => m._id.toString());
+    // Call the action to find out which of these modules the user has interacted with
+    const interactedIds = await getInteractedContentIds(moduleIds);
+    
+    // Construct the full props object required by the Dashboard component.
+    const dashboardProps = {
+      ...portalProps,
+      modules: JSON.parse(JSON.stringify(modules)),
+      accentColor: institution.branding?.primaryColor || '#059669',
+      // --- 3. PASS THE CORRECT DATA TO THE DASHBOARD ---
+      // Use the fresh data from the action, not from membership metadata.
+      interactedContentIds: interactedIds,
+    };
+    
+    return <PortalComponents.Dashboard {...dashboardProps} />;
+
   } else if (sessionUser) {
-    // USER IS LOGGED IN, BUT NOT A MEMBER (or pending/revoked): Show the registration page.
+    // USER IS LOGGED IN, BUT NOT A MEMBER: Show the registration page.
     return <PortalComponents.Registration {...portalProps} />;
   } else {
     // USER IS NOT LOGGED IN: Show the public landing page.

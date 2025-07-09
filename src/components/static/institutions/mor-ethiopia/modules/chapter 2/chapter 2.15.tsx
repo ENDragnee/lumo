@@ -18,7 +18,7 @@ import {
     Receipt,
     Scale
 } from 'lucide-react';
-
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 // --- i18n Content Object ---
 const content = {
     am: {
@@ -274,6 +274,7 @@ export default function TaxDeclarationAndAuditModule() {
                             />
                         </div>
                     </Section>
+                    <ChapterNavigation previous='/content/686e8e6523afc16ef4f670c9' next='/content/686e8e6623afc16ef4f670cf' lang={lang}/>
                 </main>
                 
                 <footer className="text-center text-gray-600 text-sm p-3 border-t">

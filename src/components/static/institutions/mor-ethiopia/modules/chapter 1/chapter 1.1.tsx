@@ -227,7 +227,7 @@ export default function TaxRegistrationChapterOne() {
                             ))}
                         </div>
                     </Section>
-                    <ChapterNavigation next="/institutional-portal/mor-ethiopia/1/2" lang={lang} />
+                    <ChapterNavigation next="/content/686e8e6123afc16ef4f67099" lang={lang} />
                 </main>
             </div>
         </div>

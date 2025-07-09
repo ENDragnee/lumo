@@ -1,4 +1,4 @@
-// @/lib/actions/interactionActions.ts
+// @/app/actions/interactionActions.ts
 "use server";
 
 import { getServerSession } from "next-auth";

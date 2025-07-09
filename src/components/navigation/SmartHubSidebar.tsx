@@ -32,7 +32,8 @@ import { useOfflineSync } from "../../hooks/useOfflineSync"
 import { signOut } from "next-auth/react"
 import { formatAbsoluteDate } from "@/lib/format-date"
 import { useRouter } from "next/navigation"
-import { getHistory, HistoryItem } from "@/app/actions/history"
+import { getHistory, HistoryItem } from "@/app/actions/history";
+import { getRecentSubscriptions, SubscribedCreator } from '@/app/actions/subscriptions';;
 
 interface SmartHubSidebarProps {
   activeTab: string
@@ -50,22 +51,22 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
   const [isResourcesExpanded, setIsResourcesExpanded] = useState(true)
   const { isOnline, stats } = useOfflineSync()
   const [recentHistories, setRecentHistories] = useState<HistoryItem[]>([])
-  const [favorites, setFavorites] = useState<HistoryItem[]>([])
+  const [subscriptions, setSubscriptions] = useState<SubscribedCreator[]>([])
   const [planStats, setPlanStats] = useState<any>({ total: 0, completed: 0, overdue: 0 })
   const router = useRouter()
   const fetchRecentHistories = async () => {
     try {
-      const historyData = await getHistory({ limit: 3 });
+      const historyData = await getHistory({ limit: 3, offset: 0 });
       console.log("Recent Histories:", historyData);
         setRecentHistories(historyData);
     } catch (error) {
       console.error("Failed to fetch recent histories:", error);
     }
   };
-  const fetchStarred = async () => {
+  const fetchSubscribed = async () => {
   try {
-    const staredData = await getHistory({ limit: 5 });
-      setFavorites(staredData);
+    const subscriptionsData = await getRecentSubscriptions({ limit: 5 });
+      setSubscriptions(subscriptionsData);
   } catch (error) {
     console.log("Failed to fetch stars:", error);
   }
@@ -87,7 +88,7 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
 
     fetchRecentHistories();
     fetchPlanStat();
-    fetchStarred();
+    fetchSubscribed();
   }, [])
 
   // Zone 1: Primary Workspace
@@ -144,16 +145,16 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
     </Button>
   )
 
-  const FavoriteItem = ({ item }: any) => (
+  const SubscribedCreator = ({ item }: any) => (
     <Button
       variant="ghost"
       className="w-full justify-start h-9 text-gray-600 hover:bg-gray-900/5 hover:text-gray-800"
-      onClick={() => setActiveTab(item.type === "teacher" ? "teachers" : "courses")}
+      onClick={() => router.push(`/creator/${item._id}`)}
     >
       <Star className="w-4 h-4 mr-3 text-yellow-500" />
       <div className="flex-1 text-left min-w-0">
-        <div className="text-sm font-medium truncate">{item.title}</div>
-        <div className="text-xs text-gray-400 capitalize">{item.type}</div>
+        <div className="text-sm font-medium truncate">{item.name}</div>
+        <div className="text-xs text-gray-400 capitalize">{item.subscribedAt}</div>
       </div>
     </Button>
   )
@@ -205,10 +206,10 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
 
             {/* Favorites */}
             <div>
-              <h3 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Favorites</h3>
+              <h3 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Subscribed to</h3>
               <div className="space-y-1">
-                {favorites.map((item) => (
-                  <FavoriteItem key={item._id} item={item} />
+                {subscriptions.map((item) => (
+                  <SubscribedCreator key={item._id} item={item} />
                 ))}
               </div>
             </div>

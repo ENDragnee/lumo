@@ -1,18 +1,28 @@
 // app/api/offline/package/[contentId]/route.ts
 
-import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from "next-auth/next";
+import { NextResponse, NextRequest } from 'next/server';
+import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import connectDB from '@/lib/mongodb';
 import Content from '@/models/Content';
-import Progress from '@/models/Progress';
-import { Highlight } from '@/models/Highlight';
+import { Highlight, IHighlight } from '@/models/Highlight';
 import mongoose from 'mongoose';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ contentId: string }> }
-) {
+// Define the type for the selected highlight fields
+type SelectedHighlight = {
+  color: string;
+  highlighted_text: string;
+  start_offset: number;
+  end_offset: number;
+};
+
+type offlinePackageProps = {
+  params: Promise<{
+    contentId: string;
+  }>;
+}
+
+export async function GET( _request: NextRequest, { params }: offlinePackageProps) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -29,10 +39,11 @@ export async function GET(
   try {
     await connectDB();
 
-    const [contentData, progressData, highlightsData] = await Promise.all([
+    const [contentData, highlightsData] = await Promise.all([
       Content.findById(contentObjectId).select('title data tags difficulty version').lean(),
-      Progress.findOne({ userId, contentId: contentObjectId }).select('progress status').lean(),
-      Highlight.find({ user_id: userId, content_id: contentObjectId }).select('color highlighted_text start_offset end_offset').lean()
+      Highlight.find({ user_id: userId, content_id: contentObjectId })
+        .select('color highlighted_text start_offset end_offset')
+        .lean() as unknown as SelectedHighlight[]
     ]);
 
     if (!contentData) {
@@ -48,7 +59,6 @@ export async function GET(
         tags: contentData.tags,
         difficulty: contentData.difficulty,
       },
-      progress: progressData ? { progress: progressData.progress, status: progressData.status } : null,
       highlights: highlightsData.map(h => ({
         color: h.color,
         highlighted_text: h.highlighted_text,

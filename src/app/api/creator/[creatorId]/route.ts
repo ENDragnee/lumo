@@ -5,11 +5,18 @@ import User, { IUser } from "@/models/User";
 import Content from "@/models/Content";
 import Book from "@/models/Book";
 import mongoose from "mongoose";
+import { Creator } from "@/types/creator";
 
-export async function GET(_request: NextRequest, { params }: { params: { creatorId: string } }) {
+type CreatorProps = {
+  params: Promise<{
+    creatorId: string;
+  }>
+}
+
+export async function GET(_request: NextRequest, { params }: CreatorProps) {
   try {
     await connectDB();
-    const { creatorId } = params;
+    const { creatorId } = await params;
 
     if (!creatorId || !mongoose.Types.ObjectId.isValid(creatorId)) {
       return NextResponse.json(
@@ -40,7 +47,7 @@ export async function GET(_request: NextRequest, { params }: { params: { creator
 
     const stats = {
       totalViews: allPublishedItems.reduce((sum, item) => sum + (item.views || 0), 0),
-      rating: content.length > 0 ? content.reduce((sum, c) => sum + (c.rating || 0), 0) / content.length : 0,
+      rating: content.length > 0 ? content.reduce((sum, c) => sum + (c.userEngagement.rating || 0), 0) / content.length : 0,
       ratingCount: content.length,
       subscriberCount: creator.subscribersCount || 0,
     };

@@ -254,7 +254,7 @@ export default function TaxRegistrationChapterThree() {
                             </ul>
                         </div>
                     </Section>
-                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/1/2" next="/institutional-portal/mor-ethiopia/1/4" isPassed={quizPassed} lang={lang} />
+                    <ChapterNavigation previous="/content/686e8e6123afc16ef4f67099" next="/content/686e8e6223afc16ef4f6709f" isPassed={quizPassed} lang={lang} />
                 </main>
             </div>
         </div>

@@ -281,7 +281,7 @@ export default function BusinessIncomeIntroChapter() {
 
                     {/* Interactive Form Component */}
                     <DeclarationForm lang={lang} />
-                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/5" next="/institutional-portal/mor-ethiopia/2/7" lang={lang} />
+                    <ChapterNavigation previous="/content/686e8e6323afc16ef4f670ae" next="/content/686e8e6423afc16ef4f670b4" lang={lang} />
                 </main>
             </div>
         </div>

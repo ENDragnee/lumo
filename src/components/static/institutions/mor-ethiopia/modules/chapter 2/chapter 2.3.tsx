@@ -304,7 +304,7 @@ export default function RentalIncomeTaxChapter() {
                     </Section>
 
                     <CaseStudyQuiz lang={lang} />
-                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/2" next="/institutional-portal/mor-ethiopia/2/4" lang={lang} />
+                    <ChapterNavigation previous="/content/686e8e6223afc16ef4f670a5" next="/content/686e8e6323afc16ef4f670ab" lang={lang} />
                 </main>
             </div>
         </div>

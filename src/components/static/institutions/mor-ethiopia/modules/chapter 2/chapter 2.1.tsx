@@ -277,7 +277,7 @@ export default function BusinessIncomeTaxChapter() {
                         <QuizQuestion q={t.q2} a={t.a2} lang={lang} />
                         <QuizQuestion q={t.q3} a={t.a3} lang={lang} />
                     </div>
-                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/1/4" next="/institutional-portal/mor-ethiopia/2/2" lang={lang} />
+                    <ChapterNavigation previous="/content/686e8e6223afc16ef4f6709f" next="/content/686e8e6223afc16ef4f670a5" lang={lang} />
                 </main>
             </div>
         </div>

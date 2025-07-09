@@ -16,6 +16,7 @@ import {
     Coins,
     Users
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object ---
 const content = {
@@ -363,6 +364,7 @@ export default function WithholdingTaxRulesExplainedModule() {
                             <p className="mt-2 text-lg"><strong>{lang==='am'?'ከግብር ነጻ የሆነ ገቢ፡':'Exempt Income:'}</strong> {t.exemptIncomeRule}</p>
                         </AccordionItem>
                       </Section>
+                      <ChapterNavigation previous='/content/686e8e6723afc16ef4f670d8' next='/content/686e8e6723afc16ef4f670de' lang={lang} />
                 </main>
                 
                 <footer className="text-center text-gray-600 text-sm p-3 border-t">

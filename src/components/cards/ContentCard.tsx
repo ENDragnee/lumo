@@ -14,7 +14,7 @@ import { formatRelativeDate } from '@/lib/format-date';
 import Link from 'next/link';
 
 // --- Constants for Fallback Images ---
-const PLACEHOLDER_SVG_PATH = '/placeholder.svg';
+const PLACEHOLDER_SVG_PATH = '/icons/default-content.png';
 
 // --- Type Definitions ---
 interface ContentCardProps {

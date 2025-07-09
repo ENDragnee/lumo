@@ -244,7 +244,7 @@ export default function HowRentalTaxArisesModule() {
                             </div>
                         </div>
                     </SectionToggle>
-                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/1" next="/institutional-portal/mor-ethiopia/2/3" lang={lang} />
+                    <ChapterNavigation previous="/content/686e8e6223afc16ef4f670a2" next="/content/686e8e6323afc16ef4f670a8" lang={lang} />
                 </main>
             </div>
         </div>

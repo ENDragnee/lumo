@@ -31,7 +31,7 @@ if (!apiKey) {
 const genAI = new GoogleGenerativeAI(apiKey);
 // Consider using gemini-1.5-flash for potentially faster responses for simple explanations
 const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash-latest",
+    model: "gemini-2.0-flash",
     // Optional Safety Settings can be added here if needed
     generationConfig: {
         temperature: 0.7,

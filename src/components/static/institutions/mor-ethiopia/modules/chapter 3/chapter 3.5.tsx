@@ -14,6 +14,7 @@ import {
     Gavel,
     ShoppingCart
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object ---
 const content = {
@@ -247,6 +248,7 @@ export default function WithholdingAgentsModule() {
                            <AgentCard category={t.agentCategories.ecx} />
                         </div>
                     </Section>
+                    <ChapterNavigation previous="/content/686e8e6723afc16ef4f670e1" next="/content/686e8e6823afc16ef4f670e7" lang={lang} />
 
                 </main>
                 

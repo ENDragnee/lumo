@@ -216,7 +216,7 @@ export default function BusinessDeductibleExpensesChapter() {
                              </div>
                         </div>
                     </Section>
-                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/7" next="/institutional-portal/mor-ethiopia/2/9" lang={lang} isPassed={allExercisesPassed} />
+                    <ChapterNavigation previous="/content/686e8e6423afc16ef4f670b4" next="/content/686e8e6423afc16ef4f670ba" lang={lang} isPassed={allExercisesPassed} />
                 </main>
             </div>
         </div>

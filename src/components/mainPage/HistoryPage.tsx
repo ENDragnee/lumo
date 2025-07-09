@@ -6,9 +6,9 @@ import Image from 'next/image';
 import { format, isToday, isYesterday } from 'date-fns';
 import { useRouter } from "next/navigation";
 import { getHistory } from '@/app/actions/history';
-import type { HistoryItem as ActionHistoryItem } from '@/app/actions/history'; // Assuming this type is exported
+import type { HistoryItem as ActionHistoryItem } from '@/app/actions/history';
 
-// --- Custom Hook for Debouncing ---
+// --- Custom Hook for Debouncing (Unchanged) ---
 function useDebounce<T>(value: T, delay: number): T {
     const [debouncedValue, setDebouncedValue] = useState<T>(value);
     useEffect(() => {
@@ -22,7 +22,6 @@ function useDebounce<T>(value: T, delay: number): T {
     return debouncedValue;
 }
 
-
 // --- Skeleton Component (Unchanged) ---
 const HistoryItemSkeleton = () => (
     <li className="flex items-center space-x-4 p-3">
@@ -35,7 +34,7 @@ const HistoryItemSkeleton = () => (
     </li>
 );
 
-// --- Helper Functions (Updated for new data structure) ---
+// --- Helper Functions (Unchanged) ---
 const formatHistoryTime = (dateInput: Date | string): string => {
     try {
         const date = new Date(dateInput);
@@ -83,16 +82,17 @@ export default function HistoryPage() {
     const [searchTerm, setSearchTerm] = useState<string>('');
     const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    // FIX 1: Initialize isLoading to false.
+    // The component will now attempt the initial fetch instead of getting stuck.
+    // The `showInitialLoading` logic correctly handles showing skeletons when the fetch begins.
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
-    // State for pagination/infinite scroll
     const [offset, setOffset] = useState(0);
     const [hasMore, setHasMore] = useState(true);
     const PAGE_SIZE = 20;
 
-    // Ref for the IntersectionObserver
     const observer = useRef<IntersectionObserver>();
     const lastItemRef = useCallback((node: HTMLLIElement | null) => {
         if (isLoading) return;
@@ -105,24 +105,21 @@ export default function HistoryPage() {
         if (node) observer.current.observe(node);
     }, [isLoading, hasMore]);
 
-    // Reset state when a new search is performed
     useEffect(() => {
         setHistories([]);
         setOffset(0);
         setHasMore(true);
-        // Let the main fetching effect handle the new fetch
     }, [debouncedSearchTerm]);
 
     // Main data fetching effect
     useEffect(() => {
-        // Don't fetch if we know there's no more data or if a fetch is in progress
-        if (!hasMore || isLoading) return;
+        // This guard is now only for preventing fetches when we know there's no more data.
+        if (!hasMore) return;
 
         const fetchItems = async () => {
             setIsLoading(true);
             setError(null);
             try {
-                // This assumes getHistory is updated to accept { limit, offset, searchTerm }
                 const newItems = await getHistory({
                     limit: PAGE_SIZE,
                     offset: offset,
@@ -136,18 +133,22 @@ export default function HistoryPage() {
                 console.error("Failed to fetch histories:", err);
                 const errorMessage = err instanceof Error ? err.message : "An unknown error occurred.";
                 setError(errorMessage);
-                setHasMore(false); // Stop trying to fetch on error
+                setHasMore(false);
             } finally {
                 setIsLoading(false);
             }
         };
 
         fetchItems();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [offset, debouncedSearchTerm, hasMore]); // Only re-run when these change
+    // FIX 2: Remove `hasMore` from the dependency array.
+    // The effect should only re-run when the API call's inputs (`offset`, `debouncedSearchTerm`) change.
+    // This breaks the infinite loop.
+    }, [offset, debouncedSearchTerm]);
 
     const groupedHistories = useMemo(() => groupHistoriesByDate(histories), [histories]);
-
+    
+    // This logic now works correctly because isLoading starts as `false`, then becomes `true`
+    // during the first fetch, triggering the skeletons at the right time.
     const showInitialLoading = isLoading && histories.length === 0;
     const showEmptyState = !isLoading && !error && histories.length === 0;
 
@@ -201,8 +202,9 @@ export default function HistoryPage() {
                             <ul className="space-y-4">
                                 {items.map((item, index) => (
                                     <li
+                                        // The last item in the *overall* list is the trigger
                                         key={item._id}
-                                        ref={index === histories.length - 1 ? lastItemRef : null}
+                                        ref={index === items.length - 1 && histories[histories.length - 1]._id === item._id ? lastItemRef : null}
                                         className="flex items-center space-x-4 p-3 hover:bg-gray-100 dark:hover:bg-gray-700/50 rounded-lg transition-colors duration-150 ease-in-out"
                                     >
                                         <div className="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 relative bg-gray-200 dark:bg-gray-700 rounded-md overflow-hidden">
@@ -223,7 +225,6 @@ export default function HistoryPage() {
                                             <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                                 {item.title || 'Untitled Content'}
                                             </h3>
-                                            {/* Progress Bar - a nice addition using the new data */}
                                             {item.progress > 0 && (
                                                 <div className="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-700 mt-2">
                                                     <div className="bg-blue-600 h-1.5 rounded-full" style={{ width: `${item.progress}%` }}></div>

@@ -13,6 +13,7 @@ import {
     ChevronUp,
     BookMarked
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object ---
 const content = {
@@ -177,7 +178,7 @@ export default function WithholdingTaxIntroModule() {
                     </Section>
 
                 </main>
-                
+                <ChapterNavigation previous="/content/686e8e6623afc16ef4f670d5" next="/content/686e8e6623afc16ef4f670d5" lang={lang} isPassed={true} />
                 <footer className="text-center text-gray-600 text-sm p-3 border-t">
                     <p>{t.footer}</p>
                 </footer>

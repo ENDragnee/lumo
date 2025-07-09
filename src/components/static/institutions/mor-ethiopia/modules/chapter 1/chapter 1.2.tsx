@@ -340,7 +340,7 @@ export default function TaxRegistrationChapterTwo() {
                     </Section>
 
                     <Quiz title={t.quiz2Title} q1={t.quiz2Question1} a1={t.quiz2Answer1} q2={t.quiz2Question2} a2={t.quiz2Answer2} lang={lang} />
-                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/1/1" next="/institutional-portal/mor-ethiopia/1/3" lang={lang} />
+                    <ChapterNavigation previous="/content/686e8e6123afc16ef4f67096" next="/content/686e8e6223afc16ef4f6709c" lang={lang} />
                 </main>
             </div>
         </div>

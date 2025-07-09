@@ -12,7 +12,7 @@ import { MoreVertical, Star } from 'lucide-react';
 import Link from 'next/link';
 
 // --- Constants for Fallback Images ---
-const PLACEHOLDER_SVG_PATH = '/placeholder.svg';
+const PLACEHOLDER_SVG_PATH = '/icons/default-content.png';
 
 // --- Type Definitions for props ---
 interface ContentCardListProps {

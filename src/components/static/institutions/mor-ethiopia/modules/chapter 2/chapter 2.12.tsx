@@ -222,7 +222,7 @@ export default function DebtAndLossModule() {
                 <footer className="text-center text-gray-600 text-sm p-3 border-t">
                     <p>{t.footer}</p>
                 </footer>
-                <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/11" next="/institutional-portal/mor-ethiopia/2/13" lang={lang} />
+                <ChapterNavigation previous="/content/686e8e6523afc16ef4f670c0" next="/content/686e8e6523afc16ef4f670c6" lang={lang} />
             </div>
         </div>
     );

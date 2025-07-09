@@ -291,7 +291,7 @@ export default function RentalDeductibleExpensesChapter() {
 
                     {/* Flowchart Component */}
                     <Flowchart lang={lang} />
-                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/3" next="/institutional-portal/mor-ethiopia/2/5" lang={lang} />
+                    <ChapterNavigation previous="/content/686e8e6323afc16ef4f670a8" next="/content/686e8e6323afc16ef4f670ae" lang={lang} />
                 </main>
             </div>
         </div>

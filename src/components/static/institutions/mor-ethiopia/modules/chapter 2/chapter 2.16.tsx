@@ -18,6 +18,7 @@ import {
     FileText,
     ShieldAlert
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object ---
 const content = {
@@ -246,6 +247,7 @@ export default function CorporateAndMiningTaxModule() {
                             </div>
                         </div>
                     </Section>
+                    <ChapterNavigation previous='/content/686e8e6623afc16ef4f670cc' next='/content/686e8e6623afc16ef4f670d2' lang={lang} />
                 </main>
                 
                 <footer className="text-center text-gray-600 text-sm p-3 border-t">

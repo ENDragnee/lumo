@@ -169,7 +169,7 @@ export default function WastageAndEntertainmentCostModule() {
                 <footer className="text-center text-gray-600 text-sm p-3 border-t">
                     <p>{t.footer}</p>
                 </footer>
-                <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/10" next="/institutional-portal/mor-ethiopia/2/12" lang={lang} />
+                <ChapterNavigation previous="/content/686e8e6423afc16ef4f670bd" next="/content/686e8e6523afc16ef4f670c3" lang={lang} />
             </div>
         </div>
     );

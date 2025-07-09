@@ -2,6 +2,7 @@
 import mongoose, { Schema, Document, model} from "mongoose";
 
 export interface IHighlight extends Document {
+  _id: Schema.Types.ObjectId;
   user_id: Schema.Types.ObjectId;
   content_id: Schema.Types.ObjectId;
   color: string;

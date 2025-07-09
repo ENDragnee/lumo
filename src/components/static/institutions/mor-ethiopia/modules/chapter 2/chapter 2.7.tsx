@@ -11,6 +11,7 @@ import {
     Store,
     Percent
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object (1-to-1 with PDF pages 48-49) ---
 const content = {
@@ -210,6 +211,7 @@ export default function BusinessTaxRatesChapter() {
                     </Section>
 
                     <EstimationWizard lang={lang} />
+                    <ChapterNavigation previous="/content/686e8e6323afc16ef4f670b1" next="/content/686e8e6423afc16ef4f670b7" lang={lang} />
                 </main>
             </div>
         </div>

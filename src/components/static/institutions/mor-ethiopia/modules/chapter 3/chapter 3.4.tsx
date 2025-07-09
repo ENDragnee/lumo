@@ -11,6 +11,7 @@ import {
     FileText,
     Info
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object ---
 const content = {
@@ -215,6 +216,7 @@ export default function AdvanceTaxOnImportsModule() {
                              <p className="mt-6 text-center font-bold text-xl sm:text-2xl text-green-700 p-3">{t.exampleConclusion}</p>
                         </div>
                     </Section>
+                    <ChapterNavigation previous='/content/686e8e6723afc16ef4f670de' next='/content/686e8e6823afc16ef4f670e4' lang={lang} />
                 </main>
                 
                 <footer className="text-center text-gray-600 text-sm p-3 border-t">

@@ -16,6 +16,7 @@ import {
     TrendingUp,
     Info
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';  
 
 // --- i18n Content Object ---
 const content = {
@@ -250,6 +251,7 @@ export default function InternationalAndSpecialRulesModule() {
                             icon={<Info className="h-5 w-5 mr-2 text-gray-500" />}
                         />
                     </Section>
+                    <ChapterNavigation previous='/content/686e8e6623afc16ef4f670cf' next='/content/686e8e6623afc16ef4f670d5' lang={lang} />
 
                 </main>
                 

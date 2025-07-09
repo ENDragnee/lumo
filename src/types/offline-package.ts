@@ -1,6 +1,5 @@
 // types/offline-package.ts
 import { IContent } from '@/models/Content'; // Assuming barrel exports
-import { IScore } from '@/models/Score'; // Assuming barrel exports
 import { IHighlight } from '@/models/Highlight'; // Assuming barrel exports
 
 // This is the structure for the individual, heavy content packages
@@ -13,7 +12,6 @@ export interface IOfflinePackage {
     tags: IContent['tags'];
     difficulty: IContent['difficulty'];
   };
-  progress: Pick<IScore, 'progress' | 'status'> | null;
   highlights: Pick<IHighlight, 'color' | 'highlighted_text' | 'start_offset' | 'end_offset'>[];
 }
 
