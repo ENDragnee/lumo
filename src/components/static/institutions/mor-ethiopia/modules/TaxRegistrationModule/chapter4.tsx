@@ -7,6 +7,7 @@ import {
     AlertTriangle,
     Bell,
     Clock,
+    Globe,
     UserX,
     MessageSquareWarning,
     HelpCircle,
@@ -119,7 +120,7 @@ const Quiz = ({ title, question, answer, lang }: { title: string, question: stri
     const t = content[lang];
 
     return (
-        <div className="my-10 p-6 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
+        <div className="my-10 p-6 bg-yellow-50">
             <h3 className="text-xl font-bold text-gray-800 mb-4">{title}</h3>
             <p className="font-semibold text-gray-800 flex items-start">
                 <HelpCircle className="h-5 w-5 mr-2 mt-1 flex-shrink-0"/>{question}
@@ -128,7 +129,7 @@ const Quiz = ({ title, question, answer, lang }: { title: string, question: stri
                 {showAnswer ? t.hideAnswer : t.showAnswer}
             </button>
             {showAnswer && (
-                <p className="mt-2 p-3 bg-green-50 rounded-md border border-green-200 flex items-start">
+                <p className="mt-2 p-3 bg-green-50 flex items-start">
                     <Lightbulb className="h-5 w-5 mr-2 mt-1 flex-shrink-0 text-green-600"/>{answer}
                 </p>
             )}
@@ -147,26 +148,30 @@ export default function TaxRegistrationPenaltiesChapter() {
     };
 
     return (
-        <div className="font-sans bg-gray-50 p-4 sm:p-6 md:p-8">
-            <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-lg">
-                <header className="bg-blue-700 text-white p-6 rounded-t-lg relative">
+        <div className="font-sans bg-white p-4 sm:p-6 md:p-8">
+            <div className="max-w-5xl mx-auto">
+                <header className="bg-blue-700 text-white p-6 flex items-center justify-between">
                     <div className="flex items-center">
                         <Gavel className="h-10 w-10 mr-4 flex-shrink-0" />
                         <div>
                             <h1 className="text-2xl md:text-3xl font-bold">{t.title}</h1>
                         </div>
                     </div>
-                    <button onClick={toggleLanguage} className="absolute top-4 right-4 bg-white text-blue-700 font-semibold py-2 px-4 rounded-md text-sm hover:bg-blue-100 transition-colors">
-                        {t.langButton}
+                    <button 
+                        onClick={toggleLanguage}
+                        className="p-2 rounded-full bg-white text-blue-700 hover:bg-blue-100 transition-colors"
+                        aria-label="Toggle language"
+                    >
+                        <Globe className="h-6 w-6" />
                     </button>
                 </header>
 
-                <main className="p-6 md:p-10">
+                <main className="p-4">
                     {/* Cancellation Section */}
                     <Section title={t.sectionCancellationTitle} icon={<FileX2 />}>
                         <ul className="space-y-3">
                             {t.cancellationRules.map((rule, i) => (
-                                <li key={i} className="flex items-start p-3 bg-gray-50 rounded-md border border-gray-200">
+                                <li key={i} className="flex items-start p-3 bg-gray-50 rounded-md">
                                     <CheckSquare className="h-5 w-5 mr-3 mt-1 text-blue-500 flex-shrink-0" />
                                     <span>{rule}</span>
                                 </li>
@@ -180,7 +185,7 @@ export default function TaxRegistrationPenaltiesChapter() {
                     {/* Penalties Section */}
                     <Section title={t.sectionPenaltiesTitle} icon={<ShieldAlert />}>
                         {/* Administrative Penalties */}
-                        <div className="p-5 bg-yellow-50 rounded-lg border border-yellow-300">
+                        <div className="p-5 bg-yellow-50 rounded-lg">
                             <h3 className="text-xl font-bold text-yellow-900 flex items-center mb-3">
                                 <AlertTriangle className="h-6 w-6 mr-2" />
                                 {t.subsectionAdminPenaltiesTitle}
@@ -202,7 +207,7 @@ export default function TaxRegistrationPenaltiesChapter() {
                         </div>
 
                         {/* Criminal Liability */}
-                        <div className="mt-8 p-5 bg-red-100 rounded-lg border border-red-300">
+                        <div className="mt-8 p-5 bg-red-100 rounded-lg">
                              <h3 className="text-xl font-bold text-red-900 flex items-center mb-3">
                                 <Gavel className="h-6 w-6 mr-2" />
                                 {t.subsectionCriminalLiabilityTitle}

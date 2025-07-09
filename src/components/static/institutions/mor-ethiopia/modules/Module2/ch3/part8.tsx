@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, ReactNode } from 'react';
@@ -106,12 +105,12 @@ const content = {
 
 // --- Helper Components ---
 const Section = ({ title, icon, children }: { title: string; icon: ReactNode; children: ReactNode }) => (
-    <div className="mb-12">
-        <div className="flex items-center mb-4 border-b-2 border-gray-200 pb-2">
+    <div className="mb-8">
+        <div className="flex items-center mb-3">
             <div className="text-gray-600 mr-3">{icon}</div>
             <h2 className="text-xl md:text-2xl font-bold text-gray-800">{title}</h2>
         </div>
-        <div className="space-y-4 text-gray-700 leading-relaxed pl-2">{children}</div>
+        <div className="space-y-3 text-gray-700 leading-relaxed">{children}</div>
     </div>
 );
 
@@ -128,9 +127,9 @@ const FillInTheBlanksExercise = ({ exerciseData, lang }: { exerciseData: any, la
     };
 
     return (
-        <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+        <div className="p-3">
             <h4 className="font-bold text-lg text-blue-700 mb-2">{exerciseData.title}</h4>
-            <p className="text-sm text-gray-600 mb-4">{exerciseData.scenario}</p>
+            <p className="text-sm text-gray-600 mb-3">{exerciseData.scenario}</p>
             
             <div className="flex items-center gap-2 mb-2">
                 <input
@@ -140,15 +139,15 @@ const FillInTheBlanksExercise = ({ exerciseData, lang }: { exerciseData: any, la
                         setUserInput(e.target.value);
                         setIsCorrect(null);
                     }}
-                    className={`w-full p-2 border rounded-md ${isCorrect === true ? 'border-green-500' : ''} ${isCorrect === false ? 'border-red-500' : ''}`}
+                    className={`w-full p-2 border ${isCorrect === true ? 'border-green-500' : ''} ${isCorrect === false ? 'border-red-500' : ''}`}
                     placeholder="..."
                 />
                 <span className="font-semibold">{exerciseData.unit}</span>
             </div>
 
-            <div className="flex flex-wrap gap-2 items-center mb-4">
-                <button onClick={checkAnswer} className="px-3 py-1 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700">{t.checkAnswer}</button>
-                <button onClick={() => setShowHint(!showHint)} className="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-md hover:bg-gray-300 flex items-center gap-1">
+            <div className="flex flex-wrap gap-2 items-center mb-3">
+                <button onClick={checkAnswer} className="px-3 py-1 bg-blue-600 text-white text-sm hover:bg-blue-700">{t.checkAnswer}</button>
+                <button onClick={() => setShowHint(!showHint)} className="px-3 py-1 bg-gray-200 text-gray-700 text-sm hover:bg-gray-300 flex items-center gap-1">
                     <Lightbulb size={14} /> {t.showHint}
                 </button>
                 {isCorrect === true && <span className="text-green-600 font-semibold">{t.correct}</span>}
@@ -156,7 +155,7 @@ const FillInTheBlanksExercise = ({ exerciseData, lang }: { exerciseData: any, la
             </div>
             
             {showHint && (
-                <div className="p-2 bg-yellow-50 border-l-4 border-yellow-400 text-sm text-yellow-800 rounded-r-md">
+                <div className="p-2 text-sm text-yellow-800">
                     <strong>Hint:</strong> {exerciseData.hint}
                 </div>
 
@@ -173,21 +172,21 @@ export default function BusinessDeductibleExpensesChapter() {
     const toggleLanguage = () => setLang(lang === 'am' ? 'en' : 'am');
 
     return (
-        <div className="font-sans bg-gray-100 p-4 sm:p-6 md:p-8">
-            <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-lg">
-                <header className="bg-blue-700 text-white p-6 rounded-t-lg relative">
+        <div className="font-sans p-2 sm:p-4">
+            <div className="max-w-full mx-auto">
+                <header className="py-4 border-b relative">
                     <div className="flex items-center">
-                        <MinusSquare className="h-10 w-10 mr-4 flex-shrink-0" />
+                        <MinusSquare className="h-8 w-8 mr-3" />
                         <div><h1 className="text-2xl md:text-3xl font-bold">{t.title}</h1></div>
                     </div>
-                    <button onClick={toggleLanguage} className="absolute top-4 right-4 bg-white text-blue-700 font-semibold py-2 px-4 rounded-md text-sm hover:bg-blue-100">{t.langButton}</button>
+                    <button onClick={toggleLanguage} className="absolute top-4 right-4 text-gray-800 font-semibold py-2 px-4 text-sm">{t.langButton}</button>
                 </header>
 
-                <main className="p-6 md:p-10">
+                <main className="py-4">
                     <Section title={t.generalDeductiblesTitle} icon={<CheckSquare />}>
                         <ul className="space-y-3">
                             {t.generalDeductibles.map((rule, i) => (
-                                <li key={i} className="flex items-start p-3 bg-gray-50 rounded-md">
+                                <li key={i} className="flex items-start p-2">
                                     <ShoppingCart className="h-5 w-5 mr-3 mt-1 text-green-600 flex-shrink-0"/>
                                     <span>{rule}</span>
                                 </li>
@@ -196,12 +195,12 @@ export default function BusinessDeductibleExpensesChapter() {
                     </Section>
 
                     <Section title={t.specificDeductiblesTitle} icon={<Building />}>
-                        <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-4">
                             <FillInTheBlanksExercise exerciseData={t.exercise.sharedUtilities} lang={lang} />
                             <FillInTheBlanksExercise exerciseData={t.exercise.representation} lang={lang} />
                             <FillInTheBlanksExercise exerciseData={t.exercise.interestOnLoan} lang={lang} />
                              {/* You can add more exercises here for other rules like donations, entertainment, etc. */}
-                             <div className="p-4 bg-gray-100 border border-gray-200 rounded-lg">
+                             <div className="p-3">
                                  <h4 className="font-bold text-lg text-blue-700 mb-2 flex items-center"><Heart className="h-5 w-5 mr-2" />Donations & Entertainment</h4>
                                  <p className="text-sm text-gray-600">Other specific rules apply for donations (up to 10% of taxable income) and entertainment expenses in certain sectors (mining, manufacturing). These also have their own calculation logic.</p>
                              </div>

@@ -119,10 +119,10 @@ const content = {
 const SectionToggle = ({ title, icon, children, startOpen = false }: { title: string, icon: ReactNode, children: ReactNode, startOpen?: boolean }) => {
     const [isOpen, setIsOpen] = useState(startOpen);
     return (
-        <div className="mb-6 overflow-hidden rounded-lg bg-white shadow-md border border-gray-200">
+        <div className="mb-4">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex justify-between items-center p-4 text-left font-bold text-lg text-gray-800 bg-gray-50 hover:bg-gray-100"
+                className="w-full flex justify-between items-center py-2 text-left font-bold text-lg text-gray-800"
             >
                 <div className="flex items-center">
                     <div className="text-blue-600 mr-3">{icon}</div>
@@ -130,7 +130,7 @@ const SectionToggle = ({ title, icon, children, startOpen = false }: { title: st
                 </div>
                 {isOpen ? <ChevronUp className="h-6 w-6 text-gray-500" /> : <ChevronDown className="h-6 w-6 text-gray-500" />}
             </button>
-            {isOpen && <div className="p-6 border-t border-gray-200">{children}</div>}
+            {isOpen && <div className="py-4">{children}</div>}
         </div>
     );
 };
@@ -163,47 +163,47 @@ export default function HowRentalTaxArisesModule() {
     };
 
     return (
-        <div className="font-sans bg-gray-100 p-4 sm:p-6 md:p-8">
-            <div className="max-w-5xl mx-auto">
-                <header className="bg-blue-800 text-white p-6 rounded-t-lg shadow-lg relative">
+        <div className="font-sans p-2 sm:p-4">
+            <div className="max-w-full mx-auto">
+                <header className="py-4 border-b relative">
                     <div className="flex items-center">
-                        <Home className="h-10 w-10 mr-4" />
+                        <Home className="h-8 w-8 mr-3" />
                         <div>
-                            <h1 className="text-3xl md:text-4xl font-extrabold">{t.title}</h1>
+                            <h1 className="text-2xl md:text-3xl font-bold">{t.title}</h1>
                         </div>
                     </div>
-                    <button onClick={toggleLanguage} className="absolute top-4 right-4 bg-white text-blue-800 font-semibold py-2 px-4 rounded-md text-sm hover:bg-blue-100">
+                    <button onClick={toggleLanguage} className="absolute top-4 right-4 text-gray-800 font-semibold py-2 px-4 text-sm">
                         {t.langButton}
                     </button>
                 </header>
 
-                <main className="p-6 md:p-8 bg-white shadow-lg rounded-b-lg">
+                <main className="py-4">
                     {/* Taxable Base Calculator */}
-                    <div className="p-6 mb-8 bg-blue-50 border-2 border-blue-200 rounded-xl">
-                        <h2 className="text-2xl font-bold text-gray-800 flex items-center mb-4"><Calculator className="mr-3" />{t.calculator.title}</h2>
+                    <div className="p-4 mb-6">
+                        <h2 className="text-xl font-bold text-gray-800 flex items-center mb-3"><Calculator className="mr-2" />{t.calculator.title}</h2>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                             {/* Inputs and Slider */}
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 <div>
                                     <label htmlFor="gross-income" className="block text-sm font-medium text-gray-700">{t.calculator.grossIncomeLabel}</label>
-                                    <input type="number" id="gross-income" value={grossIncome} onChange={(e) => setGrossIncome(Number(e.target.value))} className="mt-1 w-full p-2 border border-gray-300 rounded-md" />
+                                    <input type="number" id="gross-income" value={grossIncome} onChange={(e) => setGrossIncome(Number(e.target.value))} className="mt-1 w-full p-2 border border-gray-300" />
                                     <input type="range" min="0" max="500000" step="1000" value={grossIncome} onChange={(e) => setGrossIncome(Number(e.target.value))} className="w-full mt-2 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" />
                                 </div>
                                 <div>
                                     <label htmlFor="deductions" className="block text-sm font-medium text-gray-700">{t.calculator.deductionsLabel}</label>
-                                    <input type="number" id="deductions" value={deductions} onChange={(e) => setDeductions(Number(e.target.value))} className="mt-1 w-full p-2 border border-gray-300 rounded-md" />
+                                    <input type="number" id="deductions" value={deductions} onChange={(e) => setDeductions(Number(e.target.value))} className="mt-1 w-full p-2 border border-gray-300" />
                                 </div>
                             </div>
                             
                             {/* Result */}
-                            <div className="text-center p-6 bg-white rounded-lg border-2 border-dashed border-green-500">
-                                <h3 className="text-lg font-semibold text-gray-600">{t.calculator.taxableIncomeLabel}</h3>
-                                <p className="text-4xl font-bold text-green-600 mt-2">
-                                    {taxableIncome.toLocaleString()} <span className="text-2xl">ETB</span>
+                            <div className="text-center p-4">
+                                <h3 className="text-base font-semibold text-gray-600">{t.calculator.taxableIncomeLabel}</h3>
+                                <p className="text-3xl font-bold text-green-600 mt-1">
+                                    {taxableIncome.toLocaleString()} <span className="text-xl">ETB</span>
                                 </p>
-                                <div className="mt-4 relative group">
-                                    <button onClick={runExample} className="bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-md hover:bg-gray-300 flex items-center justify-center mx-auto">
+                                <div className="mt-3 relative group">
+                                    <button onClick={runExample} className="text-gray-700 font-semibold py-2 px-4 text-sm flex items-center justify-center mx-auto">
                                         <PlayCircle className="mr-2 h-5 w-5"/>{t.calculator.runExampleButton}
                                     </button>
                                     <div className="absolute bottom-full mb-2 w-48 text-center p-2 text-xs text-white bg-gray-800 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
@@ -215,12 +215,12 @@ export default function HowRentalTaxArisesModule() {
                     </div>
 
                     <SectionToggle title={t.imposition.title} icon={<FileText />}>
-                        <ul className="list-disc list-inside space-y-2 p-4 bg-gray-50 rounded-md">{t.imposition.rules.map((rule, i) => <li key={i}>{rule}</li>)}</ul>
+                        <ul className="list-disc list-inside space-y-2 p-2">{t.imposition.rules.map((rule, i) => <li key={i}>{rule}</li>)}</ul>
                     </SectionToggle>
 
                     <SectionToggle title={t.rentalIncome.title} icon={<CircleDollarSign />}>
                         <DefinitionToggle title={t.rentalIncome.taxableDefTitle}><p>{t.rentalIncome.taxableDefText}</p></DefinitionToggle>
-                        <div className="mt-4">
+                        <div className="mt-2">
                             <DefinitionToggle title={t.rentalIncome.grossDefTitle}>
                                 <ul className="list-decimal list-inside space-y-2 mt-2">{t.rentalIncome.grossItems.map((item, i) => <li key={i}>{item}</li>)}</ul>
                             </DefinitionToggle>
@@ -228,15 +228,15 @@ export default function HowRentalTaxArisesModule() {
                     </SectionToggle>
                     
                     <SectionToggle title={t.deductibles.title} icon={<MinusCircle />}>
-                        <div className="space-y-6">
-                            <div className="p-4 border border-blue-200 rounded-lg bg-blue-50">
-                                <h3 className="font-bold text-lg text-blue-800 flex items-center mb-3"><Book className="mr-2"/>{t.deductibles.noBooksTitle}</h3>
+                        <div className="space-y-4">
+                            <div className="p-2">
+                                <h3 className="font-bold text-lg text-blue-800 flex items-center mb-2"><Book className="mr-2"/>{t.deductibles.noBooksTitle}</h3>
                                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                                     {t.deductibles.noBooksItems.map((item, i) => <li key={i}>{item.text}<InfoTooltip text={item.tooltip} /></li>)}
                                 </ul>
                             </div>
-                            <div className="p-4 border border-green-200 rounded-lg bg-green-50">
-                                <h3 className="font-bold text-lg text-green-800 flex items-center mb-3"><BookMarked className="mr-2"/>{t.deductibles.withBooksTitle}</h3>
+                            <div className="p-2">
+                                <h3 className="font-bold text-lg text-green-800 flex items-center mb-2"><BookMarked className="mr-2"/>{t.deductibles.withBooksTitle}</h3>
                                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                                     {t.deductibles.withBooksItems.map((item, i) => <li key={i}>{item.text}<InfoTooltip text={item.tooltip} /></li>)}
                                 </ul>
@@ -251,33 +251,25 @@ export default function HowRentalTaxArisesModule() {
 }
 
 const DefinitionToggle = ({ title, children }: { title: string, children: ReactNode }) => {
-    // 1. State Management: 'isOpen' tracks whether the content is visible or hidden.
-    // It starts as 'false' (hidden).
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        // The main container for the toggle.
-        <div className="border border-gray-200 rounded-lg">
-            {/* 2. The Clickable Button */}
+        <div className="border-t">
             <button
-                // The onClick handler flips the 'isOpen' state (true -> false, false -> true).
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex justify-between items-center p-4 text-left font-semibold text-gray-700 bg-gray-50 hover:bg-gray-100 transition-colors"
-                aria-expanded={isOpen} // Accessibility attribute
+                className="w-full flex justify-between items-center py-3 text-left font-semibold text-gray-700"
+                aria-expanded={isOpen}
             >
-                {/* The title and its icon */}
                 <span className="flex items-center">
                     <Lightbulb className="h-5 w-5 mr-3 text-yellow-500"/>
                     {title}
                 </span>
                 
-                {/* 3. The Chevron Icon: Changes based on the 'isOpen' state */}
                 {isOpen ? <ChevronUp className="h-6 w-6" /> : <ChevronDown className="h-6 w-6" />}
             </button>
 
-            {/* 4. Conditional Rendering: This section only renders if 'isOpen' is true. */}
             {isOpen && (
-                <div className="p-6 bg-white border-t border-gray-200">
+                <div className="pb-3">
                     {children}
                 </div>
             )}

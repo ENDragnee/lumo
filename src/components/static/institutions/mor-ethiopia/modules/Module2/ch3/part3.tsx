@@ -60,7 +60,7 @@ const content = {
 
         section2_4_Title: "2.4. የኪራይ ገቢ ግብር ማስከፈያ መጣኔ",
         taxRates: {
-            body: "ለድርጅቶች የኪራይ ገቢ ግብር መጣኔ 30% (ሰላሳ በመቶ) ነው።",
+            body: "ለድርጅቶች የኪራይ ገቢ ግብር መጣኔ 30% (ሰላሳ በመቶ)።",
             individual: "ለግለሰቦች ከ10% እስከ 35% በሚደርስ መጣኔ ግብር ይከፍላሉ።"
         },
         taxBracketsTitle: "2.4.1. የግለሰብ የኪራይ ገቢ ግብር መጣኔ",
@@ -177,12 +177,12 @@ const content = {
 
 // --- Helper Components ---
 const Section = ({ title, icon, children }: { title: string; icon: ReactNode; children: ReactNode }) => (
-    <div className="mb-12">
-        <div className="flex items-center mb-4 border-b-2 border-blue-200 pb-2">
+    <div className="mb-8">
+        <div className="flex items-center mb-3 border-b pb-2">
             <div className="text-blue-600 mr-3">{icon}</div>
             <h2 className="text-xl md:text-2xl font-bold text-gray-800">{title}</h2>
         </div>
-        <div className="space-y-4 text-gray-700 leading-relaxed pl-2">{children}</div>
+        <div className="space-y-3 text-gray-700 leading-relaxed">{children}</div>
     </div>
 );
 
@@ -191,21 +191,21 @@ const CaseStudyQuiz = ({ lang }: { lang: 'am' | 'en' }) => {
     const t = content[lang];
     
     return (
-        <div className="my-10 p-6 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg shadow-lg">
+        <div className="my-6 p-4">
             <h3 className="text-xl font-bold text-gray-800 mb-2">{t.caseStudyTitle}</h3>
-            <p className="text-gray-600 mb-4 italic">{t.caseStudyScenario}</p>
+            <p className="text-gray-600 mb-3 italic">{t.caseStudyScenario}</p>
             <div className="font-semibold text-gray-800 space-y-2">
                 <p>{t.question1}</p>
                 <p>{t.question2}</p>
             </div>
             <button
                 onClick={() => setShowSolution(!showSolution)}
-                className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                className="mt-3 px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors"
             >
                 {showSolution ? t.hideSolution : t.showSolution}
             </button>
             {showSolution && (
-                <div className="mt-4 p-4 bg-green-50 rounded-md border border-green-200 whitespace-pre-wrap font-mono text-sm">
+                <div className="mt-3 p-3 bg-green-50 whitespace-pre-wrap font-mono text-sm">
                     <h4 className="font-sans font-bold text-lg mb-2 text-green-800">Solution:</h4>
                     <p className="font-sans font-semibold text-green-700">Answer to Question 1:</p>
                     <p>{t.solution.q1Calc}</p>
@@ -230,21 +230,21 @@ export default function RentalIncomeTaxChapter() {
     };
 
     return (
-        <div className="font-sans bg-gray-50 p-4 sm:p-6 md:p-8">
-            <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-lg">
-                <header className="bg-blue-700 text-white p-6 rounded-t-lg relative">
+        <div className="font-sans p-2 sm:p-4">
+            <div className="max-w-full mx-auto">
+                <header className="py-4 border-b relative">
                     <div className="flex items-center">
-                        <Home className="h-10 w-10 mr-4 flex-shrink-0" />
+                        <Home className="h-8 w-8 mr-3" />
                         <div>
                             <h1 className="text-2xl md:text-3xl font-bold">{t.title}</h1>
                         </div>
                     </div>
-                    <button onClick={toggleLanguage} className="absolute top-4 right-4 bg-white text-blue-700 font-semibold py-2 px-4 rounded-md text-sm hover:bg-blue-100 transition-colors">
+                    <button onClick={toggleLanguage} className="absolute top-4 right-4 text-gray-800 font-semibold py-2 px-4 text-sm">
                         {t.langButton}
                     </button>
                 </header>
 
-                <main className="p-6 md:p-10">
+                <main className="py-4">
                     <Section title={t.section2_1_Title} icon={<Landmark />}>
                         <ul className="list-disc list-inside space-y-2">
                             {t.impositionRules.map((rule, i) => <li key={i}>{rule}</li>)}
@@ -253,7 +253,7 @@ export default function RentalIncomeTaxChapter() {
                     
                     <Section title={t.section2_2_Title} icon={<FileText />}>
                         <p className="font-medium">{t.rentalIncomeDefinition}</p>
-                        <h4 className="font-bold mt-4">Gross income includes:</h4>
+                        <h4 className="font-bold mt-3">Gross income includes:</h4>
                          <ul className="list-disc list-inside space-y-2">
                             {t.grossIncomeIncludes.map((item, i) => <li key={i}>{item}</li>)}
                         </ul>
@@ -268,7 +268,7 @@ export default function RentalIncomeTaxChapter() {
                                 {t.deductibleTabs.noBooks}
                             </button>
                          </div>
-                         <div className="p-4 bg-gray-50 rounded-b-lg">
+                         <div className="p-3">
                              {activeTab === 'withBooks' && <ul className="list-disc list-inside space-y-2">{t.withBooksDeductions.map((item, i) => <li key={i}>{item}</li>)}</ul>}
                              {activeTab === 'noBooks' && <ul className="list-disc list-inside space-y-2">{t.noBooksDeductions.map((item, i) => <li key={i}>{item}</li>)}</ul>}
                          </div>
@@ -277,23 +277,23 @@ export default function RentalIncomeTaxChapter() {
                     <Section title={t.section2_4_Title} icon={<Calculator />}>
                         <p>{t.taxRates.body}</p>
                         <p>{t.taxRates.individual}</p>
-                        <h4 className="font-bold text-lg mt-4">{t.taxBracketsTitle}</h4>
+                        <h4 className="font-bold text-lg mt-3">{t.taxBracketsTitle}</h4>
                         <div className="overflow-x-auto">
-                            <table className="min-w-full bg-white border border-gray-200 text-sm">
-                                <thead className="bg-gray-100">
+                            <table className="min-w-full text-sm">
+                                <thead>
                                     <tr>{t.taxTableHeaders.map(h => <th key={h} className="py-2 px-4 border-b text-left font-semibold">{h}</th>)}</tr>
                                 </thead>
                                 <tbody>
-                                    {t.taxBrackets.map((row, i) => <tr key={i} className="hover:bg-gray-50"><td className="py-2 px-4 border-b">{row[0]}</td><td className="py-2 px-4 border-b">{row[1]}</td><td className="py-2 px-4 border-b">{row[2]}</td></tr>)}
+                                    {t.taxBrackets.map((row, i) => <tr key={i}><td className="py-2 px-4 border-b">{row[0]}</td><td className="py-2 px-4 border-b">{row[1]}</td><td className="py-2 px-4 border-b">{row[2]}</td></tr>)} 
                                 </tbody>
                             </table>
                         </div>
                     </Section>
 
                     <Section title={t.otherTopicsTitle} icon={<BookOpen />}>
-                        <div className="space-y-4">
+                        <div className="space-y-3">
                             {Object.values(t.otherTopics).map(topic => (
-                                <div key={topic.title} className="p-3 bg-gray-50 rounded-lg border">
+                                <div key={topic.title} className="p-2">
                                     <h4 className="font-bold text-gray-800">{topic.title}</h4>
                                     <p className="text-sm">{topic.text}</p>
                                 </div>

@@ -204,20 +204,20 @@ const Quiz = ({ title, q1, a1, q2, a2, lang }: { title: string, q1: string, a1: 
     const t = content[lang];
 
     return (
-        <div className="my-10 p-6 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
+        <div className="my-10 p-6 bg-yellow-50">
             <h3 className="text-xl font-bold text-gray-800 mb-4">{title}</h3>
             {/* Question 1 */}
             <div className="mb-4">
                 <p className="font-semibold text-gray-800 flex items-start"><HelpCircle className="h-5 w-5 mr-2 mt-1 flex-shrink-0"/>{q1}</p>
                 <button onClick={() => setShowAnswer1(!showAnswer1)} className="text-sm text-blue-600 hover:underline mt-2">{showAnswer1 ? t.hideAnswer : t.showAnswer}</button>
-                {showAnswer1 && <p className="mt-2 p-3 bg-green-50 rounded-md border border-green-200 flex items-start"><Lightbulb className="h-5 w-5 mr-2 mt-1 flex-shrink-0 text-green-600"/>{a1}</p>}
+                {showAnswer1 && <p className="mt-2 p-3 bg-green-50 flex items-start"><Lightbulb className="h-5 w-5 mr-2 mt-1 flex-shrink-0 text-green-600"/>{a1}</p>}
             </div>
             {/* Question 2 (optional) */}
             {q2 && a2 && (
                 <div>
                     <p className="font-semibold text-gray-800 flex items-start"><HelpCircle className="h-5 w-5 mr-2 mt-1 flex-shrink-0"/>{q2}</p>
                     <button onClick={() => setShowAnswer2(!showAnswer2)} className="text-sm text-blue-600 hover:underline mt-2">{showAnswer2 ? t.hideAnswer : t.showAnswer}</button>
-                    {showAnswer2 && <p className="mt-2 p-3 bg-green-50 rounded-md border border-green-200 flex items-start"><Lightbulb className="h-5 w-5 mr-2 mt-1 flex-shrink-0 text-green-600"/>{a2}</p>}
+                    {showAnswer2 && <p className="mt-2 p-3 bg-green-50 flex items-start"><Lightbulb className="h-5 w-5 mr-2 mt-1 flex-shrink-0 text-green-600"/>{a2}</p>}
                 </div>
             )}
         </div>
@@ -238,30 +238,34 @@ export default function TaxRegistrationChapterTwo() {
     };
 
     return (
-        <div className="font-sans bg-gray-50 p-4 sm:p-6 md:p-8">
-            <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-lg">
-                <header className="bg-blue-700 text-white p-6 rounded-t-lg relative">
+        <div className="font-sans bg-white p-4 sm:p-6 md:p-8">
+            <div className="max-w-5xl mx-auto">
+                <header className="bg-blue-700 text-white p-6 flex items-center justify-between">
                     <div className="flex items-center">
                         <ClipboardList className="h-10 w-10 mr-4 flex-shrink-0" />
                         <div>
                             <h1 className="text-2xl md:text-3xl font-bold">{t.title}</h1>
                         </div>
                     </div>
-                    <button onClick={toggleLanguage} className="absolute top-4 right-4 bg-white text-blue-700 font-semibold py-2 px-4 rounded-md text-sm hover:bg-blue-100 transition-colors">
-                        {t.langButton}
+                    <button 
+                        onClick={toggleLanguage}
+                        className="p-2 rounded-full bg-white text-blue-700 hover:bg-blue-100 transition-colors"
+                        aria-label="Toggle language"
+                    >
+                        <Globe className="h-6 w-6" />
                     </button>
                 </header>
 
-                <main className="p-6 md:p-10">
+                <main className="p-4">
                     {/* Section 2.1 */}
                     <Section title={t.section2_1_Title} icon={<FileText />}>
                         <p>{t.obligationIntro}</p>
-                        <div className="p-3 bg-blue-50 border border-blue-200 rounded-md text-sm">{t.exemptionText}</div>
+                        <div className="p-3 bg-blue-50 rounded-md text-sm">{t.exemptionText}</div>
                         <h4 className="font-bold text-lg mt-4">{t.obligatedPartiesTitle}</h4>
                         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
                             {t.obligatedParties.map((party, i) => <li key={i} className="flex items-start"><ChevronRight className="h-5 w-5 mr-2 mt-0.5 text-blue-500 flex-shrink-0"/><span>{party}</span></li>)}
                         </ul>
-                        <div className="mt-6 p-4 bg-gray-100 border-l-4 border-gray-400 rounded-r-lg">
+                        <div className="mt-6 p-4 bg-gray-100">
                             <p className="mb-2">{t.employerNote}</p>
                             <p className="font-semibold">{t.timingNote}</p>
                         </div>
@@ -273,7 +277,7 @@ export default function TaxRegistrationChapterTwo() {
 
                     {/* Section 2.2 */}
                     <Section title={t.section2_2_Title} icon={<Users />}>
-                        <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="p-4 bg-gray-50 rounded-lg">
                              <h4 className="font-bold text-lg">{t.prerequisitesIntro}</h4>
                              <ul className="list-disc list-inside space-y-1 mt-2">
                                  {t.generalPrerequisites.map((req, i) => <li key={i}>{req}</li>)}
@@ -297,7 +301,7 @@ export default function TaxRegistrationChapterTwo() {
                                          )
                                      })}
                                  </div>
-                                 <div className="mt-4 p-4 bg-gray-50 rounded-b-lg">
+                                 <div className="mt-4 p-4 bg-gray-50">
                                      <ul className="space-y-2">
                                          {t.prerequisiteCategories[activeTab].items.map((item, i) => (
                                              <li key={i} className="flex items-start"><ChevronRight className="h-5 w-5 mr-2 mt-0.5 text-green-600 flex-shrink-0"/><span>{item}</span></li>
@@ -314,7 +318,7 @@ export default function TaxRegistrationChapterTwo() {
                     <Section title={t.section2_3_Title} icon={<MapPin />}>
                         <p>{t.locationGeneral}</p>
                         <p>{t.locationLegalEntity}</p>
-                        <div className="p-4 bg-red-50 border-l-4 border-red-500 text-red-800 rounded-r-lg">
+                        <div className="p-4 bg-red-50 text-red-800">
                             <p className="flex items-start"><AlertTriangle className="h-5 w-5 mr-3 flex-shrink-0"/><span>{t.locationMultipleRegionsAlert}</span></p>
                         </div>
                         <p>{t.locationSameRegion}</p>
@@ -327,7 +331,7 @@ export default function TaxRegistrationChapterTwo() {
                             {t.specialCases.map((sc, i) => {
                                 const Icon = sc.icon;
                                 return (
-                                <div key={i} className="p-4 border rounded-lg hover:shadow-md transition-shadow">
+                                <div key={i} className="p-4 hover:shadow-md transition-shadow">
                                     <h4 className="font-bold text-lg flex items-center mb-2"><Icon className="h-5 w-5 mr-2 text-blue-600"/>{sc.title}</h4>
                                     <p>{sc.text}</p>
                                 </div>

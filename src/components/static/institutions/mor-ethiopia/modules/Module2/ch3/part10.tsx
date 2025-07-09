@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, ReactNode } from 'react';
@@ -56,16 +55,16 @@ const content = {
 
 // --- Helper Components ---
 const Section = ({ title, icon, children }: { title: string; icon: ReactNode; children: ReactNode }) => (
-    <div className="mb-12">
-        <div className="flex items-center mb-4 border-b-2 border-gray-200 pb-2">
+    <div className="mb-8">
+        <div className="flex items-center mb-3">
             <div className="text-gray-600 mr-3">{icon}</div>
             <h2 className="text-xl md:text-2xl font-bold text-gray-800">{title}</h2>
         </div>
-        <div className="space-y-4 text-gray-700 leading-relaxed pl-2">{children}</div>
+        <div className="space-y-3 text-gray-800 leading-relaxed">{children}</div>
     </div>
 );
 
-// --- Tax Bracket Data (from previous modules) ---
+// --- Tax Bracket Data ---
 const taxBrackets = [
     { min: 0, max: 7200, rate: 0, deduction: 0 },
     { min: 7201, max: 19800, rate: 0.10, deduction: 720 },
@@ -92,14 +91,10 @@ const TaxBracketSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
             return;
         }
 
-        // Corporate Tax Calculation
         const corporateTax = profit * 0.30;
-
-        // Individual Tax Calculation
         const applicableBracket = taxBrackets.find(b => profit >= b.min && profit <= b.max)!;
         const individualTax = (profit * applicableBracket.rate) - applicableBracket.deduction;
 
-        // Chart Data Calculation
         let remainingProfit = profit;
         const chartData = taxBrackets.map(b => {
             if (remainingProfit <= 0) return { bracket: `${b.rate * 100}%`, taxableAmount: 0, taxPaid: 0 };
@@ -126,31 +121,31 @@ const TaxBracketSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
 
     return (
         <Section title={t.title} icon={<Calculator />}>
-            <div className="p-6 bg-gray-50 rounded-lg border">
-                <p className="text-sm text-gray-600 mb-4">{t.instructions}</p>
-                <div className="flex items-center space-x-4">
+            <div className="p-3">
+                <p className="text-sm text-gray-600 mb-3">{t.instructions}</p>
+                <div className="flex items-center space-x-3">
                     <input
                         type="text"
                         value={profitInput}
                         onChange={(e) => setProfitInput(e.target.value)}
                         placeholder={t.netProfitLabel}
-                        className="flex-grow p-2 border rounded-md"
+                        className="flex-grow p-2 border"
                     />
-                    <button onClick={handleCalculate} className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center">
+                    <button onClick={handleCalculate} className="px-4 py-2 bg-blue-600 text-white text-sm hover:bg-blue-700 flex items-center">
                         <Play className="h-4 w-4 mr-2"/> {t.calculateButton}
                     </button>
                 </div>
 
                 {results && (
-                    <div className="mt-6 space-y-6">
-                        <h4 className="font-bold text-lg text-gray-800">{t.resultsTitle}</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="p-4 bg-white rounded-lg shadow text-center">
+                    <div className="mt-4 space-y-4">
+                        <h4 className="font-bold text-lg">{t.resultsTitle}</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div className="p-3 text-center">
                                 <User className="mx-auto h-8 w-8 text-blue-500 mb-2" />
                                 <p className="text-sm text-gray-500">{t.individualTax}</p>
                                 <p className="text-2xl font-bold text-gray-800">{results.individual.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ETB</p>
                             </div>
-                             <div className="p-4 bg-white rounded-lg shadow text-center">
+                             <div className="p-3 text-center">
                                 <Building className="mx-auto h-8 w-8 text-green-500 mb-2" />
                                 <p className="text-sm text-gray-500">{t.corporateTax}</p>
                                 <p className="text-2xl font-bold text-gray-800">{results.corporate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ETB</p>
@@ -158,14 +153,14 @@ const TaxBracketSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
                         </div>
                         
                         <div>
-                            <h4 className="font-bold text-lg text-gray-800 flex items-center mb-3"><BarChart3 className="h-5 w-5 mr-2" />{t.breakdownTitle}</h4>
+                            <h4 className="font-bold text-lg flex items-center mb-2"><BarChart3 className="h-5 w-5 mr-2" />{t.breakdownTitle}</h4>
                             <div className="space-y-2">
                                 {results.chartData.map((data, i) => (
                                     <div key={i} className="flex items-center">
                                         <div className="w-24 text-right pr-4 text-sm font-medium">{data.taxableAmount.toLocaleString()} @ {data.bracket}</div>
-                                        <div className="flex-grow bg-gray-200 rounded-full h-6">
+                                        <div className="flex-grow bg-gray-200 h-4">
                                             <div
-                                                className={`bg-blue-${300 + i * 100} h-6 rounded-full text-white text-xs flex items-center justify-end pr-2`}
+                                                className={`bg-blue-400 h-4 text-white text-xs flex items-center justify-end pr-1`}
                                                 style={{ width: `${(data.taxableAmount / parseFloat(profitInput.replace(/,/g, ''))) * 100}%` }}
                                             >
                                                 {data.taxPaid.toLocaleString('en-US', { maximumFractionDigits: 0 })}
@@ -192,25 +187,25 @@ export default function AdvertisingAndTaxSimChapter() {
     const toggleLanguage = () => setLang(lang === 'am' ? 'en' : 'am');
 
     return (
-        <div className="font-sans bg-gray-100 p-4 sm:p-6 md:p-8">
-            <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-lg">
-                <header className="bg-blue-700 text-white p-6 rounded-t-lg relative">
+        <div className="font-sans p-2 sm:p-4">
+            <div className="max-w-full mx-auto">
+                <header className="py-4 border-b relative">
                     <div className="flex items-center">
-                        <Megaphone className="h-10 w-10 mr-4 flex-shrink-0" />
+                        <Megaphone className="h-8 w-8 mr-3 flex-shrink-0" />
                         <div><h1 className="text-2xl md:text-3xl font-bold">{t.title}</h1></div>
                     </div>
-                    <button onClick={toggleLanguage} className="absolute top-4 right-4 bg-white text-blue-700 font-semibold py-2 px-4 rounded-md text-sm hover:bg-blue-100">{t.langButton}</button>
+                    <button onClick={toggleLanguage} className="absolute top-4 right-4 text-gray-800 font-semibold py-2 px-4 text-sm">{t.langButton}</button>
                 </header>
 
-                <main className="p-6 md:p-10">
+                <main className="py-4">
                     <Section title={t.ruleTitle} icon={<TrendingDown />}>
-                        <div className="space-y-4">
-                            <div className="p-4 bg-yellow-50 border-l-4 border-yellow-400">
-                                <h4 className="font-semibold flex items-center text-yellow-900"><Percent className="h-5 w-5 mr-2"/>Limited Deduction (3% Rule)</h4>
+                        <div className="space-y-3">
+                            <div className="p-3">
+                                <h4 className="font-semibold flex items-center text-yellow-900 text-lg"><Percent className="h-5 w-5 mr-2"/>Limited Deduction (3% Rule)</h4>
                                 <p className="mt-1 text-gray-700">{t.mainRule}</p>
                             </div>
-                             <div className="p-4 bg-green-50 border-l-4 border-green-400">
-                                <h4 className="font-semibold flex items-center text-green-900"><CheckCircle className="h-5 w-5 mr-2"/>Full Deduction (Exception)</h4>
+                             <div className="p-3">
+                                <h4 className="font-semibold flex items-center text-green-900 text-lg"><CheckCircle className="h-5 w-5 mr-2"/>Full Deduction (Exception)</h4>
                                 <p className="mt-1 text-gray-700">{t.exceptionRule}</p>
                             </div>
                         </div>

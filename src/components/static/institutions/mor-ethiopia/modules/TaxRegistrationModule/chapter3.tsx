@@ -8,6 +8,7 @@ import {
     AlertTriangle,
     FileText,
     Key,
+    Globe,
     UserCheck,
     XCircle,
     Award,
@@ -124,7 +125,7 @@ const Section = ({ title, icon, children }: { title: string, icon: ReactNode, ch
 );
 
 const RuleItem = ({ children, icon }: { children: ReactNode, icon: ReactNode }) => (
-    <li className="flex items-start p-3 bg-gray-50 rounded-md border border-gray-200">
+    <li className="flex items-start p-3 bg-gray-50">
         <div className="mr-3 mt-1 flex-shrink-0">{icon}</div>
         <span>{children}</span>
     </li>
@@ -143,7 +144,7 @@ const ScenarioQuiz = ({ lang }: { lang: 'am' | 'en' }) => {
     const isCorrect = selectedOption === t.correctOptionIndex;
 
     return (
-        <div className="my-10 p-6 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg shadow-lg">
+        <div className="my-10 p-6 bg-blue-50 rounded-r-lg shadow-lg">
             <h3 className="text-xl font-bold text-gray-800 mb-2">{t.quizTitle}</h3>
             <p className="text-gray-600 mb-4">{t.quizIntro}</p>
             <div className="p-4 bg-white rounded-lg border border-gray-200">
@@ -190,21 +191,25 @@ export default function TaxRegistrationChapterThree() {
     };
 
     return (
-        <div className="font-sans bg-gray-100 p-4 sm:p-6 md:p-8">
-            <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-lg">
-                <header className="bg-blue-700 text-white p-6 rounded-t-lg relative">
+        <div className="font-sans bg-white p-4 sm:p-6 md:p-8">
+            <div className="max-w-5xl mx-auto">
+                <header className="bg-blue-700 text-white p-6 flex items-center justify-between">
                     <div className="flex items-center">
                         <Hash className="h-10 w-10 mr-4 flex-shrink-0" />
                         <div>
                             <h1 className="text-2xl md:text-3xl font-bold">{t.title}</h1>
                         </div>
                     </div>
-                    <button onClick={toggleLanguage} className="absolute top-4 right-4 bg-white text-blue-700 font-semibold py-2 px-4 rounded-md text-sm hover:bg-blue-100 transition-colors">
-                        {t.langButton}
+                    <button 
+                        onClick={toggleLanguage}
+                        className="p-2 rounded-full bg-white text-blue-700 hover:bg-blue-100 transition-colors"
+                        aria-label="Toggle language"
+                    >
+                        <Globe className="h-6 w-6" />
                     </button>
                 </header>
 
-                <main className="p-6 md:p-10">
+                <main className="p-4">
                     {/* Section 3.1: Issuance */}
                     <Section title={t.section3_1_Title} icon={<Key />}>
                         <ul className="space-y-3">
@@ -232,7 +237,7 @@ export default function TaxRegistrationChapterThree() {
 
                     {/* Section 3.3: Cancellation */}
                     <Section title={t.section3_3_Title} icon={<XCircle />}>
-                         <div className="p-4 bg-red-50 rounded-lg border border-red-200">
+                         <div className="p-4 bg-red-50 rounded-lg">
                              <h4 className="font-bold text-lg text-red-800 mb-3">{t.cancellationReasonsTitle}</h4>
                              <ul className="space-y-3">
                                 {t.cancellationReasons.map((reason, i) => (
