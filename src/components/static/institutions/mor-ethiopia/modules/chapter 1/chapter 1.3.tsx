@@ -15,6 +15,7 @@ import {
     ThumbsUp,
     ThumbsDown
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object (1-to-1 with PDF pages 32-35) ---
 const content = {
@@ -131,7 +132,7 @@ const RuleItem = ({ children, icon }: { children: ReactNode, icon: ReactNode }) 
     </li>
 );
 
-const ScenarioQuiz = ({ lang }: { lang: 'am' | 'en' }) => {
+const ScenarioQuiz = ({ lang, onQuizComplete }: { lang: 'am' | 'en', onQuizComplete: (passed: boolean) => void }) => {
     const t = content[lang].quiz;
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
     const [showFeedback, setShowFeedback] = useState(false);
@@ -139,6 +140,10 @@ const ScenarioQuiz = ({ lang }: { lang: 'am' | 'en' }) => {
     const handleOptionClick = (index: number) => {
         setSelectedOption(index);
         setShowFeedback(true);
+        const isCorrect = index === t.correctOptionIndex;
+        if (isCorrect) {
+            onQuizComplete(true);
+        }
     };
 
     const isCorrect = selectedOption === t.correctOptionIndex;
@@ -184,6 +189,7 @@ const ScenarioQuiz = ({ lang }: { lang: 'am' | 'en' }) => {
 
 export default function TaxRegistrationChapterThree() {
     const [lang, setLang] = useState<'am' | 'en'>('am');
+    const [quizPassed, setQuizPassed] = useState(false);
     const t = content[lang];
 
     const toggleLanguage = () => {
@@ -233,7 +239,7 @@ export default function TaxRegistrationChapterThree() {
                     </Section>
                     
                     {/* Interactive Quiz */}
-                    <ScenarioQuiz lang={lang} />
+                    <ScenarioQuiz lang={lang} onQuizComplete={setQuizPassed} />
 
                     {/* Section 3.3: Cancellation */}
                     <Section title={t.section3_3_Title} icon={<XCircle />}>
@@ -248,6 +254,7 @@ export default function TaxRegistrationChapterThree() {
                             </ul>
                         </div>
                     </Section>
+                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/1/2" next="/institutional-portal/mor-ethiopia/1/4" isPassed={quizPassed} lang={lang} />
                 </main>
             </div>
         </div>

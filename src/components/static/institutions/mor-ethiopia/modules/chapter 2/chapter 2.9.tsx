@@ -2,6 +2,7 @@
 
 import { useState, ReactNode } from 'react';
 import { Heart, TrendingDown, Building, Wrench, Video, BarChart2, Calculator, Info, RefreshCw, Play, GitCompareArrows, Lightbulb, FileText, Percent } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object (1-to-1 with PDF slides 60-74, plus explanations) ---
 const content = {
@@ -17,7 +18,7 @@ const content = {
 
         depreciationSection: {
             title: "3.4.4. የተፈቀዱ የእርጅና ቅናሽ",
-            intro: "ግብር ከፋዩ ገቢውን ለማስገኘት በግብር ዓመቱ ጥቅም ላይ ላዋላቸው ዋጋቸው ለሚቀንስ ሀብቶች (Depreciable Assets) እና ግዙፋዊ ህልዎት ለሌላቸው የንግድ ሥራ ሀብቶች (Intangible Assets) የእርጅና ቅናሽ ማድረግ ይፈቀድለታል።",
+            intro: "ግብር ከፋዩ ገቢውን ለማስገኘት በግብር ዓመቱ ጥቅም ላይ ላዋሉ ዋጋቸው ለሚቀንስ ሀብቶች (Depreciable Assets) እና ግዙፋዊ ህልዎት ለሌላቸው የንግድ ሥራ ሀብቶች (Intangible Assets) የእርጅና ቅናሽ ማድረግ ይፈቀድለታል።",
             explanationTitle: "ይህ ምን ማለት ነው?",
             explanation: "ንግድዎ የሚጠቀምባቸው እንደ መኪና፣ ኮምፒውተር፣ ወይም ህንጻ ያሉ ንብረቶች በጊዜ ሂደት ያረጃሉ፤ ዋጋቸውም ይቀንሳል። ይህንን የዋጋ ቅናሽ 'የእርጅና ቅናሽ' እንለዋለን። መንግስት ይህንን የዋጋ ቅናሽ እንደ አመታዊ ወጪ እንድትቆጥሩት ይፈቅድልዎታል፤ ይህም የሚከፍሉትን ግብር ይቀንሳል።",
             depreciableAssetDef: {
@@ -234,7 +235,7 @@ const DepreciationSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
                 )}
             </div>
         </Section>
-    )
+    );
 };
 
 
@@ -295,6 +296,7 @@ export default function DepreciationAndDonationsChapter() {
                             <p className="mt-1 text-sm">{t.improvementSection.limit}</p>
                         </div>
                     </Section>
+                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/8" next="/institutional-portal/mor-ethiopia/2/10" lang={lang} />
                 </main>
             </div>
         </div>

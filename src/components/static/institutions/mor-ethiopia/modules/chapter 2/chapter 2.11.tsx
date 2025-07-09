@@ -9,6 +9,7 @@ import {
     Gavel,
     Users
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object ---
 const content = {
@@ -128,7 +129,7 @@ export default function WastageAndEntertainmentCostModule() {
     return (
         <div className="font-sans p-2 sm:p-4">
             <div className="max-w-full mx-auto">
-                <header className="py-4 border-b flex items-center justify-between">
+                <header className="py-4 border-b relative">
                     <h1 className="text-3xl sm:text-4xl font-bold">{t.title}</h1>
                     <button
                         onClick={toggleLanguage}
@@ -168,6 +169,7 @@ export default function WastageAndEntertainmentCostModule() {
                 <footer className="text-center text-gray-600 text-sm p-3 border-t">
                     <p>{t.footer}</p>
                 </footer>
+                <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/10" next="/institutional-portal/mor-ethiopia/2/12" lang={lang} />
             </div>
         </div>
     );

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, ReactNode } from 'react';
@@ -14,6 +13,7 @@ import {
     CheckCircle,
     BookCopy
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object (1-to-1 with PDF pages 4-8) ---
 const content = {
@@ -227,6 +227,7 @@ export default function TaxRegistrationChapterOne() {
                             ))}
                         </div>
                     </Section>
+                    <ChapterNavigation next="/institutional-portal/mor-ethiopia/1/2" lang={lang} />
                 </main>
             </div>
         </div>

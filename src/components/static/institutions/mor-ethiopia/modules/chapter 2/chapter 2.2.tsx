@@ -15,6 +15,7 @@ import {
     PlayCircle,
     Lightbulb
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object (1-to-1 with PDF slides 12-18) ---
 const content = {
@@ -243,7 +244,7 @@ export default function HowRentalTaxArisesModule() {
                             </div>
                         </div>
                     </SectionToggle>
-
+                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/1" next="/institutional-portal/mor-ethiopia/2/3" lang={lang} />
                 </main>
             </div>
         </div>

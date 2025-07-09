@@ -10,8 +10,6 @@ import { loadInstitutionPortal } from '@/lib/institutionPortalLoader';
 import { notFound } from 'next/navigation';
 import { Session } from 'next-auth';
 import Content from '@/models/Content'; // Import the Content model
-import { json } from 'stream/consumers';
-// No need to import User from 'next-auth' here, we'll use Session
 
 // It's good practice to define the data fetching logic separately
 async function getPortalData(institutionId: string): Promise<{

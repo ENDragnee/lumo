@@ -14,6 +14,7 @@ import {
     Building2,
     Handshake
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object (1-to-1 with PDF slides 44-47) ---
 const content = {
@@ -280,6 +281,7 @@ export default function BusinessIncomeIntroChapter() {
 
                     {/* Interactive Form Component */}
                     <DeclarationForm lang={lang} />
+                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/5" next="/institutional-portal/mor-ethiopia/2/7" lang={lang} />
                 </main>
             </div>
         </div>

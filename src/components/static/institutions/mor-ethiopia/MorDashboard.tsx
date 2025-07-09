@@ -1,3 +1,4 @@
+// @/components/static/institutions/mor-ethiopia/MorDashboard.tsx
 "use client";
 
 import React, { useState, useMemo } from 'react';
@@ -6,10 +7,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, CheckCircle, Clock, Award, User, Menu, X, Play, Lock, ArrowLeft, Star, BarChart, FileText } from "lucide-react";
 import Link from "next/link";
-import { DashboardPortalProps } from "@/lib/institutionPortalLoader";
+import { DashboardPortalProps as OriginalDashboardPortalProps } from "@/lib/institutionPortalLoader";
 import { ResponsiveCircularProgress } from '@/components/ui/CircularProgress';
 
-// --- HELPER COMPONENT FOR MODULE CARDS ---
+// --- HELPER COMPONENT FOR MODULE CARDS (No changes needed) ---
 type ModuleCardProps = {
   module: any;
   status: 'completed' | 'available' | 'locked';
@@ -20,24 +21,9 @@ const ModuleCard = ({ module, status, accentColor }: ModuleCardProps) => {
   const isLocked = status === 'locked';
   
   const statusConfig = {
-    completed: {
-      Icon: CheckCircle,
-      iconColor: 'text-green-600',
-      badgeClass: 'bg-green-100 text-green-800',
-      label: 'Completed'
-    },
-    available: {
-      Icon: Play,
-      iconColor: 'text-blue-600',
-      badgeClass: 'bg-blue-100 text-blue-800',
-      label: 'Available'
-    },
-    locked: {
-      Icon: Lock,
-      iconColor: 'text-gray-400',
-      badgeClass: 'bg-gray-100 text-gray-600',
-      label: 'Locked'
-    }
+    completed: { Icon: CheckCircle, iconColor: 'text-green-600', badgeClass: 'bg-green-100 text-green-800', label: 'Completed' },
+    available: { Icon: Play, iconColor: 'text-blue-600', badgeClass: 'bg-blue-100 text-blue-800', label: 'Available' },
+    locked: { Icon: Lock, iconColor: 'text-gray-400', badgeClass: 'bg-gray-100 text-gray-600', label: 'Locked' },
   };
 
   const { Icon, iconColor, badgeClass, label } = statusConfig[status];
@@ -45,76 +31,107 @@ const ModuleCard = ({ module, status, accentColor }: ModuleCardProps) => {
   const cardContent = (
     <div className={`flex items-center justify-between p-4 ${isLocked ? 'opacity-60' : ''}`}>
       <div className="flex items-center space-x-4">
-        <div className={`p-3 rounded-full bg-gray-100 ${iconColor}`}>
-          <Icon className="h-6 w-6" />
-        </div>
+        <div className={`p-3 rounded-full bg-gray-100 ${iconColor}`}><Icon className="h-6 w-6" /></div>
         <div>
           <h3 className="font-semibold text-gray-800">{module.title}</h3>
           <p className="text-sm text-gray-500 line-clamp-1">{module.description}</p>
           <div className="flex items-center mt-2 text-xs text-gray-500">
-            <Clock className="h-3 w-3 mr-1.5" />
-            <span>{module.estimatedTime}</span>
+            <Clock className="h-3 w-3 mr-1.5" /><span>{module.estimatedTime || '5 min'}</span>
           </div>
         </div>
       </div>
       <div className="flex items-center space-x-3">
         <Badge variant="outline" className={`hidden sm:inline-flex ${badgeClass}`}>{label}</Badge>
-        {status === 'available' && (
-          <Button size="sm" style={{ backgroundColor: accentColor }}>
-            Start
-          </Button>
-        )}
+        {status === 'available' && (<Button size="sm" style={{ backgroundColor: accentColor }}>Start</Button>)}
       </div>
     </div>
   );
 
   return (
     <Card className={`transition-all duration-300 ${!isLocked ? 'hover:shadow-md hover:border-gray-300' : ''}`}>
-      {isLocked ? (
-        <div className="cursor-not-allowed">{cardContent}</div>
-      ) : (
-        <Link href={`/content/${module._id}`}>{cardContent}</Link>
-      )}
+      {isLocked ? ( <div className="cursor-not-allowed">{cardContent}</div> ) : ( <Link href={`/content/${module._id}`}>{cardContent}</Link> )}
     </Card>
   );
 };
 
+// --- UPDATED PROPS INTERFACE ---
+export interface DashboardPortalProps extends OriginalDashboardPortalProps {
+  interactedContentIds: string[]; // <-- NEW: IDs of content the user has started
+}
 
-export default function Dashboard({ institution, user, membership, modules = [] }: DashboardPortalProps) {
+// --- HELPER FUNCTION FOR SORTING ---
+const parsePrefix = (title: string): { chapter: number; section: number } | null => {
+  const match = title.match(/chapter\s*(\d+)(?:\.(\d+))?/i);
+  if (!match) return null;
+  return {
+    chapter: parseInt(match[1], 10),
+    section: parseInt(match[2] || '0', 10),
+  };
+};
+
+export default function Dashboard({ 
+  institution, 
+  user, 
+  membership, 
+  modules = [], 
+  interactedContentIds = [] // <-- NEW prop
+}: DashboardPortalProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
-  // --- DYNAMIC THEME COLOR ---
-  const accentColor = institution?.branding?.primaryColor || '#059669'; // Default to a green shade
+  const accentColor = institution?.branding?.primaryColor || '#059669';
 
-  // --- DERIVED DATA & LOGIC ---
+  // --- SORT MODULES BY PREFIX ---
+  const sortedModules = useMemo(() => {
+    return [...modules].sort((a, b) => {
+      const prefixA = parsePrefix(a.title);
+      const prefixB = parsePrefix(b.title);
+
+      if (prefixA && prefixB) {
+        if (prefixA.chapter !== prefixB.chapter) {
+          return prefixA.chapter - prefixB.chapter;
+        }
+        return prefixA.section - prefixB.section;
+      }
+      // Fallback for titles that don't match the pattern
+      if (prefixA) return -1;
+      if (prefixB) return 1;
+      return a.title.localeCompare(b.title);
+    });
+  }, [modules]);
+
   const completedModules: string[] = membership?.metadata?.completedModules || [];
   const businessInfo = membership?.metadata || {};
-  const progress = modules.length > 0 ? Math.round((completedModules.length / modules.length) * 100) : 0;
+  const progress = sortedModules.length > 0 ? Math.round((completedModules.length / sortedModules.length) * 100) : 0;
 
-  const getModuleStatus = (moduleId: string): "completed" | "available" | "locked" => {
+  // --- UPDATED LOCKING LOGIC ---
+  const getModuleStatus = (moduleId: string, index: number): "completed" | "available" | "locked" => {
     if (completedModules.includes(moduleId)) return "completed";
-    const currentIndex = modules.findIndex((m) => m._id.toString() === moduleId);
-    if (currentIndex === 0) return "available";
-    if (currentIndex > 0) {
-      const previousModuleId = modules[currentIndex - 1]._id.toString();
-      if (completedModules.includes(previousModuleId)) return "available";
+    
+    // The first module is always available
+    if (index === 0) return "available";
+    
+    // A module is available if the user has interacted with the previous module.
+    const previousModuleId = sortedModules[index - 1]._id.toString();
+    if (interactedContentIds.includes(previousModuleId) || completedModules.includes(previousModuleId)) {
+        return "available";
     }
+    
     return "locked";
   };
 
   const nextModule = useMemo(() => 
-    modules.find(module => getModuleStatus(module._id.toString()) === 'available'),
-    [modules, completedModules]
+    sortedModules.find((module, index) => getModuleStatus(module._id.toString(), index) === 'available'),
+    [sortedModules, completedModules, interactedContentIds]
   );
 
   return (
-    // Inject CSS variable for the accent color
     <div style={{ '--accent-color': accentColor } as React.CSSProperties} className="min-h-screen bg-gray-50 font-sans">
       
-      {/* --- HEADER --- */}
+      {/* --- HEADER (No changes) --- */}
       <header className="bg-white shadow-sm border-b-4" style={{ borderColor: accentColor }}>
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          {/* ... header content ... */}
+           <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-4">
                <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                 {isSidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -157,24 +174,18 @@ export default function Dashboard({ institution, user, membership, modules = [] 
         >
           <div className="p-6 text-center border-b border-gray-200">
             <h2 className="text-lg font-semibold text-gray-800 mb-4">Course Progress</h2>
-            <ResponsiveCircularProgress
-              value={progress}
-              color="text-[var(--accent-color)]"
-              alwaysShow={true}
-              isHovered={false}
-            />
+            <ResponsiveCircularProgress value={progress} color="text-[var(--accent-color)]" alwaysShow={true} isHovered={false} />
           </div>
           <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
             <h3 className="px-2 text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Modules</h3>
-            {modules.map((module) => {
-              const status = getModuleStatus(module._id);
+            {/* USE sortedModules here */}
+            {sortedModules.map((module, index) => {
+              const status = getModuleStatus(module._id, index);
               const isAvailable = status === 'available';
               return (
                 <Link key={module._id} href={status !== 'locked' ? `/content/${module._id}` : '#'}
                   className={`flex items-center p-3 rounded-lg transition-colors space-x-3 ${
-                    status === 'locked' 
-                      ? 'cursor-not-allowed text-gray-400' 
-                      : 'text-gray-700 hover:bg-gray-100'
+                    status === 'locked' ? 'cursor-not-allowed text-gray-400' : 'text-gray-700 hover:bg-gray-100'
                   } ${isAvailable ? 'bg-blue-50 text-blue-800 font-semibold' : ''}`}
                   onClick={(e) => status === 'locked' && e.preventDefault()}
                 >
@@ -197,6 +208,7 @@ export default function Dashboard({ institution, user, membership, modules = [] 
         {/* --- MAIN CONTENT --- */}
         <main className="flex-1 p-6 sm:p-8 bg-gray-100/50">
           <div className="max-w-5xl mx-auto">
+            {/* ... other main content ... */}
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user?.name?.split(' ')[0]}!</h1>
               <p className="text-lg text-gray-600 mt-1">You're making great progress. Let's keep the momentum going.</p>
@@ -204,13 +216,14 @@ export default function Dashboard({ institution, user, membership, modules = [] 
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <Card><CardHeader className="flex flex-row items-center justify-between pb-2"><CardTitle className="text-sm font-medium">Progress</CardTitle><BarChart className="h-4 w-4 text-gray-500"/></CardHeader><CardContent><div className="text-3xl font-bold">{progress}%</div><p className="text-xs text-gray-500">Course completed</p></CardContent></Card>
-              <Card><CardHeader className="flex flex-row items-center justify-between pb-2"><CardTitle className="text-sm font-medium">Completed</CardTitle><FileText className="h-4 w-4 text-gray-500"/></CardHeader><CardContent><div className="text-3xl font-bold">{completedModules.length}/{modules.length}</div><p className="text-xs text-gray-500">Modules finished</p></CardContent></Card>
+              <Card><CardHeader className="flex flex-row items-center justify-between pb-2"><CardTitle className="text-sm font-medium">Completed</CardTitle><FileText className="h-4 w-4 text-gray-500"/></CardHeader><CardContent><div className="text-3xl font-bold">{completedModules.length}/{sortedModules.length}</div><p className="text-xs text-gray-500">Modules finished</p></CardContent></Card>
               <Card><CardHeader className="flex flex-row items-center justify-between pb-2"><CardTitle className="text-sm font-medium">Certificate</CardTitle><Award className="h-4 w-4 text-gray-500"/></CardHeader><CardContent><div className="text-3xl font-bold">{progress === 100 ? 'Ready!' : 'Locked'}</div><p className="text-xs text-gray-500">Complete all modules to unlock</p></CardContent></Card>
             </div>
 
             {progress < 100 && nextModule && (
               <Card className="mb-8 bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-xl">
-                <CardHeader><CardTitle className="flex items-center gap-2"><Star className="text-yellow-400"/>Next Up: Continue Your Journey</CardTitle></CardHeader>
+                 {/* ... next up card content ... */}
+                 <CardHeader><CardTitle className="flex items-center gap-2"><Star className="text-yellow-400"/>Next Up: Continue Your Journey</CardTitle></CardHeader>
                 <CardContent className="flex items-center justify-between">
                   <div>
                     <h3 className="text-xl font-semibold">{nextModule.title}</h3>
@@ -227,6 +240,7 @@ export default function Dashboard({ institution, user, membership, modules = [] 
 
              {progress === 100 && (
                 <Card className="mb-8 bg-gradient-to-r from-yellow-400 to-amber-500 text-yellow-900 shadow-lg">
+                    {/* ... congratulations card content ... */}
                     <CardContent className="p-8 text-center">
                         <Award className="h-16 w-16 mx-auto mb-4 text-white" />
                         <h3 className="text-2xl font-bold mb-2">Congratulations! You've Completed the Course!</h3>
@@ -243,11 +257,12 @@ export default function Dashboard({ institution, user, membership, modules = [] 
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">All Course Modules</h2>
               <div className="grid gap-4">
-                {modules.map((module) => (
+                {/* USE sortedModules here */}
+                {sortedModules.map((module, index) => (
                   <ModuleCard
                     key={module._id}
                     module={module}
-                    status={getModuleStatus(module._id)}
+                    status={getModuleStatus(module._id, index)}
                     accentColor={accentColor}
                   />
                 ))}

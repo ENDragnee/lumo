@@ -14,6 +14,7 @@ import {
     FilePlus,
     Landmark
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object (1-to-1 with PDF pages 19-43) ---
 const content = {
@@ -46,7 +47,7 @@ const content = {
         },
         noBooksDeductions: [
             "ታክስን ሳይጨምር ለመሬቱ ወይም ከተከራየው ቤት ጋር በተገናኘ ግብር ከፋዩ ለከተማ አስተዳደር የከፈላቸው ክፍያዎች።",
-            "ከቤት ዕቃና ከመሣሪያ ኪራይ ከሚገኘው ጠቅላላ ገንዘብ ላይ 50% (ለማደሻ፣ መጠገኛና ለእርጅና መተኪያ)።"
+            "ከቤት ዕቃና ከመሣሪያ ኪራይ ከሚገኘው ጠቅላላ ገንዘብ ላይ 50% (ለማደሻ፣ መጠገኛ እና ለእርጅና መተኪያ)።"
         ],
         withBooksDeductions: [
             "ገቢውን ለማግኘት፣ ዋስትና ለመስጠት እና ሥራውን ለማስቀጠል የወጡና በግብር ከፋዩ የተከፈሉ አስፈላጊ ወጪዎች።",
@@ -108,7 +109,7 @@ const content = {
         ],
 
         section2_2_Title: "2.2. Rental Income",
-        rentalIncomeDefinition: "Taxable rental income is defined as the remaining income after deducting total allowable expenses from the gross annual income a taxpayer earns from renting out a house in a tax year.",
+        rentalIncomeDefinition: "Taxable rental income is defined as the net income remaining after deducting total allowable expenses from the gross annual income a taxpayer earns from renting out a house in a tax year.",
         grossIncomeIncludes: [
             "Rent premium.",
             "Any other monetary amount the taxpayer receives in the tax year as per the lease agreement, including similar payments.",
@@ -119,15 +120,15 @@ const content = {
         
         section2_3_Title: "2.3. Deductible Expenses",
         deductibleTabs: {
-            noBooks: "For Taxpayers without Books of Account",
-            withBooks: "For Taxpayers with Books of Account"
+            noBooks: "For Taxpayers without Bookkeeping",
+            withBooks: "For Taxpayers with Bookkeeping"
         },
         noBooksDeductions: [
             "Payments made by the taxpayer to the city administration related to the land or rented house, excluding tax.",
-            "50% of the gross income from renting furniture and equipment (for repairs, maintenance, and depreciation)."
+            "50% of income from renting furnishings/equipment."
         ],
         withBooksDeductions: [
-            "Necessary expenses incurred and paid by the taxpayer to earn, secure, and maintain the income.",
+            "Necessary expenses to earn, secure, and maintain the income.",
             "Land lease, repair costs, depreciation allowance, interest, and insurance premiums.",
             "Costs of water, telephone, and electricity if specified in the contract to be paid by the lessee and a receipt is provided.",
             "If the rental property and residence share a single meter, 75% of the total expense is deductible.",
@@ -159,7 +160,7 @@ const content = {
             foreignIncome: { title: "2.6. Rental Income from Foreign Sources", text: "A resident of Ethiopia is liable to pay tax on rental income earned from foreign sources." },
             losses: { title: "2.7. Rental Losses", text: "A lessor can carry forward a loss for up to 5 years. This can only be done twice during their time as a taxpayer." },
             notification: { title: "2.8. Notification of a New Rental Property", text: "Upon completion or rental of a new building, the owner and contractor must notify the local administration within one month." },
-            estimation: { title: "2.9. Assessment by Estimation", text: "Rental income can be estimated by the authority based on contracts, market prices, etc. For Category 'A' and 'B' taxpayers under estimation, 65% of the gross income is considered taxable." }
+            estimation: { title: "2.9. Assessment by Estimation", text: "Rental income can be estimated by the authority based on contracts, current market prices, etc. For Category 'A' and 'B' taxpayers under estimation, 65% of the gross income is considered taxable." }
         },
         
         caseStudyTitle: "Test Question",
@@ -176,6 +177,7 @@ const content = {
 };
 
 // --- Helper Components ---
+
 const Section = ({ title, icon, children }: { title: string; icon: ReactNode; children: ReactNode }) => (
     <div className="mb-8">
         <div className="flex items-center mb-3 border-b pb-2">
@@ -302,6 +304,7 @@ export default function RentalIncomeTaxChapter() {
                     </Section>
 
                     <CaseStudyQuiz lang={lang} />
+                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/2" next="/institutional-portal/mor-ethiopia/2/4" lang={lang} />
                 </main>
             </div>
         </div>

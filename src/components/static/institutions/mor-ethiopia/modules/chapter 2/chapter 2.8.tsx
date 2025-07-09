@@ -12,6 +12,7 @@ import {
     HelpCircle,
     X
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object (1-to-1 with PDF slides 50-59) ---
 const content = {
@@ -114,7 +115,7 @@ const Section = ({ title, icon, children }: { title: string; icon: ReactNode; ch
     </div>
 );
 
-const FillInTheBlanksExercise = ({ exerciseData, lang }: { exerciseData: any, lang: 'am' | 'en' }) => {
+const FillInTheBlanksExercise = ({ exerciseData, lang, onExerciseComplete }: { exerciseData: any, lang: 'am' | 'en', onExerciseComplete: (passed: boolean) => void }) => {
     const t = content[lang].exercise;
     const [userInput, setUserInput] = useState('');
     const [showHint, setShowHint] = useState(false);
@@ -123,7 +124,9 @@ const FillInTheBlanksExercise = ({ exerciseData, lang }: { exerciseData: any, la
     const checkAnswer = () => {
         const correctAnswer = parseFloat(exerciseData.calculation.replace(/[^0-9.]/g, ''));
         const userAnswer = parseFloat(userInput);
-        setIsCorrect(userAnswer === correctAnswer);
+        const correct = userAnswer === correctAnswer;
+        setIsCorrect(correct);
+        onExerciseComplete(correct);
     };
 
     return (
@@ -167,9 +170,16 @@ const FillInTheBlanksExercise = ({ exerciseData, lang }: { exerciseData: any, la
 // --- Main Chapter Component ---
 export default function BusinessDeductibleExpensesChapter() {
     const [lang, setLang] = useState<'am' | 'en'>('am');
+    const [sharedUtilitiesPassed, setSharedUtilitiesPassed] = useState(false);
+    const [representationPassed, setRepresentationPassed] = useState(false);
+    const [interestOnLoanPassed, setInterestOnLoanPassed] = useState(false);
+
     const t = content[lang];
 
     const toggleLanguage = () => setLang(lang === 'am' ? 'en' : 'am');
+
+    // Determine if all exercises are passed
+    const allExercisesPassed = sharedUtilitiesPassed && representationPassed && interestOnLoanPassed;
 
     return (
         <div className="font-sans p-2 sm:p-4">
@@ -196,9 +206,9 @@ export default function BusinessDeductibleExpensesChapter() {
 
                     <Section title={t.specificDeductiblesTitle} icon={<Building />}>
                         <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-4">
-                            <FillInTheBlanksExercise exerciseData={t.exercise.sharedUtilities} lang={lang} />
-                            <FillInTheBlanksExercise exerciseData={t.exercise.representation} lang={lang} />
-                            <FillInTheBlanksExercise exerciseData={t.exercise.interestOnLoan} lang={lang} />
+                            <FillInTheBlanksExercise exerciseData={t.exercise.sharedUtilities} lang={lang} onExerciseComplete={setSharedUtilitiesPassed} />
+                            <FillInTheBlanksExercise exerciseData={t.exercise.representation} lang={lang} onExerciseComplete={setRepresentationPassed} />
+                            <FillInTheBlanksExercise exerciseData={t.exercise.interestOnLoan} lang={lang} onExerciseComplete={setInterestOnLoanPassed} />
                              {/* You can add more exercises here for other rules like donations, entertainment, etc. */}
                              <div className="p-3">
                                  <h4 className="font-bold text-lg text-blue-700 mb-2 flex items-center"><Heart className="h-5 w-5 mr-2" />Donations & Entertainment</h4>
@@ -206,6 +216,7 @@ export default function BusinessDeductibleExpensesChapter() {
                              </div>
                         </div>
                     </Section>
+                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/7" next="/institutional-portal/mor-ethiopia/2/9" lang={lang} isPassed={allExercisesPassed} />
                 </main>
             </div>
         </div>

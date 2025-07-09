@@ -12,6 +12,7 @@ import {
     XOctagon,
     ShieldOff
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object ---
 const content = {
@@ -145,7 +146,7 @@ const InfoList = ({ title, items, icon, intro }: { title: string, items: string[
         <h3 className="font-semibold text-xl text-gray-800 flex items-center mb-2">{icon}{title}</h3>
         {intro && <p className="mb-3 text-base text-gray-700">{intro}</p>}
         <ul className="list-decimal list-inside space-y-2 mt-2 pl-2 text-gray-800 text-lg">
-            {items.map((item, i) => <li key={i}>{item}</li>)}
+            {items.map((item, i) => <li key={i}>{item}</li>)}]
         </ul>
     </div>
 );
@@ -221,6 +222,7 @@ export default function DebtAndLossModule() {
                 <footer className="text-center text-gray-600 text-sm p-3 border-t">
                     <p>{t.footer}</p>
                 </footer>
+                <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/11" next="/institutional-portal/mor-ethiopia/2/13" lang={lang} />
             </div>
         </div>
     );

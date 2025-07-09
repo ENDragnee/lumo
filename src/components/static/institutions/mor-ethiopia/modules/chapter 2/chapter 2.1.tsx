@@ -1,4 +1,3 @@
-// Suggested file path: /src/components/static/mor/BusinessIncomeTaxChapter.tsx
 'use client';
 
 import { useState, ReactNode } from 'react';
@@ -15,6 +14,7 @@ import {
     ChevronDown,
     ChevronUp
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object ---
 const content = {
@@ -119,8 +119,7 @@ const content = {
             "Expenses of a capital nature.",
             "Expenses incurred to increase the capital of a company or partnership.",
             "Voluntary pension or provident fund contributions exceeding 15% of the employee's monthly salary.",
-            "Distribution of dividends and paid-up shares.",
-            "Expenses or losses that are recoverable by insurance, indemnity, or warranty.",
+            "An expense or loss that is recoverable by insurance, indemnity, or warranty.",
             "Fines or penalties for violation of any law or contract.",
             "Personal consumption expenses of the taxpayer.",
             "Income tax or recoverable VAT.",
@@ -278,6 +277,7 @@ export default function BusinessIncomeTaxChapter() {
                         <QuizQuestion q={t.q2} a={t.a2} lang={lang} />
                         <QuizQuestion q={t.q3} a={t.a3} lang={lang} />
                     </div>
+                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/1/4" next="/institutional-portal/mor-ethiopia/2/2" lang={lang} />
                 </main>
             </div>
         </div>

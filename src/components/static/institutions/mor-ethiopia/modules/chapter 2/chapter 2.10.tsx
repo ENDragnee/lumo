@@ -12,8 +12,9 @@ import {
     TrendingDown,
     Play
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
-// --- i18n Content Object (1-to-1 with PDF pages 75-76) ---
+// --- i18n Content Object ---
 const content = {
     am: {
         title: "3.6. የማስታወቂያ ወጪ",
@@ -136,7 +137,7 @@ const TaxBracketSimulator = ({ lang }: { lang: 'am' | 'en' }) => {
                     </button>
                 </div>
 
-                {results && (
+                {results && ( 
                     <div className="mt-4 space-y-4">
                         <h4 className="font-bold text-lg">{t.resultsTitle}</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -212,6 +213,7 @@ export default function AdvertisingAndTaxSimChapter() {
                     </Section>
 
                     <TaxBracketSimulator lang={lang} />
+                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/9" next="/institutional-portal/mor-ethiopia/2/11" lang={lang} />
                 </main>
             </div>
         </div>

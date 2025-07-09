@@ -16,6 +16,7 @@ import {
     DollarSign,
     ShieldAlert
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object (1-to-1 with PDF pages 37-42) ---
 const content = {
@@ -215,6 +216,7 @@ export default function TaxRegistrationPenaltiesChapter() {
                             <p className="text-red-800 leading-relaxed">{t.criminalLiabilityText}</p>
                         </div>
                     </Section>
+                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/1/3" next="/institutional-portal/mor-ethiopia/2/1" lang={lang} />
                 </main>
             </div>
         </div>

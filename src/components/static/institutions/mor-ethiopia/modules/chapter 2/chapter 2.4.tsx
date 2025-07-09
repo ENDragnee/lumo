@@ -15,6 +15,7 @@ import {
     Globe,
     RefreshCw
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object (1-to-1 with PDF pages 24-34) ---
 const content = {
@@ -277,7 +278,7 @@ export default function RentalDeductibleExpensesChapter() {
                         </div>
                         <div className="p-3">
                             {activeTab === 'withBooks' && <ul className="list-disc list-inside space-y-2 text-gray-700">{t.withBooksDeductions.map((item, i) => <li key={i}>{item}</li>)}</ul>}
-                            {activeTab === 'noBooks' && <ul className="list-disc list-inside space-y-2 text-gray-700">{t.noBooksDeductions.map((item, i) => <li key={i}>{item}</li>)}</ul>}
+                            {activeTab === 'noBooks' && <ul className="list-disc list-inside space-y-2">{t.noBooksDeductions.map((item, i) => <li key={i}>{item}</li>)}</ul>}
                         </div>
                     </div>
 
@@ -290,6 +291,7 @@ export default function RentalDeductibleExpensesChapter() {
 
                     {/* Flowchart Component */}
                     <Flowchart lang={lang} />
+                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/3" next="/institutional-portal/mor-ethiopia/2/5" lang={lang} />
                 </main>
             </div>
         </div>

@@ -14,6 +14,7 @@ import {
     RefreshCw,
     AlertCircle
 } from 'lucide-react';
+import ChapterNavigation from '@/components/navigation/ChapterNavigation';
 
 // --- i18n Content Object (1-to-1 with PDF pages 35-43) ---
 const content = {
@@ -23,7 +24,7 @@ const content = {
 
         section2_4_Title: "2.4. የኪራይ ገቢ ግብር ማስከፈያ መጣኔ",
         taxRates: {
-            body: "ለድርጅቶች የኪራይ ገቢ ግብር መጣኔ 30% (ሰላሳ በመቶ) ነው።",
+            body: "ለድርጅቶች የኪራይ ገቢ ግብር መጣኔ 30% (ሰላሳ በመቶ)።",
             individual: "ለግለሰቦች በሠንጠረዥ 1 መሰረት ከ10 እስከ 35 በመቶ በሚደርስ መጣኔ ግብር ይከፍላሉ።"
         },
         taxBracketsTitle: "2.4.1. ለግለሰብ የኪራይ ገቢ ግብር መጣኔ",
@@ -204,7 +205,7 @@ export default function RentalRatesAndLossesChapter() {
                             <p>{t.caseStudy.q2}</p>
                         </div>
                     </div>
-
+                    <ChapterNavigation previous="/institutional-portal/mor-ethiopia/2/4" next="/institutional-portal/mor-ethiopia/2/6" lang={lang} />
                 </main>
             </div>
         </div>
