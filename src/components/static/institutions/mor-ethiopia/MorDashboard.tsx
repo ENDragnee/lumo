@@ -215,7 +215,6 @@ export default function Dashboard({ institution, user, membership, modules = [] 
                   <div>
                     <h3 className="text-xl font-semibold">{nextModule.title}</h3>
                     <p className="text-sm text-gray-300 mt-1">{nextModule.description}</p>
-                    <div className="flex items-center mt-3 text-sm text-gray-400"><Clock className="h-4 w-4 mr-2" />{nextModule.estimatedTime}</div>
                   </div>
                   <Link href={`/content/${nextModule._id}`}>
                     <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-200 font-bold">
