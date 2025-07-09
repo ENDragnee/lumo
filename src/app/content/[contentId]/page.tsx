@@ -57,9 +57,13 @@ export default async function ContentPage({ params }: ContentPageProps) {
                 <div className="mx-auto max-w-full py-8 space-y-6">
                     <ContentHeader content={content} />
                     <div>{ContentBody}</div>
-                    <div className="mt-10">
-                        <QuizDisplay contentId={contentId} />
-                    </div>
+                    {
+                      content.contentType === 'dynamic' && (
+                      <div className="mt-10">
+                          <QuizDisplay contentId={contentId} />
+                      </div>
+                      )
+                    }
                 </div>
             </div>
         </ContentClientWrapper>
