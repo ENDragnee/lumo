@@ -1,11 +1,10 @@
-// components/dashboard/FocusDashboardClient.tsx
 "use client"
 
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import {
-    Users, ChevronRight, Search, Home, FileText, BarChart3, Menu, X, Download
+    Users, ChevronRight, Search, Home, FileText, BarChart3, Menu, X, Download, School
 } from "lucide-react"
 
 import { SmartHubSidebar } from "@/components/navigation/SmartHubSidebar"
@@ -16,36 +15,16 @@ import { OfflineIndicator } from "@/components/offline/OfflineIndicator"
 import { NotificationCenter } from "@/components/notifications/NotificationCenter"
 
 // Import your other page components
-import { MaterialsPage } from "@/components/materials/MaterialsPage" // Assuming you create these
+import { MaterialsPage } from "@/components/materials/MaterialsPage"
 import { PlanPage } from "@/components/plan/PlanPage"
 import { AnalyticsPage } from "./AnalyticsPage"
 import { ProfilePage } from "@/components/profile/ProfilePage"
 import { AIRecommendationsPanel } from "@/components/ai/AIRecommendationsPanel"
 import { SmartStudyPlanner } from "@/components/ai/SmartStudyPlanner"
 import { OfflineManager } from "@/components/offline/OfflineManager"
-import { TeacherProfile } from "@/components/mainPageComponents/TeacherProfile"
+// Import the new list component
+import { InstitutionsList } from "@/components/mainPageComponents/InstitutionsList" 
 
-
-const teachersData = [
-  {
-    id: 1,
-    name: "Maya Lin",
-    subjects: ["Physics", "Biotech"],
-    rating: 4.8,
-    avatar: "/placeholder.svg?height=64&width=64",
-    department: "Engineering Physics",
-    experience: "12 years",
-  },
-  {
-    id: 2,
-    name: "Dr. Sarah Rodriguez",
-    subjects: ["Chemistry", "Materials"],
-    rating: 4.9,
-    avatar: "/placeholder.svg?height=64&width=64",
-    department: "Chemical Engineering",
-    experience: "15 years",
-  },
-]
 // This data is static or comes from the session/user object directly
 const staticStudentData = {
     email: "alex.chen@aastu.edu",
@@ -60,16 +39,18 @@ const staticStudentData = {
     },
 }
 
+
 export default function FocusDashboardClient({ user, initialData }: { user: any, initialData: any }) {
     const [activeTab, setActiveTab] = useState("home")
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    
+    // NOTE: All state related to institutions (institutions, isLoading) has been removed from here.
 
-    // Combine session user data, static data, and fetched initial data
     const studentData = {
         ...staticStudentData,
         ...initialData,
-        name: user.name, // Use the name from the session
-        email: user.email, // Use the email from the session
+        name: user.name,
+        email: user.email,
     };
 
     const renderContent = () => {
@@ -87,7 +68,6 @@ export default function FocusDashboardClient({ user, initialData }: { user: any,
                         <ActivityCanvas />
                     </div>
                 )
-            // You should have these components created for a full experience
             case "courses": return <MaterialsPage />
             case "plan": return <PlanPage />
             case "analytics": return <AnalyticsPage />
@@ -113,30 +93,11 @@ export default function FocusDashboardClient({ user, initialData }: { user: any,
                   <OfflineManager />
                 </div>
               )
-            case "teachers":
-              return (
-                <div className="space-y-8 animate-fade-in">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-3xl font-bold text-shadow tracking-tight">Teacher Directory</h2>
-                    <div className="flex items-center gap-4">
-                      <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-graphite" />
-                        <input
-                          type="text"
-                          placeholder="Search teachers..."
-                          className="w-[280px] h-[40px] pl-10 pr-4 py-2 border border-cloud rounded-lg focus:outline-none focus:ring-2 focus:ring-pacific bg-white/60 backdrop-blur-sm"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {teachersData.map((teacher) => (
-                      <TeacherProfile key={teacher.id} {...teacher} />
-                    ))}
-                  </div>
-                </div>
-              )
-            // Add other cases as needed
+            // UPDATE THIS CASE to be much simpler
+            case "institutions":
+              // All logic is now encapsulated in the InstitutionsList component
+              return <InstitutionsList />;
+              
             default:
                 return (
                     <div className="space-y-8 animate-fade-in">
@@ -208,7 +169,7 @@ export default function FocusDashboardClient({ user, initialData }: { user: any,
                         { id: "courses", icon: FileText, label: "Courses" },
                         { id: "offline", icon: Download, label: "Offline" },
                         { id: "plan", icon: BarChart3, label: "Plan" },
-                        { id: "teachers", icon: Users, label: "Teachers" },
+                        { id: "institutions", icon: School, label: "Institutions" },
                     ].map((item) => (
                         <Button
                             key={item.id}

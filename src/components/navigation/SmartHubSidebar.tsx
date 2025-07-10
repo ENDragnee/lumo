@@ -27,14 +27,14 @@ import {
   Brain,
   Download,
   WifiOff,
+  School, // Import the School icon
 } from "lucide-react"
 import { useOfflineSync } from "../../hooks/useOfflineSync"
 import { signOut } from "next-auth/react"
-// CHANGE 1: Import formatRelativeDate as well
 import { formatAbsoluteDate, formatRelativeDate } from "@/lib/format-date"
 import { useRouter } from "next/navigation"
 import { getHistory, HistoryItem } from "@/app/actions/history";
-import { getRecentSubscriptions, SubscribedCreator } from '@/app/actions/subscriptions';
+import { getRecentSubscriptions, SubscribedCreator as SubscribedCreatorType } from '@/app/actions/subscriptions'; // Renamed to avoid conflict
 
 interface SmartHubSidebarProps {
   activeTab: string
@@ -52,41 +52,43 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
   const [isResourcesExpanded, setIsResourcesExpanded] = useState(true)
   const { isOnline, stats } = useOfflineSync()
   const [recentHistories, setRecentHistories] = useState<HistoryItem[]>([])
-  const [subscriptions, setSubscriptions] = useState<SubscribedCreator[]>([])
+  const [subscriptions, setSubscriptions] = useState<SubscribedCreatorType[]>([])
   const [planStats, setPlanStats] = useState<any>({ total: 0, completed: 0, overdue: 0 })
   const router = useRouter()
+  
   const fetchRecentHistories = async () => {
     try {
       const historyData = await getHistory({ limit: 3, offset: 0 });
       console.log("Recent Histories:", historyData);
-        setRecentHistories(historyData);
+      setRecentHistories(historyData);
     } catch (error) {
       console.error("Failed to fetch recent histories:", error);
     }
   };
+  
   const fetchSubscribed = async () => {
-  try {
-    const subscriptionsData = await getRecentSubscriptions({ limit: 5 });
+    try {
+      const subscriptionsData = await getRecentSubscriptions({ limit: 5 });
       setSubscriptions(subscriptionsData);
-  } catch (error) {
-    console.log("Failed to fetch stars:", error);
-  }
-};
-  const fetchPlanStat = async () => {
-  try {
-    const response = await fetch("/api/tasks/stats");
-    if (response.ok) {
-      const data = await response.json();
-      setPlanStats(data);
+    } catch (error) {
+      console.log("Failed to fetch stars:", error);
     }
-  } catch (error) {
-    console.log("Failed to fetch stars:", error);
-  }
-};
+  };
+
+  const fetchPlanStat = async () => {
+    try {
+      const response = await fetch("/api/tasks/stats");
+      if (response.ok) {
+        const data = await response.json();
+        setPlanStats(data);
+      }
+    } catch (error) {
+      console.log("Failed to fetch stars:", error);
+    }
+  };
 
   useEffect(() => {
     setIsClient(true)
-
     fetchRecentHistories();
     fetchPlanStat();
     fetchSubscribed();
@@ -110,7 +112,8 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
 
   // Zone 3: Resources
   const resources = [
-    { id: "teachers", name: "Teachers", icon: Users, href: "#" },
+    // <-- CHANGE HERE: Replaced 'Teachers' with 'Institutions'
+    { id: "institutions", name: "Institutions", icon: School, href: "#" }, 
     { id: "help", name: "Help Center", icon: HelpCircle, href: "#" },
   ]
 
@@ -124,6 +127,7 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
       } ${item.status === "offline" ? "text-red-600" : ""}`}
       onClick={onClick}
     >
+      <item.icon className="w-4 h-4 mr-3" />
       <span className="flex-1 text-left">{item.name}</span>
       {children}
     </Button>
@@ -146,7 +150,7 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
     </Button>
   )
 
-  const SubscribedCreator = ({ item }: { item: SubscribedCreator }) => (
+  const SubscribedCreator = ({ item }: { item: SubscribedCreatorType }) => (
     <Button
       variant="ghost"
       className="w-full justify-start h-9 text-gray-600 hover:bg-gray-900/5 hover:text-gray-800"
@@ -155,7 +159,6 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
       <Star className="w-4 h-4 mr-3 text-yellow-500" />
       <div className="flex-1 text-left min-w-0">
         <div className="text-sm font-medium truncate">{item.name}</div>
-        {/* CHANGE 2: Use formatRelativeDate instead of formatAbsoluteDate */}
         <div className="text-xs text-gray-400 capitalize">{formatRelativeDate(item.subscribedAt)}</div>
       </div>
     </Button>

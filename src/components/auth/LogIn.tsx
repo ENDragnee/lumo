@@ -3,17 +3,14 @@
 
 import { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation"; // Import useSearchParams
+import { useRouter, useSearchParams } from "next/navigation";
 import { useTheme } from "next-themes";
 import styled from "styled-components";
 import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
-import { FcGoogle } from "react-icons/fc"; // Import Google icon
-import GoogleSignInButton from "./GoogleSignInButton"; // Import the new component
 
-// Assuming GlobalStyle with CSS Variables is applied in your layout
-// Import shared components and animations if applicable
-import Logo from "@/components/ui/Logo"; // Adjust path if necessary
-import { gradientShift } from "@/components/ui/animations"; // Adjust path if necessary
+import Logo from "@/components/ui/Logo";
+import { gradientShift } from "@/components/ui/animations";
+import GoogleSignInButton from "./GoogleSignInButton";
 
 // --- Styled Components ---
 
@@ -27,13 +24,10 @@ const Container = styled.div`
   color: var(--text-primary);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  background: linear-gradient(135deg, var(--bg-gradient-start, #f0f9ff), var(--bg-gradient-end, #e0f2fe)); /* Example default gradient */
+  background: linear-gradient(135deg, var(--bg-gradient-start, #f0f9ff), var(--bg-gradient-end, #e0f2fe));
   background-size: 200% 200%;
   animation: ${gradientShift} 15s ease infinite;
   transition: background 0.5s ease;
-
-  /* Optional: Subtle Grid Overlay */
-  /* &::before { ... } */
 
   .dark & {
     --bg-gradient-start: #0f172a; /* Dark blue/slate */
@@ -174,27 +168,14 @@ const PasswordToggle = styled.button`
   align-items: center;
   justify-content: center;
 
-  &:hover {
-    opacity: 1;
+  &:hover { opacity: 1; }
+  &:focus { outline: none; opacity: 1; }
+  &:focus-visible {
+    box-shadow: 0 0 0 2px var(--focus-ring-shadow, rgba(59, 130, 246, 0.2));
+    border-radius: 4px;
   }
-  &:focus {
-      outline: none;
-      opacity: 1;
-  }
-   &:focus-visible {
-      box-shadow: 0 0 0 2px var(--focus-ring-shadow, rgba(59, 130, 246, 0.2));
-      border-radius: 4px;
-   }
-
-   svg {
-       width: 18px;
-       height: 18px;
-   }
-
-   &:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-   }
+  svg { width: 18px; height: 18px; }
+  &:disabled { cursor: not-allowed; opacity: 0.5; }
 `;
 
 const ActionsWrapper = styled.div`
@@ -223,31 +204,26 @@ const PrimaryButton = styled.button`
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     filter: brightness(1.1);
   }
-
   &:active:not(:disabled) {
     transform: translateY(0px) scale(0.98);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
-
   &:focus-visible {
       outline: none;
       box-shadow: 0 0 0 3px var(--focus-ring-shadow, rgba(59, 130, 246, 0.2));
   }
-
    &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
     background: var(--button-disabled-bg, #9ca3af); /* Default disabled */
     box-shadow: none;
   }
-
   .dark & {
      --button-grad-start: #22d3ee; /* Cyan */
      --button-grad-end: #a78bfa; /* Violet */
      color: #0f172a;
      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
      --focus-ring-shadow: rgba(34, 211, 238, 0.25); /* Match input focus */
-
      &:disabled {
         background: linear-gradient(to right, rgba(34, 211, 238, 0.5), rgba(167, 139, 250, 0.5));
         color: rgba(15, 23, 42, 0.7);
@@ -287,19 +263,12 @@ const Divider = styled.div`
   letter-spacing: 0.05em;
   margin: 1.75rem 0; /* Consistent vertical margin */
 
-  &::before,
-  &::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid var(--divider-color, rgba(0, 0, 0, 0.1));
+  &::before, &::after {
+    content: ''; flex: 1; border-bottom: 1px solid var(--divider-color, rgba(0, 0, 0, 0.1));
   }
-
   &::before { margin-right: 0.75em; }
   &::after { margin-left: 0.75em; }
-
-  .dark & {
-    --divider-color: rgba(255, 255, 255, 0.15);
-  }
+  .dark & { --divider-color: rgba(255, 255, 255, 0.15); }
 `;
 
 const SocialLoginWrapper = styled.div`
@@ -309,18 +278,14 @@ const SocialLoginWrapper = styled.div`
   margin-bottom: 1.75rem;
 `;
 
-
 const SignUpPrompt = styled.div`
   text-align: center;
   font-size: 0.9rem;
   color: var(--text-secondary);
   padding-top: 1.5rem;
   border-top: 1px solid var(--divider-color, rgba(0, 0, 0, 0.1));
-  margin-top: 0.25rem; /* Reduced margin-top as SocialLoginWrapper has margin-bottom */
-
-  .dark & {
-      --divider-color: rgba(255, 255, 255, 0.1);
-  }
+  margin-top: 0.25rem;
+  .dark & { --divider-color: rgba(255, 255, 255, 0.1); }
 `;
 
 const SignUpLink = styled.button`
@@ -337,28 +302,22 @@ const SignUpLink = styled.button`
      opacity: 0.9;
      text-decoration: underline;
    }
-
    &:focus-visible {
        outline: none;
        text-decoration: underline;
-       box-shadow: 0 0 0 2px var(--focus-ring-shadow, rgba(59, 130, 246, 0.2)); /* Simple focus ring */
-       border-radius: 3px; /* Rounded focus ring */
+       box-shadow: 0 0 0 2px var(--focus-ring-shadow, rgba(59, 130, 246, 0.2));
+       border-radius: 3px;
    }
-
    &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
-    color: var(--text-secondary); /* Muted color when disabled */
+    color: var(--text-secondary);
    }
-
    .dark & {
-     --link-color: #5eead4; /* Teal */
+     --link-color: #5eead4;
      --link-hover-color: #2dd4bf;
      --focus-ring-shadow: rgba(34, 211, 238, 0.25);
-
-     &:disabled {
-       color: var(--text-secondary);
-     }
+     &:disabled { color: var(--text-secondary); }
    }
 `;
 
@@ -369,51 +328,37 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Loading for Credentials
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false); // Loading for Google
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const { resolvedTheme } = useTheme();
 
-  // MODIFICATION START: Handle callbackUrl for redirection
-  // Get callbackUrl from query parameters
+  // Get callbackUrl from query parameters, default to /dashboard
   const callbackUrl = searchParams.get("callbackUrl");
-  const defaultRedirectUrl = process.env.NEXT_PUBLIC_MAIN_PAGE || "/";
+  const defaultRedirectUrl = "/dashboard";
+  
   // Ensure the callbackUrl is a relative path to prevent open redirect vulnerabilities
   const safeCallbackUrl = (callbackUrl && callbackUrl.startsWith("/"))
     ? callbackUrl
     : defaultRedirectUrl;
-  // MODIFICATION END
 
   // Handle Auth Errors from URL query params
   useEffect(() => {
     const errorParam = searchParams?.get("error");
     if (errorParam) {
-        let userMessage = "An authentication error occurred. Please try again."; // Default
-        switch (errorParam.toLowerCase()) { // Use lowercase for case-insensitivity
+        let userMessage = "An authentication error occurred. Please try again.";
+        switch (errorParam.toLowerCase()) {
             case "credentialssignin":
                 userMessage = "Invalid email or password. Please check your details.";
                 break;
             case "oauthaccountnotlinked":
-            case "accountconflict": // Treat custom error similarly
-                userMessage = "This email is already linked to another sign-in method (like Google or Credentials). Please sign in using that method.";
+                userMessage = "This email is linked to another sign-in method. Please use that method.";
                 break;
-            case "emailsigninerror":
-            case "callback": // Generic callback error
-                userMessage = "There was an issue during the sign-in process. Please try again.";
-                break;
-            case "oauthcallback":
-                 userMessage = "Error returning from the sign-in provider. Please try again.";
-                 break;
-            // Add more specific NextAuth errors as needed:
-            // https://next-auth.js.org/configuration/pages#error-codes
             default:
-                console.warn("Unhandled NextAuth error code:", errorParam);
-                // Use the default message
+                userMessage = "An unexpected error occurred during sign-in. Please try again.";
                 break;
         }
         setError(userMessage);
-        // Clean the URL - Replace current entry in history, doesn't trigger reload
         window.history.replaceState(null, "", window.location.pathname);
     }
   }, [searchParams]);
@@ -428,74 +373,53 @@ export default function SignIn() {
 
   const handleCredentialsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
     setIsLoading(true);
-    setIsGoogleLoading(false); // Ensure only one loader is active
 
     try {
-        // Use redirect: false to handle errors/redirects manually
         const result = await signIn("credentials", {
             email,
             password,
             redirect: false,
-            // callbackUrl is not needed here since we redirect manually below
         });
 
         if (result?.error) {
-            // This will usually be handled by the useEffect hook reading URL params
-            // but we can set a fallback error message if the redirect doesn't happen
-            console.error("Credentials Sign In Error (returned obj):", result.error);
-            if (!searchParams?.get("error")) { // Only set if not already handled by URL
-                setError("Invalid email or password.");
-            }
+            setError("Invalid email or password.");
         } else if (result?.ok) {
-            // Successful sign in
-            // MODIFICATION: Redirect to the safe callback URL or the default page
+            // Successful sign in, redirect to the safe callback URL or the dashboard
             router.push(safeCallbackUrl);
         } else {
-            // Handle unexpected non-error, non-ok result
              setError("An unexpected issue occurred during sign in.");
         }
     } catch (err: any) {
-        console.error("Credentials Sign In Submit Error:", err);
         setError(err.message || "An error occurred during sign in.");
     } finally {
         setIsLoading(false);
     }
   };
 
-
-  // Combined loading state for disabling elements
-  const isSubmitting = isLoading || isGoogleLoading;
-
   return (
-    <Container className="flex flex-col items-center justify-center min-h-screen p-4">
+    <Container>
       <SignInCard>
-      <div className="flex flex-col items-center mb-6">
         <LogoWrapper>
           <Logo />
         </LogoWrapper>
-        <a href="/" className="text-gray-600 hover:text-black dark:text-white dark:hover:text-gray-300 text-center items-center justify-center">Go to main page</a>
-      </div>
         <Title>Sign In</Title>
-        <Subtitle>to continue to Lumo</Subtitle>
+        <Subtitle>to continue to your dashboard</Subtitle>
 
         {error && <ErrorMessage role="alert">{error}</ErrorMessage>}
 
-        {/* Credentials Form */}
         <form onSubmit={handleCredentialsSubmit} noValidate>
           <InputWrapper>
             <InputIcon><FiMail size={18} /></InputIcon>
             <StyledInput
               type="email"
-              id="email" // Add id for label association (optional)
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              disabled={isSubmitting}
+              disabled={isLoading}
               autoComplete="email"
-              aria-label="Email Address" // Aria label for accessibility
             />
           </InputWrapper>
 
@@ -503,55 +427,48 @@ export default function SignIn() {
             <InputIcon><FiLock size={18} /></InputIcon>
             <StyledInput
               type={showPassword ? "text" : "password"}
-              id="password" // Add id for label association (optional)
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              minLength={4} // Keep basic client-side validation
-              disabled={isSubmitting}
+              disabled={isLoading}
               autoComplete="current-password"
-              aria-label="Password" // Aria label
             />
             <PasswordToggle
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? "Hide password" : "Show password"}
-                disabled={isSubmitting}
+                disabled={isLoading}
             >
                 {showPassword ? <FiEyeOff size={18}/> : <FiEye size={18}/>}
             </PasswordToggle>
           </InputWrapper>
 
           <ActionsWrapper>
-            <PrimaryButton type="submit" disabled={isSubmitting}>
+            <PrimaryButton type="submit" disabled={isLoading}>
               {isLoading ? "Signing In..." : "Sign In"}
             </PrimaryButton>
-            <SecondaryLink href="/auth/forgot-password" /* onClick={(e) => { e.preventDefault(); router.push('/auth/forgot-password'); }} if using router */ >
+            <SecondaryLink href="/auth/forgot-password">
               Forgot Password?
             </SecondaryLink>
           </ActionsWrapper>
         </form>
 
-         {/* Divider */}
         <Divider>OR</Divider>
 
-        {/* Social Logins */}
         <SocialLoginWrapper>
              <GoogleSignInButton
                 callbackUrl={safeCallbackUrl}
-                disabled={isSubmitting}
+                disabled={isLoading}
                 setError={setError}
              />
         </SocialLoginWrapper>
-
 
         <SignUpPrompt>
           Don't have an account?
           <SignUpLink
              type="button"
-             onClick={() => !isSubmitting && router.push("/auth/signup")}
-             disabled={isSubmitting}
+             onClick={() => !isLoading && router.push(`/auth/signup?callbackUrl=${encodeURIComponent(safeCallbackUrl)}`)}
+             disabled={isLoading}
           >
             Sign Up
           </SignUpLink>

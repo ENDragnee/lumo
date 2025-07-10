@@ -2,6 +2,7 @@
 import mongoose, { Document, Model, Types } from 'mongoose';
 
 export interface IInstitution extends Document {
+  _id: string;
   name: string;
   owner: Types.ObjectId; // The user who created/owns the institution
   admins: Types.ObjectId[]; // Users who can manage members and settings

@@ -79,7 +79,8 @@ export default function GoogleSignInButton({ callbackUrl, disabled = false, setE
     setIsLoading(true);
 
     try {
-      // NextAuth handles the redirect flow. Errors will redirect back with a query param.
+      // NextAuth handles the full redirect flow. On success, it will go to the
+      // callbackUrl. On error, it will return to this page with an error param.
       await signIn("google", {
         callbackUrl: callbackUrl,
       });
