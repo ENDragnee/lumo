@@ -9,8 +9,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CheckCircle, AlertCircle, Loader2, Landmark, Building2, User, Fingerprint } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { InstitutionPortalProps } from "@/lib/institutionPortalLoader";
-// REMOVED: No longer need the Server Action
-// import { registerForInstitution } from "@/app/actions/registerForInstitution";
 
 // --- BILINGUAL TRANSLATION OBJECT (No changes) ---
 const translations = {
