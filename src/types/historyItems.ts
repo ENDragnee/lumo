@@ -8,4 +8,5 @@ export interface HistoryItem {
   }
   starred_status: boolean
   viewed_at: string
+  progress: number
 }

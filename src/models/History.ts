@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, model} from "mongoose";
 
-interface HistoryDocument extends Document {
+export interface HistoryDocument extends Document {
     user_id: Schema.Types.ObjectId;
     content_id: Schema.Types.ObjectId;
     viewed_at: Date;

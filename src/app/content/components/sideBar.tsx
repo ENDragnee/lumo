@@ -20,11 +20,11 @@ export default function ContentSidebar({ isOpen, toggleSidebar }: { isOpen: bool
   const [searchQuery, setSearchQuery] = useState('');
 
   const navigation = [
-    { name: 'Home', href: '/main', icon: Home }, // Assuming /main is the dashboard/home
+    { name: 'Home', href: '/dashboard', icon: Home }, // Assuming /main is the dashboard/home
     { name: 'History', href: '/histories', icon: History }, // Corrected href based on likely usage
-    { name: 'Library', href: '/library', icon: Library },
-    { name: 'Bookmarks', href: '/bookmarks', icon: Bookmark },
-    { name: 'Recent', href: '/recent', icon: Clock },
+    //{ name: 'Library', href: '/library', icon: Library },
+    //{ name: 'Bookmarks', href: '/bookmarks', icon: Bookmark },
+    //{ name: 'Recent', href: '/recent', icon: Clock },
   ];
 
   // Close user menu on click outside

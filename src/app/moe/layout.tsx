@@ -7,10 +7,8 @@ import { usePathname } from "next/navigation"
 import { Clock } from "@/components/ui/clock"
 import { Toaster, toast } from "sonner"
 import { ScrollProgressBar } from "@/components/scroll-progress-bar"
-import ContextMenu2 from "@/components/context-menu"
 import { ThemeProvider } from "next-themes"
 import "@/app/globals.css"
-import { SidebarProvider } from "@/app/hooks/SidebarContext"
 import { SessionProvider } from "next-auth/react"
 import AIFeature from "@/components/ai-feature"
 import Sidebar from "@/components/Sidebar";
@@ -171,7 +169,6 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
       <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
-        <SidebarProvider> {/* // Assuming SidebarProvider context is used */}
           <>
             {/* Conditional Rendering for Nav Elements */}
             {shouldRenderNav && (
@@ -310,14 +307,9 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
                   <Clock onSessionEnd={handleSessionEnd} />
                   {/* Scroll Progress Bar */}
                   <ScrollProgressBar />
-                  {/* Custom Context Menu */}
-                   {menuPosition && (
-                      <ContextMenu2 x={menuPosition.x} y={menuPosition.y} onClose={handleCloseMenu} />
-                   )}
                 </>
             )}
           </>
-        </SidebarProvider>
       </ThemeProvider>
     </SessionProvider>
   )

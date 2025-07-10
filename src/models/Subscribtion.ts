@@ -1,3 +1,4 @@
+// @/model/Subscribtion.ts
 import mongoose, { Document, Types } from "mongoose";
 
 export interface ISubscribtion extends Document{
@@ -23,4 +24,5 @@ const SubscribtionSchema = new mongoose.Schema<ISubscribtion>({
     },
 }, { timestamps: true });
 
-export const Subscribtion = mongoose.models.Subscribtion || mongoose.model<ISubscribtion>('Subscribtion', SubscribtionSchema);
+const Subscribtion = mongoose.models.Subscribtion || mongoose.model<ISubscribtion>('Subscribtion', SubscribtionSchema);
+export default Subscribtion;

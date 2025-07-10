@@ -1,14 +1,13 @@
 import React from 'react'
 import { Suspense } from 'react';
-import Signup from '@/components/signup'
-
+// import Signup from '@/components/signup'
+import Signup from "@/components/auth/SignUp"
+import Loader from '@/components/ui/loader';
 const page = () => {
   return (
-    <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader />}>
         <Signup/>
       </Suspense>
-    </div>
   )
 }
 

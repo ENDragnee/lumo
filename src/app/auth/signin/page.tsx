@@ -1,15 +1,14 @@
 import React from 'react'
-import Login from '@/components/login'
+import Login from '@/components/auth/LogIn'
 import { Suspense } from 'react';
-
+import Loader from '@/components/ui/loader';
 
 const page = () => {
+
   return (
-    <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader page='Login Page' />}>
         <Login/>
       </Suspense>
-    </div>
   )
 }
 

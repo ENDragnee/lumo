@@ -1,29 +1,30 @@
+// models/User
 import mongoose, { Document, Types } from 'mongoose';
 
 export interface IUser extends Document {
   _id: Types.ObjectId; // Explicit _id
+  name: string;
   email: string;
   password_hash?: string; // Make password optional for OAuth users
   user_type: string;
-  name: string;
   userTag: string;
   createdAt: Date;
   gender?: string; // Make gender optional as it might not come from OAuth
   bio?: string;
   profileImage?: string; // Can be populated from Google
-  bannerImage?: string;
   tags: string[];
   credentials: string[];
   subscribersCount: number;
   totalViews: number;
-  featuredContent: mongoose.Types.ObjectId[];
-  dynamicInterests: Map<string, number>;
-  interactionHistory: mongoose.Types.ObjectId[];
   provider?: 'credentials' | 'google'; // Track the login provider
   providerAccountId?: string; // Store Google's unique user ID
 }
 
 const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
     required: true,
@@ -38,10 +39,6 @@ const userSchema = new mongoose.Schema({
   user_type: {
     type: String,
     default: 'student'
-  },
-  name: {
-    type: String,
-    required: true
   },
   userTag: {
     type: String,
@@ -65,21 +62,6 @@ const userSchema = new mongoose.Schema({
   credentials: [String],
   subscribersCount: { type: Number, default: 0 },
   totalViews: { type: Number, default: 0 },
-  featuredContent: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Content'
-  }],
-  dynamicInterests: {
-    type: Map,
-    of: Number,
-    default: new Map()
-  },
-  interactionHistory: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Interaction',
-    default: []
-  },
-  // Add fields for OAuth tracking
   provider: {
     type: String,
     enum: ['credentials', 'google'], // Limit possible values
@@ -93,8 +75,6 @@ const userSchema = new mongoose.Schema({
 
 // Optional: Add a compound index for faster OAuth lookup
 userSchema.index({ provider: 1, providerAccountId: 1 }, { unique: true, sparse: true });
-// Optional: Index on userTag if not already default _id behavior
-// userSchema.index({ userTag: 1 }, { unique: true });
 
 // Use existing model if available, otherwise create it
 const User = mongoose.models.User || mongoose.model<IUser>('User', userSchema);

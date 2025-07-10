@@ -7,15 +7,13 @@ import { usePathname } from "next/navigation"
 import { Clock } from "@/components/ui/clock"
 import { Toaster, toast } from "sonner"
 import { ScrollProgressBar } from "@/components/scroll-progress-bar"
-import ContextMenu2 from "@/components/context-menu"
 import { ThemeProvider } from "next-themes"
 import "@/app/globals.css"
-import { SidebarProvider } from "@/app/hooks/SidebarContext"
 import { SessionProvider } from "next-auth/react"
 import AIFeature from "@/components/ai-feature" // Keep this import
 import TabManager from "@/components/Tab"
 import ContentSidebar from "./components/sideBar"
-import RecommendedContent from "./components/RecommendedContent"
+//import RecommendedContent from "./components/RecommendedContent"
 import BottomNavbar from "@/components/mainPage/BottomNavbar"
 // Use consistent icons for Recommendation Toggle
 import { PanelLeftOpen, PanelLeftClose, PanelRightOpen, PanelRightClose, LayoutList } from "lucide-react";
@@ -133,14 +131,13 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
       <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
-        <SidebarProvider>
           <>
             {shouldRenderNav && (
               <>
                 {/* Left Sidebar (Still exists, but toggle button might be elsewhere on mobile) */}
                 <ContentSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
                 {/* Right Sidebar */}
-                <RecommendedContent isOpen={isRecommendationOpen} toggleOpen={toggleRecommendation} />
+                {/** <RecommendedContent isOpen={isRecommendationOpen} toggleOpen={toggleRecommendation} /> **/}
                  <TabManager
                     isOpen={isTabManagerOpen}
                     setIsOpen={setIsTabManagerOpen}
@@ -228,7 +225,7 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
                          <div className={cn("h-5 w-px bg-gray-200 dark:bg-gray-600/80", isMobile && "hidden")}></div>
 
                          {/* 3. Recommendation Sidebar Toggle (Desktop Only) */}
-                         {!isMobile && (
+                         { /**!isMobile && (
                              <button
                                  onClick={toggleRecommendation}
                                  className={cn(
@@ -240,7 +237,7 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
                              >
                                  {isRecommendationOpen ? <PanelRightClose className="h-5 w-5" /> : <PanelRightOpen className="h-5 w-5" />}
                              </button>
-                         )}
+                         )**/}
                      </div>
                  )}
                  {/* Add Spacer if needed, depending on where the user profile/other icons go */}
@@ -255,13 +252,12 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
                 isMobile ? "pb-16" : "pb-0", // Account for bottom nav on mobile
                 shouldRenderNav && isSidebarOpen && !isMobile && "md:ml-64", // Apply margin only on desktop
                 shouldRenderNav && !isSidebarOpen && !isMobile && "md:ml-16",// Apply margin only on desktop
-                shouldRenderNav && isRecommendationOpen && !isMobile && "md:mr-80", // Apply margin only on desktop
+                ///shouldRenderNav && isRecommendationOpen && !isMobile && "md:mr-80", // Apply margin only on desktop
               )}
               onContextMenu={shouldRenderNav ? handleContextMenu : undefined}
+              id = "content"
             >
-              <div id="content-container" className="px-4 py-6 md:px-6 lg:px-8 h-full">
                 {children}
-              </div>
             </main>
 
             {/* Floating Widgets */}
@@ -269,13 +265,9 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
                 <>
                   <Clock onSessionEnd={handleSessionEnd} />
                   <ScrollProgressBar />
-                   {menuPosition && (
-                      <ContextMenu2 x={menuPosition.x} y={menuPosition.y} onClose={handleCloseMenu} />
-                   )}
                 </>
             )}
           </>
-        </SidebarProvider>
       </ThemeProvider>
     </SessionProvider>
   )

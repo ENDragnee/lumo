@@ -7,10 +7,8 @@ import { usePathname } from "next/navigation"
 import { Clock } from "@/components/ui/clock"
 import { Toaster, toast } from "sonner"
 import { ScrollProgressBar } from "@/components/scroll-progress-bar"
-import ContextMenu2 from "@/components/context-menu"
 import { ThemeProvider } from "next-themes"
 import "@/app/globals.css"
-import { SidebarProvider } from "@/app/hooks/SidebarContext"
 import { SessionProvider } from "next-auth/react"
 import NewSidebar from "@/components/sidebar/NewSidebar"
 import BottomNavbar from "@/components/mainPage/BottomNavbar"
@@ -101,10 +99,6 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
     setMenuPosition({ x: event.clientX, y: event.clientY })
   }
 
-  const handleCloseMenu = () => {
-    setMenuPosition(null)
-  }
-
   const handleSessionEnd = (isStudySession: boolean) => {
     const message = isStudySession ? "Time to focus!" : "Time to take a break!"
     const borderColor = isStudySession ? "border-red-500" : "border-green-500"
@@ -128,7 +122,6 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
       <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
-        <SidebarProvider>
           <>
             {shouldRenderNav && (
               <>
@@ -254,13 +247,9 @@ export default function ContentLayout({ children }: { children: ReactNode }) {
                 <>
                   <Clock onSessionEnd={handleSessionEnd} />
                   <ScrollProgressBar />
-                   {menuPosition && (
-                      <ContextMenu2 x={menuPosition.x} y={menuPosition.y} onClose={handleCloseMenu} />
-                   )}
                 </>
             )}
           </>
-        </SidebarProvider>
       </ThemeProvider>
     </SessionProvider>
   )

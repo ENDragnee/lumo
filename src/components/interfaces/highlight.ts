@@ -4,6 +4,9 @@ export interface HighlightInstance {
     contentId: string;
     highlighted_text: string;
     color: string;
-    start_offset?: number;
-    end_offset?: number | null;
+    start_offset: number;
+    end_offset: number;
+    contextPrefix?: string;
+    contextSuffix?: string;
+    createdAt: Date;
   }

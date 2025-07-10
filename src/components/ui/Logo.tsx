@@ -11,7 +11,7 @@ const LogoText = styled.h1`
 `;
 
 const Logo = () => {
-  return <LogoText>Lumo</LogoText>;
+  return <LogoText>{process.env.NEXT_PUBLIC_PROJECT_NAME}</LogoText>;
 };
 
 export default Logo;

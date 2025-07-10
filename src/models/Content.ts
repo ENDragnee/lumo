@@ -1,35 +1,45 @@
 // models/Content.ts
 import mongoose, { Document, Model, Types } from 'mongoose';
+export type ContentType = 'static' | 'dynamic';
 
 export interface IContent extends Document {
+  _id: string;
   title: string;
   views: number;
-  passRate: number;
   thumbnail: string;
-  rating?: number;
+  contentType: ContentType;
   data: string;
   createdAt: Date;
   lastModifiedAt?: Date;
   createdBy: Types.ObjectId;
   tags: string[];
-  institution?: string;
-  subject?: string;
+  difficulty?: "easy" | "medium" | "hard";
+  description?: string;
+  estimatedTime?: number;
   userEngagement: {
-    saves: number;
-    shares: number;
-    completions: number;
+    rating?: number;
+    views?: number;
+    saves?: number;
+    shares?: number;
+    completions?: number;
   };
   parentId: Types.ObjectId | null;
   isDraft: boolean;
   isTrash: boolean;
+  version: number; // The versioning field
+  institutionId?: Types.ObjectId; // For B2B model
 }
 
 const ContentSchema = new mongoose.Schema<IContent>({
   title: { type: String, required: true },
   views: { type: Number, default: 0 },
-  passRate: { type: Number, default: 0 },
   thumbnail: { type: String, required: true },
-  rating: Number,
+  contentType: {
+    type: String,
+    enum: ['static', 'dynamic'],
+    required: true,
+    default: 'static' // Default to 'static' for your current needs
+  },
   data: {
     type: String,
     required: false
@@ -55,15 +65,31 @@ const ContentSchema = new mongoose.Schema<IContent>({
     type: [String],
     default: []
   },
-  institution: { type: String },
-  subject: { type: String },
+  difficulty: {
+    type: String,
+    enum: ["easy", "medium", "hard"],
+    default: "easy"
+  },
+  description: { type: String },
+  estimatedTime: { type: Number, default: 0 },
   userEngagement: {
+    rating: { type: Number, default: 0 },
+    views: { type: Number, default: 0 },
     saves: { type: Number, default: 0 },
     shares: { type: Number, default: 0 },
     completions: { type: Number, default: 0 }
   },
   isDraft: { type: Boolean, default: true },
   isTrash: { type: Boolean, default: false },
+  version: {
+    type: Number,
+    default: 1
+  },
+  institutionId: { // This links to your new Institution model
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Institution',
+    required: false // Optional, for content not tied to an institution
+  },
 });
 
 const Content: Model<IContent> = 

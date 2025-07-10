@@ -25,7 +25,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { useSidebar } from "@/app/hooks/SidebarContext";
 
 interface SidebarProps {
   isOpen: boolean;
