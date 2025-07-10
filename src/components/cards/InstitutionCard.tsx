@@ -15,7 +15,6 @@ interface InstitutionCardProps {
   description: string;
   courseCount: number;
   enrolledCount: number;
-  estimatedTime: string;
   difficulty: 'easy' | 'medium' | 'hard';
   gradient: string;
   icon?: React.ReactNode;
@@ -27,7 +26,6 @@ export function InstitutionCard({
   description,
   courseCount,
   enrolledCount,
-  estimatedTime,
   difficulty,
   gradient,
   icon,
@@ -91,10 +89,6 @@ export function InstitutionCard({
             <span className="flex items-center gap-1.5">
               <Users className="h-3.5 w-3.5" />
               {enrolledCount.toLocaleString()} learners
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Clock className="h-3.5 w-3.5" />
-              {estimatedTime}
             </span>
           </div>
           <Button

@@ -29,7 +29,6 @@ type RecommendedInstitutionData = {
   description: string;
   courseCount: number;
   enrolledCount: number;
-  estimatedTime: string;
   difficulty: 'easy' | 'medium' | 'hard';
   gradient: string;
 };
@@ -163,7 +162,6 @@ export function MaterialsPage() {
                 description={collection.description}
                 courseCount={collection.courseCount}
                 enrolledCount={collection.enrolledCount}
-                estimatedTime={collection.estimatedTime}
                 difficulty={collection.difficulty} 
                 gradient={collection.gradient}
               />
