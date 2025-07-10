@@ -1,18 +1,18 @@
-// src/components/SignUp.tsx (or your path)
+// components/auth/SignUp.tsx
 "use client";
 
 import { useState, useEffect, FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { useTheme } from "next-themes";
 import styled, { css } from "styled-components";
-import { FiMail, FiLock, FiEye, FiEyeOff, FiLoader, FiChevronRight, FiUser } from 'react-icons/fi'; // Added FiUser
+import { FiMail, FiLock, FiEye, FiEyeOff, FiLoader, FiChevronRight, FiUser } from 'react-icons/fi';
 
-// --- Assuming shared components & styles ---
 import Logo from "@/components/ui/Logo";
 import { gradientShift } from "@/components/ui/animations";
 import GoogleSignInButton from "./GoogleSignInButton";
 
-// --- Styled Components (No changes needed here, using existing styles) ---
+// --- Styled Components ---
 
 const Container = styled.div`
   display: flex;
@@ -23,10 +23,11 @@ const Container = styled.div`
   padding: 1rem;
   color: var(--text-primary);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  background: linear-gradient(135deg, var(--bg-gradient-start, #f0f9ff), var(--bg-gradient-end, #e0f2fe));
   background-size: 200% 200%;
   animation: ${gradientShift} 15s ease infinite;
   transition: background 0.5s ease;
+  .dark & { --bg-gradient-start: #0f172a; --bg-gradient-end: #1e293b; }
 `;
 
 const SignUpCard = styled.div`
@@ -42,16 +43,10 @@ const SignUpCard = styled.div`
   border: 1px solid var(--card-border-color, rgba(255, 255, 255, 0.2));
   backdrop-filter: blur(10px);
   .dark & {
-    --card-bg: rgba(41, 46, 57, 0.5);
+    --card-bg: rgba(30, 41, 59, 0.6);
     --card-border-color: rgba(56, 189, 248, 0.15);
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--neon-glow-1, #22d3ee);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--neon-glow-1, rgba(34, 211, 238, 0.1));
   }
-`;
-const SocialLoginWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 1.75rem;
 `;
 
 const LogoWrapper = styled.div`
@@ -80,7 +75,7 @@ const ErrorMessage = styled.p`
   background-color: var(--error-bg-color, rgba(239, 68, 68, 0.1));
   font-size: 0.875rem;
   text-align: center;
-  padding: 0.5rem 0.75rem;
+  padding: 0.75rem 1rem;
   border-radius: 6px;
   margin-bottom: 1rem;
   border: 1px solid var(--error-color, #ef4444);
@@ -112,9 +107,9 @@ const InputIcon = styled.div`
 const BaseInputStyles = css`
   width: 100%;
   padding: 0.75rem 1rem 0.75rem 2.5rem;
-  border: 1px solid var(--input-border-color, var(--color-slate-300));
+  border: 1px solid var(--input-border-color, #cbd5e1);
   border-radius: 8px;
-  background-color: var(--input-bg-color, var(--color-slate-50));
+  background-color: var(--input-bg-color, #f8fafc);
   color: var(--text-primary);
   font-size: 0.95rem;
   transition: all 0.2s ease;
@@ -188,12 +183,11 @@ const PrimaryButton = styled.button`
   }
 `;
 
-const ResendOtpButton = styled.button`
-    background: none; border: none; font-size: 0.85rem; margin-top: 1rem; text-align: center; width: 100%;
-    cursor: pointer; color: var(--link-color, #3b82f6);
-    &:hover:not(:disabled) { text-decoration: underline; }
-    &:disabled { color: var(--text-secondary); cursor: not-allowed; }
-    .dark & { color: var(--link-color, #5eead4); }
+const SocialLoginWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1.75rem 0;
 `;
 
 const SignInPrompt = styled.div`
@@ -205,119 +199,81 @@ const SignInPrompt = styled.div`
 const SignInLink = styled.button`
    font-weight: 600; margin-left: 0.25rem; background: none; border: none;
    cursor: pointer; color: var(--link-color, #3b82f6);
-   &:hover { color: var(--link-hover-color, #2563eb); }
+   &:hover:not(:disabled) { text-decoration: underline; color: var(--link-hover-color, #2563eb); }
    .dark & { --link-color: #5eead4; --link-hover-color: #2dd4bf; }
 `;
 
+// --- Component Logic ---
 
 export default function SignUp() {
   const router = useRouter();
-  const { resolvedTheme } = useTheme();
   const searchParams = useSearchParams();
+  const { resolvedTheme } = useTheme();
 
   const callbackUrl = searchParams.get("callbackUrl");
-  const defaultRedirectUrl = process.env.NEXT_PUBLIC_MAIN_PAGE || "/";
-  // Ensure the callbackUrl is a relative path to prevent open redirect vulnerabilities
+  const defaultRedirectUrl = "/dashboard";
   const safeCallbackUrl = (callbackUrl && callbackUrl.startsWith("/"))
     ? callbackUrl
     : defaultRedirectUrl;
 
-  // Updated State
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false); // Loading for Google
   const [gender, setGender] = useState("");
   const [otp, setOtp] = useState("");
   
   const [showPassword, setShowPassword] = useState(false);
   const [isAwaitingOtp, setIsAwaitingOtp] = useState(false);
-  const [otpTimer, setOtpTimer] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     document.body.classList.remove('dark', 'light');
-    if (resolvedTheme) {
-      document.body.classList.add(resolvedTheme);
-    }
+    if (resolvedTheme) document.body.classList.add(resolvedTheme);
   }, [resolvedTheme]);
-
-  // OTP Timer Countdown
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (otpTimer > 0) {
-      interval = setInterval(() => setOtpTimer((prev) => prev - 1), 1000);
-    }
-    return () => clearInterval(interval);
-  }, [otpTimer]);
-
-  const validateInitialForm = (): boolean => {
-    // Update validation to include names
-    if (!firstName || !lastName || !email || !password || !confirmPassword || !gender) {
-        setError("All fields are required.");
-        return false;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        setError("Please enter a valid email address.");
-        return false;
-    }
-    if (password.length < 6) {
-        setError("Password must be at least 6 characters long.");
-        return false;
-    }
-    if (password !== confirmPassword) {
-        setError("Passwords do not match.");
-        return false;
-    }
-    return true;
-  }
-
+  
   const handleSendOtp = async () => {
-    if (!validateInitialForm()) return;
-    
+    // This is a simplified validation. Add more robust checks as needed.
+    if (!firstName || !lastName || !email || !password || password !== confirmPassword) {
+      setError("Please fill all fields correctly. Passwords must match.");
+      return;
+    }
     setError(null);
     setIsLoading(true);
     try {
       const response = await fetch("/api/send-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Failed to send OTP. The email might already be in use.");
-
+      if (!response.ok) throw new Error(data.error || "Failed to send OTP.");
       setIsAwaitingOtp(true);
-      setOtpTimer(60); // Start 60-second countdown
     } catch (err: any) {
       setError(err.message);
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   const handleSignUp = async (e: FormEvent) => {
     e.preventDefault();
-    setIsGoogleLoading(false); // Ensure only one loader is active
 
     if (!isAwaitingOtp) {
-        handleSendOtp();
-        return;
+      handleSendOtp();
+      return;
     }
 
     if (otp.length !== 6) {
-        setError("Please enter the 6-digit OTP.");
-        return;
+      setError("Please enter the 6-digit OTP.");
+      return;
     }
 
     setError(null);
     setIsLoading(true);
     try {
-      // Send names in the API call
       const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -325,27 +281,34 @@ export default function SignUp() {
       });
 
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Something went wrong.");
+      if (!response.ok) throw new Error(data.error || "Sign-up failed. The OTP may be incorrect or expired.");
 
-      router.push("/auth/signin?signup=success");
+      // Auto sign-in after successful sign-up
+      const signInResult = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (signInResult?.ok) {
+        // Successful sign-in, redirect to the desired page
+        router.push(safeCallbackUrl);
+      } else {
+        // Fallback: Auto sign-in failed, redirect to login page with a success message
+        router.push(`/auth/signin?signup=success&callbackUrl=${encodeURIComponent(safeCallbackUrl)}`);
+      }
     } catch (err: any) {
       setError(err.message);
-    } finally {
       setIsLoading(false);
     }
   };
-  const isSubmitting = isLoading || isGoogleLoading;
 
   return (
     <Container>
       <SignUpCard>
-        <LogoWrapper>
-          <Logo />
-        </LogoWrapper>
+        <LogoWrapper><Logo /></LogoWrapper>
         <Title>{isAwaitingOtp ? 'Verify Your Email' : 'Create an Account'}</Title>
-        <Subtitle>
-            {isAwaitingOtp ? `Enter the 6-digit code sent to ${email}` : 'Join the Lumo community in a few clicks.'}
-        </Subtitle>
+        <Subtitle>{isAwaitingOtp ? `Enter the 6-digit code sent to ${email}` : 'Join us in a few clicks.'}</Subtitle>
 
         {error && <ErrorMessage>{error}</ErrorMessage>}
 
@@ -361,89 +324,43 @@ export default function SignUp() {
                 </InputWrapper>
             ) : (
                 <>
-                    {/* Add First Name and Last Name inputs */}
-                    <InputWrapper>
-                        <InputIcon><FiUser size={18} /></InputIcon>
-                        <StyledInput
-                            type="text" placeholder="First Name" value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)} required disabled={isLoading}
-                        />
-                    </InputWrapper>
-                    <InputWrapper>
-                        <InputIcon><FiUser size={18} /></InputIcon>
-                        <StyledInput
-                            type="text" placeholder="Last Name" value={lastName}
-                            onChange={(e) => setLastName(e.target.value)} required disabled={isLoading}
-                        />
-                    </InputWrapper>
-
-                    <InputWrapper>
-                        <InputIcon><FiMail size={18} /></InputIcon>
-                        <StyledInput
-                            type="email" placeholder="Email Address" value={email}
-                            onChange={(e) => setEmail(e.target.value)} required disabled={isLoading}
-                        />
-                    </InputWrapper>
+                    <InputWrapper><InputIcon><FiUser size={18} /></InputIcon><StyledInput type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required disabled={isLoading} /></InputWrapper>
+                    <InputWrapper><InputIcon><FiUser size={18} /></InputIcon><StyledInput type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required disabled={isLoading} /></InputWrapper>
+                    <InputWrapper><InputIcon><FiMail size={18} /></InputIcon><StyledInput type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} required disabled={isLoading} /></InputWrapper>
                     <InputWrapper>
                         <InputIcon><FiLock size={18} /></InputIcon>
-                        <StyledInput
-                            type={showPassword ? "text" : "password"} placeholder="Password (min. 6 characters)"
-                            value={password} onChange={(e) => setPassword(e.target.value)}
-                            required minLength={6} disabled={isLoading} className="has-right-element"
-                        />
-                        <PasswordToggle type="button" onClick={() => setShowPassword(!showPassword)}>
-                            {showPassword ? <FiEyeOff size={18}/> : <FiEye size={18}/>}
-                        </PasswordToggle>
+                        <StyledInput type={showPassword ? "text" : "password"} placeholder="Password (min. 6 characters)" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} disabled={isLoading} className="has-right-element" />
+                        <PasswordToggle type="button" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <FiEyeOff size={18}/> : <FiEye size={18}/>}</PasswordToggle>
                     </InputWrapper>
+                    <InputWrapper><InputIcon><FiLock size={18} /></InputIcon><StyledInput type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required minLength={6} disabled={isLoading} /></InputWrapper>
                     <InputWrapper>
-                        <InputIcon><FiLock size={18} /></InputIcon>
-                        <StyledInput
-                            type="password" placeholder="Confirm Password" value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)} required minLength={6} disabled={isLoading}
-                        />
-                    </InputWrapper>
-                    <InputWrapper>
-                        <StyledSelect
-                            value={gender} onChange={(e) => setGender(e.target.value)}
-                            required disabled={isLoading}
-                        >
+                        <StyledSelect value={gender} onChange={(e) => setGender(e.target.value)} required disabled={isLoading}>
                             <option value="" disabled>-- Select Your Gender --</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="other">Other</option>
-                            <option value="prefer_not_to_say">Prefer not to say</option>
+                            <option value="male">Male</option><option value="female">Female</option>
+                            <option value="other">Other</option><option value="prefer_not_to_say">Prefer not to say</option>
                         </StyledSelect>
                     </InputWrapper>
                 </>
             )}
             
             <PrimaryButton type="submit" disabled={isLoading}>
-                {isLoading ? <FiLoader size={18} className="spinner"/> : null}
-                {isAwaitingOtp 
-                    ? (isLoading ? 'Verifying...' : 'Verify & Sign Up')
-                    : (isLoading ? 'Sending Code...' : 'Continue')
-                }
+                {isLoading && <FiLoader size={18} className="spinner"/>}
+                {isAwaitingOtp ? (isLoading ? 'Verifying...' : 'Verify & Sign Up') : (isLoading ? 'Sending Code...' : 'Continue')}
                 {!isLoading && !isAwaitingOtp && <FiChevronRight size={20} />}
             </PrimaryButton>
-
-            {isAwaitingOtp && (
-                <ResendOtpButton type="button" onClick={handleSendOtp} disabled={isLoading || otpTimer > 0}>
-                    {otpTimer > 0 ? `Resend code in ${otpTimer}s` : 'Resend Code'}
-                </ResendOtpButton>
-            )}
         </FormContainer>
 
         <SocialLoginWrapper>
              <GoogleSignInButton
                 callbackUrl={safeCallbackUrl}
-                disabled={isSubmitting}
+                disabled={isLoading}
                 setError={setError}
              />
         </SocialLoginWrapper>
 
         <SignInPrompt>
           Already have an account?
-          <SignInLink onClick={() => !isLoading && router.push("/auth/signin")}>
+          <SignInLink onClick={() => !isLoading && router.push(`/auth/signin?callbackUrl=${encodeURIComponent(safeCallbackUrl)}`)} disabled={isLoading}>
             Sign In
           </SignInLink>
         </SignInPrompt>
