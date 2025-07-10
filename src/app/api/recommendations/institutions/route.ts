@@ -2,8 +2,7 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Institution from '@/models/Institution';
-import InstitutionMember from '@/models/InstitutionMember';
-import Content from '@/models/Content';
+import InstitutionMember from '@/models/InstitutionMember'; // This is used implicitly by the collection name 'institutionmembers'
 import mongoose, { Types } from 'mongoose';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
@@ -11,7 +10,6 @@ import { authOptions } from "@/lib/auth";
 // The static ID for the Ministry of Education portal
 const MINISTRY_OF_EDUCATION_ID = '6868ff85f4d25983b416bb61';
 
-// NOTE: This type now perfectly matches the data being sent to the client
 type RecommendedInstitution = {
     id: string;
     title: string;
@@ -23,7 +21,6 @@ type RecommendedInstitution = {
     gradient: string;
 };
 
-// This is an intermediate type representing data from the aggregation pipeline
 type AggregatedInstitution = {
     id: string;
     title: string;
@@ -57,6 +54,7 @@ export async function GET(request: Request) {
         const aggregatedResults: AggregatedInstitution[] = await Institution.aggregate([
             { $match: { _id: { $in: finalInstitutionIds } } },
             {
+                // This lookup for courses remains the same
                 $lookup: {
                     from: 'contents',
                     localField: '_id',
@@ -65,10 +63,28 @@ export async function GET(request: Request) {
                     pipeline: [ { $match: { isDraft: { $ne: true }, isTrash: { $ne: true } } } ]
                 }
             },
+            // 1. ADD a new lookup to the InstitutionMember collection
+            {
+                $lookup: {
+                    from: 'institutionmembers', // The collection name for InstitutionMember model
+                    let: { instId: '$_id' },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: { $eq: ['$institutionId', '$$instId'] },
+                                role: 'member', // Count users with the 'member' role
+                                status: 'active'  // Only count 'active' members
+                            }
+                        }
+                    ],
+                    as: 'activeMembers' // Store the array of matching members here
+                }
+            },
             {
                 $addFields: {
                     courseCount: { $size: '$courses' },
-                    enrolledCount: { $ifNull: [{ $sum: '$courses.views' }, 0] },
+                    // 2. UPDATE the enrolledCount to use the size of the new 'activeMembers' array
+                    enrolledCount: { $ifNull: [{ $size: '$activeMembers' }, 0] },
                     totalMinutes: { $ifNull: [{ $sum: '$courses.durationMinutes' }, 0] },
                     avgDifficulty: {
                         $avg: {
@@ -102,20 +118,17 @@ export async function GET(request: Request) {
             }
         ]);
 
-        // 4. FINAL FORMATTING: Convert raw data to client-friendly format
+        // This final formatting section does not need any changes
         const formattedResults: RecommendedInstitution[] = aggregatedResults.map(inst => {
-            // Convert totalMinutes to a string like "25 hours"
             const hours = Math.round((inst.totalMinutes || 0) / 60);
             const estimatedTime = `${hours} hours`;
 
-            // Convert numeric avgDifficulty to a string like "medium"
-            let difficulty: 'easy' | 'medium' | 'hard' = 'medium'; // Default value
+            let difficulty: 'easy' | 'medium' | 'hard' = 'medium';
             if (inst.avgDifficulty !== null) {
                 if (inst.avgDifficulty < 1.7) difficulty = 'easy';
                 else if (inst.avgDifficulty > 2.3) difficulty = 'hard';
             }
             
-            // Assign a gradient based on ID
             const gradient = inst.id.toString() === MINISTRY_OF_EDUCATION_ID 
                 ? 'from-butter to-yellow-500' 
                 : 'from-sage to-green-600';
@@ -126,8 +139,8 @@ export async function GET(request: Request) {
                 description: inst.description,
                 courseCount: inst.courseCount,
                 enrolledCount: inst.enrolledCount,
-                estimatedTime, // Use the formatted value
-                difficulty,    // Use the formatted value
+                estimatedTime,
+                difficulty,
                 gradient
             };
         });

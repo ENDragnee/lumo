@@ -6,12 +6,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { UploadCloud, CheckCircle, AlertCircle, Loader2, Landmark, Building2, User, Fingerprint, FileText, X } from "lucide-react";
+import { CheckCircle, AlertCircle, Loader2, Landmark, Building2, User, Fingerprint } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { InstitutionPortalProps } from "@/lib/institutionPortalLoader";
-import { registerForInstitution } from "@/app/actions/registerForInstitution";
 
-// --- BILINGUAL TRANSLATION OBJECT ---
+// --- BILINGUAL TRANSLATION OBJECT (No changes) ---
 const translations = {
   en: {
     languageName: "Amharic",
@@ -30,11 +29,6 @@ const translations = {
     ownerNamePlaceholder: "As it appears on your ID",
     fidaIdLabel: "FIDA ID / Kebele ID *",
     fidaIdPlaceholder: "Enter your government-issued ID number",
-    letterFileLabel: "Letter of Recommendation *",
-    uploadPrompt: "Click to upload or drag and drop",
-    uploadHint: "PDF, PNG, or JPG (Max 5MB)",
-    fileSelected: "File Selected:",
-    removeFile: "Remove",
     submitButton: "Submit for Verification",
     submittingButton: "Submitting...",
     successMessage: "Registration successful! Your application is under review. You will be redirected shortly.",
@@ -42,7 +36,6 @@ const translations = {
     errorTin: "TIN must be exactly 10 digits",
     errorOwnerName: "Owner name is required",
     errorFidaId: "FIDA or Kebele ID is required",
-    errorLetterFile: "A letter of recommendation is required",
   },
   am: {
     languageName: "English",
@@ -61,11 +54,6 @@ const translations = {
     ownerNamePlaceholder: "በመታወቂያዎ ላይ እንደሚታየው",
     fidaIdLabel: "የፊዳ መታወቂያ / የቀበሌ መታወቂያ *",
     fidaIdPlaceholder: "በመንግስት የተሰጠ የመታወቂያ ቁጥርዎን ያስገቡ",
-    letterFileLabel: "የድጋፍ ደብዳቤ *",
-    uploadPrompt: "ለመስቀል ጠቅ ያድርጉ ወይም ጎትተው ያስቀምጡ",
-    uploadHint: "PDF, PNG, or JPG (ከፍተኛ 5MB)",
-    fileSelected: "የተመረጠ ፋይል:",
-    removeFile: "አስወግድ",
     submitButton: "ለማረጋገጫ ያስገቡ",
     submittingButton: "በማስገባት ላይ...",
     successMessage: "ምዝገባው ተሳክቷል! ማመልከቻዎ በግምገማ ላይ ነው። በቅርቡ ወደ ዳሽቦርድ ይመራሉ።",
@@ -73,9 +61,9 @@ const translations = {
     errorTin: "ቲን ቁጥር በትክክል 10 አሃዝ መሆን አለበት",
     errorOwnerName: "የባለቤቱ ስም ያስፈልጋል",
     errorFidaId: "የፊዳ ወይም የቀበሌ መታወቂያ ያስፈልጋል",
-    errorLetterFile: "የድጋፍ ደብዳቤ ያስፈልጋል",
   }
 };
+
 
 export default function MorRegistration({ institution, user, membership }: InstitutionPortalProps) {
   const router = useRouter();
@@ -86,7 +74,6 @@ export default function MorRegistration({ institution, user, membership }: Insti
     ownerName: user?.name || "",
     fidaId: "",
   });
-  const [letterFile, setLetterFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [serverMessage, setServerMessage] = useState<{ type: 'error' | 'success'; text: string } | null>(null);
@@ -104,54 +91,56 @@ export default function MorRegistration({ institution, user, membership }: Insti
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file && file.size <= 5 * 1024 * 1024) { // 5MB limit
-      setLetterFile(file);
-      if (errors.letterFile) {
-        setErrors((prev) => ({ ...prev, letterFile: "" }));
-      }
-    } else if (file) {
-      // Handle file size error
-    }
-  };
-
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     if (!formData.businessName.trim()) newErrors.businessName = t.errorBusinessName;
     if (!/^\d{10}$/.test(formData.tin.replace(/\s/g, ""))) newErrors.tin = t.errorTin;
     if (!formData.ownerName.trim()) newErrors.ownerName = t.errorOwnerName;
     if (!formData.fidaId.trim()) newErrors.fidaId = t.errorFidaId;
-    if (!letterFile) newErrors.letterFile = t.errorLetterFile;
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  // --- THIS FUNCTION IS UPDATED ---
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
+
     setIsSubmitting(true);
     setServerMessage(null);
-
-    const metadata = {
-      ...formData,
-      letterFileName: letterFile?.name,
-      // In a real app, you would first upload the file to cloud storage (e.g., S3)
-      // and get a URL to store here.
-    };
-
-    const result = await registerForInstitution(institution._id, metadata);
     
-    setIsSubmitting(false);
+    const metadata = { ...formData };
 
-    if (result.error) {
-      setServerMessage({ type: 'error', text: result.error });
-    } else {
+    try {
+      const response = await fetch(`/api/institutions/${institution._id}/membership`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ metadata }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // The API returned an error (e.g., 401, 409, 500)
+        // Use the error message from the API if it exists
+        throw new Error(result.error || 'An unexpected error occurred.');
+      }
+      
+      // Success case
       setServerMessage({ type: 'success', text: t.successMessage });
-      setTimeout(() => router.refresh(), 3000); // Redirect after 3 seconds
+      setTimeout(() => router.refresh(), 3000);
+
+    } catch (error: any) {
+      // Catches network errors or errors thrown from the response check
+      setServerMessage({ type: 'error', text: error.message });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
+  // The rest of the component's JSX is identical and correct
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       <div className="absolute top-4 right-4">
@@ -225,33 +214,6 @@ export default function MorRegistration({ institution, user, membership }: Insti
                     <Input id="fidaId" placeholder={t.fidaIdPlaceholder} value={formData.fidaId} onChange={(e) => handleInputChange("fidaId", e.target.value)} className="rounded-l-none" />
                   </div>
                   {errors.fidaId && <p className="text-sm text-red-600 mt-1">{errors.fidaId}</p>}
-                </div>
-
-                {/* File Upload */}
-                <div className="space-y-2">
-                  <Label htmlFor="letterFile" className="font-semibold">{t.letterFileLabel}</Label>
-                  {letterFile ? (
-                    <div className="flex items-center justify-between p-3 border rounded-md bg-gray-50">
-                      <div className="flex items-center space-x-3">
-                        <FileText className="h-6 w-6 text-green-600" />
-                        <span className="text-sm font-medium text-gray-700">{letterFile.name}</span>
-                      </div>
-                      <Button type="button" variant="ghost" size="sm" onClick={() => setLetterFile(null)}>
-                        <X className="h-4 w-4" />
-                        <span className="sr-only">{t.removeFile}</span>
-                      </Button>
-                    </div>
-                  ) : (
-                    <Label htmlFor="letterFile" className="relative block w-full border-2 border-dashed rounded-lg p-8 text-center cursor-pointer hover:border-green-500 hover:bg-green-50 transition-colors">
-                      <div className="flex flex-col items-center justify-center space-y-2 text-gray-500">
-                        <UploadCloud className="h-10 w-10" />
-                        <span className="font-medium">{t.uploadPrompt}</span>
-                        <span className="text-xs">{t.uploadHint}</span>
-                      </div>
-                      <Input id="letterFile" type="file" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onChange={handleFileChange} accept=".pdf,.png,.jpg,.jpeg" />
-                    </Label>
-                  )}
-                  {errors.letterFile && <p className="text-sm text-red-600 mt-1">{errors.letterFile}</p>}
                 </div>
 
                 {serverMessage && (
