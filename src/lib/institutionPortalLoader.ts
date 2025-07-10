@@ -28,6 +28,12 @@ const institutionPortals: Record<string, {
     Registration: dynamic(() => import('@/components/static/institutions/mor-ethiopia/MorRegistration')),
     Dashboard: dynamic(() => import('@/components/static/institutions/mor-ethiopia/MorDashboard'))
   },
+  'aastu-ethiopia': {
+    PublicLanding: dynamic(() => import('@/app/aastu/page')),
+    Registration: dynamic(() => import('@/app/aastu/page')),
+    Dashboard: dynamic(() => import('@/app/aastu/page'))
+
+  },
 };
 
 export const loadInstitutionPortal = (institutionKey: string) => {

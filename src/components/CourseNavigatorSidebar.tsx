@@ -156,7 +156,7 @@ export default function CourseNavigatorSidebar({ courseData, onSelect, collapsed
     return (
         <div className="flex flex-col h-full items-center border-r border-gray-200 bg-white">
             <div className="p-4 border-b border-gray-200 w-full flex justify-center">
-              <Button onClick={() => router.push("/main")} variant="ghost" className="w-full justify-center">
+              <Button onClick={() => router.push("/dashboard")} variant="ghost" className="w-full justify-center">
                 <School className="h-6 w-6 text-[#c69323]" />
               </Button>
             </div>
@@ -244,7 +244,7 @@ export default function CourseNavigatorSidebar({ courseData, onSelect, collapsed
   return (
     <div className="flex flex-col h-full border-r border-gray-200 bg-white">
       <div className="p-4 border-b border-gray-200">
-          <a href="/main">
+          <a href="/dashboard">
             <h2 className="text-lg font-semibold text-[#c69323]">{process.env.NEXT_PUBLIC_PROJECT_NAME}</h2>
             <p className="text-xs text-gray-600 dark:text-gray-300">Go back to home</p>
           </a>          

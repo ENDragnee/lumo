@@ -1,7 +1,7 @@
 // components/cards/ContentCardList.tsx
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -21,6 +21,7 @@ interface ContentCardListProps {
     title: string;
     thumbnail: string;
     tags?: string[];
+    contentType?: 'static' | 'dynamic';
     performance?: {
       understandingLevel: 'needs-work' | 'foundational' | 'good' | 'mastered';
     };
@@ -36,15 +37,25 @@ interface ContentCardListProps {
 export function ContentCardList({ item, index }: ContentCardListProps) {
   const router = useRouter();
 
+  // State to manage image source for fallback mechanism
+  const [imgSrc, setImgSrc] = useState(
+    item.thumbnail
+      ? `${process.env.NEXT_PUBLIC_CREATOR_URL}${item.thumbnail}`
+      : PLACEHOLDER_SVG_PATH
+  );
+  
+  // Effect to update image source if the item prop changes
+  useEffect(() => {
+    setImgSrc(
+      item.thumbnail
+        ? `${process.env.NEXT_PUBLIC_CREATOR_URL}${item.thumbnail}`
+        : PLACEHOLDER_SVG_PATH
+    );
+  }, [item.thumbnail]);
+
   const handleCardClick = (e: React.MouseEvent) => {
     e.preventDefault();
     router.push(`/content/${item._id}`);
-  };
-
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    const target = e.currentTarget;
-    if (target.src.includes(PLACEHOLDER_SVG_PATH)) return;
-    target.src = PLACEHOLDER_SVG_PATH;
   };
 
   return (
@@ -61,12 +72,14 @@ export function ContentCardList({ item, index }: ContentCardListProps) {
         {/* Thumbnail */}
         <div className="relative h-16 w-28 flex-shrink-0 overflow-hidden rounded-md bg-gray-200 dark:bg-gray-700">
           <Image
-            src={`${process.env.NEXT_PUBLIC_CREATOR_URL}${item.thumbnail}` || PLACEHOLDER_SVG_PATH}
+            src={imgSrc}
             alt={item.title}
             layout="fill"
             objectFit="cover"
             loading="lazy"
-            onError={handleImageError}
+            onError={() => {
+              setImgSrc(PLACEHOLDER_SVG_PATH);
+            }}
           />
         </div>
 

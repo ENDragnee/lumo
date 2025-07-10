@@ -1,7 +1,7 @@
 // components/cards/ContentCard.tsx
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -23,6 +23,7 @@ interface ContentCardProps {
     title: string;
     thumbnail: string;
     tags?: string[];
+    contentType?: 'static' | 'dynamic';
     performance?: {
       understandingLevel: 'needs-work' | 'foundational' | 'good' | 'mastered';
     };
@@ -39,15 +40,26 @@ export function ContentCard({ item, index }: ContentCardProps) {
   const router = useRouter();
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
+  // State to manage image source for fallback mechanism
+  const [imgSrc, setImgSrc] = useState(
+    item.thumbnail 
+      ? `${process.env.NEXT_PUBLIC_CREATOR_URL}${item.thumbnail}` 
+      : PLACEHOLDER_SVG_PATH
+  );
+
+  // Effect to update image source if the item prop changes
+  useEffect(() => {
+    setImgSrc(
+      item.thumbnail 
+        ? `${process.env.NEXT_PUBLIC_CREATOR_URL}${item.thumbnail}` 
+        : PLACEHOLDER_SVG_PATH
+    );
+  }, [item.thumbnail]);
+
+
   const handleCardClick = (e: React.MouseEvent) => {
     e.preventDefault();
     router.push(`/content/${item._id}`);
-  };
-
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    const target = e.currentTarget;
-    if (target.src.includes(PLACEHOLDER_SVG_PATH)) return; // Prevent infinite loop
-    target.src = PLACEHOLDER_SVG_PATH;
   };
 
   const CardComponent = isMobile ? MobileCard : Card;
@@ -67,13 +79,15 @@ export function ContentCard({ item, index }: ContentCardProps) {
       >
         <div className="relative aspect-video w-full overflow-hidden rounded-t-lg bg-gray-200 dark:bg-gray-700 flex-shrink-0">
           <Image
-            src={`${process.env.NEXT_PUBLIC_CREATOR_URL}${item.thumbnail}` || PLACEHOLDER_SVG_PATH}
+            src={imgSrc}
             alt={item.title}
             layout="fill"
             objectFit="cover"
             className="transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
-            onError={handleImageError}
+            onError={() => {
+              setImgSrc(PLACEHOLDER_SVG_PATH);
+            }}
           />
           <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>

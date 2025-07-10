@@ -30,10 +30,11 @@ import {
 } from "lucide-react"
 import { useOfflineSync } from "../../hooks/useOfflineSync"
 import { signOut } from "next-auth/react"
-import { formatAbsoluteDate } from "@/lib/format-date"
+// CHANGE 1: Import formatRelativeDate as well
+import { formatAbsoluteDate, formatRelativeDate } from "@/lib/format-date"
 import { useRouter } from "next/navigation"
 import { getHistory, HistoryItem } from "@/app/actions/history";
-import { getRecentSubscriptions, SubscribedCreator } from '@/app/actions/subscriptions';;
+import { getRecentSubscriptions, SubscribedCreator } from '@/app/actions/subscriptions';
 
 interface SmartHubSidebarProps {
   activeTab: string
@@ -145,7 +146,7 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
     </Button>
   )
 
-  const SubscribedCreator = ({ item }: any) => (
+  const SubscribedCreator = ({ item }: { item: SubscribedCreator }) => (
     <Button
       variant="ghost"
       className="w-full justify-start h-9 text-gray-600 hover:bg-gray-900/5 hover:text-gray-800"
@@ -154,7 +155,8 @@ export function SmartHubSidebar({ activeTab, setActiveTab, user }: SmartHubSideb
       <Star className="w-4 h-4 mr-3 text-yellow-500" />
       <div className="flex-1 text-left min-w-0">
         <div className="text-sm font-medium truncate">{item.name}</div>
-        <div className="text-xs text-gray-400 capitalize">{item.subscribedAt}</div>
+        {/* CHANGE 2: Use formatRelativeDate instead of formatAbsoluteDate */}
+        <div className="text-xs text-gray-400 capitalize">{formatRelativeDate(item.subscribedAt)}</div>
       </div>
     </Button>
   )

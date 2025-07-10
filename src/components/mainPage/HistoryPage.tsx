@@ -218,7 +218,7 @@ export default function HistoryPage() {
                                                 />
                                             ) : ( /* Placeholder SVG */ "..." )}
                                         </div>
-                                        <button onClick={() => router.push(`/content?id=${item._id}`)} className="group block flex-grow min-w-0 text-left">
+                                        <button onClick={() => router.push(`/content/${item._id}`)} className="group block flex-grow min-w-0 text-left">
                                             <span className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
                                                 {formatHistoryTime(item.latestInteractionTime)}
                                             </span>

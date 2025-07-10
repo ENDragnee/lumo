@@ -15,7 +15,7 @@ export interface SubscribedCreator {
     _id: string; // The Creator's User ID
     name: string | null;
     profileImage: string | null;
-    subscribedAt: Date; // The date the user subscribed
+    subscribedAt: string; // The date the user subscribed (as an ISO string)
 }
 
 /**
@@ -82,7 +82,16 @@ export async function getRecentSubscriptions(
             },
         ];
 
-        const subscriptions = await Subscribtion.aggregate<SubscribedCreator>(pipeline);
+        // The result from aggregate will have Mongoose/BSON types (ObjectId, Date)
+        const rawSubscriptions = await Subscribtion.aggregate(pipeline);
+
+        // FIX: Manually serialize the data to make it safe for the client boundary
+        const subscriptions: SubscribedCreator[] = rawSubscriptions.map((sub) => ({
+            _id: sub._id.toString(),
+            name: sub.name,
+            profileImage: sub.profileImage,
+            subscribedAt: sub.subscribedAt.toISOString(), // Convert Date to a string
+        }));
 
         return subscriptions;
 

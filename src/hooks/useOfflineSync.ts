@@ -268,8 +268,35 @@ export function useOfflineSync() {
   }, [db]);
 
   const syncPendingChanges = useCallback(async () => {
-    // This function is now just a placeholder for the real implementation
-  }, []);
+    // This function now re-downloads all content saved in the local database.
+    if (!db || !isOnline || !manifest || isSyncing) {
+      return;
+    }
+
+    const contentIds = Object.keys(manifest.downloaded);
+    if (contentIds.length === 0) {
+      console.log("No downloaded content to sync/re-download.");
+      return;
+    }
+
+    setIsSyncing(true);
+    try {
+      console.log(`Starting re-download of all ${contentIds.length} items.`);
+      
+      // Sequentially call downloadContent for each item.
+      // This function already handles fetching, saving, and progress updates.
+      for (const contentId of contentIds) {
+        await downloadContent(contentId);
+      }
+      
+      console.log("Finished re-downloading all items.");
+      setStats(prev => ({ ...prev, lastSyncTime: new Date().toISOString() }));
+    } catch (error) {
+      console.error("An error occurred during bulk re-download:", error);
+    } finally {
+      setIsSyncing(false);
+    }
+  }, [db, isOnline, manifest, isSyncing, downloadContent]);
 
   return {
     isOnline,
