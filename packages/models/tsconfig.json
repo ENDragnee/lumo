@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "declaration": true, // <-- Generates .d.ts files
+    "outDir": "./dist",   // <-- Output directory for compiled files
+    "rootDir": "./src",   // <-- Where your source .ts files are
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
+  },
+  "include": ["src"] // <-- Only compile files in the src directory
+}

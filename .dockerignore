@@ -1,0 +1,23 @@
+# Git and Node
+.git
+.gitignore
+node_modules
+pnpm-debug.log*
+
+# Docker
+Dockerfile
+.dockerignore
+
+# IDE and OS files
+.vscode
+.idea
+.DS_Store
+
+# Next.js build cache
+apps/lumo_client/.next
+apps/lumo_client/out
+
+# Local environment variables
+.env
+.env.*
+!.env.example
