@@ -1,6 +1,6 @@
 {
-  "name": "easy-learning",
-  "version": "0.1.0",
+  "name": "lumo_client",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
